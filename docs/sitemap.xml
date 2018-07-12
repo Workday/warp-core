@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/intro/</loc>
+    <lastmod>2018-04-02T13:38:13-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/getting_started_java/</loc>
+    <lastmod>2018-04-02T13:32:53-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/getting_started_scala/</loc>
+    <lastmod>2018-04-02T12:49:11-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/custom_collectors/</loc>
+    <lastmod>2018-04-03T10:57:13-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/custom_arbiters/</loc>
+    <lastmod>2018-04-03T10:57:21-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/measurement_collection_controller/</loc>
+    <lastmod>2018-04-06T12:16:51-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/tags/</loc>
+    <lastmod>2018-04-12T16:55:06-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/runtime_configuration/</loc>
+    <lastmod>2018-04-03T10:57:41-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/persistence/</loc>
+    <lastmod>2018-04-03T10:58:04-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/dependency_injection/</loc>
+    <lastmod>2018-04-03T10:57:50-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/anomaly_detection/</loc>
+    <lastmod>2018-04-04T12:41:01-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/hypothesis_testing/</loc>
+    <lastmod>2018-04-06T10:47:35-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/heap_histogram/</loc>
+    <lastmod>2018-04-09T10:30:09-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/extension_advanced/</loc>
+    <lastmod>2018-04-03T10:58:39-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/_footer/</loc>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/</loc>
+    <lastmod>2018-04-02T13:38:13-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/contents/</loc>
+    <lastmod>2018-04-02T13:38:13-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://workday.github.io/warp-core/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>warp-core</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="generator" content="Hugo 0.38" />
+<title>Introduction :: warp-core</title>
+<link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
+<link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/css/nucleus.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://workday.github.io/warp-core/css/bootstrap.min.css">
+<script src="https://workday.github.io/warp-core/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+</script>
+<meta name="description" content="">
+
+
+    
+  </head>
+  <body data-url="/contents/intro/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://workday.github.io/warp-core/">warp-core</a>
+  
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>Github Repo</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/releases"  rel="noopener">
+                  <i class='fa fa-cloud-download'></i> <label>Releases</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://workday.github.io/warp-core/scaladoc/warp-core/index.html"  rel="noopener">
+                  <i class='fa fa-bookmark'></i> <label>ScalaDoc</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/blob/master/CONTRIBUTORS.md"  rel="noopener">
+                  <i class='fa fa-bullhorn'></i> <label>Contributors</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="https://workday.github.io/warp-core/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/contents/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="https://workday.github.io/warp-core/contents/">Contents</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/contents/intro/" class="dd-item active">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/intro/">
+            Introduction
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_java/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
+            Getting Started (Java)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_scala/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
+            Getting Started (Scala DSL)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_collectors/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_collectors/">
+            Collecting Custom Measurements
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_arbiters/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_arbiters/">
+            Custom Arbiters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/measurement_collection_controller/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/measurement_collection_controller/">
+            Measurement Collection Controller
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/tags/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/tags/">
+            Tags
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/runtime_configuration/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/runtime_configuration/">
+            Runtime Property Configuration
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/persistence/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/persistence/">
+            Persistence
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/dependency_injection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
+            Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/anomaly_detection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/anomaly_detection/">
+            Case Study: RPCA Anomaly Detection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/hypothesis_testing/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/hypothesis_testing/">
+            Case Study: Hypothesis Testing
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/heap_histogram/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/heap_histogram/">
+            Case Study: Monitoring Heap Histogram
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/extension_advanced/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/extension_advanced/">
+            Extending the Schema (advanced)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/_footer/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/_footer/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/contents/" >
+   Contents</option> 
+      <option value="/contents/intro/"  selected>- Introduction</option>
+      <option value="/contents/getting_started_java/" >- Getting Started (Java)</option>
+      <option value="/contents/getting_started_scala/" >- Getting Started (Scala DSL)</option>
+      <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
+      <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
+      <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
+      <option value="/contents/tags/" >- Tags</option>
+      <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
+      <option value="/contents/persistence/" >- Persistence</option>
+      <option value="/contents/dependency_injection/" >- Dependency Injection</option>
+      <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
+      <option value="/contents/hypothesis_testing/" >- Case Study: Hypothesis Testing</option>
+      <option value="/contents/heap_histogram/" >- Case Study: Monitoring Heap Histogram</option>
+      <option value="/contents/extension_advanced/" >- Extending the Schema (advanced)</option>
+      <option value="/contents/_footer/" >- </option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/lunr.min.js"></script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/auto-complete.js"></script>
+        <link href="https://workday.github.io/warp-core/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+          
+        </script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/search.js"></script>
+      </div>
+    
+
+    <h1>Introduction</h1>
+    
+    
+    
+    <p>We&rsquo;ve all been there before: struggling to reason about why a function is not performing the way we expect,
+and whether a candidate replacement that may appear faster actually bring a statistically significant
+improvement to the table.</p>
+
+<p>We on the performance-test-frameworks team have noticed that engineers often reason about the performance
+of their code in a very informal way.</p>
+
+<p>Academic papers published in other scientific fields, such as biology, place an emphasis on
+obtaining statistically significant results and sound experimental design. Unfortunately, the field of computer
+science tends to not place such importance on statistical rigor.
+This can make it difficult to draw meaningful conclusions, or even worse, can lead us to arrive at misleading or
+downright incorrect conclusions.</p>
+
+<p>To help engineers reason about performance in a more scientific way,
+We&rsquo;re proud to introduce WARP (Workday Automated Regression Platform): a flexible, lightweight, (mostly) functional Scala framework for measuring and comparing
+the performance of arbitrary code blocks.</p>
+
+<p>The goal of this library is to make it easier to apply the scientific method to the performance testing process.
+Our intended user audience consists of perforrmance optimization engineers, test engineers, and ML researchers.
+We at Workday believe engineers should reason scientifically about code performance.</p>
+
+<p>This library is inspired in part by <a href="https://dl.acm.org/citation.cfm?id=1297033">this</a> research on
+statistically rigorous performance evaluation techniques for Java.</p>
+
+<p>WARP features a DSL for describing experimental designs (conducting repeated trials for different experimental
+groups).
+Additionally, we support collecting custom measurements, expressing custom performance requirements,
+and conducting statistical significance tests on history of two tests.</p>
+
+<p>Collected measurements are written to a relational database for subsequent view and analysis.
+WARP has been tested on both H2 and MySQL.</p>
+
+<p>WARP framework includes features that make it simple to:</p>
+
+<ul>
+<li>collect arbitrary custom measurements for a test invocation.</li>
+<li>repeatedly invoke a test, collecting measurements for each invocation.</li>
+<li>exclude initial invocations from being measured (for example, to allow the JVM to warmup, or perform JIT).</li>
+<li>distribute all test invocations to a threadpool of configurable size.</li>
+<li>inject statistical delay between invocations (load testing).</li>
+<li>group tests for the purpose of determining significant statistical differences.</li>
+<li>tag test invocations with custom identifiers (JIRA ticket, A/B testing).</li>
+<li>define custom failure conditions (Arbiters)</li>
+</ul>
+
+<p>The general WARP framework has two supported frontends:</p>
+
+<ul>
+<li>annotations (for Java users)</li>
+</ul>
+
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75af00">@Test</span>
+<span style="color:#75af00">@Measure</span>
+<span style="color:#75af00">@Required</span><span style="color:#f92672">(</span><span style="color:#111">maxResponseTime</span> <span style="color:#f92672">=</span> <span style="color:#111">1</span><span style="color:#f92672">)</span>
+<span style="color:#75af00">@Schedule</span><span style="color:#f92672">(</span><span style="color:#111">invocations</span> <span style="color:#f92672">=</span> <span style="color:#111">8</span><span style="color:#f92672">,</span> <span style="color:#111">threads</span> <span style="color:#f92672">=</span> <span style="color:#111">4</span><span style="color:#f92672">)</span>
+<span style="color:#00a8c8">public</span> <span style="color:#00a8c8">void</span> <span style="color:#75af00">example</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#00a8c8">this</span><span style="color:#f92672">.</span><span style="color:#75af00">telemetron</span><span style="color:#f92672">().</span><span style="color:#75af00">setResponseTime</span><span style="color:#f92672">(</span><span style="color:#111">Duration</span><span style="color:#f92672">.</span><span style="color:#75af00">ofSeconds</span><span style="color:#f92672">(</span><span style="color:#111">10</span><span style="color:#f92672">));</span>
+<span style="color:#f92672">}</span></code></pre></div>
+
+<ul>
+<li>DSL (for Scala users)</li>
+</ul>
+
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
+<span style="color:#00a8c8">def</span> <span style="color:#111">example</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#111">using</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">8</span> <span style="color:#111">threads</span> <span style="color:#ae81ff">4</span> <span style="color:#111">measuring</span> <span style="color:#f92672">{</span>
+    <span style="color:#111">someExperiment</span><span style="color:#f92672">()</span> 
+  <span style="color:#f92672">}</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">exceed</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> <span style="color:#111">second</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span></code></pre></div>
+
+<p>The above examples both create a pool of 4 threads, invoke the given test 8 times, collect a default set of measurements
+from each invocation, and write the results to a relational database.</p>
+
+<p>WARP includes many features that make it easy to reason scientifically about your performance tests,
+such as statistical significance tests and anomaly detection to help find performance regressions.</p>
+
+<p>Internally, we use WARP in several different ways:</p>
+
+<ul>
+<li>detecting performance regressions in test suites in our CI environment</li>
+<li>ad-hoc performance testing in response to reported performance issues</li>
+<li>statistically evaluating multiple method implementations (A/B testing)</li>
+</ul>
+
+<p>We are excited to provide a platform to help engineers reason about their code performance in a more principled manner.</p>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="https://workday.github.io/warp-core/contents/" title="Contents"> <i class="fa fa-chevron-left"></i><label>Contents</label></a>
+    <a class="nav nav-next" href="https://workday.github.io/warp-core/contents/getting_started_java/" title="Getting Started (Java)" style="margin-right: 0px;"><label>Getting Started (Java)</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+  
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 02/04/2018
+    </div>
+    
+
+    <div class="github-link">
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/contents/intro.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="https://workday.github.io/warp-core/js/clipboard.min.js"></script>
+
+<link href="https://workday.github.io/warp-core/css/featherlight.min.css" rel="stylesheet">
+<script src="https://workday.github.io/warp-core/js/featherlight.min.js"></script>
+
+
+
+<script src="https://workday.github.io/warp-core/theme-flex/script.js"></script>
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

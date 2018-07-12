@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>warp-core</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="generator" content="Hugo 0.38" />
+<title>Extending the Schema (advanced) :: warp-core</title>
+<link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
+<link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/css/nucleus.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://workday.github.io/warp-core/css/bootstrap.min.css">
+<script src="https://workday.github.io/warp-core/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+</script>
+<meta name="description" content="">
+
+
+    
+  </head>
+  <body data-url="/contents/extension_advanced/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://workday.github.io/warp-core/">warp-core</a>
+  
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>Github Repo</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/releases"  rel="noopener">
+                  <i class='fa fa-cloud-download'></i> <label>Releases</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://workday.github.io/warp-core/scaladoc/warp-core/index.html"  rel="noopener">
+                  <i class='fa fa-bookmark'></i> <label>ScalaDoc</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/blob/master/CONTRIBUTORS.md"  rel="noopener">
+                  <i class='fa fa-bullhorn'></i> <label>Contributors</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="https://workday.github.io/warp-core/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/contents/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="https://workday.github.io/warp-core/contents/">Contents</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/contents/intro/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/intro/">
+            Introduction
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_java/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
+            Getting Started (Java)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_scala/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
+            Getting Started (Scala DSL)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_collectors/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_collectors/">
+            Collecting Custom Measurements
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_arbiters/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_arbiters/">
+            Custom Arbiters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/measurement_collection_controller/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/measurement_collection_controller/">
+            Measurement Collection Controller
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/tags/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/tags/">
+            Tags
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/runtime_configuration/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/runtime_configuration/">
+            Runtime Property Configuration
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/persistence/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/persistence/">
+            Persistence
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/dependency_injection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
+            Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/anomaly_detection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/anomaly_detection/">
+            Case Study: RPCA Anomaly Detection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/hypothesis_testing/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/hypothesis_testing/">
+            Case Study: Hypothesis Testing
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/heap_histogram/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/heap_histogram/">
+            Case Study: Monitoring Heap Histogram
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/extension_advanced/" class="dd-item active">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/extension_advanced/">
+            Extending the Schema (advanced)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/_footer/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/_footer/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/contents/" >
+   Contents</option> 
+      <option value="/contents/intro/" >- Introduction</option>
+      <option value="/contents/getting_started_java/" >- Getting Started (Java)</option>
+      <option value="/contents/getting_started_scala/" >- Getting Started (Scala DSL)</option>
+      <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
+      <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
+      <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
+      <option value="/contents/tags/" >- Tags</option>
+      <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
+      <option value="/contents/persistence/" >- Persistence</option>
+      <option value="/contents/dependency_injection/" >- Dependency Injection</option>
+      <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
+      <option value="/contents/hypothesis_testing/" >- Case Study: Hypothesis Testing</option>
+      <option value="/contents/heap_histogram/" >- Case Study: Monitoring Heap Histogram</option>
+      <option value="/contents/extension_advanced/"  selected>- Extending the Schema (advanced)</option>
+      <option value="/contents/_footer/" >- </option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/lunr.min.js"></script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/auto-complete.js"></script>
+        <link href="https://workday.github.io/warp-core/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+          
+        </script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/search.js"></script>
+      </div>
+    
+
+    <h1>Extending the Schema (advanced)</h1>
+    
+    
+    
+    
+
+<p>Internally, we use an augmented schema with some additional proprietary columns and measurement tables.</p>
+
+<p>This section examines our process for developing an extensible schema mechanism, and describes how
+the core schema can be augmented to fit custom requirements. Note that this process is quite involved, and we recommend
+using <a href="https://workday.github.io/warp-core/contents/tags/">tags</a> for most use cases instead of a customized schema.</p>
+
+<p>Thanks to Leslie Lam for all her work on making persistence generic, and for writing the original form
+of this document.</p>
+
+<h2 id="how-to-extend-the-schema">How to Extend the Schema</h2>
+
+<p>An augmented schema will need to have a custom version of <code>CorePersistenceUtils</code>.
+This requires several major changes to the <code>persistence</code>, <code>arbiters</code>, and <code>collectors</code>
+packages.</p>
+
+<ul>
+<li>Generate Slick tables to represent your new custom Warp Schema.</li>
+<li>Extend <code>CoreQueries</code>, and <code>CorePersistenceUtils</code>.</li>
+<li>Create <code>Core</code> and <code>Internal</code> implementations of <code>AbstractQueries</code> and <code>AbstractPersistenceUtils</code></li>
+<li>Define <code>Core</code> and <code>Internal</code> implementations of each of the Arbiters</li>
+<li>Define <code>Core</code> and <code>Internal</code> implementations of each of the Collectors</li>
+</ul>
+
+<p>In general, the Core classes/traits inherit from the Abstract traits, and augmented Internal classes/traits inherit
+from Core. This linear inheritance model helps decrease code duplication, as the Internal classes will only need to
+override methods that use custom augmented internal-only columns/tables.</p>
+
+<h2 id="slick">Slick</h2>
+
+<p>We use <a href="http://slick.lightbend.com/">Slick</a> to generate classes that allow us to interact with the database using
+nice Scala collection-like functions. However, there are several caveats that make generic persistence difficult.
+(Spoiler: we solved all our problems using <a href="#winning-the-war-type-classes">type classes</a>).</p>
+
+<h4 id="problem-1-case-to-case-inheritance">Problem 1: Case to Case Inheritance</h4>
+
+<p>Slick generates case classes that represent a row in a table. e.g. <code>case class BuildRow(...)</code>. If we wish to
+override the return type of methods defined in <code>AbstractQueries</code> with more specific types, we need these case classes
+to inherit from each other.
+<a href="http://www.scala-lang.org/old/node/4962.html#comment-20411">However, case-to-case inheritance is prohibited in Scala.</a>
+In order to circumvent this, we create wrapper classes for all of the core case classes. We then define
+implicit conversions between the case classes and the wrappers, thus allowing us to use them interchangeably and still
+adhere to our linear inheritance model. The wrapper classes are then extended to create their custom augmented forms.</p>
+
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">class</span> <span style="color:#75af00">BuildRowWrapper</span><span style="color:#f92672">(...)</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">BuildRowLike</span>
+<span style="color:#00a8c8">case</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">BuildRow</span><span style="color:#f92672">(...)</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">BuildRowWrapper</span><span style="color:#f92672">(...)</span>
+<span style="color:#00a8c8">implicit</span> <span style="color:#00a8c8">def</span> <span style="color:#75af00">BuildRowWrapper2BuildRow</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">BuildRowWrapper</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">BuildRow</span> <span style="color:#f92672">=</span> <span style="color:#f92672">...</span>
+<span style="color:#00a8c8">implicit</span> <span style="color:#00a8c8">def</span> <span style="color:#75af00">BuildRow2BuildRowWrapper</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">BuildRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">BuildRowWrapper</span> <span style="color:#f92672">=</span> <span style="color:#f92672">...</span></code></pre></div>
+
+<p>Fortunately, all of this can be generated automatically by extending Slick&rsquo;s <a href="https://github.com/slick/slick-codegen-example">source code generator</a>.</p>
+
+<h4 id="problem-2-slick-queries-are-invariant-https-docs-scala-lang-org-tour-variances-html">Problem 2: Slick Queries are <a href="https://docs.scala-lang.org/tour/variances.html">Invariant</a></h4>
+
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">sealed</span> <span style="color:#00a8c8">abstract</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">Query</span><span style="color:#f92672">[</span><span style="color:#00a8c8">+E</span>, <span style="color:#00a8c8">U</span>, <span style="color:#00a8c8">C</span><span style="color:#f92672">[</span><span style="color:#00a8c8">_</span><span style="color:#f92672">]]</span></code></pre></div>
+
+<p>The first type parameter <code>+E</code> (which is covariant) corresponds to the autogenerated Table class (which extends <code>profile.api.Table[U]</code>). The
+second type parameter <code>U</code> corresponds to the autogenerated case class representing the Row.
+The third type parameter <code>C[_]</code> is the container type
+for the query results (usually <code>Seq</code>). Unfortunately, because <code>U</code> is declared as invariant, <code>Query[A, B', C]</code> is not
+considered a subclass of <code>Query[A, B, C]</code>, even if <code>B'</code> is a subclass of <code>B</code>. This is problematic because several of
+methods are defined with return types of <code>Query</code>. If we use these return types in the abstract definitions, then we
+cannot override them with more specific types in the Core/Internal implementations.</p>
+
+<p>Our workaround is using <code>DBIO</code> instead of <code>Query</code> when we need covariance. This means that we
+must use for-comprehensions when dealing with the results, instead of directly using collection-like methods.</p>
+
+<h2 id="the-database-inheritance-model">The Database Inheritance Model</h2>
+
+<p>While subclassing and inheritance does not really apply to databases&hellip; we&rsquo;re going to do it anyway. The Internal
+database can be considered a &ldquo;subclass&rdquo; of the Core database, as it completely encompasses the Core database, adding
+columns and tables as necessary.</p>
+
+<p>There are essentially three &ldquo;layers&rdquo; to our model that occur everywhere: an abstract layer, a Core
+implementation layer, and an augmented Internal implementation layer, with each layer inheriting from the one above.</p>
+
+<p>Our database model is as follows:</p>
+
+<ul>
+<li><p><code>com.workday.warp.persistence.model.TablesLike.scala</code>:</p>
+
+<p>A trait <code>TablesLike</code> containing all of the supertraits describing the required tables in the Core Schema. e.g.
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">trait</span> <span style="color:#75af00">BuildRowLike</span> <span style="color:#f92672">{</span>
+	<span style="color:#00a8c8">val</span> <span style="color:#111">idBuild</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+	<span style="color:#00a8c8">val</span> <span style="color:#111">year</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+	<span style="color:#00a8c8">val</span> <span style="color:#111">week</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+	<span style="color:#00a8c8">val</span> <span style="color:#111">buildNumber</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+	<span style="color:#00a8c8">val</span> <span style="color:#111">firstTested</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span>
+	<span style="color:#00a8c8">val</span> <span style="color:#111">lastTested</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span>
+<span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>This trait will also contain the type class definitions for each <code>RowLike</code>
+(See: <a href="#winning-the-war-type-classes">Type Classes</a>)</p></li>
+
+<li><p><code>com.workday.warp.persistence.model.Tables.scala</code>:</p>
+
+<p>This file contains Slick&rsquo;s autogenerated representation of the Core schema. It also contains the implicit
+ objects defining the type class for each Row.</p></li>
+
+<li><p><code>com.workday.warp.persistence.model.internal.Tables.scala</code>:</p>
+
+<p>This file contains Slick&rsquo;s autogenerated representation of the Internal schema. It will look the same as the Core
+<code>Tables.scala</code> except that the case classes defined in this file will inherit from their corresponding <code>Wrapper</code>
+classes defined in the Core <code>Tables.scala</code>, which allows linear inheritance. e.g.
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">case</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">BuildRow</span><span style="color:#f92672">(</span><span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">idBuild</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span>
+					<span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">year</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span> <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">week</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span>
+					<span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">buildNumber</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span>
+					<span style="color:#111">confidenceLevel</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span><span style="color:#f92672">,</span>
+					<span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">firstTested</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span><span style="color:#f92672">,</span>
+					<span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">lastTested</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span><span style="color:#f92672">)</span>
+	 <span style="color:#00a8c8">extends</span> <span style="color:#75af00">BuildRowWrapper</span><span style="color:#f92672">(</span><span style="color:#111">idBuild</span><span style="color:#f92672">,</span><span style="color:#111">year</span><span style="color:#f92672">,</span><span style="color:#111">week</span><span style="color:#f92672">,</span><span style="color:#111">buildNumber</span><span style="color:#f92672">,</span><span style="color:#111">firstTested</span><span style="color:#f92672">,</span><span style="color:#111">lastTested</span><span style="color:#f92672">)</span></code></pre></div>
+Notice how all of the overlapping columns have an <code>override</code> operator, while the new column <code>confidenceLevel</code> does
+ not.
+<strong>There is one important limitation: the columns must be defined in the same order as the original columns, otherwise the
+parameter list in the <code>extends</code> clause will be incorrect.</strong> You can insert new columns, but you may not reorder the
+existing ones.</p></li>
+</ul>
+
+<p>The database model is defined as a trait, so it cannot be used directly. Instead, we have defined a separate <code>Tables</code>
+object in <code>com.workday.warp.persistence.(internal).Tables.scala</code> which mixes in the correct <code>model.Tables.scala</code>
+trait, defines the correct Slick <code>JdbcProfile</code>, and provides other convenience functions. In order to access these classes,
+please import this object.</p>
+
+<p>A corresponding <code>TablesLike</code> object has also been created in <code>com.workday.warp.persistence.TablesLike.scala</code> which
+allows importing of the <code>TablesLike</code> traits.</p>
+
+<p>The reason for creating accessor objects is because if the types are mixed in, then Scala will infer
+<a href="http://danielwestheide.com/blog/2013/02/13/the-neophytes-guide-to-scala-part-13-path-dependent-types.html">path-dependent types</a>,
+resulting in type mismatch errors.</p>
+
+<h2 id="queries-persistenceutils-and-persistenceaware">Queries, PersistenceUtils, and PersistenceAware</h2>
+
+<h4 id="abstractqueries-scala">AbstractQueries.scala</h4>
+
+<p>This file defines all of the queries that Warp Core supports. These queries ideally should not be called directly
+through client code, but rather through the corresponding <code>PersistenceUtils</code>. In addition, you&rsquo;ll notice that all of
+the return types are defined in terms of <code>TablesLike</code>.</p>
+
+<h4 id="persistenceaware-scala">PersistenceAware.scala</h4>
+
+<p>This is a trait that can be mixed in to enforce the definition of some <code>PersistenceUtils</code>. It defines a
+protected trait <code>AbstractPersistenceUtils</code> which defines utility functions for interacting with the database. Notice
+that <code>initUtils()</code> is called in the body. <code>initUtils()</code> is defined as an abstract function which should be overridden
+to initialize the database (create the schema, insert seed data, etc.). This ensures that the queries will not throw
+exceptions.</p>
+
+<p>Generally, we define a companion object which contains the initialization logic in its body. Because
+companion objects are lazily initialized, we override <code>initUtils()</code> by calling something defined in the object.</p>
+
+<p><code>AbstractPersistenceUtils</code> and its subclasses are protected traits in order to prevent clients from
+creating a <code>PersistenceUtils</code> without initializing the correct schema first. As a result, <code>PersistenceUtils</code> can now
+only be accessed by classes or traits that mix in some form of <code>PersistenceAware</code>.</p>
+
+<p>Originally this was achieved by initializing the schema when <code>PersistenceUtils</code> was initialized, but because
+<code>InternalPersistenceUtils</code> inherits from <code>CorePersistenceUtils</code>, this caused <code>initSchema()</code> to be called multiple
+times, resulting in the Core schema being loaded instead of the Internal schema. With the overridden <code>initUtils()</code>
+function, we ensure that the correct <code>initSchema()</code> is called and only called once.</p>
+
+<h4 id="corepersistenceaware-scala-and-internalpersistenceaware-scala">CorePersistenceAware.scala and InternalPersistenceAware.scala</h4>
+
+<p>These files implement the Core and Internal versions of <code>PersistenceUtils</code>, respectively. <code>InternalPersistenceAware</code> is
+not part of our open-source package. Note that
+<code>InternalPersistenceAware</code> extends <code>CorePersistenceAware</code>, allowing <code>InternalPersistenceUtils</code> to subclass
+<code>CorePersistenceUtils</code>. This is important because it allows us to easily create internal versions of classes (i.e. arbiters,
+collectors) by simply extending the core version and additionally mixing in <code>InternalPersistenceAware</code>.</p>
+
+<h4 id="initializing-the-schema-with-flyway-migrations">Initializing the Schema with Flyway Migrations</h4>
+
+<p>The <code>initSchema()</code> function defined in the <code>PersistenceUtils</code> companion objects use
+<a href="https://github.com/flyway/flyway">flyway</a> for database migrations.</p>
+
+<p>Internally, we use a completely different set of migrations.
+Any schema migrator can mix in the trait <code>MigrateSchemaLike</code> and call the <code>migrate</code> method:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">trait</span> <span style="color:#75af00">MigrateSchemaLike</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">PersistenceAware</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#75715e">/**
+</span><span style="color:#75715e">    * Applies migrations to bring our schema up to date.
+</span><span style="color:#75715e">    * 
+</span><span style="color:#75715e">    * Only supported for MySQL, not H2.
+</span><span style="color:#75715e">    *
+</span><span style="color:#75715e">    * Recursively scans `locations` to look for unapplied migration scripts.
+</span><span style="color:#75715e">    * If `locations` is empty, we&#39;ll allow flyway to use its default locations.
+</span><span style="color:#75715e">    *
+</span><span style="color:#75715e">    * The type of each entry is determined by its prefix:
+</span><span style="color:#75715e">    *   - no prefix (or &#34;classpath:&#34; prefix) indicates a location on the classpath
+</span><span style="color:#75715e">    *   - a &#34;filesystem:&#34; prefix points to a directory on the file system
+</span><span style="color:#75715e">    *
+</span><span style="color:#75715e">    * @param locations locations we&#39;ll recursively scan for migration scripts.
+</span><span style="color:#75715e">    */</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">migrate</span><span style="color:#f92672">(</span><span style="color:#111">locations</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Seq</span><span style="color:#f92672">[</span><span style="color:#00a8c8">String</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Seq</span><span style="color:#f92672">.</span><span style="color:#111">empty</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span> <span style="color:#f92672">...</span>  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>The migration to create the Core schema lives in the default flyway directory <code>db/migration/</code>.</p>
+
+<h4 id="a-failed-attempt-at-generifying-persistence-structural-types">A Failed Attempt at Generifying Persistence: Structural Types</h4>
+
+<p><a href="https://twitter.github.io/scala_school/advanced-types.html#structural">Structural Types</a>, or &ldquo;Duck Typing&rdquo;, defines
+a type based on its interface. This allows you to pass in objects to a function as long as it satisfies the defined
+structure.
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">type</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#00a8c8">val</span> <span style="color:#111">idTestExecution</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+  <span style="color:#00a8c8">val</span> <span style="color:#111">idTestDefinition</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+  <span style="color:#f92672">...</span>
+<span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>This defines a <code>TestExecutionRowLikeType</code> to be any object that contains the corresponding values. Therefore, all of our
+classes and case classes satisfy this structural type. After defining all of these types, we can define our functions as
+follows:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">def</span> <span style="color:#111">writeTestExecutionQuery</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">DBIO</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLike</span><span style="color:#f92672">]</span></code></pre></div></p>
+
+<p>Satisfyingly clean! We then define augmented Internal versions of the structural types in order to match on the type parameter
+in the internal implementations.
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">val</span> <span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">InternalTestExecutionRowLikeType</span> <span style="color:#f92672">=</span> <span style="color:#111">maybeRow</span> <span style="color:#00a8c8">match</span> <span style="color:#f92672">{</span>
+  <span style="color:#00a8c8">case</span> <span style="color:#111">r</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">InternalTestExecutionRowLikeType</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">r</span>
+  <span style="color:#00a8c8">case</span> <span style="color:#00a8c8">_</span> <span style="color:#00a8c8">=&gt;</span> <span style="color:#00a8c8">throw</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">Exception</span> <span style="color:#75715e">// Alternatively: build a InternalTestExecutionRow with default values.
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>Everything compiles and tests pass! Except for one insidious compiler warning:</p>
+
+<pre><code>a pattern match on a refinement type is unchecked
+      case r: InternalTestExecutionRowLikeType =&gt; r
+</code></pre>
+
+<p>Defeated by type erasure! The issue here is that structural types are
+<a href="https://stackoverflow.com/questions/1988181/pattern-matching-structural-types-in-scala">erased at runtime</a>, so the
+match statement actually becomes something like:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">val</span> <span style="color:#111">row</span> <span style="color:#00a8c8">=</span> <span style="color:#111">maybeRow</span> <span style="color:#00a8c8">match</span> <span style="color:#f92672">{</span>
+  <span style="color:#00a8c8">case</span> <span style="color:#111">r</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Object</span> <span style="color:#f92672">=&gt;</span> <span style="color:#111">r</span>
+  <span style="color:#00a8c8">case</span> <span style="color:#00a8c8">_</span> <span style="color:#00a8c8">=&gt;</span> <span style="color:#00a8c8">throw</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">Exception</span> <span style="color:#75715e">// Alternatively: build a InternalTestExecutionRow with default values.
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>which will always succeed. Of course, this is not ideal; the code only works if the user passes in the correct
+<code>TestExecutionRow</code> type.</p>
+
+<h4 id="winning-the-war-type-classes">Winning the War: Type Classes</h4>
+
+<p>Our final (and successful!) attempt was type classes.
+To quote the <a href="https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html">official Scala team blog</a>:</p>
+
+<blockquote>
+<p>Type classes are a powerful and flexible concept that adds ad-hoc polymorphism to Scala.</p>
+</blockquote>
+
+<p>Our solution uses type classes to achieve the same behavior has structural typing, but it also allows us
+to match on the parameter type. (With the added benefit of avoiding the overhead of reflection!)</p>
+
+<p>Type classes allow us to define a contract which objects must satisfy. In our case it&rsquo;s the same as the structural
+type.</p>
+
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">/** Type Class for TestExecutionRowLike **/</span>
+<span style="color:#00a8c8">trait</span> <span style="color:#75af00">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]</span> <span style="color:#f92672">{</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">idTestExecution</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">idTestDefinition</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">idBuild</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">passed</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Boolean</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">responseTime</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">responseTimeRequirement</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">startTime</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">endTime</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">/** Prove that TestExecutionRow belongs to the type class of TestExecutionRowLikeType **/</span>
+<span style="color:#00a8c8">implicit</span> <span style="color:#00a8c8">object</span> <span style="color:#75af00">TestExecutionRowTypeClassObject</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">]</span> <span style="color:#f92672">{</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">idTestExecution</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">idTestExecution</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">idTestDefinition</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">idTestDefinition</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">idBuild</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">idBuild</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">passed</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Boolean</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">passed</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">responseTime</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">responseTime</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">responseTimeRequirement</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">responseTimeRequirement</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">startTime</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">startTime</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">endTime</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">endTime</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">tenant</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">tenant</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">teamcityBuildId</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">teamcityBuildId</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">teamcityAgentInstance</span><span style="color:#f92672">(</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#111">row</span><span style="color:#f92672">.</span><span style="color:#111">teamcityAgentInstance</span>
+<span style="color:#f92672">}</span>
+  
+<span style="color:#75715e">/** Implicit conversion from type class to TestExecutionRow **/</span>
+<span style="color:#00a8c8">implicit</span> <span style="color:#00a8c8">def</span> <span style="color:#75af00">TestExecutionRowFromTypeClass</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T:</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">](</span><span style="color:#111">x</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRow</span> <span style="color:#f92672">=</span>
+  <span style="color:#75af00">TestExecutionRow</span><span style="color:#f92672">(</span><span style="color:#111">implicitly</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]].</span><span style="color:#111">idTestExecution</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#f92672">),</span>
+              <span style="color:#111">implicitly</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]].</span><span style="color:#111">idTestDefinition</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#f92672">),</span>
+              <span style="color:#111">implicitly</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]].</span><span style="color:#111">idBuild</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#f92672">),</span>
+              <span style="color:#111">implicitly</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]].</span><span style="color:#111">passed</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#f92672">),</span> 
+              <span style="color:#111">implicitly</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]].</span><span style="color:#111">responseTime</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#f92672">),</span>
+              <span style="color:#111">implicitly</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]].</span><span style="color:#111">responseTimeRequirement</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#f92672">),</span>
+              <span style="color:#111">implicitly</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]].</span><span style="color:#111">startTime</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#f92672">),</span>
+              <span style="color:#111">implicitly</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]].</span><span style="color:#111">endTime</span><span style="color:#f92672">(</span><span style="color:#111">x</span><span style="color:#f92672">))</span>
+  
+<span style="color:#00a8c8">override</span> <span style="color:#00a8c8">def</span> <span style="color:#111">writeTestExecutionQuery</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T:</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">](</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">DBIO</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLike</span><span style="color:#f92672">]</span></code></pre></div>
+
+<p>You&rsquo;ll notice that the type class <code>TestExecutionRowLikeType</code> takes some generic <code>T</code> which must define functions that return the column values.
+We then simply need to define these functions in an implicit object. This provides implicit evidence that <code>TestExecutionRow</code> is
+<code>TestExecutionRowLikeType</code>. As a result, when given some object of <code>TestExecutionRowLikeType</code>, we can use <code>implicitly</code> to
+access the relevant columns. Of course, this is rather unwieldy, so we provide <em>another</em> implicit conversion that
+converts from the type class to the case class. Keep in mind that all this boilerplate is generated using the Slick code generator.</p>
+
+<p>It&rsquo;s important to note that the context bounds are actually syntactic sugar for implicit parameters:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">// This function expands to
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">def</span> <span style="color:#111">writeTestExecutionQuery</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T:</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">](</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">DBIO</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLike</span><span style="color:#f92672">]</span>
+  
+<span style="color:#75715e">// This function
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">def</span> <span style="color:#111">writeTestExecutionQuery</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">](</span><span style="color:#111">row</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)(</span><span style="color:#00a8c8">implicit</span> <span style="color:#111">ev</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">])</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">DBIO</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TestExecutionRowLike</span><span style="color:#f92672">]</span></code></pre></div>
+When you call this function, Scala will look for implicit evidence that satisfies <code>TestExecutionRowLikeType[T]</code>.
+Consequently, this means that our implicit objects (e.g. <code>TestExecutionRowTypeClassObject</code>) need to be in scope. In
+general, these will be in scope as long as you import <code>Tables.RowTypeClasses._</code> or <code>TablesLike.RowTypeClasses._</code>.
+We&rsquo;ve included a helpful <code>ImplicitNotFound</code> message that will be printed at compile time if Scala cannot find the
+correct implicit, such as:</p>
+
+<pre><code>Could not find an implicit value for evidence of type class TestExecutionRowLikeType[TestExecutionRow].
+You might pass an (implicit ev: TestExecutionRowLikeType[TestExecutionRow]) parameter to your method or import Tables.RowTypeClasses._
+</code></pre>
+
+<p>The best part is that all of these type classes and implicit objects can be generated automatically with Slick&rsquo;s
+source code generator! Hurrah! We may have lost many battles, but we have won the war! In addition, we never have
+to lie to the compiler with <code>asInstanceOf</code>, which is keeping with our Workday core value of integrity :)</p>
+
+<p>To truly understand what&rsquo;s happening with type classes, I highly recommend reading this series of blog posts by Aakash
+N S:
+* <a href="http://aakashns.github.io/type-class.html">Type Classes in Scala</a>
+* <a href="http://aakashns.github.io/better-type-class.html">Better Type Class Pt. 1</a>
+* <a href="http://aakashns.github.io/better-type-class-2.html">Better Type Class Pt. 2</a></p>
+
+<h4 id="an-aside-about-identifiers">An Aside about Identifiers</h4>
+
+<p>Several of our queries look up rows based on some set of primary keys. In our augmented internal schema, this is usually the
+<code>methodSignature</code> and the <code>confidenceLevel</code> or the <code>idTestDefinition</code> and the <code>confidenceLevel</code>. In our open-source package, however,
+there is no <code>confidenceLevel</code>, and rows are identified by either the <code>methodSignature</code> or the <code>confidenceLevel</code>. In
+order to define a common abstract function that these queries can implement, we need to combine these parameters and
+create functions that read from an <code>Identifier</code> (similar to a composite key).</p>
+
+<p>We also achieved this with type classes.
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">trait</span> <span style="color:#75af00">IdentifierType</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">]</span> <span style="color:#f92672">{</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">methodSignature</span><span style="color:#f92672">(</span><span style="color:#111">identifier</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span>
+  <span style="color:#00a8c8">def</span> <span style="color:#111">idTestDefinition</span><span style="color:#f92672">(</span><span style="color:#111">identifier</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span>
+<span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>We then define a <code>CoreIdentifier</code> which implements this type class and an <code>InternalIdentifier</code> which includes the
+additional <code>confidenceLevel</code> field. The handling of the <code>Identifiers</code> is similar to how we handle the different <code>Row</code>
+type classes, where the augmented internal implementations match on the <code>IdentifierType</code>.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>If you have a unique use case, it is possible to use WARP with a customized schema, however a simpler approach is
+using <a href="https://workday.github.io/warp-core/contents/tags/">tags</a> for recording additional metadata.</p>
+
+<ol>
+<li>Traits and type classes are autogenerated into <code>model.TablesLike.scala</code></li>
+<li>Table classes, case classes, and implicit type class objects are autogenerated into <code>model.Tables.scala</code></li>
+<li>Use the <code>TablesLike</code> and <code>Tables</code> objects defined in <code>com.workday.warp.persistence</code> to access the generated traits</li>
+<li>Mix in some form of <code>PersistenceAware</code> and use the provided <code>this.persistenceUtils</code> in order to access the
+persistence functions</li>
+<li>Make sure you import the correct <code>Tables._</code>. Also don&rsquo;t forget <code>Tables.RowClassTypes._</code> to bring the implicit
+objects in scope</li>
+</ol>
+
+<p>This tweet by <a href="https://twitter.com/aakashns/status/587687158032412672">Aakash N S</a> essentially summarizes the main
+lesson learned from this endeavor:</p>
+
+<blockquote>
+<p>As a rule of thumb, the answer to every question of the form “Can I do XYZ in #Scala?” is
+“Yeah, totally man! Just use implicits.”</p>
+</blockquote>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="https://workday.github.io/warp-core/contents/heap_histogram/" title="Case Study: Monitoring Heap Histogram"> <i class="fa fa-chevron-left"></i><label>Case Study: Monitoring Heap Histogram</label></a>
+    <a class="nav nav-next" href="https://workday.github.io/warp-core/contents/_footer/" title="" style="margin-right: 0px;"><label></label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+  
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 03/04/2018
+    </div>
+    
+
+    <div class="github-link">
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/contents/extension_advanced.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="https://workday.github.io/warp-core/js/clipboard.min.js"></script>
+
+<link href="https://workday.github.io/warp-core/css/featherlight.min.css" rel="stylesheet">
+<script src="https://workday.github.io/warp-core/js/featherlight.min.js"></script>
+
+
+
+<script src="https://workday.github.io/warp-core/theme-flex/script.js"></script>
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

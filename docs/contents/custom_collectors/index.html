@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>warp-core</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="generator" content="Hugo 0.38" />
+<title>Collecting Custom Measurements :: warp-core</title>
+<link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
+<link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/css/nucleus.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://workday.github.io/warp-core/css/bootstrap.min.css">
+<script src="https://workday.github.io/warp-core/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+</script>
+<meta name="description" content="">
+
+
+    
+  </head>
+  <body data-url="/contents/custom_collectors/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://workday.github.io/warp-core/">warp-core</a>
+  
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>Github Repo</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/releases"  rel="noopener">
+                  <i class='fa fa-cloud-download'></i> <label>Releases</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://workday.github.io/warp-core/scaladoc/warp-core/index.html"  rel="noopener">
+                  <i class='fa fa-bookmark'></i> <label>ScalaDoc</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/blob/master/CONTRIBUTORS.md"  rel="noopener">
+                  <i class='fa fa-bullhorn'></i> <label>Contributors</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="https://workday.github.io/warp-core/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/contents/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="https://workday.github.io/warp-core/contents/">Contents</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/contents/intro/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/intro/">
+            Introduction
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_java/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
+            Getting Started (Java)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_scala/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
+            Getting Started (Scala DSL)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_collectors/" class="dd-item active">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_collectors/">
+            Collecting Custom Measurements
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_arbiters/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_arbiters/">
+            Custom Arbiters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/measurement_collection_controller/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/measurement_collection_controller/">
+            Measurement Collection Controller
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/tags/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/tags/">
+            Tags
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/runtime_configuration/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/runtime_configuration/">
+            Runtime Property Configuration
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/persistence/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/persistence/">
+            Persistence
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/dependency_injection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
+            Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/anomaly_detection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/anomaly_detection/">
+            Case Study: RPCA Anomaly Detection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/hypothesis_testing/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/hypothesis_testing/">
+            Case Study: Hypothesis Testing
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/heap_histogram/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/heap_histogram/">
+            Case Study: Monitoring Heap Histogram
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/extension_advanced/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/extension_advanced/">
+            Extending the Schema (advanced)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/_footer/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/_footer/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/contents/" >
+   Contents</option> 
+      <option value="/contents/intro/" >- Introduction</option>
+      <option value="/contents/getting_started_java/" >- Getting Started (Java)</option>
+      <option value="/contents/getting_started_scala/" >- Getting Started (Scala DSL)</option>
+      <option value="/contents/custom_collectors/"  selected>- Collecting Custom Measurements</option>
+      <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
+      <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
+      <option value="/contents/tags/" >- Tags</option>
+      <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
+      <option value="/contents/persistence/" >- Persistence</option>
+      <option value="/contents/dependency_injection/" >- Dependency Injection</option>
+      <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
+      <option value="/contents/hypothesis_testing/" >- Case Study: Hypothesis Testing</option>
+      <option value="/contents/heap_histogram/" >- Case Study: Monitoring Heap Histogram</option>
+      <option value="/contents/extension_advanced/" >- Extending the Schema (advanced)</option>
+      <option value="/contents/_footer/" >- </option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/lunr.min.js"></script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/auto-complete.js"></script>
+        <link href="https://workday.github.io/warp-core/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+          
+        </script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/search.js"></script>
+      </div>
+    
+
+    <h1>Collecting Custom Measurements</h1>
+    
+    
+    
+    <p>The <code>AbstractMeasurementCollector</code> class defines two side-effecting functions: <code>startMeasurement</code> and
+<code>stopMeasurement</code>, that are invoked, respectively, before and after a test execution.</p>
+
+<p>Implementations of a measurement or measurement collection should extend this class, and probably mix in
+the <code>CorePersistenceAware</code> trait. Note that the collection of a measurement may
+encompass a number of different types of operations. It may include such activities as collecting
+from JMX, scraping server logs, or as simple as starting and stopping a clock.</p>
+
+<p>Out of the box, WARP includes a default minimal set of measurement collectors for measuring elapsed
+wall-clock time and heap usage. Internally, our engineers have developed many additional collectors
+for instrumenting their code.</p>
+
+<p>For example, the following class records elapsed wall clock time as a measurement:</p>
+
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">class</span> <span style="color:#75af00">WallClockTimeCollector</span><span style="color:#f92672">(</span><span style="color:#111">testId</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">AbstractMeasurementCollector</span><span style="color:#f92672">(</span><span style="color:#111">testId</span><span style="color:#f92672">)</span> 
+    <span style="color:#00a8c8">with</span> <span style="color:#75af00">CorePersistenceAware</span> <span style="color:#f92672">{</span>
+
+  <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">var</span> <span style="color:#111">timeBeforeMs</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Long</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">_</span>
+
+  <span style="color:#75715e">/** Called prior to a test invocation.  */</span>
+  <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">def</span> <span style="color:#111">startMeasurement</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#00a8c8">this</span><span style="color:#f92672">.</span><span style="color:#111">timeBeforeMs</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">System</span><span style="color:#f92672">.</span><span style="color:#111">currentTimeMillis</span><span style="color:#f92672">()</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">/** Called after finishing a test invocation.  */</span>
+  <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">def</span> <span style="color:#111">stopMeasurement</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T:</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">](</span><span style="color:#111">maybeTestExecution</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Option</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">])</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#00a8c8">val</span> <span style="color:#111">durationMs</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Long</span> <span style="color:#f92672">=</span> <span style="color:#75af00">System</span><span style="color:#f92672">.</span><span style="color:#111">currentTimeMillis</span><span style="color:#f92672">()</span> <span style="color:#f92672">-</span> <span style="color:#00a8c8">this</span><span style="color:#f92672">.</span><span style="color:#111">timeBeforeMs</span>
+
+    <span style="color:#111">maybeTestExecution</span> <span style="color:#111">foreach</span> <span style="color:#f92672">{</span> <span style="color:#111">testExecution</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span> <span style="color:#f92672">=&gt;</span>
+      <span style="color:#00a8c8">this</span><span style="color:#f92672">.</span><span style="color:#111">persistenceUtils</span><span style="color:#f92672">.</span><span style="color:#111">recordMeasurement</span><span style="color:#f92672">(</span><span style="color:#111">testExecution</span><span style="color:#f92672">.</span><span style="color:#111">idTestExecution</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;wall clock time&#34;</span><span style="color:#f92672">,</span> <span style="color:#111">durationMs</span><span style="color:#f92672">)</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+
+<p>In some cases it may be desirable to instead record measurements at a periodic interval
+throughout the duration of a test. The trait <code>ContinuousMeasurement</code> implements this functionality
+by spawning a separate thread that can run arbitrary code. To create a continuous measurement collector,
+subclass <code>AbstractMeasurementCollector</code>, mix in the <code>ContinuousMeasurement</code> trait, and override the method
+<code>collectMeasurement()</code>.</p>
+
+<p><code>AbstractMeasurementCollector</code> provides a flexible interface for extending the core framework with
+additional measurements.</p>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="https://workday.github.io/warp-core/contents/getting_started_scala/" title="Getting Started (Scala DSL)"> <i class="fa fa-chevron-left"></i><label>Getting Started (Scala DSL)</label></a>
+    <a class="nav nav-next" href="https://workday.github.io/warp-core/contents/custom_arbiters/" title="Custom Arbiters" style="margin-right: 0px;"><label>Custom Arbiters</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+  
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 03/04/2018
+    </div>
+    
+
+    <div class="github-link">
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/contents/custom_collectors.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="https://workday.github.io/warp-core/js/clipboard.min.js"></script>
+
+<link href="https://workday.github.io/warp-core/css/featherlight.min.css" rel="stylesheet">
+<script src="https://workday.github.io/warp-core/js/featherlight.min.js"></script>
+
+
+
+<script src="https://workday.github.io/warp-core/theme-flex/script.js"></script>
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

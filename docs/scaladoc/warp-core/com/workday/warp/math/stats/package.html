@@ -1,0 +1,309 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>stats - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.warp.math.stats</title>
+          <meta name="description" content="stats - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.warp.math.stats" />
+          <meta name="keywords" content="stats warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.warp.math.stats" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../index.html';
+            var hash = 'com.workday.warp.math.stats.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.workday">workday</a>.<a href="../../package.html" class="extype" name="com.workday.warp">warp</a>.<a href="../package.html" class="extype" name="com.workday.warp.math">math</a></p>
+        <h1>stats</h1><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">stats</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.workday.warp.math.stats.AllRegressionStatTestResults" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AllRegressionStatTestResultsextendsProductwithSerializable"></a>
+      <a id="AllRegressionStatTestResults:AllRegressionStatTestResults"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="AllRegressionStatTestResults.html"><span class="name">AllRegressionStatTestResults</span></a><span class="params">(<span name="baselineNormalityTest">baselineNormalityTest: <a href="StatTestResult.html" class="extype" name="com.workday.warp.math.stats.StatTestResult">StatTestResult</a></span>, <span name="newNormalityTest">newNormalityTest: <a href="StatTestResult.html" class="extype" name="com.workday.warp.math.stats.StatTestResult">StatTestResult</a></span>, <span name="maybeHomoVarianceTest">maybeHomoVarianceTest: <span class="extype" name="scala.Option">Option</span>[<a href="StatTestResult.html" class="extype" name="com.workday.warp.math.stats.StatTestResult">StatTestResult</a>]</span>, <span name="regressionTest">regressionTest: <a href="GenericStatTestResult.html" class="extype" name="com.workday.warp.math.stats.GenericStatTestResult">GenericStatTestResult</a></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@AllRegressionStatTestResultsextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Wrapper class to hold all the relevant stat tests used in performing a regression test
+</p>
+    </li><li name="com.workday.warp.math.stats.GenericStatTestResult" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="GenericStatTestResultextendsAnyRef"></a>
+      <a id="GenericStatTestResult:GenericStatTestResult"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="GenericStatTestResult.html"><span class="name">GenericStatTestResult</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@GenericStatTestResultextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Represents the result of a statistical comparison test.</p>
+    </li><li name="com.workday.warp.math.stats.StatTestResult" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StatTestResultextendsGenericStatTestResultwithProductwithSerializable"></a>
+      <a id="StatTestResult:StatTestResult"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="StatTestResult.html"><span class="name">StatTestResult</span></a><span class="params">(<span name="testType">testType: <a href="TestType.html" class="extype" name="com.workday.warp.math.stats.TestType">TestType</a></span>, <span name="pValue">pValue: <span class="extype" name="scala.Double">Double</span></span>, <span name="seriesLabel">seriesLabel: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>)</span><span class="result"> extends <a href="GenericStatTestResult.html" class="extype" name="com.workday.warp.math.stats.GenericStatTestResult">GenericStatTestResult</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@StatTestResultextendsGenericStatTestResultwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.math.stats.TTestResult" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TTestResultextendsGenericStatTestResultwithProductwithSerializable"></a>
+      <a id="TTestResult:TTestResult"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="TTestResult.html"><span class="name">TTestResult</span></a><span class="params">(<span name="testType">testType: <a href="TestType.html" class="extype" name="com.workday.warp.math.stats.TestType">TestType</a></span>, <span name="pValue">pValue: <span class="extype" name="scala.Double">Double</span></span>, <span name="upperBound">upperBound: <span class="extype" name="scala.Double">Double</span></span>)</span><span class="result"> extends <a href="GenericStatTestResult.html" class="extype" name="com.workday.warp.math.stats.GenericStatTestResult">GenericStatTestResult</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@TTestResultextendsGenericStatTestResultwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.math.stats.TestType" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="TestTypeextendsAnyRef"></a>
+      <a id="TestType:TestType"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="TestType.html"><span class="name">TestType</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@TestTypeextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.workday.warp.math.stats.BrownForsytheTest" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BrownForsytheTest"></a>
+      <a id="BrownForsytheTest:BrownForsytheTest"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="BrownForsytheTest$.html"><span class="name">BrownForsytheTest</span></a><span class="result"> extends <a href="TestType.html" class="extype" name="com.workday.warp.math.stats.TestType">TestType</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@BrownForsytheTest" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.math.stats.KsTest" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="KsTest"></a>
+      <a id="KsTest:KsTest"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="KsTest$.html"><span class="name">KsTest</span></a><span class="result"> extends <a href="TestType.html" class="extype" name="com.workday.warp.math.stats.TestType">TestType</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@KsTest" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.math.stats.LevenesVarienceHomogenietyTest" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LevenesVarienceHomogenietyTest"></a>
+      <a id="LevenesVarienceHomogenietyTest:LevenesVarienceHomogenietyTest"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="LevenesVarienceHomogenietyTest$.html"><span class="name">LevenesVarienceHomogenietyTest</span></a><span class="result"> extends <a href="TestType.html" class="extype" name="com.workday.warp.math.stats.TestType">TestType</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@LevenesVarienceHomogenietyTest" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.math.stats.MannWhitneyUTest" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MannWhitneyUTest"></a>
+      <a id="MannWhitneyUTest:MannWhitneyUTest"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="MannWhitneyUTest$.html"><span class="name">MannWhitneyUTest</span></a><span class="result"> extends <a href="TestType.html" class="extype" name="com.workday.warp.math.stats.TestType">TestType</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@MannWhitneyUTest" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.math.stats.StudentsTTest" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StudentsTTest"></a>
+      <a id="StudentsTTest:StudentsTTest"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="StudentsTTest$.html"><span class="name">StudentsTTest</span></a><span class="result"> extends <a href="TestType.html" class="extype" name="com.workday.warp.math.stats.TestType">TestType</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@StudentsTTest" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.math.stats.TwoSampleRegressionTest" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TwoSampleRegressionTest"></a>
+      <a id="TwoSampleRegressionTest:TwoSampleRegressionTest"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TwoSampleRegressionTest$.html"><span class="name">TwoSampleRegressionTest</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@TwoSampleRegressionTest" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.math.stats.WelchsTTest" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="WelchsTTest"></a>
+      <a id="WelchsTTest:WelchsTTest"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="WelchsTTest$.html"><span class="name">WelchsTTest</span></a><span class="result"> extends <a href="TestType.html" class="extype" name="com.workday.warp.math.stats.TestType">TestType</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.math.stats.package@WelchsTTest" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

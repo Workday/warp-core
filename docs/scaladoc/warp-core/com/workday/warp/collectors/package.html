@@ -1,0 +1,281 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>collectors - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.warp.collectors</title>
+          <meta name="description" content="collectors - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.warp.collectors" />
+          <meta name="keywords" content="collectors warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.warp.collectors" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.workday.warp.collectors.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.workday">workday</a>.<a href="../package.html" class="extype" name="com.workday.warp">warp</a></p>
+        <h1>collectors</h1><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">collectors</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="AbstractMeasurementCollectionControllerextendsPersistenceAware"></a>
+      <a id="AbstractMeasurementCollectionController:AbstractMeasurementCollectionController"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="AbstractMeasurementCollectionController.html"><span class="name">AbstractMeasurementCollectionController</span></a><span class="result"> extends <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@AbstractMeasurementCollectionControllerextendsPersistenceAware" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Orchestrates the starting and stopping of MeasurementCollectors configured for this test.</p><div class="fullcomment"><div class="comment cmt"><p>Orchestrates the starting and stopping of MeasurementCollectors configured for this test.</p><p>The most basic way to use this API is to instantiate <a href="DefaultMeasurementCollectionController.html" class="extype" name="com.workday.warp.collectors.DefaultMeasurementCollectionController">DefaultMeasurementCollectionController</a> directly,
+however we encourage using either the <a href="../../telemetron/annotation/Measure.html" class="extype" name="com.workday.telemetron.annotation.Measure">com.workday.telemetron.annotation.Measure</a> annotation, or the Scala DSL in
+<a href="../dsl/ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">com.workday.warp.dsl.ExecutionConfig</a>.</p><p>Created by tomas.mccandless on 8/18/15.
+Based on a java class created by michael.ottati on 1/17/14.
+</p></div></div>
+    </li><li name="com.workday.warp.collectors.ContinuousHeapHistogramCollector" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ContinuousHeapHistogramCollectorextendsHeapHistogramCollectorwithContinuousMeasurement"></a>
+      <a id="ContinuousHeapHistogramCollector:ContinuousHeapHistogramCollector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ContinuousHeapHistogramCollector.html"><span class="name">ContinuousHeapHistogramCollector</span></a><span class="result"> extends <a href="../common/heaphistogram/HeapHistogramCollector.html" class="extype" name="com.workday.warp.common.heaphistogram.HeapHistogramCollector">HeapHistogramCollector</a> with <a href="traits/ContinuousMeasurement.html" class="extype" name="com.workday.warp.collectors.traits.ContinuousMeasurement">ContinuousMeasurement</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@ContinuousHeapHistogramCollectorextendsHeapHistogramCollectorwithContinuousMeasurement" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Continuously collects the heap histogram.</p><div class="fullcomment"><div class="comment cmt"><p>Continuously collects the heap histogram. Mixes in ContinuousMeasurement so it's invoked periodically</p></div></div>
+    </li><li name="com.workday.warp.collectors.DefaultMeasurementCollectionController" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DefaultMeasurementCollectionControllerextendsAbstractMeasurementCollectionControllerwithCorePersistenceAware"></a>
+      <a id="DefaultMeasurementCollectionController:DefaultMeasurementCollectionController"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="DefaultMeasurementCollectionController.html"><span class="name">DefaultMeasurementCollectionController</span></a><span class="result"> extends <a href="AbstractMeasurementCollectionController.html" class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController">AbstractMeasurementCollectionController</a> with <a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@DefaultMeasurementCollectionControllerextendsAbstractMeasurementCollectionControllerwithCorePersistenceAware" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A simple concrete implementation of <a href="AbstractMeasurementCollectionController.html" class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController">AbstractMeasurementCollectionController</a> that uses a <a href="WallClockTimeCollector.html" class="extype" name="com.workday.warp.collectors.WallClockTimeCollector">WallClockTimeCollector</a>
+and a <a href="HeapUsageCollector.html" class="extype" name="com.workday.warp.collectors.HeapUsageCollector">HeapUsageCollector</a>.</p>
+    </li><li name="com.workday.warp.collectors.HeapUsageCollector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="HeapUsageCollectorextendsAbstractMeasurementCollectorwithCorePersistenceAware"></a>
+      <a id="HeapUsageCollector:HeapUsageCollector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="HeapUsageCollector.html"><span class="name">HeapUsageCollector</span></a><span class="result"> extends <a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a> with <a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@HeapUsageCollectorextendsAbstractMeasurementCollectorwithCorePersistenceAware" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A <span class="extype" name="AbstractMeasurementCollector">AbstractMeasurementCollector</span> that records observed heap usage of the current process.</p>
+    </li><li name="com.workday.warp.collectors.ResponseTimeCollector" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ResponseTimeCollectorextendsAbstractMeasurementCollector"></a>
+      <a id="ResponseTimeCollector:ResponseTimeCollector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ResponseTimeCollector.html"><span class="name">ResponseTimeCollector</span></a><span class="result"> extends <a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@ResponseTimeCollectorextendsAbstractMeasurementCollector" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Writes test response time thresholds to influxdb, and updates them in MySql.</p><div class="fullcomment"><div class="comment cmt"><p>Writes test response time thresholds to influxdb, and updates them in MySql.</p><p>When using the DSL, we don't know the threshold until _after_ measurement has been completed and the test results
+have been written. This class patches up the existing rows once we know the threshold.</p><p>Created by tomas.mccandless on 7/12/16.
+</p></div></div>
+    </li><li name="com.workday.warp.collectors.WallClockTimeCollector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="WallClockTimeCollectorextendsAbstractMeasurementCollectorwithCorePersistenceAware"></a>
+      <a id="WallClockTimeCollector:WallClockTimeCollector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="WallClockTimeCollector.html"><span class="name">WallClockTimeCollector</span></a><span class="result"> extends <a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a> with <a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@WallClockTimeCollectorextendsAbstractMeasurementCollectorwithCorePersistenceAware" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A <span class="extype" name="AbstractMeasurementCollector">AbstractMeasurementCollector</span> that records elapsed wall clock time.</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.workday.warp.collectors.Defaults" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Defaults"></a>
+      <a id="Defaults:Defaults"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Defaults$.html"><span class="name">Defaults</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@Defaults" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Holds default constructor arguments referenced by both auxiliary constructors and named primary constructor args.</p>
+    </li><li name="com.workday.warp.collectors.ResponseTimeCollector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ResponseTimeCollector"></a>
+      <a id="ResponseTimeCollector:ResponseTimeCollector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ResponseTimeCollector$.html"><span class="name">ResponseTimeCollector</span></a><span class="result"> extends <a href="../persistence/influxdb/InfluxDBClient.html" class="extype" name="com.workday.warp.persistence.influxdb.InfluxDBClient">InfluxDBClient</a> with <a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a> with <a href="../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.common.utils.StackTraceFilter">StackTraceFilter</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@ResponseTimeCollector" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.collectors.abstracts" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="abstracts"></a>
+      <a id="abstracts:abstracts"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="abstracts/package.html"><span class="name">abstracts</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@abstracts" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.collectors.traits" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="traits"></a>
+      <a id="traits:traits"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="traits/package.html"><span class="name">traits</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.package@traits" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

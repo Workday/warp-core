@@ -1,0 +1,796 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>persistence - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.warp.persistence</title>
+          <meta name="description" content="persistence - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.warp.persistence" />
+          <meta name="keywords" content="persistence warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.warp.persistence" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.workday.warp.persistence.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.workday">workday</a>.<a href="../package.html" class="extype" name="com.workday.warp">warp</a></p>
+        <h1>persistence</h1><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">persistence</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.workday.warp.persistence.AbstractQueries" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="AbstractQueriesextendsAnyRef"></a>
+      <a id="AbstractQueries:AbstractQueries"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="AbstractQueries.html"><span class="name">AbstractQueries</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@AbstractQueriesextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Defines function definitions for creating read and write <span class="extype" name="Query">Query</span>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines function definitions for creating read and write <span class="extype" name="Query">Query</span>. These queries can be composed, converted to <span class="extype" name="DBIO">DBIO</span>,
+and executed using a <a href="Connection.html" class="extype" name="com.workday.warp.persistence.Connection">Connection</a> to produce results.</p><p>In the case where the return value contains some &quot;RowLike&quot;, the return type will be <span class="extype" name="DBIO">DBIO</span>. This is to allow
+overriding of return types with more specific types. <span class="extype" name="Query">Query</span> is invariant, so it cannot be subclassed, while
+<span class="extype" name="DBIO">DBIO</span> is covariant.</p><p>Created by leslie.lam on 2/7/18.</p><p>TODO can we make implicits with this? or modify the generator to have them? very difficult to read.
+move all these to the generator? decorate each class with these query methods?</p><p>autogenerate an id method on each of the appropriate tables?</p><p>autogenerate the connection as well?</p></div></div>
+    </li><li name="com.workday.warp.persistence.BuildNumber" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BuildNumberextendsProductwithSerializable"></a>
+      <a id="BuildNumber:BuildNumber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="BuildNumber.html"><span class="name">BuildNumber</span></a><span class="params">(<span name="major">major: <span class="extype" name="scala.Int">Int</span></span>, <span name="minor">minor: <span class="extype" name="scala.Int">Int</span></span>, <span name="patch">patch: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@BuildNumberextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Holds individual components of a build identifier.</p><div class="fullcomment"><div class="comment cmt"><p>Holds individual components of a build identifier.</p><p>Created by tomas.mccandless on 1/30/17.
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.CanDropCoreSchema" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CanDropCoreSchemaextendsConnection"></a>
+      <a id="CanDropCoreSchema:CanDropCoreSchema"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CanDropCoreSchema.html"><span class="name">CanDropCoreSchema</span></a><span class="result"> extends <a href="Connection.html" class="extype" name="com.workday.warp.persistence.Connection">Connection</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CanDropCoreSchemaextendsConnection" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Trait for dropping a schema.</p><div class="fullcomment"><div class="comment cmt"><p>Trait for dropping a schema.</p><p>Placed alone in a trait so this can be mixed in as needed without initializing PersistenceUtils companion object.</p><p>Created by tomas.mccandless on 2/9/18.
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.CommonTables" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="CommonTablesextendsAnyRef"></a>
+      <a id="CommonTables:CommonTables"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CommonTables.html"><span class="name">CommonTables</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CommonTablesextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.Connection" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ConnectionextendsAnyRef"></a>
+      <a id="Connection:Connection"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Connection.html"><span class="name">Connection</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@ConnectionextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Created by tomas.mccandless on 10/6/16.</p>
+    </li><li name="com.workday.warp.persistence.CoreIdentifier" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CoreIdentifierextendsProductwithSerializable"></a>
+      <a id="CoreIdentifier:CoreIdentifier"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="CoreIdentifier.html"><span class="name">CoreIdentifier</span></a><span class="params">(<span name="methodSignature">methodSignature: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;&quot;</span></span>, <span name="idTestDefinition">idTestDefinition: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">0</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CoreIdentifierextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A case class containing values used to identify a <a href="model/Tables$TestExecution.html" class="extype" name="com.workday.warp.persistence.model.Tables.TestExecution">Tables.TestExecution</a>.</p>
+    </li><li name="com.workday.warp.persistence.CorePersistenceAware" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CorePersistenceAwareextendsPersistenceAware"></a>
+      <a id="CorePersistenceAware:CorePersistenceAware"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CorePersistenceAware.html"><span class="name">CorePersistenceAware</span></a><span class="result"> extends <a href="PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CorePersistenceAwareextendsPersistenceAware" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Adds an instance of <a href="CorePersistenceAware$CorePersistenceUtils.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware.CorePersistenceUtils">CorePersistenceUtils</a> to any Class that mixes in this trait.</p><div class="fullcomment"><div class="comment cmt"><p>Adds an instance of <a href="CorePersistenceAware$CorePersistenceUtils.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware.CorePersistenceUtils">CorePersistenceUtils</a> to any Class that mixes in this trait.
+Mix in this trait in classes or traits that require <a href="CorePersistenceAware$CorePersistenceUtils.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware.CorePersistenceUtils">CorePersistenceUtils</a></p><p>Created by leslie.lam on 2/9/18.
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.CorePersistenceConstants" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CorePersistenceConstantsextendsAnyRef"></a>
+      <a id="CorePersistenceConstants:CorePersistenceConstants"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CorePersistenceConstants.html"><span class="name">CorePersistenceConstants</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CorePersistenceConstantsextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Central class to store constants used for SQL access.</p><div class="fullcomment"><div class="comment cmt"><p>Central class to store constants used for SQL access.</p><p>Created with IntelliJ IDEA.
+User: michael.ottati
+Date: 1/16/14
+Time: 1:52 PM
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.CoreQueries" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CoreQueriesextendsAbstractQueries"></a>
+      <a id="CoreQueries:CoreQueries"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="CoreQueries.html"><span class="name">CoreQueries</span></a><span class="result"> extends <a href="AbstractQueries.html" class="extype" name="com.workday.warp.persistence.AbstractQueries">AbstractQueries</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CoreQueriesextendsAbstractQueries" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Defines functions for creating read and write <span class="extype" name="Query">Query</span>.</p><div class="fullcomment"><div class="comment cmt"><p>Defines functions for creating read and write <span class="extype" name="Query">Query</span>. These queries can be composed, converted to <span class="extype" name="DBIOAction">DBIOAction</span>,
+and executed using a <a href="Connection.html" class="extype" name="com.workday.warp.persistence.Connection">Connection</a> to produce results.</p><p>In the case where the return value contains some &quot;RowLike&quot;, the return type will be <span class="extype" name="DBIO">DBIO</span>. This is to allow
+overriding of return types with more specific types. <span class="extype" name="Query">Query</span> is invariant, so it cannot be subclassed, while
+<span class="extype" name="DBIO">DBIO</span> is covariant.</p><p>Note: These queries reference the Tables defined in com.workday.warp.persistence.model.</p><p>Created by leslie.lam on 2/7/18.
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.DefinitionMetaTag" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DefinitionMetaTagextendsMetaTagwithProductwithSerializable"></a>
+      <a id="DefinitionMetaTag:DefinitionMetaTag"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="DefinitionMetaTag.html"><span class="name">DefinitionMetaTag</span></a><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="isUserGenerated">isUserGenerated: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">true</span></span>)</span><span class="result"> extends <a href="MetaTag.html" class="extype" name="com.workday.warp.persistence.MetaTag">MetaTag</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@DefinitionMetaTagextendsMetaTagwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.DefinitionTag" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DefinitionTagextendsTagwithProductwithSerializable"></a>
+      <a id="DefinitionTag:DefinitionTag"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="DefinitionTag.html"><span class="name">DefinitionTag</span></a><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="metaTags">metaTags: <span class="extype" name="scala.List">List</span>[<a href="DefinitionMetaTag.html" class="extype" name="com.workday.warp.persistence.DefinitionMetaTag">DefinitionMetaTag</a>] = <span class="symbol">List.empty</span></span>, <span name="isUserGenerated">isUserGenerated: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">true</span></span>)</span><span class="result"> extends <a href="Tag.html" class="extype" name="com.workday.warp.persistence.Tag">Tag</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@DefinitionTagextendsTagwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.ExecutionMetaTag" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecutionMetaTagextendsMetaTagwithProductwithSerializable"></a>
+      <a id="ExecutionMetaTag:ExecutionMetaTag"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ExecutionMetaTag.html"><span class="name">ExecutionMetaTag</span></a><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="isUserGenerated">isUserGenerated: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">true</span></span>)</span><span class="result"> extends <a href="MetaTag.html" class="extype" name="com.workday.warp.persistence.MetaTag">MetaTag</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@ExecutionMetaTagextendsMetaTagwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.ExecutionTag" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecutionTagextendsTagwithProductwithSerializable"></a>
+      <a id="ExecutionTag:ExecutionTag"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ExecutionTag.html"><span class="name">ExecutionTag</span></a><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="metaTags">metaTags: <span class="extype" name="scala.List">List</span>[<a href="ExecutionMetaTag.html" class="extype" name="com.workday.warp.persistence.ExecutionMetaTag">ExecutionMetaTag</a>] = <span class="symbol">List.empty</span></span>, <span name="isUserGenerated">isUserGenerated: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">true</span></span>)</span><span class="result"> extends <a href="Tag.html" class="extype" name="com.workday.warp.persistence.Tag">Tag</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@ExecutionTagextendsTagwithProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.HasProfile" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="HasProfileextendsAnyRef"></a>
+      <a id="HasProfile:HasProfile"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="HasProfile.html"><span class="name">HasProfile</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@HasProfileextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.IdentifierType" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="IdentifierType[T]extendsAnyRef"></a>
+      <a id="IdentifierType[T]:IdentifierType[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="IdentifierType.html"><span class="name">IdentifierType</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@IdentifierType[T]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A type class containing values used to identify a <a href="model/TablesLike$TestExecutionLike.html" class="extype" name="com.workday.warp.persistence.model.TablesLike.TestExecutionLike">com.workday.warp.persistence.TablesLike.TestExecutionLike</a>.</p><div class="fullcomment"><div class="comment cmt"><p>A type class containing values used to identify a <a href="model/TablesLike$TestExecutionLike.html" class="extype" name="com.workday.warp.persistence.model.TablesLike.TestExecutionLike">com.workday.warp.persistence.TablesLike.TestExecutionLike</a>.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@implicitNotFound</span><span class="args">(<span>
+      
+      <span class="defval" name="&quot;Could not find an implicit value for evidence of type class IdentifierType[${T}].&quot; +<br/>  &quot; You might pass an (implicit ev: IdentifierType[${T}]) parameter to your method or import ${T}Type._&quot;">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.persistence.MetaTag" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="MetaTagextendsAnyRef"></a>
+      <a id="MetaTag:MetaTag"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="MetaTag.html"><span class="name">MetaTag</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@MetaTagextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.MethodSignature" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="MethodSignatureextendsProductwithSerializable"></a>
+      <a id="MethodSignature:MethodSignature"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="MethodSignature.html"><span class="name">MethodSignature</span></a><span class="params">(<span name="product">product: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="subproduct">subproduct: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="className">className: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="method">method: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@MethodSignatureextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Holds individual components of a method signature.</p><div class="fullcomment"><div class="comment cmt"><p>Holds individual components of a method signature.</p><p>Created by tomas.mccandless on 1/30/17.
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.MigrateSchemaLike" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="MigrateSchemaLikeextendsPersistenceAware"></a>
+      <a id="MigrateSchemaLike:MigrateSchemaLike"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="MigrateSchemaLike.html"><span class="name">MigrateSchemaLike</span></a><span class="result"> extends <a href="PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@MigrateSchemaLikeextendsPersistenceAware" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.PersistMetaTagResult" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="PersistMetaTagResultextendsProductwithSerializable"></a>
+      <a id="PersistMetaTagResult:PersistMetaTagResult"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="PersistMetaTagResult.html"><span class="name">PersistMetaTagResult</span></a><span class="params">(<span name="metaTag">metaTag: <a href="MetaTag.html" class="extype" name="com.workday.warp.persistence.MetaTag">MetaTag</a></span>, <span name="tryMetaTag">tryMetaTag: <span class="extype" name="scala.util.Try">Try</span>[<a href="MetaTag.html" class="extype" name="com.workday.warp.persistence.MetaTag">MetaTag</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@PersistMetaTagResultextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.PersistTagResult" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="PersistTagResultextendsProductwithSerializable"></a>
+      <a id="PersistTagResult:PersistTagResult"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="PersistTagResult.html"><span class="name">PersistTagResult</span></a><span class="params">(<span name="tag">tag: <a href="Tag.html" class="extype" name="com.workday.warp.persistence.Tag">Tag</a></span>, <span name="tryTag">tryTag: (<span class="extype" name="scala.util.Try">Try</span>[<a href="Tag.html" class="extype" name="com.workday.warp.persistence.Tag">Tag</a>], <span class="extype" name="scala.List">List</span>[<a href="PersistMetaTagResult.html" class="extype" name="com.workday.warp.persistence.PersistMetaTagResult">PersistMetaTagResult</a>])</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@PersistTagResultextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Case class hierarchy encoding tags for both <span class="extype" name="TestExecutionRow">TestExecutionRow</span> and <span class="extype" name="TestDefinitionRow">TestDefinitionRow</span>.</p><div class="fullcomment"><div class="comment cmt"><p>Case class hierarchy encoding tags for both <span class="extype" name="TestExecutionRow">TestExecutionRow</span> and <span class="extype" name="TestDefinitionRow">TestDefinitionRow</span>.</p><p>Created by tomas.mccandless on 12/5/16.
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.PersistenceAware" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="PersistenceAwareextendsAnyRef"></a>
+      <a id="PersistenceAware:PersistenceAware"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="PersistenceAware.html"><span class="name">PersistenceAware</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@PersistenceAwareextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Adds an abstract definition of AbstractPersistenceUtils to any Class that mixes in this trait.</p><div class="fullcomment"><div class="comment cmt"><p>Adds an abstract definition of AbstractPersistenceUtils to any Class that mixes in this trait.
+Mix in this trait in abstract classes or traits that require persistenceUtils</p><p>Created by leslie.lam on 2/9/18.
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.Tag" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="TagextendsAnyRef"></a>
+      <a id="Tag:Tag"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Tag.html"><span class="name">Tag</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@TagextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.workday.warp.persistence.BuildNumber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BuildNumber"></a>
+      <a id="BuildNumber:BuildNumber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="BuildNumber$.html"><span class="name">BuildNumber</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@BuildNumber" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.Connection" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Connection"></a>
+      <a id="Connection:Connection"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Connection$.html"><span class="name">Connection</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@Connection" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.CoreIdentifierType" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CoreIdentifierType"></a>
+      <a id="CoreIdentifierType:CoreIdentifierType"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CoreIdentifierType$.html"><span class="name">CoreIdentifierType</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CoreIdentifierType" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.CorePersistenceConstants" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CorePersistenceConstants"></a>
+      <a id="CorePersistenceConstants:CorePersistenceConstants"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CorePersistenceConstants$.html"><span class="name">CorePersistenceConstants</span></a><span class="result"> extends <a href="CorePersistenceConstants.html" class="extype" name="com.workday.warp.persistence.CorePersistenceConstants">CorePersistenceConstants</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CorePersistenceConstants" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.CorePersistenceUtils" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CorePersistenceUtils"></a>
+      <a id="CorePersistenceUtils:CorePersistenceUtils"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CorePersistenceUtils$.html"><span class="name">CorePersistenceUtils</span></a><span class="result"> extends <a href="Connection.html" class="extype" name="com.workday.warp.persistence.Connection">Connection</a> with <a href="CoreQueries.html" class="extype" name="com.workday.warp.persistence.CoreQueries">CoreQueries</a> with <a href="CanDropCoreSchema.html" class="extype" name="com.workday.warp.persistence.CanDropCoreSchema">CanDropCoreSchema</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CorePersistenceUtils" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.CorePersistenceUtilsMain" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CorePersistenceUtilsMain"></a>
+      <a id="CorePersistenceUtilsMain:CorePersistenceUtilsMain"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="CorePersistenceUtilsMain$.html"><span class="name">CorePersistenceUtilsMain</span></a><span class="result"> extends <span class="extype" name="scala.App">App</span> with <a href="CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@CorePersistenceUtilsMain" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.Drivers" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Drivers"></a>
+      <a id="Drivers:Drivers"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Drivers$.html"><span class="name">Drivers</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@Drivers" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.DropCoreSchema" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DropCoreSchema"></a>
+      <a id="DropCoreSchema:DropCoreSchema"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="DropCoreSchema$.html"><span class="name">DropCoreSchema</span></a><span class="result"> extends <span class="extype" name="scala.App">App</span> with <a href="CanDropCoreSchema.html" class="extype" name="com.workday.warp.persistence.CanDropCoreSchema">CanDropCoreSchema</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@DropCoreSchema" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.IdentifierSyntax" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IdentifierSyntax"></a>
+      <a id="IdentifierSyntax:IdentifierSyntax"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="IdentifierSyntax$.html"><span class="name">IdentifierSyntax</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@IdentifierSyntax" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.IdentifierType" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IdentifierType"></a>
+      <a id="IdentifierType:IdentifierType"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="IdentifierType$.html"><span class="name">IdentifierType</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@IdentifierType" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.MethodSignature" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MethodSignature"></a>
+      <a id="MethodSignature:MethodSignature"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="MethodSignature$.html"><span class="name">MethodSignature</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@MethodSignature" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.MigrateSchema" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MigrateSchema"></a>
+      <a id="MigrateSchema:MigrateSchema"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="MigrateSchema$.html"><span class="name">MigrateSchema</span></a><span class="result"> extends <span class="extype" name="scala.App">App</span> with <a href="MigrateSchemaLike.html" class="extype" name="com.workday.warp.persistence.MigrateSchemaLike">MigrateSchemaLike</a> with <a href="CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@MigrateSchema" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.Tables" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Tables"></a>
+      <a id="Tables:Tables"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Tables$.html"><span class="name">Tables</span></a><span class="result"> extends <a href="model/Tables.html" class="extype" name="com.workday.warp.persistence.model.Tables">persistence.model.Tables</a> with <a href="CommonTables.html" class="extype" name="com.workday.warp.persistence.CommonTables">CommonTables</a> with <a href="HasProfile.html" class="extype" name="com.workday.warp.persistence.HasProfile">HasProfile</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@Tables" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Extends the generated model with an overridden jdbc profile and some convenience functions.</p><div class="fullcomment"><div class="comment cmt"><p>Extends the generated model with an overridden jdbc profile and some convenience functions.
+Your code should probably be referencing this object rather than <a href="model/Tables.html" class="extype" name="com.workday.warp.persistence.model.Tables">model.Tables</a>.</p><p>Created by tomas.mccandless on 2/1/17.
+</p></div></div>
+    </li><li name="com.workday.warp.persistence.TablesLike" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TablesLike"></a>
+      <a id="TablesLike:TablesLike"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TablesLike$.html"><span class="name">TablesLike</span></a><span class="result"> extends <a href="model/TablesLike.html" class="extype" name="com.workday.warp.persistence.model.TablesLike">persistence.model.TablesLike</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@TablesLike" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.exception" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="exception"></a>
+      <a id="exception:exception"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="exception/package.html"><span class="name">exception</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@exception" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.influxdb" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="influxdb"></a>
+      <a id="influxdb:influxdb"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="influxdb/package.html"><span class="name">influxdb</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@influxdb" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.persistence.model" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="model"></a>
+      <a id="model:model"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="model/package.html"><span class="name">model</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.package@model" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

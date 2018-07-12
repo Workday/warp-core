@@ -1,0 +1,266 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>heaphistogram - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.warp.common.heaphistogram</title>
+          <meta name="description" content="heaphistogram - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.warp.common.heaphistogram" />
+          <meta name="keywords" content="heaphistogram warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.warp.common.heaphistogram" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../index.html';
+            var hash = 'com.workday.warp.common.heaphistogram.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.workday">workday</a>.<a href="../../package.html" class="extype" name="com.workday.warp">warp</a>.<a href="../package.html" class="extype" name="com.workday.warp.common">common</a></p>
+        <h1>heaphistogram</h1><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">heaphistogram</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.workday.warp.common.heaphistogram.HeapHistogram" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="HeapHistogramextendsAnyRef"></a>
+      <a id="HeapHistogram:HeapHistogram"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="HeapHistogram.html"><span class="name">HeapHistogram</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@HeapHistogramextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Container class for a heap histogram (a collection of heap histogram entries)</p><div class="fullcomment"><div class="comment cmt"><p>Container class for a heap histogram (a collection of heap histogram entries)</p><p>Created by tomas.mccandless on 9/21/15.
+</p></div></div>
+    </li><li name="com.workday.warp.common.heaphistogram.HeapHistogramCollector" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="HeapHistogramCollectorextendsAbstractMeasurementCollectorwithHistogramIoLikewithPersistenceAware"></a>
+      <a id="HeapHistogramCollector:HeapHistogramCollector"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="HeapHistogramCollector.html"><span class="name">HeapHistogramCollector</span></a><span class="result"> extends <a href="../../collectors/abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a> with <a href="HistogramIoLike.html" class="extype" name="com.workday.warp.common.heaphistogram.HistogramIoLike">HistogramIoLike</a> with <a href="../../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@HeapHistogramCollectorextendsAbstractMeasurementCollectorwithHistogramIoLikewithPersistenceAware" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Collects and stores the Heap Histogram before and after measurement</p>
+    </li><li name="com.workday.warp.common.heaphistogram.HeapHistogramEntry" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="HeapHistogramEntryextendsAnyRef"></a>
+      <a id="HeapHistogramEntry:HeapHistogramEntry"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="HeapHistogramEntry.html"><span class="name">HeapHistogramEntry</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@HeapHistogramEntryextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Small container class for class usage in a heap histogram.</p><div class="fullcomment"><div class="comment cmt"><p>Small container class for class usage in a heap histogram.</p><p>Created by tomas.mccandless on 9/21/15.
+</p></div></div>
+    </li><li name="com.workday.warp.common.heaphistogram.HeapHistogramFilter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="HeapHistogramFilterextendsAnyRef"></a>
+      <a id="HeapHistogramFilter:HeapHistogramFilter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="HeapHistogramFilter.html"><span class="name">HeapHistogramFilter</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@HeapHistogramFilterextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A small container class to hold separate histograms (the overall histogram, persistedHistogram; and the smaller
+subhistogram, plottedHistogram, that is intended to be graphed in grafana)</p><div class="fullcomment"><div class="comment cmt"><p>A small container class to hold separate histograms (the overall histogram, persistedHistogram; and the smaller
+subhistogram, plottedHistogram, that is intended to be graphed in grafana)</p><p>Created by tomas.mccandless on 9/21/15.
+</p></div></div>
+    </li><li name="com.workday.warp.common.heaphistogram.HistogramIoLike" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="HistogramIoLikeextendsInfluxDBClient"></a>
+      <a id="HistogramIoLike:HistogramIoLike"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="HistogramIoLike.html"><span class="name">HistogramIoLike</span></a><span class="result"> extends <a href="../../persistence/influxdb/InfluxDBClient.html" class="extype" name="com.workday.warp.persistence.influxdb.InfluxDBClient">InfluxDBClient</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@HistogramIoLikeextendsInfluxDBClient" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Trait that can attach to the running java process and collects the HeapHistogram</p><div class="fullcomment"><div class="comment cmt"><p>Trait that can attach to the running java process and collects the HeapHistogram</p><p>Created by vignesh.kalidas on 4/5/18.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.workday.warp.common.heaphistogram.BytesOrdering" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BytesOrdering"></a>
+      <a id="BytesOrdering:BytesOrdering"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="BytesOrdering$.html"><span class="name">BytesOrdering</span></a><span class="result"> extends <span class="extype" name="scala.Ordering">Ordering</span>[<a href="HeapHistogramEntry.html" class="extype" name="com.workday.warp.common.heaphistogram.HeapHistogramEntry">HeapHistogramEntry</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@BytesOrdering" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.common.heaphistogram.HeapHistogramFilter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="HeapHistogramFilter"></a>
+      <a id="HeapHistogramFilter:HeapHistogramFilter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="HeapHistogramFilter$.html"><span class="name">HeapHistogramFilter</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@HeapHistogramFilter" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.common.heaphistogram.HistogramIoLike" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="HistogramIoLike"></a>
+      <a id="HistogramIoLike:HistogramIoLike"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="HistogramIoLike$.html"><span class="name">HistogramIoLike</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@HistogramIoLike" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Companion object for the HistogramIoLike trait.</p><div class="fullcomment"><div class="comment cmt"><p>Companion object for the HistogramIoLike trait. Upon initialization, this grabs the PID of the java process and
+attaches to it. Detachment happens at shutdown via the added hook.</p><p>Note: In order to run this, you need tools.jar in the classpath; the simplest way to accomplish this is to run under
+the jdk instead of jre
+</p></div></div>
+    </li><li name="com.workday.warp.common.heaphistogram.InstancesOrdering" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="InstancesOrdering"></a>
+      <a id="InstancesOrdering:InstancesOrdering"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="InstancesOrdering$.html"><span class="name">InstancesOrdering</span></a><span class="result"> extends <span class="extype" name="scala.Ordering">Ordering</span>[<a href="HeapHistogramEntry.html" class="extype" name="com.workday.warp.common.heaphistogram.HeapHistogramEntry">HeapHistogramEntry</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.common.heaphistogram.package@InstancesOrdering" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

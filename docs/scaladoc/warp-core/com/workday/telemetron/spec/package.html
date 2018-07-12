@@ -1,0 +1,138 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>spec - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.telemetron.spec</title>
+          <meta name="description" content="spec - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.telemetron.spec" />
+          <meta name="keywords" content="spec warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.telemetron.spec" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.workday.telemetron.spec.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.workday">workday</a>.<a href="../package.html" class="extype" name="com.workday.telemetron">telemetron</a></p>
+        <h1>spec</h1><span class="permalink">
+      <a href="../../../../index.html#com.workday.telemetron.spec.package" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">spec</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.workday.telemetron.spec.HasTelemetron" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="HasTelemetronextendsAnyRef"></a>
+      <a id="HasTelemetron:HasTelemetron"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="HasTelemetron.html"><span class="name">HasTelemetron</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.telemetron.spec.package@HasTelemetronextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Base trait for tests that use Telemetron.</p><div class="fullcomment"><div class="comment cmt"><p>Base trait for tests that use Telemetron. Adds a telemetron rule with response time verification.
+Extend this trait to use annotations such as <a href="../annotation/Schedule.html" class="extype" name="com.workday.telemetron.annotation.Schedule">com.workday.telemetron.annotation.Schedule</a>.</p><p>Created by leslie.lam on 12/19/17.
+</p></div></div>
+    </li><li name="com.workday.telemetron.spec.TelemetronJUnitSpec" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="TelemetronJUnitSpecextendsHasTelemetron"></a>
+      <a id="TelemetronJUnitSpec:TelemetronJUnitSpec"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="TelemetronJUnitSpec.html"><span class="name">TelemetronJUnitSpec</span></a><span class="result"> extends <a href="HasTelemetron.html" class="extype" name="com.workday.telemetron.spec.HasTelemetron">HasTelemetron</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.telemetron.spec.package@TelemetronJUnitSpecextendsHasTelemetron" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Abstract base class extensible from Java for JUnit tests using Telemetron Rules.</p><div class="fullcomment"><div class="comment cmt"><p>Abstract base class extensible from Java for JUnit tests using Telemetron Rules.</p><p>Created by leslie.lam on 12/19/17.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

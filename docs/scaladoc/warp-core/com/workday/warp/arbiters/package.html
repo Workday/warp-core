@@ -1,0 +1,233 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>arbiters - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.warp.arbiters</title>
+          <meta name="description" content="arbiters - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.warp.arbiters" />
+          <meta name="keywords" content="arbiters warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.warp.arbiters" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.workday.warp.arbiters.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.workday">workday</a>.<a href="../package.html" class="extype" name="com.workday.warp">warp</a></p>
+        <h1>arbiters</h1><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.arbiters.package" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbiters</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.workday.warp.arbiters.PercentageDegradationArbiter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="PercentageDegradationArbiterextendsCanReadHistorywithArbiterLike"></a>
+      <a id="PercentageDegradationArbiter:PercentageDegradationArbiter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="PercentageDegradationArbiter.html"><span class="name">PercentageDegradationArbiter</span></a><span class="result"> extends <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a> with <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.arbiters.package@PercentageDegradationArbiterextendsCanReadHistorywithArbiterLike" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Arbiter that checks whether the response time for this test was within an acceptable percentage of the historical
+arithmetic mean.</p><div class="fullcomment"><div class="comment cmt"><p>Arbiter that checks whether the response time for this test was within an acceptable percentage of the historical
+arithmetic mean.</p><p>Created by tomas.mccandless on 5/13/16.
+</p></div></div>
+    </li><li name="com.workday.warp.arbiters.ResponseTimeArbiter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ResponseTimeArbiterextendsArbiterLikewithCorePersistenceAware"></a>
+      <a id="ResponseTimeArbiter:ResponseTimeArbiter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ResponseTimeArbiter.html"><span class="name">ResponseTimeArbiter</span></a><span class="result"> extends <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a> with <a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.arbiters.package@ResponseTimeArbiterextendsArbiterLikewithCorePersistenceAware" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Simple arbiter based on a provided static threshold.</p><div class="fullcomment"><div class="comment cmt"><p>Simple arbiter based on a provided static threshold.</p><p>Created by tomas.mccandless on 7/7/16.
+</p></div></div>
+    </li><li name="com.workday.warp.arbiters.RobustPcaArbiter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="RobustPcaArbiterextendsCanReadHistorywithArbiterLike"></a>
+      <a id="RobustPcaArbiter:RobustPcaArbiter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="RobustPcaArbiter.html"><span class="name">RobustPcaArbiter</span></a><span class="result"> extends <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a> with <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.arbiters.package@RobustPcaArbiterextendsCanReadHistorywithArbiterLike" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Arbiter that performs robust principal component analysis (RPCA) for anomaly detection</p><div class="fullcomment"><div class="comment cmt"><p>Arbiter that performs robust principal component analysis (RPCA) for anomaly detection</p><p>See the following papers for more detail:
+https://statweb.stanford.edu/~candes/papers/RobustPCA.pdf (Candes, 2009)
+http://arxiv.org/pdf/1001.2363v1.pdf (Zhou, 2010)</p><p>Created by tomas.mccandless on 2/18/16.
+</p></div></div>
+    </li><li name="com.workday.warp.arbiters.SmartNumberArbiter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="SmartNumberArbiterextendsCanReadHistorywithArbiterLike"></a>
+      <a id="SmartNumberArbiter:SmartNumberArbiter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="SmartNumberArbiter.html"><span class="name">SmartNumberArbiter</span></a><span class="result"> extends <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a> with <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.arbiters.package@SmartNumberArbiterextendsCanReadHistorywithArbiterLike" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Uses bisection method with <span class="extype" name="RobustPca">RobustPca</span> to automatically determine a static threshold.</p><div class="fullcomment"><div class="comment cmt"><p>Uses bisection method with <span class="extype" name="RobustPca">RobustPca</span> to automatically determine a static threshold.</p><p>Created by tomas.mccandless on 9/13/16.
+</p></div></div>
+    </li><li name="com.workday.warp.arbiters.ZScoreArbiter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ZScoreArbiterextendsCanReadHistorywithArbiterLike"></a>
+      <a id="ZScoreArbiter:ZScoreArbiter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ZScoreArbiter.html"><span class="name">ZScoreArbiter</span></a><span class="result"> extends <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a> with <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.arbiters.package@ZScoreArbiterextendsCanReadHistorywithArbiterLike" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Arbiter that checks whether the response time for this test was within an acceptable percentile.</p><div class="fullcomment"><div class="comment cmt"><p>Arbiter that checks whether the response time for this test was within an acceptable percentile.</p><p>Constructs a <span class="extype" name="NormalDistribution">NormalDistribution</span> using the historical arithmetic mean and standard deviation, and evaluates
+the cumulative probability of the measured response time.</p><p>Created by tomas.mccandless on 1/25/16.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.workday.warp.arbiters.SmartNumberArbiter" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SmartNumberArbiter"></a>
+      <a id="SmartNumberArbiter:SmartNumberArbiter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SmartNumberArbiter$.html"><span class="name">SmartNumberArbiter</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.arbiters.package@SmartNumberArbiter" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.arbiters.traits" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="traits"></a>
+      <a id="traits:traits"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="traits/package.html"><span class="name">traits</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.arbiters.package@traits" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

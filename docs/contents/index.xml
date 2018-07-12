@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Contents on warp-core</title>
+    <link>https://workday.github.io/warp-core/contents/</link>
+    <description>Recent content in Contents on warp-core</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Apr 2018 13:38:13 -0700</lastBuildDate>
+    
+	<atom:link href="https://workday.github.io/warp-core/contents/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Introduction</title>
+      <link>https://workday.github.io/warp-core/contents/intro/</link>
+      <pubDate>Mon, 02 Apr 2018 13:38:13 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/intro/</guid>
+      <description>We&amp;rsquo;ve all been there before: struggling to reason about why a function is not performing the way we expect, and whether a candidate replacement that may appear faster actually bring a statistically significant improvement to the table.
+We on the performance-test-frameworks team have noticed that engineers often reason about the performance of their code in a very informal way.
+Academic papers published in other scientific fields, such as biology, place an emphasis on obtaining statistically significant results and sound experimental design.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started (Java)</title>
+      <link>https://workday.github.io/warp-core/contents/getting_started_java/</link>
+      <pubDate>Mon, 02 Apr 2018 13:32:53 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/getting_started_java/</guid>
+      <description>The recommended way to interact with WARP is through the Scala DSL. The Scala DSL is more rich-featured, however, we also support calling a subset of our functionality through a Java API called Telemetron. Telemetron is based on annotations and JUnit @Rule.
+Each facet of WARP functionality is implemented as a separate rule, and we use a RuleChain to ensure the rules are applied in the correct order.
+To get started, your JUnit class can either:</description>
+    </item>
+    
+    <item>
+      <title>Getting Started (Scala DSL)</title>
+      <link>https://workday.github.io/warp-core/contents/getting_started_scala/</link>
+      <pubDate>Mon, 02 Apr 2018 12:49:11 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/getting_started_scala/</guid>
+      <description>The recommended way to interact with WARP is through the Scala DSL. This API is more mature than the Telemetron Java API and provides a richer feature set, including the ability to register custom MeasurementCollector and Arbiter instances, and add new tags in the form of String metadata that will be persisted.
+The DSL is implemented by using an immutable case class, ExecutionConfig to hold all configuration parameters, such as number of invocations, warmups, threadpool size, etc.</description>
+    </item>
+    
+    <item>
+      <title>Collecting Custom Measurements</title>
+      <link>https://workday.github.io/warp-core/contents/custom_collectors/</link>
+      <pubDate>Tue, 03 Apr 2018 10:57:13 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/custom_collectors/</guid>
+      <description>The AbstractMeasurementCollector class defines two side-effecting functions: startMeasurement and stopMeasurement, that are invoked, respectively, before and after a test execution.
+Implementations of a measurement or measurement collection should extend this class, and probably mix in the CorePersistenceAware trait. Note that the collection of a measurement may encompass a number of different types of operations. It may include such activities as collecting from JMX, scraping server logs, or as simple as starting and stopping a clock.</description>
+    </item>
+    
+    <item>
+      <title>Custom Arbiters</title>
+      <link>https://workday.github.io/warp-core/contents/custom_arbiters/</link>
+      <pubDate>Tue, 03 Apr 2018 10:57:21 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/custom_arbiters/</guid>
+      <description>An Arbiter defines a vote method that allows us to implement custom failure criteria for a given test execution.
+For example, the following Arbiter implementation fails a test if it took longer than 5 seconds: class ResponseTimeArbiter extends ArbiterLike with CorePersistenceAware { /** * Checks that the measured test took less than 5 seconds. * * @param ballot box used to register vote result. * @param testExecution [[TestExecutionRowLikeType]] we are voting on.</description>
+    </item>
+    
+    <item>
+      <title>Measurement Collection Controller</title>
+      <link>https://workday.github.io/warp-core/contents/measurement_collection_controller/</link>
+      <pubDate>Fri, 06 Apr 2018 12:16:51 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/measurement_collection_controller/</guid>
+      <description>The MeasurementCollectionController (often called MCC) class is the central &amp;ldquo;overlord&amp;rdquo; responsible for tracking all registered collectors and arbiters, wrapping collectors around measured tests in the correct order, and invoking the measured code block.
+Note that all collectors must be stopped in the reverse order from which they were started to maximize measurement accuracy and avoid capturing the overheard from other collectors.
+The multiple circles of hell serve as a useful mental model; each circle represents a logical group of collectors that is started/stopped in parallel.</description>
+    </item>
+    
+    <item>
+      <title>Tags</title>
+      <link>https://workday.github.io/warp-core/contents/tags/</link>
+      <pubDate>Thu, 12 Apr 2018 16:55:06 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/tags/</guid>
+      <description>Tags are simply key-value pairs that are attached to entities in the database.
+We support adding tags to TestDefinition, TestExecution, and other tags themselves in the form of metatags.
+Internally, we use tags to differentiate multiple dataset series, annotate tests under triage with their ticket numbers, and record additional metadata about the environment in which a test was executed.
+Tags can be configured at the start of test using the DSL.</description>
+    </item>
+    
+    <item>
+      <title>Runtime Property Configuration</title>
+      <link>https://workday.github.io/warp-core/contents/runtime_configuration/</link>
+      <pubDate>Tue, 03 Apr 2018 10:57:41 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/runtime_configuration/</guid>
+      <description>WARP has many runtime configuration options. For example, one can set the log level, or override default JDBC persistence properties.
+Configuration properties can be set using JVM system properties or by creating a configuration file.
+For example, the default database we write to is an in-memory H2 database, however the following minimal warp.properties file can be used as a starting point to write results to MySQL:
+wd.warp.jdbc.url=jdbc:mysql://localhost:3307/warp?createDatabaseIfNotExist=true&amp;amp;zeroDateTimeBehavior=convertToNull wd.warp.jdbc.password=1234 wd.warp.jdbc.user=root wd.warp.jdbc.driver=com.mysql.jdbc.Driver wd.</description>
+    </item>
+    
+    <item>
+      <title>Persistence</title>
+      <link>https://workday.github.io/warp-core/contents/persistence/</link>
+      <pubDate>Tue, 03 Apr 2018 10:58:04 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/persistence/</guid>
+      <description>WARP uses slick for our persistence library, and flyway for managing database migrations.
+Slick can have a steep learning curve for new developers; we recommend reading Essential Slick as a primer for those looking to get more acquainted with the library.
+Our persistence module is designed to be extensible for custom needs. Internally, we augment the default schema with some additional proprietary measurement columns. See the advanced schema page here for a more detailed description of our persistence architecture and how you can extend our schema to fit your needs.</description>
+    </item>
+    
+    <item>
+      <title>Dependency Injection</title>
+      <link>https://workday.github.io/warp-core/contents/dependency_injection/</link>
+      <pubDate>Tue, 03 Apr 2018 10:57:50 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/dependency_injection/</guid>
+      <description>WARP uses Guice for some dependency bindings.
+In particular, we bind a concrete implementation of AbstractMeasurementCollectionController, an implementation of WarpPropertyLike (which enumerates all the available runtime configuration parameters), and provide an extension hook for users to bind additional tinylog Writers.
+The binding module we provide out of the box in DefaultWarpModule should be fine for most use cases. However, advanced users can implement their own bindings in a new module and set the system property wd.</description>
+    </item>
+    
+    <item>
+      <title>Case Study: RPCA Anomaly Detection</title>
+      <link>https://workday.github.io/warp-core/contents/anomaly_detection/</link>
+      <pubDate>Wed, 04 Apr 2018 12:41:01 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/anomaly_detection/</guid>
+      <description>One of the arbiters included with WARP is the RobustPcaArbiter.
+This arbiter is based on an anomaly detection algorithm called Robust Principal Component Analysis. (RPCA). RPCA is a matrix decomposition algorithm that decomposes a measurement matrix M into the sum L + S + E. L is a low-rank matrix that represents the &amp;ldquo;normal&amp;rdquo; component of M. S is a sparse matrix that represents the anomalies in M, and E is an error term representing random noise.</description>
+    </item>
+    
+    <item>
+      <title>Case Study: Hypothesis Testing</title>
+      <link>https://workday.github.io/warp-core/contents/hypothesis_testing/</link>
+      <pubDate>Fri, 06 Apr 2018 10:47:35 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/hypothesis_testing/</guid>
+      <description>Two of the most challenging aspects of experimental design are the creation of a strong testable hypothesis and devising an experiment to test it. This article will describe features in WARP designed to assist users in evaluating their experimental hypotheses.
+Thanks to Michael Ottati for writing the original form of this document.
+The Hypothesis A hypothesis is a theory or speculation typically originating from a question:
+ If X changes, what happens to Y?</description>
+    </item>
+    
+    <item>
+      <title>Case Study: Monitoring Heap Histogram</title>
+      <link>https://workday.github.io/warp-core/contents/heap_histogram/</link>
+      <pubDate>Mon, 09 Apr 2018 10:30:09 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/heap_histogram/</guid>
+      <description>WARP includes a HeapHistogramCollector that can be used to monitor the effects of an experiment on the heap.
+We use the attach API to sample the heap histogram, and write the resulting data to InfluxDB. Grafana can be used to visualize the heap measurements.
+The HeapHistogramCollector comes in two variants: &amp;ldquo;continuous&amp;rdquo; and &amp;ldquo;bracketed&amp;rdquo;. The continuous version uses a separate thread to sample the heap at regularly specified intervals, while the bracketed version takes a heap sample before and after an experimental test.</description>
+    </item>
+    
+    <item>
+      <title>Extending the Schema (advanced)</title>
+      <link>https://workday.github.io/warp-core/contents/extension_advanced/</link>
+      <pubDate>Tue, 03 Apr 2018 10:58:39 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/extension_advanced/</guid>
+      <description>Internally, we use an augmented schema with some additional proprietary columns and measurement tables.
+This section examines our process for developing an extensible schema mechanism, and describes how the core schema can be augmented to fit custom requirements. Note that this process is quite involved, and we recommend using tags for most use cases instead of a customized schema.
+Thanks to Leslie Lam for all her work on making persistence generic, and for writing the original form of this document.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://workday.github.io/warp-core/contents/_footer/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/_footer/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

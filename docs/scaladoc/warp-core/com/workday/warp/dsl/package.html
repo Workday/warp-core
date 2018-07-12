@@ -1,0 +1,468 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>dsl - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.warp.dsl</title>
+          <meta name="description" content="dsl - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.warp.dsl" />
+          <meta name="keywords" content="dsl warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.warp.dsl" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.workday.warp.dsl.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../../lib/package_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.workday">workday</a>.<a href="../package.html" class="extype" name="com.workday.warp">warp</a></p>
+        <h1>dsl</h1><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dsl</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.workday.warp.dsl.Configurable" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="ConfigurableextendsAnyRef"></a>
+      <a id="Configurable:Configurable"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Configurable.html"><span class="name">Configurable</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@ConfigurableextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Enables syntax like <code>using no arbiters</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Enables syntax like <code>using no arbiters</code>. See <a href="ExecutionConfig.html#no(configurable:com.workday.warp.dsl.Configurable):com.workday.warp.dsl.ExecutionConfig" class="extmbr" name="com.workday.warp.dsl.ExecutionConfig#no">ExecutionConfig.no</a>.</p><p>Created by tomas.mccandless on 4/29/16.
+</p></div></div>
+    </li><li name="com.workday.warp.dsl.DefaultsWord" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="DefaultsWordextendsAnyRef"></a>
+      <a id="DefaultsWord:DefaultsWord"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="DefaultsWord.html"><span class="name">DefaultsWord</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@DefaultsWordextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Enables syntax like <code>using only defaults measuring { ... }</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Enables syntax like <code>using only defaults measuring { ... }</code>. The only implementing instance should be <a href="defaults$.html" class="extype" name="com.workday.warp.dsl.defaults">defaults</a>.</p><p>Created by tomas.mccandless on 6/13/16.
+</p></div></div>
+    </li><li name="com.workday.warp.dsl.DslApi" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DslApiextendsAnnotationwithAnnotationwithClassfileAnnotation"></a>
+      <a id="DslApi:DslApi"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="DslApi.html"><span class="name">DslApi</span></a><span class="result"> extends <span class="extype" name="scala.annotation.Annotation">Annotation</span> with <span class="extype" name="java.lang.annotation.Annotation">Annotation</span> with <span class="extype" name="scala.annotation.ClassfileAnnotation">ClassfileAnnotation</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@DslApiextendsAnnotationwithAnnotationwithClassfileAnnotation" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.dsl.ExecutionConfig" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ExecutionConfigextendsProductwithSerializable"></a>
+      <a id="ExecutionConfig:ExecutionConfig"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ExecutionConfig.html"><span class="name">ExecutionConfig</span></a><span class="params">(<span name="invocations">invocations: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">1</span></span>, <span name="threads">threads: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">1</span></span>, <span name="warmups">warmups: <span class="extype" name="scala.Int">Int</span> = <span class="symbol">0</span></span>, <span name="distribution">distribution: <a href="../../telemetron/math/DistributionLike.html" class="extype" name="com.workday.telemetron.math.DistributionLike">DistributionLike</a> = <span class="symbol"><span class="name"><a href="../../../package.html">CoreConstants.DISTRIBUTION</a></span></span></span>, <span name="testId">testId: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="../../../package.html">CoreConstants.UNDEFINED_TEST_ID</a></span></span></span>, <span name="mode">mode: <a href="ModeWord.html" class="extype" name="com.workday.warp.dsl.ModeWord">ModeWord</a> = <span class="symbol"><span class="name"><a href="multi$.html">multi</a></span></span></span>, <span name="disableExistingArbiters">disableExistingArbiters: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="additionalArbiters">additionalArbiters: <span class="extype" name="scala.List">List</span>[<a href="../arbiters/traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a>] = <span class="symbol">List.empty</span></span>, <span name="disableExistingCollectors">disableExistingCollectors: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="additionalCollectors">additionalCollectors: <span class="extype" name="scala.List">List</span>[<a href="../collectors/abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a>] = <span class="symbol">List.empty</span></span>, <span name="additionalTags">additionalTags: <span class="extype" name="scala.List">List</span>[<a href="../persistence/Tag.html" class="extype" name="com.workday.warp.persistence.Tag">Tag</a>] = <span class="symbol">List.empty</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@ExecutionConfigextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Holds configuration options for measured tests.</p><div class="fullcomment"><div class="comment cmt"><p>Holds configuration options for measured tests.</p><p>Each configuration method invokes the <code>copy()</code> method to create a modified version of the config.</p><p>The execution and measuring of tests is handled by <a href="Researcher.html" class="extype" name="com.workday.warp.dsl.Researcher">Researcher</a>.</p><p>Created by tomas.mccandless on 3/25/16.
+</p></div></div>
+    </li><li name="com.workday.warp.dsl.ModeWord" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="ModeWordextendsAnyRef"></a>
+      <a id="ModeWord:ModeWord"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ModeWord.html"><span class="name">ModeWord</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@ModeWordextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Specifies a mode for measurement collection.</p><div class="fullcomment"><div class="comment cmt"><p>Specifies a mode for measurement collection.</p><p>Only applies to tests running under an <a href="ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">ExecutionConfig</a> with <code>threads &gt; 1</code>. A multithreaded test running in
+<code>single</code> mode will have an outer <a href="../collectors/AbstractMeasurementCollectionController.html" class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController">com.workday.warp.collectors.AbstractMeasurementCollectionController</a> to collect measurements,
+but all invocations running on separate threads will not be measured.</p><p>A multithreaded test running in <code>multi</code> mode will similarly have an outer controller, but each individual invocation
+will also have its own controller. Controllers for individual invocations will have their intrusive measurements disabled.</p><p>Created by tomas.mccandless on 12/20/16.
+</p></div></div>
+    </li><li name="com.workday.warp.dsl.Researcher" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Researcher[ResultType,TrialType]extendsProductwithSerializable"></a>
+      <a id="Researcher[ResultType,TrialType]:Researcher[ResultType,TrialType]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Researcher.html"><span class="name">Researcher</span></a><span class="tparams">[<span name="ResultType">ResultType</span>, <span name="TrialType">TrialType</span>]</span><span class="params">(<span name="config">config: <a href="ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">ExecutionConfig</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="evidence$1">evidence$1: <span class="extype" name="scala.reflect.api.TypeTags.TypeTag">scala.reflect.api.JavaUniverse.TypeTag</span>[<span class="extype" name="com.workday.warp.dsl.Researcher.ResultType">ResultType</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@Researcher[ResultType,TrialType]extendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Conducts experiments using the provided <a href="ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">ExecutionConfig</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Conducts experiments using the provided <a href="ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">ExecutionConfig</a>.</p><p>An experiment consists of 0 or more warmup invocations, and 1 or more measured trials. Warmup invocations will be
+excluded from measurement. Depending on which measurement <a href="ModeWord.html" class="extype" name="com.workday.warp.dsl.ModeWord">ModeWord</a> is set and the number of specified threads
+and invocations, we might collect non-intrusive measurements for individual invocations on individual threads.</p><p>Note: The <span class="extype" name="ResultType">ResultType</span> TypeTag represents the measured function's return value, while <span class="extype" name="TrialType">TrialType</span> represents the type
+      parameter of the returned <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a>. This second type parameter is necessary because <span class="extype" name="ResultType">ResultType</span> might
+      be a <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a>, in which case we want to return a <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> containing the same <span class="extype" name="TrialType">TrialType</span> parameter.
+      If <span class="extype" name="ResultType">ResultType</span> is some other type, then we will wrap it in a <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> and store the value as <code>maybeResult</code>.</p><p>Created by tomas.mccandless on 12/20/16.
+</p></div></div>
+    </li><li name="com.workday.warp.dsl.ResultOfOnlyThese" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ResultOfOnlyTheseextendsAnyRef"></a>
+      <a id="ResultOfOnlyThese:ResultOfOnlyThese"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ResultOfOnlyThese.html"><span class="name">ResultOfOnlyThese</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@ResultOfOnlyTheseextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Holds the instance on which <code>only these</code> was invoked.</p><div class="fullcomment"><div class="comment cmt"><p>Holds the instance on which <code>only these</code> was invoked. The next chained function call should be <code>collectors</code> or
+<code>arbiters</code>, which return a copy of the wrapped <a href="ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">ExecutionConfig</a> appropriately reconfigured.</p><p>Created by tomas.mccandless on 5/17/16.
+</p></div></div>
+    </li><li name="com.workday.warp.dsl.TheseWord" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="TheseWordextendsAnyRef"></a>
+      <a id="TheseWord:TheseWord"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="TheseWord.html"><span class="name">TheseWord</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@TheseWordextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Enables syntax like <code>using only these collectors</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Enables syntax like <code>using only these collectors</code>. The only implementing instance should be <a href="these$.html" class="extype" name="com.workday.warp.dsl.these">these</a>.</p><p>Created by tomas.mccandless on 5/17/16.
+</p></div></div>
+    </li><li name="com.workday.warp.dsl.WarpMatchers" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="WarpMatchersextendsAnyRef"></a>
+      <a id="WarpMatchers:WarpMatchers"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="WarpMatchers.html"><span class="name">WarpMatchers</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@WarpMatchersextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Matchers to be used with scalatest.</p><div class="fullcomment"><div class="comment cmt"><p>Matchers to be used with scalatest.</p><p>Comes with a companion object so these can be either imported or mixed into a class.</p><p>Created by tomas.mccandless on 3/28/16.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="com.workday.warp.dsl.ConfigStore" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ConfigStore"></a>
+      <a id="ConfigStore:ConfigStore"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ConfigStore$.html"><span class="name">ConfigStore</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@ConfigStore" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Makes instances of <a href="ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">ExecutionConfig</a> available to measured tests.</p><div class="fullcomment"><div class="comment cmt"><p>Makes instances of <a href="ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">ExecutionConfig</a> available to measured tests.</p><p>Some tests need to know how many times they are being iterated in order to properly construct log directories.</p><p>Created by tomas.mccandless on 7/8/16.
+</p></div></div>
+    </li><li name="com.workday.warp.dsl.Implicits" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Implicits"></a>
+      <a id="Implicits:Implicits"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Implicits$.html"><span class="name">Implicits</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@Implicits" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Created by tomas.mccandless on 5/6/16.</p>
+    </li><li name="com.workday.warp.dsl.WarpMatchers" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="WarpMatchers"></a>
+      <a id="WarpMatchers:WarpMatchers"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="WarpMatchers$.html"><span class="name">WarpMatchers</span></a><span class="result"> extends <a href="WarpMatchers.html" class="extype" name="com.workday.warp.dsl.WarpMatchers">WarpMatchers</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@WarpMatchers" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.dsl.arbiters" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbiters"></a>
+      <a id="arbiters:arbiters"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="arbiters$.html"><span class="name">arbiters</span></a><span class="result"> extends <a href="Configurable.html" class="extype" name="com.workday.warp.dsl.Configurable">Configurable</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@arbiters" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="DslApi.html" class="extype" name="com.workday.warp.dsl.DslApi">DslApi</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.dsl.collectors" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collectors"></a>
+      <a id="collectors:collectors"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="collectors$.html"><span class="name">collectors</span></a><span class="result"> extends <a href="Configurable.html" class="extype" name="com.workday.warp.dsl.Configurable">Configurable</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@collectors" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="DslApi.html" class="extype" name="com.workday.warp.dsl.DslApi">DslApi</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.dsl.defaults" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="defaults"></a>
+      <a id="defaults:defaults"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="defaults$.html"><span class="name">defaults</span></a><span class="result"> extends <a href="DefaultsWord.html" class="extype" name="com.workday.warp.dsl.DefaultsWord">DefaultsWord</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@defaults" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Part of the dsl.</p><div class="fullcomment"><div class="comment cmt"><p>Part of the dsl. Allows syntax like <code>using only defaults measuring { ... }</code>
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="DslApi.html" class="extype" name="com.workday.warp.dsl.DslApi">DslApi</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.dsl.multi" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="multi"></a>
+      <a id="multi:multi"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="multi$.html"><span class="name">multi</span></a><span class="result"> extends <a href="ModeWord.html" class="extype" name="com.workday.warp.dsl.ModeWord">ModeWord</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@multi" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Part of the dsl.</p><div class="fullcomment"><div class="comment cmt"><p>Part of the dsl. Allows syntax like <code>using mode multi measure { ... }</code></p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="DslApi.html" class="extype" name="com.workday.warp.dsl.DslApi">DslApi</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.dsl.single" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="single"></a>
+      <a id="single:single"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="single$.html"><span class="name">single</span></a><span class="result"> extends <a href="ModeWord.html" class="extype" name="com.workday.warp.dsl.ModeWord">ModeWord</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@single" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Part of the dsl.</p><div class="fullcomment"><div class="comment cmt"><p>Part of the dsl. Allows syntax like <code>using mode single measure { ... }</code>.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="DslApi.html" class="extype" name="com.workday.warp.dsl.DslApi">DslApi</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.dsl.these" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="these"></a>
+      <a id="these:these"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="these$.html"><span class="name">these</span></a><span class="result"> extends <a href="TheseWord.html" class="extype" name="com.workday.warp.dsl.TheseWord">TheseWord</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@these" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Part of the dsl.</p><div class="fullcomment"><div class="comment cmt"><p>Part of the dsl. Allows syntax like <code>using only these collectors { ... }</code> or <code>using only these arbiters { ... }</code>.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="DslApi.html" class="extype" name="com.workday.warp.dsl.DslApi">DslApi</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.dsl.using" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="using"></a>
+      <a id="using:using"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="using$.html"><span class="name">using</span></a><span class="result"> extends <a href="ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">ExecutionConfig</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.dsl.package@using" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Part of the dsl.</p><div class="fullcomment"><div class="comment cmt"><p>Part of the dsl. Default configuration with no additional arbiters or collectors.</p><p>We recommend starting with this configuration and amending it to fit the needs of your experiment.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="DslApi.html" class="extype" name="com.workday.warp.dsl.DslApi">DslApi</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

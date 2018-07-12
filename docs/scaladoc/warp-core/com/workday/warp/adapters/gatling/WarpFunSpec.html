@@ -1,0 +1,836 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>WarpFunSpec - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.warp.adapters.gatling.WarpFunSpec</title>
+          <meta name="description" content="WarpFunSpec - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.warp.adapters.gatling.WarpFunSpec" />
+          <meta name="keywords" content="WarpFunSpec warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.warp.adapters.gatling.WarpFunSpec" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../../index.html';
+            var hash = 'com.workday.warp.adapters.gatling.WarpFunSpec';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="type">
+      <div id="definition">
+        <img alt="Class" src="../../../../../lib/class_big.png" />
+        <p id="owner"><a href="../../../../package.html" class="extype" name="com">com</a>.<a href="../../../package.html" class="extype" name="com.workday">workday</a>.<a href="../../package.html" class="extype" name="com.workday.warp">warp</a>.<a href="../package.html" class="extype" name="com.workday.warp.adapters">adapters</a>.<a href="package.html" class="extype" name="com.workday.warp.adapters.gatling">gatling</a></p>
+        <h1>WarpFunSpec</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="com.workday.warp.adapters.gatling">package gatling</a>
+          </div></span></h3><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">WarpFunSpec</span><span class="result"> extends <span class="extype" name="io.gatling.http.funspec.GatlingHttpFunSpec">GatlingHttpFunSpec</span> with <a href="traits/HasDefaultTestName.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasDefaultTestName">HasDefaultTestName</a> with <a href="traits/HasWarpHooks.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">HasWarpHooks</a></span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Created by ruiqi.wang
+All functional gatling tests measured with WARP should subclass this.</p></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><a href="traits/HasWarpHooks.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">HasWarpHooks</a>, <a href="traits/HasDefaultTestName.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasDefaultTestName">HasDefaultTestName</a>, <a href="traits/HasBasePackageName.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasBasePackageName">HasBasePackageName</a>, <span class="extype" name="io.gatling.http.funspec.GatlingHttpFunSpec">GatlingHttpFunSpec</span>, <span class="extype" name="io.gatling.core.funspec.GatlingFunSpec">GatlingFunSpec</span>, <span class="extype" name="io.gatling.core.scenario.Simulation">Simulation</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="com.workday.warp.adapters.gatling.WarpFunSpec"><span>WarpFunSpec</span></li><li class="in" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks"><span>HasWarpHooks</span></li><li class="in" name="com.workday.warp.adapters.gatling.traits.HasDefaultTestName"><span>HasDefaultTestName</span></li><li class="in" name="com.workday.warp.adapters.gatling.traits.HasBasePackageName"><span>HasBasePackageName</span></li><li class="in" name="io.gatling.http.funspec.GatlingHttpFunSpec"><span>GatlingHttpFunSpec</span></li><li class="in" name="io.gatling.core.funspec.GatlingFunSpec"><span>GatlingFunSpec</span></li><li class="in" name="io.gatling.core.scenario.Simulation"><span>Simulation</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="com.workday.warp.adapters.gatling.WarpFunSpec#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;():com.workday.warp.adapters.gatling.WarpFunSpec"></a>
+      <a id="&lt;init&gt;:WarpFunSpec"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">WarpFunSpec</span><span class="params">()</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@&lt;init&gt;():com.workday.warp.adapters.gatling.WarpFunSpec" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="com.workday.warp.adapters.gatling.WarpFunSpec#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&lt;init&gt;(testId:String):com.workday.warp.adapters.gatling.WarpFunSpec"></a>
+      <a id="&lt;init&gt;:WarpFunSpec"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">WarpFunSpec</span><span class="params">(<span name="testId">testId: <span class="extype" name="scala.Predef.String">String</span></span>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@&lt;init&gt;(testId:String):com.workday.warp.adapters.gatling.WarpFunSpec" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">testId</dt><dd class="cmt"><p>unique name of the gatling simulation to be measured. Defaults to the name of the class created.</p></dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="io.gatling.core.scenario.Simulation.SetUp" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="SetUpextendsAnyRef"></a>
+      <a id="SetUp:SetUp"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">SetUp</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@SetUpextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simulation</dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div id="values" class="values members">
+              <h3>Abstract Value Members</h3>
+              <ol><li name="io.gatling.http.funspec.GatlingHttpFunSpec#baseURL" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="baseURL:String"></a>
+      <a id="baseURL:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">baseURL</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@baseURL:String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>GatlingHttpFunSpec</dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div id="values" class="values members">
+              <h3>Concrete Value Members</h3>
+              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a>
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@##():Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a>
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="io.gatling.core.scenario.Simulation#after" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="after(step:=&gt;Unit):Unit"></a>
+      <a id="after(⇒Unit):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">after</span><span class="params">(<span name="step">step: ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@after(step:=&gt;Unit):Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simulation</dd></dl></div>
+    </li><li name="com.workday.warp.adapters.gatling.traits.HasWarpHooks#afterEnd" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="afterEnd():Unit"></a>
+      <a id="afterEnd():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">afterEnd</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@afterEnd():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Should execute after calling endMeasurement()
+</p><div class="fullcomment"><div class="comment cmt"><p>Should execute after calling endMeasurement()
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/HasWarpHooks.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">HasWarpHooks</a></dd></dl></div>
+    </li><li name="com.workday.warp.adapters.gatling.traits.HasWarpHooks#afterStart" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="afterStart():Unit"></a>
+      <a id="afterStart():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">afterStart</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@afterStart():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Should execute after calling startMeasurement()
+</p><div class="fullcomment"><div class="comment cmt"><p>Should execute after calling startMeasurement()
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/HasWarpHooks.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">HasWarpHooks</a></dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="io.gatling.core.scenario.Simulation#before" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="before(step:=&gt;Unit):Unit"></a>
+      <a id="before(⇒Unit):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">before</span><span class="params">(<span name="step">step: ⇒ <span class="extype" name="scala.Unit">Unit</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@before(step:=&gt;Unit):Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simulation</dd></dl></div>
+    </li><li name="com.workday.warp.adapters.gatling.traits.HasWarpHooks#beforeEnd" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="beforeEnd():Unit"></a>
+      <a id="beforeEnd():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">beforeEnd</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@beforeEnd():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Should execute before calling endMeasurement()
+</p><div class="fullcomment"><div class="comment cmt"><p>Should execute before calling endMeasurement()
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/HasWarpHooks.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">HasWarpHooks</a></dd></dl></div>
+    </li><li name="com.workday.warp.adapters.gatling.traits.HasWarpHooks#beforeStart" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="beforeStart():Unit"></a>
+      <a id="beforeStart():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">beforeStart</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@beforeStart():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Should execute before calling startMeasurement()
+</p><div class="fullcomment"><div class="comment cmt"><p>Should execute before calling startMeasurement()
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/HasWarpHooks.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">HasWarpHooks</a></dd></dl></div>
+    </li><li name="com.workday.warp.adapters.gatling.traits.HasDefaultTestName#canonicalName" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="canonicalName:String"></a>
+      <a id="canonicalName:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">canonicalName</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@canonicalName:String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Gets the fully qualified test name.</p><div class="fullcomment"><div class="comment cmt"><p>Gets the fully qualified test name.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/HasDefaultTestName.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasDefaultTestName">HasDefaultTestName</a></dd></dl></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a>
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@clone():Object" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.adapters.gatling.WarpFunSpec#controller" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="controller:com.workday.warp.collectors.AbstractMeasurementCollectionController"></a>
+      <a id="controller:AbstractMeasurementCollectionController"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">controller</span><span class="result">: <a href="../../collectors/AbstractMeasurementCollectionController.html" class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController">AbstractMeasurementCollectionController</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@controller:com.workday.warp.collectors.AbstractMeasurementCollectionController" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.workday.warp.adapters.gatling.WarpFunSpec">WarpFunSpec</a> → <a href="traits/HasWarpHooks.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">HasWarpHooks</a></dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a>
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <a id="getClass():Class[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="io.gatling.http.funspec.GatlingHttpFunSpec#httpConf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="httpConf:io.gatling.http.protocol.HttpProtocolBuilder"></a>
+      <a id="httpConf:HttpProtocolBuilder"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">httpConf</span><span class="result">: <span class="extype" name="io.gatling.http.protocol.HttpProtocolBuilder">HttpProtocolBuilder</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@httpConf:io.gatling.http.protocol.HttpProtocolBuilder" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>GatlingHttpFunSpec</dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a>
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@notify():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.workday.warp.adapters.gatling.traits.HasBasePackageName#packageName" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="packageName:String"></a>
+      <a id="packageName:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">packageName</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@packageName:String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="traits/HasBasePackageName.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasBasePackageName">HasBasePackageName</a></dd></dl></div>
+    </li><li name="io.gatling.http.funspec.GatlingHttpFunSpec#protocolConf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="protocolConf:io.gatling.core.protocol.Protocol"></a>
+      <a id="protocolConf:Protocol"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">protocolConf</span><span class="result">: <span class="extype" name="io.gatling.core.protocol.Protocol">Protocol</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@protocolConf:io.gatling.core.protocol.Protocol" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>GatlingHttpFunSpec → GatlingFunSpec</dd></dl></div>
+    </li><li name="io.gatling.core.scenario.Simulation#setUp" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="setUp(populationBuilders:List[io.gatling.core.structure.PopulationBuilder]):Simulation.this.SetUp"></a>
+      <a id="setUp(List[PopulationBuilder]):SetUp"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">setUp</span><span class="params">(<span name="populationBuilders">populationBuilders: <span class="extype" name="scala.List">List</span>[<span class="extype" name="io.gatling.core.structure.PopulationBuilder">PopulationBuilder</span>]</span>)</span><span class="result">: <a href="#SetUpextendsAnyRef" class="extmbr" name="com.workday.warp.adapters.gatling.WarpFunSpec.SetUp">SetUp</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@setUp(populationBuilders:List[io.gatling.core.structure.PopulationBuilder]):Simulation.this.SetUp" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simulation</dd></dl></div>
+    </li><li name="io.gatling.core.scenario.Simulation#setUp" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="setUp(populationBuilders:io.gatling.core.structure.PopulationBuilder*):Simulation.this.SetUp"></a>
+      <a id="setUp(PopulationBuilder*):SetUp"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">setUp</span><span class="params">(<span name="populationBuilders">populationBuilders: <span class="extype" name="io.gatling.core.structure.PopulationBuilder">PopulationBuilder</span>*</span>)</span><span class="result">: <a href="#SetUpextendsAnyRef" class="extmbr" name="com.workday.warp.adapters.gatling.WarpFunSpec.SetUp">SetUp</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@setUp(populationBuilders:io.gatling.core.structure.PopulationBuilder*):Simulation.this.SetUp" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Simulation</dd></dl></div>
+    </li><li name="io.gatling.core.funspec.GatlingFunSpec#spec" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="spec(actionBuilder:&lt;?&gt;):scala.collection.mutable.ListBuffer[io.gatling.core.action.builder.ActionBuilder]"></a>
+      <a id="spec(ActionBuilder):ListBuffer[ActionBuilder]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">spec</span><span class="params">(<span name="actionBuilder">actionBuilder: <span class="extype" name="io.gatling.core.action.builder.ActionBuilder">ActionBuilder</span></span>)</span><span class="result">: <span class="extype" name="scala.collection.mutable.ListBuffer">ListBuffer</span>[<span class="extype" name="io.gatling.core.action.builder.ActionBuilder">ActionBuilder</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@spec(actionBuilder:io.gatling.core.action.builder.ActionBuilder):scala.collection.mutable.ListBuffer[io.gatling.core.action.builder.ActionBuilder]" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>GatlingFunSpec</dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+      <a id="synchronized[T0](⇒T0):T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.workday.warp.adapters.gatling.WarpFunSpec#testId" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="testId:String"></a>
+      <a id="testId:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">testId</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@testId:String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">unique name of the gatling simulation to be measured.</p><div class="fullcomment"><div class="comment cmt"><p>unique name of the gatling simulation to be measured. Defaults to the name of the class created.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.workday.warp.adapters.gatling.WarpFunSpec">WarpFunSpec</a> → <a href="traits/HasDefaultTestName.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasDefaultTestName">HasDefaultTestName</a></dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@toString():String" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@wait():Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a>
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../../index.html#com.workday.warp.adapters.gatling.WarpFunSpec@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">
+              <h3>Inherited from <a href="traits/HasWarpHooks.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasWarpHooks">HasWarpHooks</a></h3>
+            </div><div class="parent" name="com.workday.warp.adapters.gatling.traits.HasDefaultTestName">
+              <h3>Inherited from <a href="traits/HasDefaultTestName.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasDefaultTestName">HasDefaultTestName</a></h3>
+            </div><div class="parent" name="com.workday.warp.adapters.gatling.traits.HasBasePackageName">
+              <h3>Inherited from <a href="traits/HasBasePackageName.html" class="extype" name="com.workday.warp.adapters.gatling.traits.HasBasePackageName">HasBasePackageName</a></h3>
+            </div><div class="parent" name="io.gatling.http.funspec.GatlingHttpFunSpec">
+              <h3>Inherited from <span class="extype" name="io.gatling.http.funspec.GatlingHttpFunSpec">GatlingHttpFunSpec</span></h3>
+            </div><div class="parent" name="io.gatling.core.funspec.GatlingFunSpec">
+              <h3>Inherited from <span class="extype" name="io.gatling.core.funspec.GatlingFunSpec">GatlingFunSpec</span></h3>
+            </div><div class="parent" name="io.gatling.core.scenario.Simulation">
+              <h3>Inherited from <span class="extype" name="io.gatling.core.scenario.Simulation">Simulation</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

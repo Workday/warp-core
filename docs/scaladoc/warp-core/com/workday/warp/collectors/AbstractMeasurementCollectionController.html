@@ -1,0 +1,1114 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>AbstractMeasurementCollectionController - warp-core 0.1.0-dev.1.uncommitted+2dd074d API - com.workday.warp.collectors.AbstractMeasurementCollectionController</title>
+          <meta name="description" content="AbstractMeasurementCollectionController - warp - core 0.1.0 - dev.1.uncommitted 2dd074d API - com.workday.warp.collectors.AbstractMeasurementCollectionController" />
+          <meta name="keywords" content="AbstractMeasurementCollectionController warp core 0.1.0 dev.1.uncommitted 2dd074d API com.workday.warp.collectors.AbstractMeasurementCollectionController" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'com.workday.warp.collectors.AbstractMeasurementCollectionController';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="type">
+      <div id="definition">
+        <img alt="Class" src="../../../../lib/class_big.png" />
+        <p id="owner"><a href="../../../package.html" class="extype" name="com">com</a>.<a href="../../package.html" class="extype" name="com.workday">workday</a>.<a href="../package.html" class="extype" name="com.workday.warp">warp</a>.<a href="package.html" class="extype" name="com.workday.warp.collectors">collectors</a></p>
+        <h1>AbstractMeasurementCollectionController</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="package.html" class="extype" name="com.workday.warp.collectors">package collectors</a>
+          </div></span></h3><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">AbstractMeasurementCollectionController</span><span class="result"> extends <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Orchestrates the starting and stopping of MeasurementCollectors configured for this test.</p><p>The most basic way to use this API is to instantiate <a href="DefaultMeasurementCollectionController.html" class="extype" name="com.workday.warp.collectors.DefaultMeasurementCollectionController">DefaultMeasurementCollectionController</a> directly,
+however we encourage using either the <a href="../../telemetron/annotation/Measure.html" class="extype" name="com.workday.telemetron.annotation.Measure">com.workday.telemetron.annotation.Measure</a> annotation, or the Scala DSL in
+<a href="../dsl/ExecutionConfig.html" class="extype" name="com.workday.warp.dsl.ExecutionConfig">com.workday.warp.dsl.ExecutionConfig</a>.</p><p>Created by tomas.mccandless on 8/18/15.
+Based on a java class created by michael.ottati on 1/17/14.
+</p></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div><div class="toggleContainer block">
+            <span class="toggle">Known Subclasses</span>
+            <div class="subClasses hiddenContent"><a href="DefaultMeasurementCollectionController.html" class="extype" name="com.workday.warp.collectors.DefaultMeasurementCollectionController">DefaultMeasurementCollectionController</a></div>
+          </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="com.workday.warp.collectors.AbstractMeasurementCollectionController"><span>AbstractMeasurementCollectionController</span></li><li class="in" name="com.workday.warp.persistence.PersistenceAware"><span>PersistenceAware</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&lt;init&gt;(testId:String,tags:List[com.workday.warp.persistence.Tag]):com.workday.warp.collectors.AbstractMeasurementCollectionController"></a>
+      <a id="&lt;init&gt;:AbstractMeasurementCollectionController"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">AbstractMeasurementCollectionController</span><span class="params">(<span name="testId">testId: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol"><span class="name"><a href="Defaults$.html">Defaults.testId</a></span></span></span>, <span name="tags">tags: <span class="extype" name="scala.List">List</span>[<a href="../persistence/Tag.html" class="extype" name="com.workday.warp.persistence.Tag">Tag</a>] = <span class="symbol"><span class="name"><a href="Defaults$.html">Defaults.tags</a></span></span></span>)</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@&lt;init&gt;(testId:String,tags:List[com.workday.warp.persistence.Tag]):com.workday.warp.collectors.AbstractMeasurementCollectionController" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">testId</dt><dd class="cmt"><p>fully qualified name of the method being measured.</p></dd><dt class="param">tags</dt><dd class="cmt"><p><span class="extype" name="List">List</span> of <span class="extype" name="Tag">Tag</span> that should be persisted during endMeasurementCollection.</p></dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="com.workday.warp.persistence.PersistenceAware.AbstractPersistenceUtils" visbl="prt" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="AbstractPersistenceUtilsextendsConnectionwithAbstractQuerieswithHasProfile"></a>
+      <a id="AbstractPersistenceUtils:AbstractPersistenceUtils"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="../persistence/PersistenceAware$AbstractPersistenceUtils.html"><span class="name">AbstractPersistenceUtils</span></a><span class="result"> extends <a href="../persistence/Connection.html" class="extype" name="com.workday.warp.persistence.Connection">Connection</a> with <a href="../persistence/AbstractQueries.html" class="extype" name="com.workday.warp.persistence.AbstractQueries">AbstractQueries</a> with <a href="../persistence/HasProfile.html" class="extype" name="com.workday.warp.persistence.HasProfile">HasProfile</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.persistence.PersistenceAware@AbstractPersistenceUtilsextendsConnectionwithAbstractQuerieswithHasProfile" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Utility functions for persisting results.</p><div class="fullcomment"><div class="comment cmt"><p>Utility functions for persisting results.
+This is a protected trait within <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a> so it is only accessible by classes that extend <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a>.
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div id="values" class="values members">
+              <h3>Abstract Value Members</h3>
+              <ol><li name="com.workday.warp.persistence.PersistenceAware#initUtils" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="initUtils():Unit"></a>
+      <a id="initUtils():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">initUtils</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@initUtils():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Override this to initialize the correct PersistenceUtils companion object.</p><div class="fullcomment"><div class="comment cmt"><p>Override this to initialize the correct PersistenceUtils companion object.
+This ensures that a database with the correct schema is initialized.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></dd></dl></div>
+    </li><li name="com.workday.warp.persistence.PersistenceAware#persistenceUtils" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="persistenceUtils:PersistenceAware.this.AbstractPersistenceUtils"></a>
+      <a id="persistenceUtils:AbstractPersistenceUtils"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">persistenceUtils</span><span class="result">: <a href="#AbstractPersistenceUtilsextendsConnectionwithAbstractQuerieswithHasProfile" class="extmbr" name="com.workday.warp.persistence.PersistenceAware.AbstractPersistenceUtils">AbstractPersistenceUtils</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@persistenceUtils:PersistenceAware.this.AbstractPersistenceUtils" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><a href="../persistence/PersistenceAware$AbstractPersistenceUtils.html" class="extype" name="com.workday.warp.persistence.PersistenceAware.AbstractPersistenceUtils">AbstractPersistenceUtils</a> to allow for db interaction</p><div class="fullcomment"><div class="comment cmt"><p><a href="../persistence/PersistenceAware$AbstractPersistenceUtils.html" class="extype" name="com.workday.warp.persistence.PersistenceAware.AbstractPersistenceUtils">AbstractPersistenceUtils</a> to allow for db interaction</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div id="values" class="values members">
+              <h3>Concrete Value Members</h3>
+              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a>
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@##():Int" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a>
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#_arbiters" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_arbiters:List[com.workday.warp.arbiters.traits.ArbiterLike]"></a>
+      <a id="_arbiters:List[ArbiterLike]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">var</span>
+      </span>
+      <span class="symbol">
+        <span class="name">_arbiters</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="../arbiters/traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@_arbiters:List[com.workday.warp.arbiters.traits.ArbiterLike]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">arbiters that will impose requirements on this test.</p><div class="fullcomment"><div class="comment cmt"><p>arbiters that will impose requirements on this test.</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#_collectors" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_collectors:List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]"></a>
+      <a id="_collectors:List[AbstractMeasurementCollector]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">var</span>
+      </span>
+      <span class="symbol">
+        <span class="name">_collectors</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@_collectors:List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">collectors that will be wrapped around this test.</p><div class="fullcomment"><div class="comment cmt"><p>collectors that will be wrapped around this test.</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#_measurementInProgress" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_measurementInProgress:Boolean"></a>
+      <a id="_measurementInProgress:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">var</span>
+      </span>
+      <span class="symbol">
+        <span class="name">_measurementInProgress</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@_measurementInProgress:Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">whether measurement is currently underway.</p><div class="fullcomment"><div class="comment cmt"><p>whether measurement is currently underway. used to prevent registration of new collectors during measurements</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#arbiters" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="arbiters:List[com.workday.warp.arbiters.traits.ArbiterLike]"></a>
+      <a id="arbiters:List[ArbiterLike]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">arbiters</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="../arbiters/traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@arbiters:List[com.workday.warp.arbiters.traits.ArbiterLike]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>arbiters that will impose requirements on this test.</p></dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#beginMeasurementCollection" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="beginMeasurementCollection():Unit"></a>
+      <a id="beginMeasurementCollection():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">beginMeasurementCollection</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@beginMeasurementCollection():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Starts all the collectors that are configured.</p>
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a>
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@clone():Object" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#collectorSchedule" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collectorSchedule:List[(Int,List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector])]"></a>
+      <a id="collectorSchedule:List[(Int,List[AbstractMeasurementCollector])]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">collectorSchedule</span><span class="result">: <span class="extype" name="scala.List">List</span>[(<span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.List">List</span>[<a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a>])]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@collectorSchedule:List[(Int,List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector])]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Determines the schedule of parallel collection.</p><div class="fullcomment"><div class="comment cmt"><p>Determines the schedule of parallel collection.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>a List containing all enabled collectors grouped and sorted by their priority levels</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#collectors" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collectors:List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]"></a>
+      <a id="collectors:List[AbstractMeasurementCollector]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">collectors</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@collectors:List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>collectors wrapped around this test.</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#disableArbiters" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="disableArbiters():Unit"></a>
+      <a id="disableArbiters():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">disableArbiters</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@disableArbiters():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Disables all arbiters used by this controller</p>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#disableCollectors" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="disableCollectors():Unit"></a>
+      <a id="disableCollectors():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">disableCollectors</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@disableCollectors():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Disables all collectors used by this controller.</p>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#disableIntrusiveCollectors" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="disableIntrusiveCollectors():Unit"></a>
+      <a id="disableIntrusiveCollectors():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">disableIntrusiveCollectors</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@disableIntrusiveCollectors():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Disables all intrusive collectors.</p><div class="fullcomment"><div class="comment cmt"><p>Disables all intrusive collectors. should be called before starting any nested measurements.</p></div></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#enabledArbiters" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="enabledArbiters:List[com.workday.warp.arbiters.traits.ArbiterLike]"></a>
+      <a id="enabledArbiters:List[ArbiterLike]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">enabledArbiters</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="../arbiters/traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@enabledArbiters:List[com.workday.warp.arbiters.traits.ArbiterLike]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>a List containing only the arbiters that are enabled</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#enabledCollectors" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="enabledCollectors:List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]"></a>
+      <a id="enabledCollectors:List[AbstractMeasurementCollector]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">enabledCollectors</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@enabledCollectors:List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>a List containing only those collectors that are enabled</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#endMeasurementCollection" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="endMeasurementCollection[TrialType](maybeTrial:scala.util.Try[com.workday.warp.TrialResult[TrialType]]):com.workday.warp.TrialResult[TrialType]"></a>
+      <a id="endMeasurementCollection[TrialType](Try[TrialResult[TrialType]]):TrialResult[TrialType]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">endMeasurementCollection</span><span class="tparams">[<span name="TrialType">TrialType</span>]</span><span class="params">(<span name="maybeTrial">maybeTrial: <span class="extype" name="scala.util.Try">Try</span>[<a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a>[<span class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController.endMeasurementCollection.TrialType">TrialType</span>]]</span>)</span><span class="result">: <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a>[<span class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController.endMeasurementCollection.TrialType">TrialType</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@endMeasurementCollection[TrialType](maybeTrial:scala.util.Try[com.workday.warp.TrialResult[TrialType]]):com.workday.warp.TrialResult[TrialType]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Ends measurement collection.</p><div class="fullcomment"><div class="comment cmt"><p>Ends measurement collection.</p><p>Collectors will be stopped in the reverse order they were started. elapsedTime will be recorded as the response
+time for this test. Results will be recorded only if <code>tryTrial</code> is a <span class="extype" name="Success">Success</span>.
+</p></div><dl class="paramcmts block"><dt class="param">maybeTrial</dt><dd class="cmt"><p>a <span class="extype" name="Try">Try</span> of type <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> with information about a measured test</p></dd><dt>returns</dt><dd class="cmt"><p>a <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> with information about the measured test or an exception if test failed functionally.</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="scala.this.throws.&lt;init&gt;$default$1[RuntimeException]">...</span>
+    </span>)</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="scala.this.throws.&lt;init&gt;$default$1[com.workday.warp.persistence.exception.PreExistingTagException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#endMeasurementCollection" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="endMeasurementCollection[TrialType]():com.workday.warp.TrialResult[TrialType]"></a>
+      <a id="endMeasurementCollection[TrialType]():TrialResult[TrialType]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">endMeasurementCollection</span><span class="tparams">[<span name="TrialType">TrialType</span>]</span><span class="params">()</span><span class="result">: <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a>[<span class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController.endMeasurementCollection.TrialType">TrialType</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@endMeasurementCollection[TrialType]():com.workday.warp.TrialResult[TrialType]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Ends measurement collection.</p><div class="fullcomment"><div class="comment cmt"><p>Ends measurement collection.</p><p>Collectors will be stopped in the reverse order they were started. The <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> will be created with the default
+parameters for this test.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>a <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> with information about the measured test.</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#endMeasurementCollection" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="endMeasurementCollection(responseTime:java.time.Duration,maybeThreshold:Option[java.time.Duration]):com.workday.warp.TrialResult[_]"></a>
+      <a id="endMeasurementCollection(Duration,Option[Duration]):TrialResult[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">endMeasurementCollection</span><span class="params">(<span name="responseTime">responseTime: <span class="extype" name="java.time.Duration">Duration</span></span>, <span name="maybeThreshold">maybeThreshold: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="java.time.Duration">Duration</span>]</span>)</span><span class="result">: <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@endMeasurementCollection(responseTime:java.time.Duration,maybeThreshold:Option[java.time.Duration]):com.workday.warp.TrialResult[_]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Ends measurement collection.</p><div class="fullcomment"><div class="comment cmt"><p>Ends measurement collection.</p><p>Collectors will be stopped in the reverse order they were started. response time will be recorded as the Duration
+for this test and maybeThreshold will be the expected max Duration of the test if Some value.
+</p></div><dl class="paramcmts block"><dt class="param">responseTime</dt><dd class="cmt"><p>the response time to record for this test.</p></dd><dt class="param">maybeThreshold</dt><dd class="cmt"><p>the response time threshold for the measured test.</p></dd><dt>returns</dt><dd class="cmt"><p>a <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> with information about the measured test.</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#endMeasurementCollection" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="endMeasurementCollection(elapsedTime:java.time.Duration):com.workday.warp.TrialResult[_]"></a>
+      <a id="endMeasurementCollection(Duration):TrialResult[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">endMeasurementCollection</span><span class="params">(<span name="elapsedTime">elapsedTime: <span class="extype" name="java.time.Duration">Duration</span></span>)</span><span class="result">: <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@endMeasurementCollection(elapsedTime:java.time.Duration):com.workday.warp.TrialResult[_]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Ends measurement collection.</p><div class="fullcomment"><div class="comment cmt"><p>Ends measurement collection.</p><p>Collectors will be stopped in the reverse order they were started. elapsedTime will be recorded as the response
+time in milliseconds for this test.
+</p></div><dl class="paramcmts block"><dt class="param">elapsedTime</dt><dd class="cmt"><p>measured response time of the test.</p></dd><dt>returns</dt><dd class="cmt"><p>a <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> with information about the measured test.</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#endMeasurementCollection" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="endMeasurementCollection(elapsedTime:java.time.Duration,threshold:java.time.Duration):com.workday.warp.TrialResult[_]"></a>
+      <a id="endMeasurementCollection(Duration,Duration):TrialResult[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">endMeasurementCollection</span><span class="params">(<span name="elapsedTime">elapsedTime: <span class="extype" name="java.time.Duration">Duration</span></span>, <span name="threshold">threshold: <span class="extype" name="java.time.Duration">Duration</span></span>)</span><span class="result">: <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@endMeasurementCollection(elapsedTime:java.time.Duration,threshold:java.time.Duration):com.workday.warp.TrialResult[_]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Ends measurement collection.</p><div class="fullcomment"><div class="comment cmt"><p>Ends measurement collection. Should be invoked as part of warp service.
+</p></div><dl class="paramcmts block"><dt class="param">elapsedTime</dt><dd class="cmt"><p>measured response time of the test.</p></dd><dt class="param">threshold</dt><dd class="cmt"><p>response time threshold of the measured test.</p></dd><dt>returns</dt><dd class="cmt"><p>a <a href="../TrialResult.html" class="extype" name="com.workday.warp.TrialResult">TrialResult</a> with information about the measured test.</p></dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a>
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <a id="getClass():Class[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#intrusiveCollectors" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="intrusiveCollectors:List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]"></a>
+      <a id="intrusiveCollectors:List[AbstractMeasurementCollector]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">intrusiveCollectors</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@intrusiveCollectors:List[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>all collectors that should be disabled for nested measurements.</p></dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#isIntrusive" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isIntrusive:Boolean"></a>
+      <a id="isIntrusive:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isIntrusive</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@isIntrusive:Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>true iff there are any enabled intrusive collectors.</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#measurementInProgress" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="measurementInProgress:Boolean"></a>
+      <a id="measurementInProgress:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">measurementInProgress</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@measurementInProgress:Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>whether measurement is currently underway.</p></dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a>
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@notify():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#recordMetaTags" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="recordMetaTags(metaTags:List[com.workday.warp.persistence.MetaTag],testExecutionTagId:Int):List[com.workday.warp.persistence.PersistMetaTagResult]"></a>
+      <a id="recordMetaTags(List[MetaTag],Int):List[PersistMetaTagResult]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">recordMetaTags</span><span class="params">(<span name="metaTags">metaTags: <span class="extype" name="scala.List">List</span>[<a href="../persistence/MetaTag.html" class="extype" name="com.workday.warp.persistence.MetaTag">MetaTag</a>]</span>, <span name="testExecutionTagId">testExecutionTagId: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="../persistence/PersistMetaTagResult.html" class="extype" name="com.workday.warp.persistence.PersistMetaTagResult">PersistMetaTagResult</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@recordMetaTags(metaTags:List[com.workday.warp.persistence.MetaTag],testExecutionTagId:Int):List[com.workday.warp.persistence.PersistMetaTagResult]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Persist list of meta tags to database
+</p><div class="fullcomment"><div class="comment cmt"><p>Persist list of meta tags to database
+</p></div><dl class="paramcmts block"><dt class="param">metaTags</dt><dd class="cmt"><p>The list of metatags to persist</p></dd><dt class="param">testExecutionTagId</dt><dd class="cmt"><p>The ID of the associated TestExecutionRow</p></dd><dt>returns</dt><dd class="cmt"><p>A list of tuples correlating a tag with a Try indicating if it was successfully persisted</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#recordTags" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="recordTags[T](tags:List[com.workday.warp.persistence.Tag],testExecution:T)(implicitevidence$1:com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType[T]):List[com.workday.warp.persistence.PersistTagResult]"></a>
+      <a id="recordTags[T](List[Tag],T)(persistence.TablesLike.TestExecutionRowLikeType[T]):List[PersistTagResult]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">recordTags</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="tags">tags: <span class="extype" name="scala.List">List</span>[<a href="../persistence/Tag.html" class="extype" name="com.workday.warp.persistence.Tag">Tag</a>]</span>, <span name="testExecution">testExecution: <span class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController.recordTags.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../persistence/TablesLike$.html#TestExecutionRowLikeType[T]extendsAnyRef" class="extmbr" name="com.workday.warp.persistence.model.TablesLike.TestExecutionRowLikeType">persistence.TablesLike.TestExecutionRowLikeType</a>[<span class="extype" name="com.workday.warp.collectors.AbstractMeasurementCollectionController.recordTags.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="../persistence/PersistTagResult.html" class="extype" name="com.workday.warp.persistence.PersistTagResult">PersistTagResult</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@recordTags[T](tags:List[com.workday.warp.persistence.Tag],testExecution:T)(implicitevidence$1:com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType[T]):List[com.workday.warp.persistence.PersistTagResult]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Persist list of tags to database
+</p><div class="fullcomment"><div class="comment cmt"><p>Persist list of tags to database
+</p></div><dl class="paramcmts block"><dt class="param">tags</dt><dd class="cmt"><p>The list of tags to persist</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p>The associated TestExecution</p></dd><dt>returns</dt><dd class="cmt"><p>A list of nested tuples correlating a metatag and outer tag with a Try indicating if it was successfully persisted
+        List (outerTag, (try OuterTag, List(MetaTag, Try[MetaTag]))</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#registerArbiter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="registerArbiter(arbiter:com.workday.warp.arbiters.traits.ArbiterLike):Boolean"></a>
+      <a id="registerArbiter(ArbiterLike):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">registerArbiter</span><span class="params">(<span name="arbiter">arbiter: <a href="../arbiters/traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@registerArbiter(arbiter:com.workday.warp.arbiters.traits.ArbiterLike):Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Registers a new <span class="extype" name="ArbiterLike">ArbiterLike</span> for this test.</p><div class="fullcomment"><div class="comment cmt"><p>Registers a new <span class="extype" name="ArbiterLike">ArbiterLike</span> for this test.</p><p>If measurement has already begun, has no effect. Should only be called before calling beginMeasurementCollection
+</p></div><dl class="paramcmts block"><dt class="param">arbiter</dt><dd class="cmt"><p>the <span class="extype" name="ArbiterLike">ArbiterLike</span> to register.</p></dd><dt>returns</dt><dd class="cmt"><p>true iff registration was successful.</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#registerArbiters" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="registerArbiters(arbiters:Iterable[com.workday.warp.arbiters.traits.ArbiterLike]):Iterable[Boolean]"></a>
+      <a id="registerArbiters(Iterable[ArbiterLike]):Iterable[Boolean]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">registerArbiters</span><span class="params">(<span name="arbiters">arbiters: <span class="extype" name="scala.Iterable">Iterable</span>[<a href="../arbiters/traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a>]</span>)</span><span class="result">: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@registerArbiters(arbiters:Iterable[com.workday.warp.arbiters.traits.ArbiterLike]):Iterable[Boolean]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Registers each arbiter in <code>arbiters</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Registers each arbiter in <code>arbiters</code>.
+</p></div><dl class="paramcmts block"><dt class="param">arbiters</dt><dd class="cmt"><p>instances of <span class="extype" name="ArbiterLike">ArbiterLike</span> to register.</p></dd><dt>returns</dt><dd class="cmt"><p><span class="extype" name="Iterable">Iterable</span> containing the result of registering each <span class="extype" name="ArbiterLike">ArbiterLike</span></p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#registerCollector" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="registerCollector(collector:com.workday.warp.collectors.abstracts.AbstractMeasurementCollector):Boolean"></a>
+      <a id="registerCollector(AbstractMeasurementCollector):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">registerCollector</span><span class="params">(<span name="collector">collector: <a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@registerCollector(collector:com.workday.warp.collectors.abstracts.AbstractMeasurementCollector):Boolean" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Registers a new collector to measure this test.</p><div class="fullcomment"><div class="comment cmt"><p>Registers a new collector to measure this test.</p><p>If measurement has already begun, has no effect. Should only be called before calling beginMeasurementCollection
+</p></div><dl class="paramcmts block"><dt class="param">collector</dt><dd class="cmt"><p>the <span class="extype" name="AbstractMeasurementCollector">AbstractMeasurementCollector</span> to register.</p></dd><dt>returns</dt><dd class="cmt"><p>true iff collector registration was successful.</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#registerCollectors" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="registerCollectors(collectors:Iterable[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]):Iterable[Boolean]"></a>
+      <a id="registerCollectors(Iterable[AbstractMeasurementCollector]):Iterable[Boolean]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">registerCollectors</span><span class="params">(<span name="collectors">collectors: <span class="extype" name="scala.Iterable">Iterable</span>[<a href="abstracts/AbstractMeasurementCollector.html" class="extype" name="com.workday.warp.collectors.abstracts.AbstractMeasurementCollector">AbstractMeasurementCollector</a>]</span>)</span><span class="result">: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@registerCollectors(collectors:Iterable[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]):Iterable[Boolean]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Registers each collector in <code>collectors</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Registers each collector in <code>collectors</code>.
+</p></div><dl class="paramcmts block"><dt class="param">collectors</dt><dd class="cmt"><p>instances of <span class="extype" name="AbstractMeasurementCollector">AbstractMeasurementCollector</span> to register.</p></dd><dt>returns</dt><dd class="cmt"><p><span class="extype" name="Iterable">Iterable</span> containing the result of registering each <span class="extype" name="AbstractMeasurementCollector">AbstractMeasurementCollector</span>.</p></dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#startCollectors" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="startCollectors():Unit"></a>
+      <a id="startCollectors():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">startCollectors</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@startCollectors():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Starts parallel measurement collection.</p><div class="fullcomment"><div class="comment cmt"><p>Starts parallel measurement collection.</p><p>Enabled collectors are grouped by their priorities, and distinct collectors running at the same priority level
+will be started in parallel.
+</p></div></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+      <a id="synchronized[T0](⇒T0):T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#tags" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="tags:List[com.workday.warp.persistence.Tag]"></a>
+      <a id="tags:List[Tag]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">tags</span><span class="result">: <span class="extype" name="scala.List">List</span>[<a href="../persistence/Tag.html" class="extype" name="com.workday.warp.persistence.Tag">Tag</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@tags:List[com.workday.warp.persistence.Tag]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><span class="extype" name="List">List</span> of <span class="extype" name="Tag">Tag</span> that should be persisted during endMeasurementCollection.</p>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#testId" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="testId:String"></a>
+      <a id="testId:String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">testId</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@testId:String" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">fully qualified name of the method being measured.</p>
+    </li><li name="com.workday.warp.collectors.AbstractMeasurementCollectionController#timeStarted" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="timeStarted:java.util.Date"></a>
+      <a id="timeStarted:Date"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">var</span>
+      </span>
+      <span class="symbol">
+        <span class="name">timeStarted</span><span class="result">: <span class="extype" name="java.util.Date">Date</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@timeStarted:java.util.Date" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">time at which this test was invoked</p><div class="fullcomment"><div class="comment cmt"><p>time at which this test was invoked</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@toString():String" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@wait():Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a>
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.workday.warp.collectors.AbstractMeasurementCollectionController@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="com.workday.warp.persistence.PersistenceAware">
+              <h3>Inherited from <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

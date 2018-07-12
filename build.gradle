@@ -1,0 +1,204 @@
+allprojects {
+    apply plugin: 'base'
+    apply plugin: 'java'
+    apply plugin: 'checkstyle'
+    apply plugin: 'scala'
+    apply plugin: 'scalaStyle'
+    apply plugin: 'idea'
+    apply plugin: "org.ajoberstar.grgit"
+    apply plugin: "nebula.dependency-lock"
+    apply plugin: "nebula.gradle-git-scm"
+    apply plugin: 'nebula.release'
+    apply plugin: "nebula.maven-resolved-dependencies"
+    apply plugin: "org.scoverage"
+}
+
+buildscript {
+    apply from: file("${rootDir}/versionInfo.gradle")
+    repositories {
+		jcenter()
+    }
+
+    dependencies {
+        classpath "com.netflix.nebula:gradle-dependency-lock-plugin:${versions.nebulaDependencyLock}"
+        classpath "com.netflix.nebula:gradle-git-scm-plugin:${versions.nebulaGit}"
+        classpath "com.netflix.nebula:nebula-release-plugin:${versions.nebulaRelease}"
+        classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
+        classpath "org.ajoberstar:grgit:${versions.gradleGit}"
+        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.11:${versions.scalaStyle}"
+        classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
+    }
+}
+
+apply from: file("${rootDir}/versionInfo.gradle")
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+// teamcity properties come packaged up in 'teamcity' array. set these as system properties so they can all be treated the
+// same later when we are forwarding on properties to test jvms.
+if (project.hasProperty("teamcity")) {
+    project.teamcity.each { key, val ->
+        System.setProperty(key, val)
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// keep in alphabetical order
+dependencies {
+    compile "com.google.code.gson:gson:${versions.gson}"
+    compile "com.google.guava:guava:${versions.guava}"
+    compile "com.google.inject:guice:${versions.guice}"
+    compile "com.h2database:h2:${versions.h2}"
+    compile "commons-configuration:commons-configuration:${versions.commonsConfiguration}"
+    compile "commons-io:commons-io:${versions.commonsIo}"
+    compile "com.typesafe.slick:slick_2.11:${versions.slick}"
+    compile "com.typesafe.slick:slick-hikaricp_2.11:${versions.slick}"
+    compile "junit:junit:${versions.junit}"
+    compile "mysql:mysql-connector-java:${versions.mysqlConnector}"
+    compile "net.databinder.dispatch:dispatch-core_2.11:${versions.dispatch}"
+    compile "org.apache.commons:commons-lang3:${versions.commonsLang3}"
+    compile "org.apache.commons:commons-math3:${versions.math3}"
+    compile "org.flywaydb:flyway-core:${versions.flyway}"
+    compile "org.influxdb:influxdb-java:${versions.influxDbClient}"
+    compile "org.json4s:json4s-jackson_2.11:${versions.json4s}"
+    compile "org.ow2.asm:asm-tree:${versions.asm}"
+    compile "org.scala-lang:scala-library:${versions.scalalang}"
+    compile "org.scala-lang:scala-compiler:${versions.scalalang}"
+    compile "org.scalatest:scalatest_2.11:${versions.scalatest}"
+    compile "org.tinylog:slf4j-binding:${versions.slf4jBinding}"
+    compile "org.tinylog:tinylog:${versions.tinylog}"
+    scoverage "org.scoverage:scalac-scoverage-plugin_2.11:${versions.scalacScoverage}",
+            "org.scoverage:scalac-scoverage-runtime_2.11:${versions.scalacScoverage}"
+    compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
+    compile "io.gatling:gatling-core:${versions.gatling}"
+    compile "io.gatling:gatling-http:${versions.gatling}"
+    compile "io.gatling:gatling-app:${versions.gatling}"
+}
+
+sourceSets {
+
+    main {
+        // joint compilation
+        scala {
+            srcDir 'src/main/java'
+            srcDir 'src/main/scala'
+            // we want our generated code to live in a separate directory so we can easily skip scalastyle,
+            // however its convenient to treat this as part of the same source set and compile everything together
+            srcDir 'src/generated/scala'
+        }
+        java {
+            srcDirs = [] // don't compile Java code twice
+        }
+    }
+
+    test {
+        // joint compilation
+        scala {
+            srcDir 'src/test/java'
+            srcDir 'src/test/scala'
+        }
+        java {
+            srcDirs = [] // don't compile Java code twice
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+// TODO make sure the dependencies are set up for this task
+task scaladocJar(type: Jar) {
+    classifier = 'scaladoc'
+    from scaladoc.destinationDir
+}
+
+scaladoc {
+    classpath = sourceSets.main.runtimeClasspath
+    destinationDir file("$rootDir/gh-pages-src/static/scaladoc/${project.name}")
+}
+
+task unitTest(type: Test) {
+    useJUnit {
+        excludeCategories 'com.workday.warp.common.category.IntegrationTest'
+        includeCategories 'com.workday.warp.common.category.UnitTest'
+    }
+}
+
+test {
+    minHeapSize = "500m"
+    maxHeapSize = "8g"
+
+    testLogging {
+        events 'started', 'passed'
+        showStandardStreams = true
+    }
+}
+
+task deleteSchema(type: JavaExec, dependsOn: compileTestScala) {
+    description = "deletes the db schema prior to running tests"
+    main = "com.workday.warp.persistence.DropCoreSchema"
+    classpath = sourceSets.main.runtimeClasspath
+    doLast {
+        println("gradle task deleted schema")
+    }
+}
+
+scalaStyle {
+    configLocation = "${rootDir}/scalastyle.xml"
+    includeTestSourceDirectory = true
+    source = "src/main/scala"
+    testSource = "src/test/scala"
+}
+
+checkstyle {
+    toolVersion = "${versions.checkstyle}"
+    configFile = new File("${rootDir}/checkstyle.xml")
+}
+
+tasks.withType(JavaExec).each { task ->
+    System.properties.each { key, val ->
+        // TODO see if we need to filter the forwarded properties here
+        task.systemProperty key, val
+    }
+}
+
+tasks.withType(Test).each { task ->
+    if (project.hasProperty("shouldDeleteSchema") && Boolean.valueOf(project.shouldDeleteSchema.toString())) {
+        task.dependsOn(deleteSchema)
+    }
+    task.finalizedBy(scalaStyle)
+    task.finalizedBy(checkstyleMain)
+    task.finalizedBy(checkstyleTest)
+
+    System.properties.each { key, val ->
+        // TODO see if we need to filter the forwarded properties here
+        task.systemProperty key, val
+    }
+}
+
+dependencyLock {
+    includeTransitives = true
+}
+
+commitDependencyLock {
+    message = "(auto) update dependency lock file, version=${project.version.toString()}"
+}
+
+scoverage {
+    // Excluding autogenerated Tables
+    excludedPackages = ["com.workday.warp.persistence.model", "com.workday.warp.examples"]
+    excludedFiles = []
+}
+
+// Defaults: 75% of Statements. Other types of coverage: Line, Branch
+checkScoverage {
+    coverageType = 'Statement'
+    minimumRate = 0.92
+}

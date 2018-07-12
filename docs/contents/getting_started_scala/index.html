@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>warp-core</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="generator" content="Hugo 0.38" />
+<title>Getting Started (Scala DSL) :: warp-core</title>
+<link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
+<link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/css/nucleus.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://workday.github.io/warp-core/css/bootstrap.min.css">
+<script src="https://workday.github.io/warp-core/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+</script>
+<meta name="description" content="">
+
+
+    
+  </head>
+  <body data-url="/contents/getting_started_scala/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://workday.github.io/warp-core/">warp-core</a>
+  
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>Github Repo</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/releases"  rel="noopener">
+                  <i class='fa fa-cloud-download'></i> <label>Releases</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://workday.github.io/warp-core/scaladoc/warp-core/index.html"  rel="noopener">
+                  <i class='fa fa-bookmark'></i> <label>ScalaDoc</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/blob/master/CONTRIBUTORS.md"  rel="noopener">
+                  <i class='fa fa-bullhorn'></i> <label>Contributors</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="https://workday.github.io/warp-core/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/contents/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="https://workday.github.io/warp-core/contents/">Contents</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/contents/intro/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/intro/">
+            Introduction
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_java/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
+            Getting Started (Java)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_scala/" class="dd-item active">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
+            Getting Started (Scala DSL)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_collectors/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_collectors/">
+            Collecting Custom Measurements
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_arbiters/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_arbiters/">
+            Custom Arbiters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/measurement_collection_controller/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/measurement_collection_controller/">
+            Measurement Collection Controller
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/tags/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/tags/">
+            Tags
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/runtime_configuration/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/runtime_configuration/">
+            Runtime Property Configuration
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/persistence/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/persistence/">
+            Persistence
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/dependency_injection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
+            Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/anomaly_detection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/anomaly_detection/">
+            Case Study: RPCA Anomaly Detection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/hypothesis_testing/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/hypothesis_testing/">
+            Case Study: Hypothesis Testing
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/heap_histogram/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/heap_histogram/">
+            Case Study: Monitoring Heap Histogram
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/extension_advanced/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/extension_advanced/">
+            Extending the Schema (advanced)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/_footer/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/_footer/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/contents/" >
+   Contents</option> 
+      <option value="/contents/intro/" >- Introduction</option>
+      <option value="/contents/getting_started_java/" >- Getting Started (Java)</option>
+      <option value="/contents/getting_started_scala/"  selected>- Getting Started (Scala DSL)</option>
+      <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
+      <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
+      <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
+      <option value="/contents/tags/" >- Tags</option>
+      <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
+      <option value="/contents/persistence/" >- Persistence</option>
+      <option value="/contents/dependency_injection/" >- Dependency Injection</option>
+      <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
+      <option value="/contents/hypothesis_testing/" >- Case Study: Hypothesis Testing</option>
+      <option value="/contents/heap_histogram/" >- Case Study: Monitoring Heap Histogram</option>
+      <option value="/contents/extension_advanced/" >- Extending the Schema (advanced)</option>
+      <option value="/contents/_footer/" >- </option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/lunr.min.js"></script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/auto-complete.js"></script>
+        <link href="https://workday.github.io/warp-core/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+          
+        </script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/search.js"></script>
+      </div>
+    
+
+    <h1>Getting Started (Scala DSL)</h1>
+    
+    
+    
+    
+
+<p>The recommended way to interact with WARP is through the Scala DSL.
+This API is more mature than the Telemetron Java API and provides a richer feature set, including the ability
+to register custom <code>MeasurementCollector</code> and <code>Arbiter</code> instances, and add
+new tags in the form of String metadata that will be persisted.</p>
+
+<p>The DSL is implemented by using an immutable case class, <code>ExecutionConfig</code> to hold
+all configuration parameters, such as number of invocations, warmups, threadpool size, etc.
+We give sane defaults to all parameters.
+Calls to the various DSL methods invoke the compiler-generated <code>copy</code> method to build up
+new instances of <code>ExecutionConfig</code>:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">import</span> <span style="color:#111">com.workday.warp.dsl._</span>
+<span style="color:#00a8c8">val</span> <span style="color:#111">config</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">ExecutionConfig</span> <span style="color:#f92672">=</span> <span style="color:#111">using</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">32</span> <span style="color:#111">threads</span> <span style="color:#ae81ff">4</span> <span style="color:#111">distribution</span> <span style="color:#75af00">GaussianDistribution</span><span style="color:#f92672">(</span><span style="color:#ae81ff">50</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">)</span></code></pre></div></p>
+
+<p>Finally, a call-by name function is passed to <code>ExecutionConfig.measuring</code>:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
+<span style="color:#00a8c8">def</span> <span style="color:#111">dslExample</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#111">using</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">32</span> <span style="color:#111">threads</span> <span style="color:#ae81ff">4</span> <span style="color:#111">measuring</span> <span style="color:#f92672">{</span>
+    <span style="color:#00a8c8">val</span> <span style="color:#111">i</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#75af00">Logger</span><span style="color:#f92672">.</span><span style="color:#111">info</span><span style="color:#f92672">(</span><span style="color:#d88200">s&#34;result is </span><span style="color:#d88200">${</span><span style="color:#111">i</span> <span style="color:#f92672">+</span> <span style="color:#111">i</span><span style="color:#d88200">}</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">)</span>
+  <span style="color:#f92672">}</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">exceed</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span> <span style="color:#111">seconds</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>Custom <code>Arbiter</code> and <code>MeasurementCollector</code> instances can be registered by calling the <code>arbiters</code> and <code>collectors</code> methods:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">import</span> <span style="color:#111">com.workday.warp.dsl.Implicits._</span>
+
+<span style="color:#75af00">@Test</span>
+<span style="color:#00a8c8">def</span> <span style="color:#111">dslCollectors</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#75715e">// disables the existing default collectors, and registers a new collector
+</span><span style="color:#75715e"></span>  <span style="color:#111">using</span> <span style="color:#111">only</span> <span style="color:#111">these</span> <span style="color:#111">collectors</span> <span style="color:#f92672">{</span>
+    <span style="color:#00a8c8">new</span> <span style="color:#75af00">SomeMeasurementCollector</span>
+  <span style="color:#75715e">// registers two new arbiters
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span> <span style="color:#111">arbiters</span> <span style="color:#f92672">{</span>
+    <span style="color:#75af00">List</span><span style="color:#f92672">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">SomeArbiter</span><span style="color:#f92672">,</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">SomeOtherArbiter</span><span style="color:#f92672">)</span>
+  <span style="color:#f92672">}</span> <span style="color:#111">measuring</span> <span style="color:#f92672">{</span>
+    <span style="color:#111">someExperiment</span><span style="color:#f92672">()</span>
+  <span style="color:#f92672">}</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">exceed</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">5</span> <span style="color:#111">seconds</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span></code></pre></div></p>
+
+<p>The <code>arbiters</code> and <code>collectors</code> methods both accept a call-by-name function that returns an <code>Iterable</code>. We use an implicit
+to lift a single instance into an <code>Iterable</code> type.</p>
+
+<p>The threshold defined by the <code>should not exceed</code> syntax is implemented as a <a href="http://www.scalatest.org/user_guide/using_matchers">scalatest</a> <code>Matcher[Duration]</code>.</p>
+
+<h2 id="dsl-operations">DSL Operations</h2>
+
+<p>The DSL provides a flexible way to describe experimental setups for conducting repeated trials, and supports the following operations:</p>
+
+<ul>
+<li><p><code>testId(id: String)</code> sets a testId, the name under which results will be recorded in our database. (default <code>&quot;com.workday.warp.Undefined.undefined&quot;</code>. Typically we use the fully qualified method name of the test being measured.)</p></li>
+
+<li><p><code>invocations(i: Int)</code> sets the number of measured trial invocations (default 1).</p></li>
+
+<li><p><code>warmups(w: Int)</code> sets the number of unmeasured warmups (default 0).</p></li>
+
+<li><p><code>threads(p: Int)</code> sets the thread pool size (default 1).</p></li>
+
+<li><p><code>distribution(d: DistributionLike)</code> sets a <code>Distribution</code> to govern expected delay between scheduling invocations (default 0 delay).</p></li>
+
+<li><p><code>mode(m: ModeWord)</code> sets a &ldquo;mode&rdquo; for test measurement. This is an advanced feature that only applies to experiments with a threadpool of at least 2 threads. The <code>single</code> mode will treat the entire schedule of invocations as a single logical test. A single controller will be created to measure the entire schedule. The <code>multi</code> mode (which is the default) measures each invocation on an individual basis.</p></li>
+
+<li><p><code>only defaults</code> is a no-op included for more English-like readability.</p></li>
+
+<li><p><code>no arbiters</code> disables all existing default <code>Arbiter</code>.</p></li>
+
+<li><p><code>arbiters(a: =&gt; Iterable[ArbiterLike])</code> registers a collection of new <code>Arbiter</code> to act on the results of the measured test.</p></li>
+
+<li><p><code>only these arbiters(a: =&gt; Iterable[ArbiterLike])</code> composes the two above operations; disabling all existing arbiters and
+registering some new arbiters.</p></li>
+
+<li><p><code>no collectors</code> disables all existing default measurement collectors.</p></li>
+
+<li><p><code>collectors(c: =&gt; Iterable[AbstractMeasurementCollector])</code> registers a collection of new measurement collectors to measure the given test.</p></li>
+
+<li><p><code>only these collectors(c: =&gt; Iterable[AbstractMeasurementCollector])</code> composes the two above operations; disabling all existing
+collectors before registering some new collectors.</p></li>
+
+<li><p><code>tags(t: =&gt; Iterable[Tag])</code> registers a sequence of Tags that will be applied to the trials.</p></li>
+
+<li><p><code>measure(f: =&gt; T)</code> (and its synonym, <code>measuring</code>) perform the measurement process wrapped around <code>f</code>.
+We include the <code>measuring</code> synonym solely for more English-like readability when combined with
+a static threshold using our scalatest <code>Matcher[Duration]</code>:
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#111">using</span> <span style="color:#111">only</span> <span style="color:#111">defaults</span> <span style="color:#111">measure</span> <span style="color:#111">someExperiment</span>
+<span style="color:#111">using</span> <span style="color:#111">only</span> <span style="color:#111">defaults</span> <span style="color:#111">measuring</span> <span style="color:#111">someExperiment</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">exceed</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">5</span> <span style="color:#111">seconds</span><span style="color:#f92672">)</span></code></pre></div>
+This is naturally the most complex operation, as it involves creating a threadpool, layering collectors
+in the correct order, persisting results, etc.</p></li>
+</ul>
+
+<h2 id="dsl-return-type">DSL Return Type</h2>
+
+<p>After we have constructed an <code>ExecutionConfig</code> that fits the needs of our experiment, we call the <code>measuring</code>
+(or <code>measure</code>, a synonym) method
+with the call-by-name function <code>f</code> that we want to measure. The return type of <code>measuring</code> is <code>List[TrialResult[T]]</code>, where <code>T</code>
+is the return type of <code>f</code>. This gives us access to the returned values of each invocation of <code>f</code> if they are needed for further
+analysis.</p>
+
+<p>Additionally, <code>TrialResult</code> holds a <code>TestExecutionRow</code> corresponding to the newly written row in our database, and
+the measured response time of the trial.</p>
+
+<p>For example, suppose we are interested in measuring the performance of <code>List.fill[Int]</code> construction:</p>
+
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
+<span style="color:#00a8c8">def</span> <span style="color:#111">listFill</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#75715e">// measure creating a list of 1000 0&#39;s
+</span><span style="color:#75715e"></span>  <span style="color:#00a8c8">val</span> <span style="color:#111">results</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Seq</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TrialResult</span><span style="color:#f92672">[</span><span style="color:#00a8c8">List</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Int</span><span style="color:#f92672">]]]</span> <span style="color:#00a8c8">=</span> <span style="color:#111">using</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">8</span> <span style="color:#111">measure</span> <span style="color:#f92672">{</span> <span style="color:#75af00">List</span><span style="color:#f92672">.</span><span style="color:#111">fill</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">)(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#f92672">}</span>
+
+  <span style="color:#75715e">// make some assertions about the created lists
+</span><span style="color:#75715e"></span>  <span style="color:#111">results</span> <span style="color:#111">should</span> <span style="color:#111">have</span> <span style="color:#111">length</span> <span style="color:#ae81ff">8</span>
+  <span style="color:#111">results</span><span style="color:#f92672">.</span><span style="color:#111">head</span><span style="color:#f92672">.</span><span style="color:#111">maybeResult</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">be</span> <span style="color:#111">empty</span>
+
+  <span style="color:#00a8c8">for</span> <span style="color:#f92672">{</span>
+    <span style="color:#111">result</span> <span style="color:#00a8c8">&lt;-</span> <span style="color:#111">results</span>
+    <span style="color:#111">list</span> <span style="color:#00a8c8">&lt;-</span> <span style="color:#111">result</span><span style="color:#f92672">.</span><span style="color:#111">maybeResult</span>
+    <span style="color:#111">element</span> <span style="color:#00a8c8">&lt;-</span> <span style="color:#111">list</span>
+  <span style="color:#f92672">}</span> <span style="color:#111">element</span> <span style="color:#111">should</span> <span style="color:#111">be</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span></code></pre></div>
+
+<p>After measurement has been completed, we are able to access the return values of the function being measured.</p>
+
+<p>The DSL provides a flexible way to customize the execution schedule of your experiment, including adding new
+measurement collectors and arbiters for defining failure criteria.</p>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="https://workday.github.io/warp-core/contents/getting_started_java/" title="Getting Started (Java)"> <i class="fa fa-chevron-left"></i><label>Getting Started (Java)</label></a>
+    <a class="nav nav-next" href="https://workday.github.io/warp-core/contents/custom_collectors/" title="Collecting Custom Measurements" style="margin-right: 0px;"><label>Collecting Custom Measurements</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+  
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 02/04/2018
+    </div>
+    
+
+    <div class="github-link">
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/contents/getting_started_scala.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="https://workday.github.io/warp-core/js/clipboard.min.js"></script>
+
+<link href="https://workday.github.io/warp-core/css/featherlight.min.css" rel="stylesheet">
+<script src="https://workday.github.io/warp-core/js/featherlight.min.js"></script>
+
+
+
+<script src="https://workday.github.io/warp-core/theme-flex/script.js"></script>
+
+    
+
+    
+    
+
+    
+  </body>
+</html>
