@@ -19,5 +19,6 @@ cache:
     - $HOME/.gradle/wrapper
 
 script:
+  - docker ps -a
   - docker-compose up -d
   - ./gradlew clean test
