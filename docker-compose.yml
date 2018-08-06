@@ -6,7 +6,7 @@ services:
         environment:
             # make sure to use something more secure in production
             - MYSQL_ROOT_PASSWORD=1234
-            - MYSQL_DATABASE=warp
+            - MYSQL_DATABASE=warp_core
         ports:
             - "${WARP_CORE_MYSQL_PORT}:3306"
         privileged: true
