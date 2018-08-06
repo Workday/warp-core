@@ -8,7 +8,6 @@ build
 .gradle
 .idea
 */build
-**/warp.properties
 buildSrc/wrapper
 buildSrc/daemon
 **/project
