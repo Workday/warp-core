@@ -17,5 +17,5 @@ cache:
 
 script:
   - docker-compose up -d
-  - ./gradlew clean test
+  - ./gradlew clean test checkScoverage
   - docker-compose down
