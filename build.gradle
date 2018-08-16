@@ -11,6 +11,8 @@ allprojects {
     apply plugin: 'nebula.release'
     apply plugin: "nebula.maven-resolved-dependencies"
     apply plugin: "org.scoverage"
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
 }
 
 buildscript {
@@ -113,7 +115,13 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
-// TODO make sure the dependencies are set up for this task
+// fake javadoc jar to pass sonatype rules
+// See https://central.sonatype.org/pages/requirements.html
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from new File('javadoc-fake')
+}
+
 task scaladocJar(type: Jar) {
     classifier = 'scaladoc'
     from scaladoc.destinationDir
@@ -201,4 +209,64 @@ scoverage {
 checkScoverage {
     coverageType = 'Statement'
     minimumRate = 0.92
+}
+
+/**
+ * @return true iff we are building a maven snapshot or a devSnapshot.
+ */
+static boolean isSnapshot(String inferredVersion) {
+    inferredVersion.endsWith("-SNAPSHOT") || inferredVersion.contains("-dev.") || inferredVersion.contains(".dev.")
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'warp-core'
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            artifact scaladocJar
+            pom {
+                name = 'warp-core'
+                description = 'A library for scientific performance testing.'
+                url = 'https://workday.github.io/warp-core/'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/mit-license.php'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'tomnis'
+                        name = 'tomas mccandless'
+                        email = 'tomas.mccandless@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/Workday/warp-core.git'
+                    developerConnection = 'scm:git:ssh://github.com:Workday/warp-core.git'
+                    url = 'https://github.com/Workday/warp-core/tree/master'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                // will be null if these aren't set as project properties
+                username findProperty("sonatypeUsername")
+                password findProperty("sonatypePassword")
+            }
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            String snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+            String releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            url = isSnapshot(version.toString()) ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
