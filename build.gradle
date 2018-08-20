@@ -221,6 +221,7 @@ static boolean isSnapshot(String inferredVersion) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId = 'com.workday.warp'
             artifactId = 'warp-core'
             from components.java
             artifact sourcesJar
