@@ -260,7 +260,6 @@ publishing {
                 username findProperty("sonatypeUsername")
                 password findProperty("sonatypePassword")
             }
-            // change URLs to point to your repos, e.g. http://my.org/repo
             String snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
             String releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
             url = isSnapshot(version.toString()) ? snapshotsRepoUrl : releasesRepoUrl
