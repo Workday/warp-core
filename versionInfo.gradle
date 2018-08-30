@@ -1,16 +1,32 @@
 group = 'com.workday.warp'
 
+/**
+ * Thrown when an unsupported scala version is being used.
+ */
+class UnsupportedScalaVersionException extends RuntimeException {
+    UnsupportedScalaVersionException(String message, Throwable cause) {
+        super(message, cause)
+    }
 
-println project.findProperty("scalaVersion")
+    UnsupportedScalaVersionException(String message) {
+        super(message)
+    }
+}
 
 
-
+/**
+ * Determines the gatling version we should use.
+ *
+ * This is a function of the scala version we are currently building with.
+ *
+ * @return version of the gatling library that we should depend on.
+ */
 def gatlingVersion() {
     String scalaSuffix = project.findProperty("scalaSuffix")
 
     if (scalaSuffix == '_2.11') return '2.2.5'
     else if (scalaSuffix == '_2.12') return '2.3.1'
-    else return '2.2.5'
+    else throw new UnsupportedScalaVersionException("$scalaSuffix is not a supported scala version suffix".toString())
 }
 
 
