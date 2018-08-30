@@ -26,9 +26,25 @@ All port values and service version numbers are in `.env`.
 We use the `maven-publish` gradle plugin.
 https://docs.gradle.org/current/userguide/publishing_maven.html
 
-Artifacts can be published to artifactory using `./gradlew publish`.
-Artifacts can be published to local maven repo using `./gradlew publishToMavenLocal`.
+Artifacts can be published to sonatype using `./gradlew publish`.
+You'll need to configure your sonatype and signing credentials as project properties:
+```
+signing.keyId=BEEF
+signing.password=abc123
+signing.secretKeyRingFile=/full/path/to/secring.gpg
 
+sonatypeUsername=jean-luc.picard
+sonatypePassword=makeItSoNumberOne
+```
+Artifacts can be published to local maven repo using `./gradlew publishToMavenLocal`. Signing is not required for local publish.
+
+## Scala Multiversion
+We use [gradle-scala-multiversion-plugin](https://github.com/ADTRAN/gradle-scala-multiversion-plugin)
+to cross-compile the project with different scala-lang major versions and publish artifacts with scala version suffixes.
+The versions are defined in gradle.properties, however you can also override from the command line:
+```
+$ ./gradlew -PscalaVersions=2.11.8,2.12.6 test
+```
 
 ## Versioning
 We use the `nebula.release` plugin to determine versions.
@@ -72,7 +88,8 @@ We create a new lock file as follows:
 ./gradlew generateLock saveLock test commitLock
 ```
 
-Note that at publishing time, the build is configured to resolve dependencies for the pom from `dependencies.lock`.
+Note that at publishing time, the build is configured to resolve dependencies for the pom from `dependencies_2.11.lock`
+or `dependencies_2.12.lock`, depending on the scala version being used.
 If you have updated `versionInfo.gradle`, you probably need to recreate the dependency lock file as well.
 
 Please see https://github.com/nebula-plugins/gradle-dependency-lock-plugin/wiki/Usage for more detailed information.
