@@ -274,5 +274,8 @@ publishing {
 }
 
 signing {
+    required {
+        !isSnapshot(version.toString()) && gradle.taskGraph.hasTask("publish")
+    }
     sign publishing.publications.mavenJava
 }
