@@ -5,6 +5,7 @@ allprojects {
     apply plugin: 'scala'
     apply plugin: 'scalaStyle'
     apply plugin: 'idea'
+    apply plugin: "com.adtran.scala-multiversion-plugin"
     apply plugin: "org.ajoberstar.grgit"
     apply plugin: "nebula.dependency-lock"
     apply plugin: "nebula.gradle-git-scm"
@@ -16,18 +17,22 @@ allprojects {
 }
 
 buildscript {
+    // set a valid scala suffix for the buildscript itself
+    project.ext.scalaSuffix = '_2.11'
     apply from: file("${rootDir}/versionInfo.gradle")
+
     repositories {
 		jcenter()
     }
 
     dependencies {
+        classpath "com.adtran:scala-multiversion-plugin:${versions.scalaMultiversion}"
         classpath "com.netflix.nebula:gradle-dependency-lock-plugin:${versions.nebulaDependencyLock}"
         classpath "com.netflix.nebula:gradle-git-scm-plugin:${versions.nebulaGit}"
         classpath "com.netflix.nebula:nebula-release-plugin:${versions.nebulaRelease}"
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
         classpath "org.ajoberstar:grgit:${versions.gradleGit}"
-        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.11:${versions.scalaStyle}"
+        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin${project.scalaSuffix}:${versions.scalaStyle}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
     }
 }
@@ -58,24 +63,24 @@ dependencies {
     compile "com.h2database:h2:${versions.h2}"
     compile "commons-configuration:commons-configuration:${versions.commonsConfiguration}"
     compile "commons-io:commons-io:${versions.commonsIo}"
-    compile "com.typesafe.slick:slick_2.11:${versions.slick}"
-    compile "com.typesafe.slick:slick-hikaricp_2.11:${versions.slick}"
+    compile "com.typesafe.slick:slick_%%:${versions.slick}"
+    compile "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
     compile "junit:junit:${versions.junit}"
     compile "mysql:mysql-connector-java:${versions.mysqlConnector}"
-    compile "net.databinder.dispatch:dispatch-core_2.11:${versions.dispatch}"
+    compile "net.databinder.dispatch:dispatch-core_%%:${versions.dispatch}"
     compile "org.apache.commons:commons-lang3:${versions.commonsLang3}"
     compile "org.apache.commons:commons-math3:${versions.math3}"
     compile "org.flywaydb:flyway-core:${versions.flyway}"
     compile "org.influxdb:influxdb-java:${versions.influxDbClient}"
-    compile "org.json4s:json4s-jackson_2.11:${versions.json4s}"
+    compile "org.json4s:json4s-jackson_%%:${versions.json4s}"
     compile "org.ow2.asm:asm-tree:${versions.asm}"
-    compile "org.scala-lang:scala-library:${versions.scalalang}"
-    compile "org.scala-lang:scala-compiler:${versions.scalalang}"
-    compile "org.scalatest:scalatest_2.11:${versions.scalatest}"
+    compile "org.scala-lang:scala-library:%scala-version%"
+    compile "org.scala-lang:scala-compiler:%scala-version%"
+    compile "org.scalatest:scalatest_%%:${versions.scalatest}"
     compile "org.tinylog:slf4j-binding:${versions.slf4jBinding}"
     compile "org.tinylog:tinylog:${versions.tinylog}"
-    scoverage "org.scoverage:scalac-scoverage-plugin_2.11:${versions.scalacScoverage}",
-            "org.scoverage:scalac-scoverage-runtime_2.11:${versions.scalacScoverage}"
+    scoverage "org.scoverage:scalac-scoverage-plugin_%%:${versions.scalacScoverage}",
+            "org.scoverage:scalac-scoverage-runtime_%%:${versions.scalacScoverage}"
     compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
     compile "io.gatling:gatling-core:${versions.gatling}"
     compile "io.gatling:gatling-http:${versions.gatling}"
@@ -192,6 +197,7 @@ tasks.withType(Test).each { task ->
 }
 
 dependencyLock {
+    lockFile = "dependencies${project.scalaSuffix}.lock"
     includeTransitives = true
 }
 
@@ -268,5 +274,8 @@ publishing {
 }
 
 signing {
+    required {
+        !isSnapshot(version.toString()) && gradle.taskGraph.hasTask("publish")
+    }
     sign publishing.publications.mavenJava
 }
