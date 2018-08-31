@@ -1,17 +1,20 @@
 #!/bin/bash
+set -e
 
-release_type = $1
-echo "release type set to $release_type"
+RELEASE_TYPE=$1
 
-if [ $release_type == 'final' || $release_type == 'candidate' ]
+if [[ $RELEASE_TYPE == 'final' || $RELEASE_TYPE == 'candidate' ]]
 then
   # create the tag once, then cross-compile
-  ./gradlew clean $release_type
+  echo "creating repo tag for $RELEASE_TYPE"
+  ./gradlew clean $RELEASE_TYPE
+  echo "publishing artifacts
   ./gradlew -Prelease.useLastTag=true publishToMavenLocal
-elif [ $release_type = 'devSnapshot' || $release_type == 'snapshot' ]
+elseif [[ $RELEASE_TYPE = 'devSnapshot' || $RELEASE_TYPE == 'snapshot' ]]
+  echo "publishing artifacts for $RELEASE_TYPE. note there won't be a repo tag."
   # if its not a final or candidate, there won't be a tag created
-  ./gradlew clean $release_type publishToMavenLocal
+  ./gradlew clean $RELEASE_TYPE publishToMavenLocal
 else
-  echo "$release_type is not a valid release type"
+  echo "$RELEASE_TYPE is not a valid release type"
   exit 1
 fi
