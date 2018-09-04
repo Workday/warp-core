@@ -1,6 +1,7 @@
 # warp-core
 
-<img src="https://img.shields.io/travis/Workday/warp-core.svg?sanitize=true">
+<img src="https://img.shields.io/travis/Workday/warp-core/master.svg?sanitize=true">
+<img src="https://img.shields.io/coveralls/github/Workday/warp-core/master.svg?sanitize=true">
 
 WARP (Workday Automated Regression Platform) is a flexible, lightweight, (mostly) functional Scala framework for collecting performance metrics and conducting sound experimental benchmarking.
 
