@@ -1,5 +1,7 @@
 # warp-core
 
+<img src="https://img.shields.io/travis/Workday/warp-core.svg?sanitize=true">
+
 WARP (Workday Automated Regression Platform) is a flexible, lightweight, (mostly) functional Scala framework for collecting performance metrics and conducting sound experimental benchmarking.
 
 WARP features a domain specific language for describing experimental designs (conducting repeated trials for different experimental groups). Our library allows users to wrap existing tests with layers of measurement collectors that write performance metrics to a relational database. We also allow users to create arbiters to express custom failure criteria and performance requirements. One arbiter included out of the box is the RobustPcaArbiter, which uses machine learning to detect when a test is deviating from expected behavior and signal an alert.
