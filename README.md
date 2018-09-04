@@ -1,7 +1,9 @@
 # warp-core
 
-<img src="https://img.shields.io/travis/Workday/warp-core/master.svg?sanitize=true">
+[![Build Status](https://travis-ci.org/Workday/warp-core.svg?branch=master)](https://travis-ci.org/Workday/warp-core)
 <img src="https://img.shields.io/coveralls/github/Workday/warp-core/master.svg?sanitize=true">
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.11)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.12)
 
 WARP (Workday Automated Regression Platform) is a flexible, lightweight, (mostly) functional Scala framework for collecting performance metrics and conducting sound experimental benchmarking.
 
