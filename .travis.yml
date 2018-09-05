@@ -17,7 +17,7 @@ cache:
 
 script:
   - docker-compose up -d
-  - ./gradlew -PallScalaVersions clean test reportScoverage checkScoverage
+  - ./gradlew -PallScalaVersions test reportScoverage checkScoverage
 
 after_success:
   - ./gradlew coveralls
