@@ -44,6 +44,7 @@ project.ext.versions = [
     , commonsConfiguration: '1.9'
     , commonsIo: '2.4'
     , commonsLang3: '3.4'
+    , coveralls: '2.8.2'
     , dispatch: '0.13.0'
     , flyway: '5.1.1'
     , freemarker: '2.3.19'

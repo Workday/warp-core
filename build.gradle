@@ -12,6 +12,7 @@ allprojects {
     apply plugin: 'nebula.release'
     apply plugin: "nebula.maven-resolved-dependencies"
     apply plugin: "org.scoverage"
+    apply plugin: "com.github.kt3k.coveralls"
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
 }
@@ -33,6 +34,7 @@ buildscript {
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
         classpath "org.ajoberstar:grgit:${versions.gradleGit}"
         classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin${project.scalaSuffix}:${versions.scalaStyle}"
+        classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
     }
 }
@@ -217,6 +219,10 @@ checkScoverage {
     minimumRate = 0.92
 }
 
+coveralls {
+    coberturaReportPath = "${buildDir}/reports/scoverage/cobertura.xml"
+}
+
 /**
  * @return true iff we are building a maven snapshot or a devSnapshot.
  */
@@ -274,6 +280,7 @@ publishing {
 }
 
 signing {
+    // only require signing for non-snapshot versions being published to maven central
     required {
         !isSnapshot(version.toString()) && gradle.taskGraph.hasTask("publish")
     }

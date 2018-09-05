@@ -1,7 +1,7 @@
 # warp-core
 
 [![Build Status](https://travis-ci.org/Workday/warp-core.svg?branch=master)](https://travis-ci.org/Workday/warp-core)
-<img src="https://img.shields.io/coveralls/github/Workday/warp-core/master.svg?sanitize=true">
+[![Coverage Status](https://coveralls.io/repos/github/Workday/warp-core/badge.svg?branch=master)](https://coveralls.io/github/Workday/warp-core?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.11/badge.svg?subject=scala_2.11)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.11)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.12/badge.svg?subject=scala_2.12)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.12)
 
