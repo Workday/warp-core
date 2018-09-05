@@ -1,8 +1,9 @@
 package com.workday.warp.adapters.gatling
 
 import com.workday.warp.adapters.gatling.traits.{HasDefaultTestName, HasWarpHooks}
-import com.workday.warp.collectors.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
+import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.common.CoreConstants.{UNDEFINED_TEST_ID => DEFAULT_TEST_ID}
+import com.workday.warp.inject.WarpGuicer
 import io.gatling.core.Predef.Simulation
 
 /**
@@ -14,7 +15,7 @@ abstract class WarpSimulation(val testId: String) extends Simulation with HasDef
 
   def this() = this(DEFAULT_TEST_ID)
 
-  val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(this.canonicalName)
+  val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(this.testId, tags = List.empty)
 
   before {
     beforeStart()
