@@ -31,8 +31,26 @@ All port values and service version numbers are in `.env`.
 We use the `maven-publish` gradle plugin.
 https://docs.gradle.org/current/userguide/publishing_maven.html
 
-Artifacts can be published to sonatype using `./gradlew publish`.
-You'll need to configure your sonatype and signing credentials as project properties:
+Please use the included `publish.sh` for uploading artifacts. This script handles some subtle interaction between
+creating repo tags and scala multiversion plugin.
+
+Example usage:
+```
+./publish.sh snapshot minor local
+```
+
+Will increment minor version component and publish a snapshot (eg 2.3.0-SNAPSHOT) to local maven repo.
+
+To publish to sonatype, the invocation would be something like:
+```
+./publish.sh candidate minor sonatype
+```
+
+To publish to sonatype, you'll need to configure your sonatype and signing credentials as project properties:
+
+[create sonatype jira account](https://issues.sonatype.org/secure/Signup!default.jspa)
+
+[create pgp keys](https://central.sonatype.org/pages/working-with-pgp-signatures.html)
 ```
 signing.keyId=BEEF
 signing.password=abc123
@@ -41,7 +59,7 @@ signing.secretKeyRingFile=/full/path/to/secring.gpg
 sonatypeUsername=jean-luc.picard
 sonatypePassword=makeItSoNumberOne
 ```
-Artifacts can be published to local maven repo using `./gradlew publishToMavenLocal`. Signing is not required for local publish.
+Signing is not required for a local publish.
 
 ## Scala Multiversion
 We use [gradle-scala-multiversion-plugin](https://github.com/ADTRAN/gradle-scala-multiversion-plugin)
@@ -72,22 +90,15 @@ git push origin --tags
 There are 4 types of releases we support:
   - final
   - candidate (rc)
-  - devSnapshot includes some extra information in the version, including branch name and commit hash.
+  - devSnapshot (includes some extra information in the version, including branch name and commit hash)
   - snapshot
   
-Artifacts with type `snapshot` or `devSnapshot` are published to workday-unit repo, 
-while `final` and `candidate` artifacts are published to workday-release.
+Artifacts with type `snapshot` or `devSnapshot` are published to sonatype snapshots repo, 
+while `final` and `candidate` artifacts are published to sonatype releases repo.
 
-By default, the minor version number will be incremented based on the most recent tagged release. If you instead need to
-increment the major or patch version, use the property `release.scope`:
-```
-./gradlew <snapshot|devSnapshot|candidate|final> -Prelease.scope=patch
-```
-
-The version can also be overridden using the property `release.version` (please refrain from using this if possible):
-```
-./gradlew -Prelease.version=1.2.3 final
-```
+Please use the included `publish.sh` script for publishing, as that script handles interaction between creating repo tags
+and scala multiversion. We don't want to create multiple tags during a release process and incorrectly publish some artifacts
+under the wrong version.
 
 
 ## Dependencies
