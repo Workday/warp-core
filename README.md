@@ -50,6 +50,13 @@ The versions are defined in gradle.properties, however you can also override fro
 ```
 $ ./gradlew -PscalaVersions=2.11.8,2.12.6 test
 ```
+This plugin works by repeatedly invoking the gradle task graph with each different scala version specified.
+Without any version specified, gradle will use the defaultScalaVersion from gradle.properties. This means local IDE builds
+will use just one scala version. If you need to run with all configured scala versions, pass the project property `allScalaVersions`
+```
+$ ./gradlew -PallScalaVersions test
+```
+
 
 ## Versioning
 We use the `nebula.release` plugin to determine versions.
