@@ -1,5 +1,10 @@
 # warp-core
 
+[![Build Status](https://travis-ci.org/Workday/warp-core.svg?branch=master)](https://travis-ci.org/Workday/warp-core)
+[![Coverage Status](https://coveralls.io/repos/github/Workday/warp-core/badge.svg?branch=master)](https://coveralls.io/github/Workday/warp-core?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.11/badge.svg?subject=scala+2.11)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.11)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.12/badge.svg?subject=scala+2.12)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.12)
+
 WARP (Workday Automated Regression Platform) is a flexible, lightweight, (mostly) functional Scala framework for collecting performance metrics and conducting sound experimental benchmarking.
 
 WARP features a domain specific language for describing experimental designs (conducting repeated trials for different experimental groups). Our library allows users to wrap existing tests with layers of measurement collectors that write performance metrics to a relational database. We also allow users to create arbiters to express custom failure criteria and performance requirements. One arbiter included out of the box is the RobustPcaArbiter, which uses machine learning to detect when a test is deviating from expected behavior and signal an alert.
@@ -21,13 +26,41 @@ or to just run unit tests, run the `unitTest` task.
 
 All port values and service version numbers are in `.env`.
 
+## Code Coverage Requirements
+
+We use scoverage and coveralls gradle plugins to track code coverage. We enforce that high coverage should be maintained. At time of
+writing, coverage must be at least 92% for a build to pass. If you want to test coveralls out on your fork, sign in to coveralls
+and get your repo token. Then you can generate the coverage reports and submit them to coveralls using
+```
+$ export COVERALLS_REPO_TOKEN=abcdefg
+$ ./gradlew clean reportScoverage coveralls
+```
+
 
 ## Publishing
 We use the `maven-publish` gradle plugin.
 https://docs.gradle.org/current/userguide/publishing_maven.html
 
-Artifacts can be published to sonatype using `./gradlew publish`.
-You'll need to configure your sonatype and signing credentials as project properties:
+Please use the included `publish.sh` for uploading artifacts. This script handles some subtle interaction between
+creating repo tags and scala multiversion plugin.
+
+Example usage:
+```
+./publish.sh snapshot minor local
+```
+
+Will increment minor version component and publish a snapshot (eg 2.3.0-SNAPSHOT) to local maven repo.
+
+To publish to sonatype, the invocation would be something like:
+```
+./publish.sh candidate minor sonatype
+```
+
+To publish to sonatype, you'll need to configure your sonatype and signing credentials as project properties:
+
+[create sonatype jira account](https://issues.sonatype.org/secure/Signup!default.jspa)
+
+[create pgp keys](https://central.sonatype.org/pages/working-with-pgp-signatures.html)
 ```
 signing.keyId=BEEF
 signing.password=abc123
@@ -36,7 +69,7 @@ signing.secretKeyRingFile=/full/path/to/secring.gpg
 sonatypeUsername=jean-luc.picard
 sonatypePassword=makeItSoNumberOne
 ```
-Artifacts can be published to local maven repo using `./gradlew publishToMavenLocal`. Signing is not required for local publish.
+Signing is not required for a local publish.
 
 ## Scala Multiversion
 We use [gradle-scala-multiversion-plugin](https://github.com/ADTRAN/gradle-scala-multiversion-plugin)
@@ -45,6 +78,13 @@ The versions are defined in gradle.properties, however you can also override fro
 ```
 $ ./gradlew -PscalaVersions=2.11.8,2.12.6 test
 ```
+This plugin works by repeatedly invoking the gradle task graph with each different scala version specified.
+Without any version specified, gradle will use the defaultScalaVersion from gradle.properties. This means local IDE builds
+will use just one scala version. If you need to run with all configured scala versions, pass the project property `allScalaVersions`
+```
+$ ./gradlew -PallScalaVersions test
+```
+
 
 ## Versioning
 We use the `nebula.release` plugin to determine versions.
@@ -60,22 +100,15 @@ git push origin --tags
 There are 4 types of releases we support:
   - final
   - candidate (rc)
-  - devSnapshot includes some extra information in the version, including branch name and commit hash.
+  - devSnapshot (includes some extra information in the version, including branch name and commit hash)
   - snapshot
   
-Artifacts with type `snapshot` or `devSnapshot` are published to workday-unit repo, 
-while `final` and `candidate` artifacts are published to workday-release.
+Artifacts with type `snapshot` or `devSnapshot` are published to sonatype snapshots repo, 
+while `final` and `candidate` artifacts are published to sonatype releases repo.
 
-By default, the minor version number will be incremented based on the most recent tagged release. If you instead need to
-increment the major or patch version, use the property `release.scope`:
-```
-./gradlew <snapshot|devSnapshot|candidate|final> -Prelease.scope=patch
-```
-
-The version can also be overridden using the property `release.version` (please refrain from using this if possible):
-```
-./gradlew -Prelease.version=1.2.3 final
-```
+Please use the included `publish.sh` script for publishing, as that script handles interaction between creating repo tags
+and scala multiversion. We don't want to create multiple tags during a release process and incorrectly publish some artifacts
+under the wrong version.
 
 
 ## Dependencies
