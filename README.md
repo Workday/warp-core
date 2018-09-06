@@ -26,6 +26,16 @@ or to just run unit tests, run the `unitTest` task.
 
 All port values and service version numbers are in `.env`.
 
+## Code Coverage Requirements
+
+We use scoverage and coveralls gradle plugins to track code coverage. We enforce that high coverage should be maintained. At time of
+writing, coverage must be at least 92% for a build to pass. If you want to test coveralls out on your fork, sign in to coveralls
+and get your repo token. Then you can generate the coverage reports and submit them to coveralls using
+```
+$ export COVERALLS_REPO_TOKEN=abcdefg
+$ ./gradlew clean reportScoverage coveralls
+```
+
 
 ## Publishing
 We use the `maven-publish` gradle plugin.
