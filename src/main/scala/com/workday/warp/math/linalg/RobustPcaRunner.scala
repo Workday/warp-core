@@ -12,6 +12,9 @@ import scala.collection.mutable
   *
   * Created by tomas.mccandless on 9/14/16.
   */
+// TODO this should be renamed to anomaly detector or similar
+// TODO should probably just accept Array everywhere
+// TODO another forcediff constructor parameter
 case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,
                            // the final value here is a function of the number of measurements being analyzed, so we only
                            // pass in the numerator
@@ -24,7 +27,7 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
 
   /**
     * Attempts to run robust principal component analysis on the provided list of response times. Today's measurement should
-    * be the last item in `rawResponseTimes`. Standardizes the data before proceeding with analysis.
+    * be the last item in `rawResponseTimes`.
     *
     * Top-level function that delegates to either single or robust rpca.
     *
@@ -52,6 +55,16 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
   /**
     * Runs robust PCA on historical data.
     *
+    * Performs Augmented Dickey-Fuller test for series stationarity and
+    * standardizes the data (zero mean, unit variance) before proceeding with analysis.
+    *
+    * If the data exhibits a downward trend, we switch to using RPCA on a vector consisting of consecutive diffs between
+    * time series points. This allows our smart thresholds to more tightly hug the observed data.
+    *
+    * If the time series points are stationary, or exhibiting an upward trend, we use RPCA on the original time series.
+    * During an upward trend, we want to be more conservative and have our anomaly detection "lag behind" any trend in
+    * the original data.
+    *
     * @param rawResponseTimes collection of raw (unstandardized) response times to analyze, including today's reading.
     * @return
     */
@@ -63,8 +76,15 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
       rawResponseTimes
     }
 
+    val dickeyFuller: AugmentedDickeyFuller = new AugmentedDickeyFuller(truncatedData.toArray)
+
+    val trend: Double = dickeyFuller.zeroPaddedDiff.sum
+
+    // we want a tight threshold
+    val testedData: Iterable[Double] = if (!dickeyFuller.isStationary && trend < 0.0) dickeyFuller.zeroPaddedDiff else truncatedData.toArray
+
     // standardize the data, taking sliding window if appropriate
-    val responseTimes: Iterable[Double] = DataUtils.standardize(truncatedData)
+    val responseTimes: Iterable[Double] = DataUtils.standardize(testedData)
     // wrap response times to create a 2d matrix
     val responseTimeMatrix: Array[Array[Double]] = Array(responseTimes.toArray)
 

@@ -116,11 +116,26 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
         rawResponseTimes
       }
 
-      this.smartNumber(responseTimes, left = 0.0, right = 2.0 * responseTimes.max)
+      this.smartNumber(this.smooth(responseTimes, k = 5), left = 0.0, right = 2.0 * responseTimes.max)
     }
     else {
       -1
     }
+  }
+
+
+  /**
+    * Smooths the last k entries in `series`, for a smoother smart threshold.
+    *
+    * This helps avoid our smart thresholds closely following jitter in the underlying time series.
+    *
+    * @param series time series to be smoothed.
+    * @param k number of entries to be replaced with their average.
+    * @return a new time series with the last `k` entries replaced by their average.
+    */
+  private[this] def smooth(series: Iterable[Double], k: Int): Iterable[Double] = {
+    val avg: Double = (series takeRight k).sum / k
+    (series dropRight k) ++ Iterable.fill(k)(avg)
   }
 
 
