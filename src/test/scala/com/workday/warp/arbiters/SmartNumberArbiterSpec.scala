@@ -1,5 +1,6 @@
 package com.workday.warp.arbiters
 
+import java.io.InputStream
 import java.util
 import java.sql.Timestamp
 import java.time.LocalDate
@@ -256,7 +257,8 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter(useSlidingWindow = true)
 
-    val decreasingResponseTimes: List[Double] = Source.fromResource("rpca_sample_data.txt").getLines().map(_.toDouble).toList
+    val stream: InputStream = this.getClass.getResourceAsStream("/rpca_sample_data.txt")
+    val decreasingResponseTimes: List[Double] = Source.fromInputStream(stream).getLines().map(_.toDouble).toList
 
     val smartThresholdForDecreasing: Double = arbiter.smartNumber(decreasingResponseTimes)
     smartThresholdForDecreasing should be < 90.0
