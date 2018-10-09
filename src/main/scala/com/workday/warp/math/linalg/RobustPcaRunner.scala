@@ -85,7 +85,20 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     val trend: Double = dickeyFuller.zeroPaddedDiff.sum
 
     // we want a tight threshold
-    val testedData: Iterable[Double] = if (!dickeyFuller.isStationary && trend < 0.0) dickeyFuller.zeroPaddedDiff else truncatedData.toArray
+    val testedData: Iterable[Double] = this.useDiff match {
+      // check user overrides
+      case Some(true) =>
+        Logger.debug(s"override in place (useDiff=true). time series will be treated as non-stationary.")
+        dickeyFuller.zeroPaddedDiff
+      case Some(false) =>
+        Logger.debug(s"override in place (useDiff=false). time series will be treated as stationary.")
+        truncatedData
+      // check actual results of the test
+      case _ if !dickeyFuller.isStationary && trend < 0.0 =>
+        dickeyFuller.zeroPaddedDiff
+      case _ =>
+        truncatedData
+    }
 
     // standardize the data, taking sliding window if appropriate
     val responseTimes: Iterable[Double] = DataUtils.standardize(testedData)

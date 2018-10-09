@@ -259,15 +259,13 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter(useSlidingWindow = true)
 
-
     val responseTimes: List[Double] = this.readData("/rpca_sample_data.txt")
-    arbiter.smartNumber(responseTimes) should be < 90.0
-    arbiter.smartNumber(responseTimes.reverse) should be (249.0 +- 9.0)
+    arbiter.smartNumber(responseTimes) should be (85.0 +- 1.0)
+    arbiter.smartNumber(responseTimes.reverse) should be (249.0 +- 1.0)
 
     val responseTimes2: List[Double] = this.readData("/rpca_sample_data2.txt")
-    arbiter.smartNumber(responseTimes2) should be < 550.0
-    arbiter.smartNumber(responseTimes2.reverse) should be > 1200.0
-
+    arbiter.smartNumber(responseTimes2) should be (505.0 +- 5.0)
+    arbiter.smartNumber(responseTimes2.reverse) should be (1233.0 +- 5.0)
 
 
     val decreasingResponseTimes = responseTimes2
