@@ -83,18 +83,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -105,12 +93,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -153,22 +135,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -209,12 +179,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -337,10 +301,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -351,8 +312,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -507,19 +467,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -541,23 +488,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -566,23 +500,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -744,7 +667,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -775,14 +697,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -794,35 +709,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -847,20 +740,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -872,25 +752,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     },
@@ -901,18 +762,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -923,12 +772,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -971,22 +814,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -1027,12 +858,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -1155,10 +980,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -1169,8 +991,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -1325,19 +1146,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -1359,23 +1167,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -1384,23 +1179,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -1562,7 +1346,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -1593,14 +1376,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -1612,35 +1388,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -1665,20 +1419,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -1690,25 +1431,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     },
@@ -1719,18 +1441,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -1741,12 +1451,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -1789,22 +1493,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -1845,12 +1537,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -1973,10 +1659,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -1987,8 +1670,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -2143,19 +1825,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -2177,23 +1846,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -2202,23 +1858,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -2380,7 +2025,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -2411,14 +2055,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -2430,35 +2067,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -2483,20 +2098,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -2508,25 +2110,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     },
@@ -2537,18 +2120,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -2559,12 +2130,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -2607,22 +2172,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -2663,12 +2216,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -2791,10 +2338,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -2805,8 +2349,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -2961,19 +2504,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -2995,23 +2525,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -3020,23 +2537,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -3198,7 +2704,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -3229,14 +2734,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -3248,35 +2746,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -3301,20 +2777,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -3326,25 +2789,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     },
@@ -3355,18 +2799,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -3377,12 +2809,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -3425,22 +2851,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -3481,12 +2895,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -3609,10 +3017,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -3623,8 +3028,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -3779,19 +3183,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -3813,23 +3204,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -3838,23 +3216,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -4016,7 +3383,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -4047,14 +3413,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -4066,35 +3425,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -4119,20 +3456,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -4144,25 +3468,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     },
@@ -4203,18 +3508,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -4225,12 +3518,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -4273,22 +3560,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -4329,12 +3604,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -4457,10 +3726,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -4471,8 +3737,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -4627,19 +3892,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -4661,23 +3913,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -4686,23 +3925,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -4864,7 +4092,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -4895,14 +4122,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -4914,35 +4134,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -4967,20 +4165,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -4992,25 +4177,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     },
@@ -5021,18 +4187,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -5043,12 +4197,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -5091,22 +4239,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -5147,12 +4283,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -5275,10 +4405,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -5289,8 +4416,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -5445,19 +4571,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -5479,23 +4592,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -5504,23 +4604,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -5682,7 +4771,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -5713,14 +4801,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -5732,35 +4813,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -5785,20 +4844,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -5810,25 +4856,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     },
@@ -5839,18 +4866,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -5861,12 +4876,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -5909,22 +4918,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -5965,12 +4962,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -6093,10 +5084,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -6107,8 +5095,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -6263,19 +5250,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -6297,23 +5271,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -6322,23 +5283,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -6500,7 +5450,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -6531,14 +5480,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -6550,35 +5492,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -6603,20 +5523,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -6628,25 +5535,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     },
@@ -6657,18 +5545,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "bouncycastle:bcmail-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
-        "bouncycastle:bcprov-jdk14": {
-            "locked": "138",
-            "transitive": [
-                "com.lowagie:itext"
-            ]
-        },
         "ch.qos.logback:logback-classic": {
             "locked": "1.2.3",
             "transitive": [
@@ -6679,12 +5555,6 @@
             "locked": "1.2.3",
             "transitive": [
                 "ch.qos.logback:logback-classic"
-            ]
-        },
-        "com.chuusai:shapeless_2.12": {
-            "locked": "2.3.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.dongxiguo:fastring_2.12": {
@@ -6727,22 +5597,10 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "com.github.fommil.netlib:core": {
-            "locked": "1.1.2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "com.github.scopt:scopt_2.12": {
             "locked": "3.7.0",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "com.github.wendykierp:JTransforms": {
-            "locked": "3.1",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "com.google.code.findbugs:jsr305": {
@@ -6783,12 +5641,6 @@
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
-        },
-        "com.lowagie:itext": {
-            "locked": "2.1.5",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
         },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
@@ -6911,10 +5763,7 @@
         },
         "commons-io:commons-io": {
             "locked": "2.4",
-            "requested": "2.4",
-            "transitive": [
-                "org.apache.xmlgraphics:xmlgraphics-commons"
-            ]
+            "requested": "2.4"
         },
         "commons-lang:commons-lang": {
             "locked": "2.6",
@@ -6925,8 +5774,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.1.1",
             "transitive": [
-                "commons-configuration:commons-configuration",
-                "org.apache.xmlgraphics:xmlgraphics-commons"
+                "commons-configuration:commons-configuration"
             ]
         },
         "commons-pool:commons-pool": {
@@ -7081,19 +5929,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "jfree:jcommon": {
-            "locked": "1.0.16",
-            "transitive": [
-                "jfree:jfreechart",
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
-        "jfree:jfreechart": {
-            "locked": "1.0.13",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
-            ]
-        },
         "junit:junit": {
             "locked": "4.12",
             "requested": "4.12"
@@ -7115,23 +5950,10 @@
                 "io.gatling:gatling-redis"
             ]
         },
-        "net.sf.opencsv:opencsv": {
-            "locked": "2.3",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
-            ]
-        },
-        "net.sourceforge.f2j:arpack_combined_all": {
-            "locked": "0.1",
-            "transitive": [
-                "com.github.fommil.netlib:core",
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.apache.commons:commons-lang3": {
@@ -7140,23 +5962,12 @@
         },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
-            "requested": "3.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms",
-                "org.scalanlp:breeze_2.12",
-                "pl.edu.icm:JLargeArrays"
-            ]
+            "requested": "3.5"
         },
         "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
             "locked": "1.1.1",
             "transitive": [
                 "io.gatling:gatling-jms"
-            ]
-        },
-        "org.apache.xmlgraphics:xmlgraphics-commons": {
-            "locked": "1.3.1",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.asynchttpclient:async-http-client": {
@@ -7318,7 +6129,6 @@
             "locked": "2.12.6",
             "requested": "%scala-version%",
             "transitive": [
-                "com.chuusai:shapeless_2.12",
                 "com.dongxiguo:fastring_2.12",
                 "com.github.scopt:scopt_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -7349,14 +6159,7 @@
                 "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalanlp:breeze_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12",
-                "org.typelevel:machinist_2.12",
-                "org.typelevel:macro-compat_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
@@ -7368,35 +6171,13 @@
                 "io.gatling:gatling-commons",
                 "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
-                "org.scalanlp:breeze-macros_2.12",
-                "org.scalanlp:breeze-viz_2.12",
-                "org.scalatest:scalatest_2.12",
-                "org.typelevel:machinist_2.12"
+                "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-macros_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
-            ]
-        },
-        "org.scalanlp:breeze-viz_%%": {
-            "project": true,
-            "requested": "1.0-RC2"
-        },
-        "org.scalanlp:breeze-viz_2.12": {
-            "locked": "1.0-RC2"
-        },
-        "org.scalanlp:breeze_2.12": {
-            "locked": "1.0-RC2",
-            "transitive": [
-                "org.scalanlp:breeze-viz_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
@@ -7421,20 +6202,7 @@
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
                 "org.asynchttpclient:netty-resolver-dns",
-                "org.scalanlp:breeze_2.12",
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.spire-math:spire-macros_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.spire-math:spire_2.12": {
-            "locked": "0.13.0",
-            "transitive": [
-                "org.scalanlp:breeze_2.12"
             ]
         },
         "org.tinylog:slf4j-binding": {
@@ -7446,25 +6214,6 @@
             "requested": "1.1",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        },
-        "org.typelevel:machinist_2.12": {
-            "locked": "0.6.1",
-            "transitive": [
-                "org.spire-math:spire-macros_2.12",
-                "org.spire-math:spire_2.12"
-            ]
-        },
-        "org.typelevel:macro-compat_2.12": {
-            "locked": "1.1.1",
-            "transitive": [
-                "com.chuusai:shapeless_2.12"
-            ]
-        },
-        "pl.edu.icm:JLargeArrays": {
-            "locked": "1.5",
-            "transitive": [
-                "com.github.wendykierp:JTransforms"
             ]
         }
     }

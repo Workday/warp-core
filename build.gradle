@@ -87,8 +87,6 @@ dependencies {
     compile "io.gatling:gatling-core:${versions.gatling}"
     compile "io.gatling:gatling-http:${versions.gatling}"
     compile "io.gatling:gatling-app:${versions.gatling}"
-
-    compile group: 'org.scalanlp', name: 'breeze-viz_%%', version: '1.0-RC2'
 }
 
 sourceSets {

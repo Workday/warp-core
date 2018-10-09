@@ -6,7 +6,6 @@ import java.sql.Timestamp
 import java.time.LocalDate
 import java.util.UUID
 
-import breeze.plot.Figure
 import com.workday.telemetron.RequirementViolationException
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.common.category.UnitTest
@@ -257,40 +256,24 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   def incorrectBehavior(): Unit = {
 
-    val arbiter: SmartNumberArbiter = new SmartNumberArbiter(useSlidingWindow = true)
+    val arbiter: SmartNumberArbiter = new SmartNumberArbiter()
 
     val responseTimes: List[Double] = this.readData("/rpca_sample_data.txt")
-    arbiter.smartNumber(responseTimes) should be (85.0 +- 1.0)
-    arbiter.smartNumber(responseTimes.reverse) should be (249.0 +- 1.0)
+    arbiter.smartNumber(responseTimes) should be(85.0 +- 1.0)
+    arbiter.smartNumber(responseTimes.reverse) should be(249.0 +- 1.0)
 
     val responseTimes2: List[Double] = this.readData("/rpca_sample_data2.txt")
-    arbiter.smartNumber(responseTimes2) should be (505.0 +- 5.0)
-    arbiter.smartNumber(responseTimes2.reverse) should be (1233.0 +- 5.0)
-
-
-    val decreasingResponseTimes = responseTimes2
-    val smartThresholds: List[Double] = decreasingResponseTimes.inits.toList.reverse map arbiter.smartNumber
-
-    import breeze.plot._
-
-    val f = Figure()
-    val p = f.subplot(0)
-
-    p += plot((1 to decreasingResponseTimes.length).map(_.toDouble), decreasingResponseTimes, name = "response times")
-
-    val numInvalid = smartThresholds.count(_ < 0.0)
-    p += plot(
-      (1 to smartThresholds.length).drop(numInvalid).map(_.toDouble).toList,
-      smartThresholds.drop(numInvalid),
-      name = "smart thresholds"
-    )
-    p.xlabel = "test date"
-    p.ylabel = "seconds"
-    p.legend = true
-
-    Thread.sleep(20000)
+    arbiter.smartNumber(responseTimes2) should be(505.0 +- 5.0)
+    arbiter.smartNumber(responseTimes2.reverse) should be(1233.0 +- 5.0)
   }
 
+
+  /**
+    * Convenience method for reading a resource file as a time series.
+    *
+    * @param resourceName
+    * @return
+    */
   private def readData(resourceName: String): List[Double] = {
     val stream: InputStream = this.getClass.getResourceAsStream(resourceName)
     Source.fromInputStream(stream).getLines().map(_.toDouble).toList
