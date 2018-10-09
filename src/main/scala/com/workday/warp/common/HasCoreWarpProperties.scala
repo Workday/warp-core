@@ -314,6 +314,17 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     */
   val WARP_ANOMALY_DOUBLE_RPCA: PropertyEntry = PropertyEntry("wd.warp.anomaly.double.rpca", isRequired = false, "false")
 
+
+  /**
+    * Used to override results of Dickey-Fuller test and treat the time series as non-stationary.
+    *
+    * When this is set to true, we'll perform anomaly detection on the consecutive diffs between entries, as if the
+    * Dickey-Fuller test had reported the series is non-stationary.
+    *
+    * When this is set to false, we'll treat the time series as stationary.
+    */
+  val WARP_ANOMALY_USE_DIFF: PropertyEntry = PropertyEntry("wd.warp.anomaly.use.diff", isRequired = false, None.orNull)
+
   /**
     * Number of most recent measurements we'll consider when wd.warp.anomaly.double.rpca is true. Running double rpca
     * on thousands of historical measurements can be expensive; processing 4000 measurements takes around 40 seconds,

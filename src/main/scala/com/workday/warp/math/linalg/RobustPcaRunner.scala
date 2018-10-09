@@ -26,7 +26,8 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
                            slidingWindowSize: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt,
                            requiredMeasurements: Int = WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt,
                            useSlidingWindow: Boolean = WARP_ARBITER_SLIDING_WINDOW.value.toBoolean,
-                           useDoubleRpca: Boolean = WARP_ANOMALY_DOUBLE_RPCA.value.toBoolean) {
+                           useDoubleRpca: Boolean = WARP_ANOMALY_DOUBLE_RPCA.value.toBoolean,
+                           useDiff: Option[Boolean] = Option(WARP_ANOMALY_USE_DIFF.value).map(_.toBoolean)) {
 
   /**
     * Attempts to run robust principal component analysis on the provided list of response times. Today's measurement should
