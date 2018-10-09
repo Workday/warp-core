@@ -250,54 +250,53 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   }
 
 
-
+  /**
+    * Checks that our smart threshold tightly follows a decreasing trend, and loosely follows an increasing trend.
+    */
   @Test
   @Category(Array(classOf[UnitTest]))
   def incorrectBehavior(): Unit = {
 
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter(useSlidingWindow = true)
 
-    val stream: InputStream = this.getClass.getResourceAsStream("/rpca_sample_data.txt")
-    val decreasingResponseTimes: List[Double] = Source.fromInputStream(stream).getLines().map(_.toDouble).toList
 
-    val smartThresholdForDecreasing: Double = arbiter.smartNumber(decreasingResponseTimes)
-    smartThresholdForDecreasing should be < 90.0
+    val responseTimes: List[Double] = this.readData("/rpca_sample_data.txt")
+    arbiter.smartNumber(responseTimes) should be < 90.0
+    arbiter.smartNumber(responseTimes.reverse) should be (249.0 +- 9.0)
 
-
-
-    val increasingResponseTimes: List[Double] = decreasingResponseTimes.reverse
-    val smartThresholdForIncreasing: Double = arbiter.smartNumber(increasingResponseTimes)
-    smartThresholdForIncreasing should be > 180.0
+    val responseTimes2: List[Double] = this.readData("/rpca_sample_data2.txt")
+    arbiter.smartNumber(responseTimes2) should be < 550.0
+    arbiter.smartNumber(responseTimes2.reverse) should be > 1200.0
 
 
 
-//    val smartThresholds: List[Double] = decreasingResponseTimes.inits.toList.reverse map arbiter.smartNumber
-//
-//    import breeze.plot._
-//
-//    val f = Figure()
-//    val p = f.subplot(0)
-//
-//    p += plot((1 to decreasingResponseTimes.length).map(_.toDouble), decreasingResponseTimes, name = "response times")
-//
-//    val numInvalid = smartThresholds.count(_ < 0.0)
-//    p += plot(
-//      (1 to smartThresholds.length).drop(numInvalid).map(_.toDouble).toList,
-//      smartThresholds.drop(numInvalid),
-//      name = "smart thresholds"
-//    )
-//    p.xlabel = "test date"
-//    p.ylabel = "seconds"
-//    p.legend = true
-//
-//    Thread.sleep(20000)
+    val decreasingResponseTimes = responseTimes2
+    val smartThresholds: List[Double] = decreasingResponseTimes.inits.toList.reverse map arbiter.smartNumber
+
+    import breeze.plot._
+
+    val f = Figure()
+    val p = f.subplot(0)
+
+    p += plot((1 to decreasingResponseTimes.length).map(_.toDouble), decreasingResponseTimes, name = "response times")
+
+    val numInvalid = smartThresholds.count(_ < 0.0)
+    p += plot(
+      (1 to smartThresholds.length).drop(numInvalid).map(_.toDouble).toList,
+      smartThresholds.drop(numInvalid),
+      name = "smart thresholds"
+    )
+    p.xlabel = "test date"
+    p.ylabel = "seconds"
+    p.legend = true
+
+    Thread.sleep(20000)
   }
 
-
-
-//  def plot(f: Figure, subplot: Int, x: Iterable[Double], xName: String, y: Iterable[Double], yName: String): Unit = {
-//
-//  }
+  private def readData(resourceName: String): List[Double] = {
+    val stream: InputStream = this.getClass.getResourceAsStream(resourceName)
+    Source.fromInputStream(stream).getLines().map(_.toDouble).toList
+  }
 }
 
 

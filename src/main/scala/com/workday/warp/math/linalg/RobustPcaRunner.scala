@@ -8,12 +8,15 @@ import org.pmw.tinylog.Logger
 import scala.collection.mutable
 
 /**
-  * Thin wrapper around [[RobustPca]]. Holds penalty-related parameters, and implements double rpca.
+  * Thin wrapper around [[RobustPca]].
+  *
+  * Holds penalty-related parameters, implements double rpca.
+  *
+  * Performs Augmented Dickey-Fuller test to check for time series stationarity.
   *
   * Created by tomas.mccandless on 9/14/16.
   */
 // TODO this should be renamed to anomaly detector or similar
-// TODO should probably just accept Array everywhere
 // TODO another forcediff constructor parameter
 case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,
                            // the final value here is a function of the number of measurements being analyzed, so we only
