@@ -5,7 +5,7 @@ import java.time.Duration
 import com.workday.warp.TrialResult
 import com.workday.warp.collectors.ResponseTimeCollector
 import com.workday.warp.common.utils.Implicits.DecoratedDuration
-import com.workday.warp.math.linalg.RobustPcaRunner
+import com.workday.warp.math.linalg.AnomalyDetector
 import org.scalatest.matchers.{BeMatcher, MatchResult, Matcher}
 import org.scalatest.words.ResultOfNotWordForAny
 
@@ -75,7 +75,7 @@ trait WarpMatchers {
     * @return a [[MatchResult]] that holds true if there's an anomaly, otherwise false
     */
   private[this] def rpcaMatchResult(responseTimes: List[Double]): MatchResult = {
-    val runner: RobustPcaRunner = RobustPcaRunner(slidingWindowSize = 0, useSlidingWindow = false, useDoubleRpca = false)
+    val runner: AnomalyDetector = AnomalyDetector(slidingWindowSize = 0, useSlidingWindow = false, useDoubleRpca = false)
     val result: Seq[(Double, Int)] = runner.singleRobustPca(responseTimes).get.containsAnomalies
     val matchResult: Boolean = result.nonEmpty
     val message: String = "No anomaly found."

@@ -9,7 +9,7 @@ import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.arbiters.traits.{ArbiterLike, CanReadHistory}
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.math.linalg.{RobustPca, RobustPcaRunner}
+import com.workday.warp.math.linalg.{RobustPca, AnomalyDetector}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
@@ -99,7 +99,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     *         Returns -1 if not enough historical data
     */
   def smartNumber(rawResponseTimes: Iterable[Double]): Double = {
-    val runner: RobustPcaRunner = RobustPcaRunner(sPenaltyNumerator = this.sPenaltyNumerator,
+    val runner: AnomalyDetector = AnomalyDetector(sPenaltyNumerator = this.sPenaltyNumerator,
       lPenalty = this.lPenalty,
       sThreshold = this.toleranceFactor,
       slidingWindowSize = this.slidingWindowSize,
@@ -178,7 +178,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     * @return true iff `responseTime` is an anomaly.
     */
   private[arbiters] def isAnomaly(rawResponseTimes: Iterable[Double], responseTime: Double): Boolean = {
-    val runner: RobustPcaRunner = RobustPcaRunner(this.lPenalty, this.sPenaltyNumerator, this.toleranceFactor)
+    val runner: AnomalyDetector = AnomalyDetector(this.lPenalty, this.sPenaltyNumerator, this.toleranceFactor)
     runner.singleRobustPca(rawResponseTimes ++ List(responseTime)) match {
       case None => false
       case Some(rpca: RobustPca) => rpca.isAnomaly
