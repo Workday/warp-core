@@ -16,7 +16,7 @@ import scala.collection.mutable
   *
   * Created by tomas.mccandless on 9/14/16.
   */
-case class AnomalyDetector(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,
+case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,
                            // the final value here is a function of the number of measurements being analyzed, so we only
                            // pass in the numerator
                            sPenaltyNumerator: Double = WARP_ANOMALY_RPCA_S_PENALTY_NUMERATOR.value.toDouble,

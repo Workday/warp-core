@@ -16,7 +16,7 @@ import scala.util.Random
 /**
   * Created by tomas.mccandless on 9/14/16.
   */
-class AnomalyDetectorSpec extends WarpJUnitSpec {
+class RobustPcaRunnerSpec extends WarpJUnitSpec {
 
   /** Checks usage of the public rpca method. */
   @Test
@@ -24,9 +24,9 @@ class AnomalyDetectorSpec extends WarpJUnitSpec {
   def robustPca(): Unit = {
     val ballot: Ballot = new Ballot("com.workday.warp.test.test1")
     // use an empty list of response times and take the minimum number from configuration
-    AnomalyDetector().robustPca(List.empty[Double], ballot) shouldBe None
+    RobustPcaRunner().robustPca(List.empty[Double], ballot) shouldBe None
     // override minimum number of required measurements
-    AnomalyDetector(requiredMeasurements = 1).robustPca(List(1.5, 2.0, 3.14), ballot) shouldBe defined
+    RobustPcaRunner(requiredMeasurements = 1).robustPca(List(1.5, 2.0, 3.14), ballot) shouldBe defined
   }
 
 
@@ -34,7 +34,7 @@ class AnomalyDetectorSpec extends WarpJUnitSpec {
   @Test
   @Category(Array(classOf[UnitTest]))
   def slidingWindow(): Unit = {
-    val runner: AnomalyDetector = AnomalyDetector(requiredMeasurements = 1, useSlidingWindow = true)
+    val runner: RobustPcaRunner = RobustPcaRunner(requiredMeasurements = 1, useSlidingWindow = true)
     val dataSize: Int = 1000
     // create some dummy data, we don't care about the actual values, just the size
     val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
@@ -46,7 +46,7 @@ class AnomalyDetectorSpec extends WarpJUnitSpec {
   @Test
   @Category(Array(classOf[UnitTest]))
   def notEnoughMeasurements(): Unit = {
-    val runner: AnomalyDetector = AnomalyDetector(requiredMeasurements = 1000)
+    val runner: RobustPcaRunner = RobustPcaRunner(requiredMeasurements = 1000)
     val dataSize: Int = 100
     // create some dummy data, we don't care about the actual values, just the size
     val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
@@ -58,7 +58,7 @@ class AnomalyDetectorSpec extends WarpJUnitSpec {
   @Test
   @Category(Array(classOf[UnitTest]))
   def testDoubleRobustPca(): Unit = {
-    val runner: AnomalyDetector = AnomalyDetector(useDoubleRpca = true)
+    val runner: RobustPcaRunner = RobustPcaRunner(useDoubleRpca = true)
 
     val dataSize: Int = 1000
     // create some dummy data, we don't care about the actual values, just the size
