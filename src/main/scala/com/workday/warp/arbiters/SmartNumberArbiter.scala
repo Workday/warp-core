@@ -9,7 +9,7 @@ import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.arbiters.traits.{ArbiterLike, CanReadHistory}
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.math.linalg.{RobustPca, RobustPcaRunner}
+import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPca, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
@@ -32,7 +32,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
                          val slidingWindowSize: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt,
                          val toleranceFactor: Double = WARP_ANOMALY_RPCA_S_THRESHOLD.value.toDouble,
                          val smartScalarNumber: Double = WARP_ANOMALY_SMART_SCALAR.value.toDouble)
-  extends CanReadHistory with ArbiterLike {
+  extends CanReadHistory with CanSmoothTimeSeries with ArbiterLike {
 
   /**
     * Persist smart threshold to the execution metatag table, associated to the TestDefinitionTag table by the rowID
@@ -125,21 +125,6 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
 
 
   /**
-    * Smooths the last k entries in `series`, for a smoother smart threshold.
-    *
-    * This helps avoid our smart thresholds closely following jitter in the underlying time series.
-    *
-    * @param series time series to be smoothed.
-    * @param k number of entries to be replaced with their average.
-    * @return a new time series with the last `k` entries replaced by their average.
-    */
-  private[this] def smooth(series: Iterable[Double], k: Int): Iterable[Double] = {
-    val avg: Double = (series takeRight k).sum / k
-    (series dropRight k) ++ Iterable.fill(k)(avg)
-  }
-
-
-  /**
     * Determines the SMART number threshold for this test given historical response times. Uses bisection method to find
     * the minimum response time that would be flagged as an anomaly.
     *
@@ -179,10 +164,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     */
   private[arbiters] def isAnomaly(rawResponseTimes: Iterable[Double], responseTime: Double): Boolean = {
     val runner: RobustPcaRunner = RobustPcaRunner(this.lPenalty, this.sPenaltyNumerator, this.toleranceFactor)
-    runner.singleRobustPca(rawResponseTimes ++ List(responseTime)) match {
-      case None => false
-      case Some(rpca: RobustPca) => rpca.isAnomaly
-    }
+    runner.singleRobustPca(rawResponseTimes ++ List(responseTime)).exists(_.isAnomaly)
   }
 }
 
