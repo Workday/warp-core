@@ -10,7 +10,7 @@ trait CanSmoothTimeSeries {
     *
     * This helps avoid our smart thresholds closely following jitter in the underlying time series.
     *
-    * For example, the sequence [1,2,2,4,6] with k=3 will yield the new sequence [1,2,4,4,4].
+    * For example, the sequence [1, 2, 2, 4, 6] with k=3 will yield the new sequence [1, 2, 4, 4, 4].
     *
     * @param series time series to be smoothed.
     * @param k number of entries to be replaced with their average.
