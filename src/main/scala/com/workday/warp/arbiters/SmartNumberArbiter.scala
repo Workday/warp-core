@@ -116,7 +116,11 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
         rawResponseTimes
       }
 
-      this.smartNumber(this.smooth(responseTimes, k = 5), left = 0.0, right = 2.0 * responseTimes.max)
+      this.smartNumber(
+        this.smooth(responseTimes, k = WARP_ANOMALY_SMART_SMOOTHING.value.toInt),
+        left = 0.0,
+        right = 2.0 * responseTimes.max
+      )
     }
     else {
       -1

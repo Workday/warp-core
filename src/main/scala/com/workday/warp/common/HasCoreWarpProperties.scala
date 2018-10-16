@@ -303,6 +303,7 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     */
   val WARP_ANOMALY_RPCA_MINIMUM_N: PropertyEntry = PropertyEntry("wd.warp.anomaly.rpca.minimum.n", isRequired = false, "30")
 
+
   /**
     * When this is set to true, we'll run rpca on all historical data, then filter out anomalies and rerun the algorithm
     * on only normal historical measurements. Comparing today's measurement to only normal historical measurements
@@ -363,6 +364,17 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     * Default Value: 1.0
     */
   val WARP_ANOMALY_SMART_SCALAR: PropertyEntry = PropertyEntry("wd.warp.anomaly.smart.scalar", isRequired = false, "1.0")
+
+  /**
+    * Smoothing factor for SMART number calculation.
+    *
+    * During calculation of SMART number, the last k entries of the time series will be replaced by their average
+    * in a smoothing process. This parameter controls the value of k.
+    *
+    * Required: No
+    * Default Value: 5
+    */
+  val WARP_ANOMALY_SMART_SMOOTHING: PropertyEntry = PropertyEntry("wd.warp.anomaly.smart.smoothing", isRequired = false, "5")
 
   /**
     * Number of retries that will be attempted for find or create operations.

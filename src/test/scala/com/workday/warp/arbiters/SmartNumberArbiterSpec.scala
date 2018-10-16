@@ -254,29 +254,26 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     */
   @Test
   @Category(Array(classOf[UnitTest]))
-  def incorrectBehavior(): Unit = {
+  def correctBehavior(): Unit = {
+
+    /**
+      * Convenience method for reading a resource file as a time series.
+      */
+    def readData(resourceName: String): List[Double] = {
+      val stream: InputStream = this.getClass.getResourceAsStream(resourceName)
+      Source.fromInputStream(stream).getLines().map(_.toDouble).toList
+    }
+
 
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter()
 
-    val responseTimes: List[Double] = this.readData("/rpca_sample_data.txt")
+    val responseTimes: List[Double] = readData("/rpca_sample_data.txt")
     arbiter.smartNumber(responseTimes) should be(85.0 +- 1.0)
     arbiter.smartNumber(responseTimes.reverse) should be(249.0 +- 1.0)
 
-    val responseTimes2: List[Double] = this.readData("/rpca_sample_data2.txt")
+    val responseTimes2: List[Double] = readData("/rpca_sample_data2.txt")
     arbiter.smartNumber(responseTimes2) should be(505.0 +- 5.0)
     arbiter.smartNumber(responseTimes2.reverse) should be(1233.0 +- 5.0)
-  }
-
-
-  /**
-    * Convenience method for reading a resource file as a time series.
-    *
-    * @param resourceName
-    * @return
-    */
-  private def readData(resourceName: String): List[Double] = {
-    val stream: InputStream = this.getClass.getResourceAsStream(resourceName)
-    Source.fromInputStream(stream).getLines().map(_.toDouble).toList
   }
 }
 

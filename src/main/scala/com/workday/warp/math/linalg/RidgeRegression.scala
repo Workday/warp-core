@@ -30,7 +30,16 @@ class RidgeRegression(val x: Array[Array[Double]], val y: Array[Double], val l2P
   /**
     * Computes ridge regression.
     *
-    * @return a tuple containing the result of ridge regression.
+    * The ridge estimator (`coefficients`, in the code below) is given by:
+    *
+    * w = V * S^-1 * D * U^T * y
+    *
+    * where:
+    *   X=UDV^T is the SVD of the design matrix (x).
+    *   S=D^2 + l I
+    *
+    * @return a tuple containing the result of ridge regression (coefficients of the estimator, along with the fitted data,
+    *         residuals and standard errors)
     */
   def updateCoefficients: (Array[Double], Array[Double], Array[Double], Array[Double]) = {
     val V: RealMatrix = this.X_svd.getV
