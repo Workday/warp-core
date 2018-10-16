@@ -9,7 +9,7 @@ import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.arbiters.traits.{ArbiterLike, CanReadHistory}
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.math.linalg.{RobustPca, RobustPcaRunner}
+import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPca, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
@@ -32,7 +32,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
                          val slidingWindowSize: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt,
                          val toleranceFactor: Double = WARP_ANOMALY_RPCA_S_THRESHOLD.value.toDouble,
                          val smartScalarNumber: Double = WARP_ANOMALY_SMART_SCALAR.value.toDouble)
-  extends CanReadHistory with ArbiterLike {
+  extends CanReadHistory with CanSmoothTimeSeries with ArbiterLike {
 
   /**
     * Persist smart threshold to the execution metatag table, associated to the TestDefinitionTag table by the rowID
@@ -116,7 +116,11 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
         rawResponseTimes
       }
 
-      this.smartNumber(responseTimes, left = 0.0, right = 2.0 * responseTimes.max)
+      this.smartNumber(
+        this.smooth(responseTimes, k = WARP_ANOMALY_SMART_SMOOTHING.value.toInt),
+        left = 0.0,
+        right = 2.0 * responseTimes.max
+      )
     }
     else {
       -1
@@ -164,10 +168,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     */
   private[arbiters] def isAnomaly(rawResponseTimes: Iterable[Double], responseTime: Double): Boolean = {
     val runner: RobustPcaRunner = RobustPcaRunner(this.lPenalty, this.sPenaltyNumerator, this.toleranceFactor)
-    runner.singleRobustPca(rawResponseTimes ++ List(responseTime)) match {
-      case None => false
-      case Some(rpca: RobustPca) => rpca.isAnomaly
-    }
+    runner.singleRobustPca(rawResponseTimes ++ List(responseTime)).exists(_.isAnomaly)
   }
 }
 

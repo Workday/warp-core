@@ -1,5 +1,6 @@
 package com.workday.warp.arbiters
 
+import java.io.InputStream
 import java.util
 import java.sql.Timestamp
 import java.time.LocalDate
@@ -19,6 +20,7 @@ import org.junit.Test
 import org.junit.experimental.categories.Category
 import org.pmw.tinylog.Logger
 
+import scala.io.Source
 import scala.util.Random
 
 /**
@@ -244,6 +246,34 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     // smartNumber will return -1 if there are not enough response times
     val smartNumber: Double = arbiter.smartNumber(responseTimes)
     smartNumber should equal (-1)
+  }
+
+
+  /**
+    * Checks that our smart threshold tightly follows a decreasing trend, and loosely follows an increasing trend.
+    */
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  def correctBehavior(): Unit = {
+
+    /**
+      * Convenience method for reading a resource file as a time series.
+      */
+    def readData(resourceName: String): List[Double] = {
+      val stream: InputStream = this.getClass.getResourceAsStream(resourceName)
+      Source.fromInputStream(stream).getLines().map(_.toDouble).toList
+    }
+
+
+    val arbiter: SmartNumberArbiter = new SmartNumberArbiter()
+
+    val responseTimes: List[Double] = readData("/rpca_sample_data.txt")
+    arbiter.smartNumber(responseTimes) should be(85.0 +- 1.0)
+    arbiter.smartNumber(responseTimes.reverse) should be(249.0 +- 1.0)
+
+    val responseTimes2: List[Double] = readData("/rpca_sample_data2.txt")
+    arbiter.smartNumber(responseTimes2) should be(505.0 +- 5.0)
+    arbiter.smartNumber(responseTimes2.reverse) should be(1233.0 +- 5.0)
   }
 }
 

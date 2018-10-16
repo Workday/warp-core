@@ -58,7 +58,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
   @Test
   @Category(Array(classOf[UnitTest]))
   def testDoubleRobustPca(): Unit = {
-    val runner: RobustPcaRunner = RobustPcaRunner(requiredMeasurements = 1, useDoubleRpca = true)
+    val runner: RobustPcaRunner = RobustPcaRunner(useDoubleRpca = true)
 
     val dataSize: Int = 1000
     // create some dummy data, we don't care about the actual values, just the size
