@@ -18,18 +18,31 @@ class TelemetronRule(context: TelemetronContext,
   private val nameRule: TelemetronNameRule = new TelemetronNameRule
   private val thrown: ExpectedException = ExpectedException.none()
 
-  private var chain: RuleChain = RuleChain.outerRule(thrown)
-  chain = chain.around(nameRule)
+  private val chain: RuleChain = this.buildChain
 
-  reportingRules.foreach(tr => chain = chain.around(tr))
-  val resultReporter = new ResultReporter
-  chain = chain.around(new ReportingRule(resultReporter))
-
-  measurementCollectorRules.foreach(tr => chain = chain.around(tr))
-  chain = chain.around(new SurroundOnceRule)
-  chain = chain.around(new SchedulingRule(resultReporter, context))
-
+  /**
+    * Note that this is overriding TestRule.apply(), not to be confused with companion object apply() method.
+    *
+    * @param base
+    * @param description
+    * @return
+    */
   override def apply(base: Statement, description: Description): Statement = this.chain.apply(base, description)
+
+
+  /**
+    * Builds a [[RuleChain]] from all rules to be applied.
+    *
+    * @return
+    */
+  private[this] def buildChain: RuleChain = {
+    val reporter = new ResultReporter
+    val rules: Seq[TestRule] = (
+      (this.nameRule +: this.reportingRules :+ new ReportingRule(reporter)) ::: this.measurementCollectorRules
+      ) :+ new SurroundOnceRule :+ new SchedulingRule(reporter, this.context)
+
+    rules.foldLeft(RuleChain.outerRule(this.thrown))((chain, rule) => chain.around(rule))
+  }
 
 
   /**

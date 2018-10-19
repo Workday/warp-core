@@ -48,7 +48,7 @@ object RepeatSpec extends Matchers {
   /**
     * Number of times the test has been invoked
     */
-  var invocations: Int = 0
+  var invocations: Int = 0 // scalastyle:ignore
 
   /**
     * Checks that the test was invoked exactly 3 times.

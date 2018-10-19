@@ -23,12 +23,12 @@ trait TestResult {
     * Private mutable [[Duration]] representing the response time of a test.
     * The default accessor and mutator are overridden.
     */
-  private var _responseTime: Duration = Duration.ZERO
+  private var _responseTime: Duration = Duration.ZERO // scalastyle:ignore
 
   /**
     * The completion status of the test.
     */
-  var status: Status.Value
+  var status: Status.Value // scalastyle:ignore
 
   /**
     * Returns the JUnit [[Description]] containing information about the test.

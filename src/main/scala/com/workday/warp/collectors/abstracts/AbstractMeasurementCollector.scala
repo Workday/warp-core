@@ -27,13 +27,13 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: S
   // TODO consider adding a separate persist method, so measurements can be obtained and then persisted separately
 
   // whether collector is enabled. can be set to false during initialization, for example if jmx is unavailable
-  var isEnabled: Boolean = true
+  var isEnabled: Boolean = true // scalastyle:ignore
 
   /**
    * Priority for this collector. A lower number indicates that this collector should run closer to the test it is
    * measuring.
    */
-  var priority: Int = Int.MaxValue
+  val priority: Int = Int.MaxValue
 
   /**
     * An intrusive collector is one that should not be enabled for nested measurements. For example, execution metrics

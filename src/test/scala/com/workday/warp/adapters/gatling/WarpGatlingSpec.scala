@@ -1,13 +1,12 @@
 package com.workday.warp.adapters.gatling
 
-import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import org.junit.Test
 import org.junit.experimental.categories.Category
 
 /**
-  * Created by ruiqi.wang 
+  * Created by ruiqi.wang
   */
 class WarpGatlingSpec extends WarpJUnitSpec {
   import WarpGatlingSpec._

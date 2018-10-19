@@ -47,7 +47,7 @@ class RobustPca(val data: RealMatrix,
     var sparseEstimate: RealMatrix = MatrixUtils.createRealMatrix(this.rows, this.cols)
     var errorEstimate: RealMatrix = MatrixUtils.createRealMatrix(this.rows, this.cols)
 
-    while (!converged && iterations < RobustPca.maxIterations) {
+    while (!converged && iterations < RobustPca.maxIterations) { // scalastyle:ignore
       // update our estimates of the decompositions
       val (newSparseEstimate: RealMatrix, nuclearNorm: Double) = this.estimateSparse(lowRankEstimate, mu)
       sparseEstimate = newSparseEstimate

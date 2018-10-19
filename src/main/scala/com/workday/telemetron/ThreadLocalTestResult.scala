@@ -13,7 +13,7 @@ import org.junit.runner.Description
 object ThreadLocalTestResult {
   private val initialResult = new TestResult {
 
-    override var status: Status.Value = Status.notStarted
+    override var status: Status.Value = Status.notStarted // scalastyle:ignore
 
     override val description: Option[Description] = None
 

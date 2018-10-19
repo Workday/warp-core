@@ -12,8 +12,10 @@ import com.workday.warp.persistence.Tables._
   */
 class HeapUsageCollector(testId: String) extends AbstractMeasurementCollector(testId) with CorePersistenceAware {
 
+  // scalastyle:off var.field
   private var heapUsedBefore: Long = _
   private var heapUsedAfter: Long = _
+  // scalastyle:on
 
   private val beforeDescription: String = "heap used before"
   private val afterDescription: String = "heap used after"
