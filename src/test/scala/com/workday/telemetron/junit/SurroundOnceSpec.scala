@@ -72,7 +72,9 @@ object SurroundOnceSpec {
     SurroundOnceSpec.shouldBeNonZero += 1
   }
 
+  // scalastyle:off var.field
   var shouldBeNonZero: Int = 0
   var invocations: Int = 2
+  // scalastyle:on
 }
 

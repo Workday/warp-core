@@ -163,7 +163,7 @@ object Connection {
     """.stripMargin
   // scalastyle:on two.spaces
 
-  var db: DatabaseDef = this.connect
+  var db: DatabaseDef = this.connect // scalastyle:ignore
 
   /** @return a synchronous database connection. */
   def connect: DatabaseDef = {

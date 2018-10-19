@@ -1,6 +1,8 @@
 package com.workday.telemetron.utils
 
+import com.workday.warp.common.utils.Implicits._
 import java.time.Duration
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 
@@ -70,4 +72,19 @@ object TimeUtils {
     * @return time converted to nanoseconds
     */
   def toNanos(time: Double, timeUnit: TimeUnit): Long = (time * timeUnit.toNanos(1)).toLong
+
+
+  /**
+    * @param since [[Date]] to compare with the current time.
+    * @return a [[Duration]] representing the amount of time between now and `since`.
+    */
+  def elapsedTimeSince(since: Date): Duration = (new Date().getTime - since.getTime).milliseconds
+
+
+  /**
+    * @param d1
+    * @param d2
+    * @return the maximum of `d1` and `d2`
+    */
+  def max(d1: Duration, d2: Duration): Duration = if (d1 > d2) d1 else d2
 }

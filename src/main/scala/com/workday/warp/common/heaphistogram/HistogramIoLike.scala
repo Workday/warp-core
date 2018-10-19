@@ -6,7 +6,7 @@ import java.lang.management.ManagementFactory
 import com.sun.tools.attach.VirtualMachine
 import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.persistence.influxdb.InfluxDBClient
-import sun.tools.attach.HotSpotVirtualMachine
+import sun.tools.attach.HotSpotVirtualMachine // scalastyle:ignore
 
 import scala.util.matching.Regex
 

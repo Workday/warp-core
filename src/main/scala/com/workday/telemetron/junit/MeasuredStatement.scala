@@ -29,6 +29,7 @@ class MeasuredStatement(base: Statement,
                         private implicit val context: TelemetronContext,
                         val sequenceNumber: Int) extends Statement with TestResult {
 
+  // scalastyle:off var.field
   // These vars are set during evaluate()
   private var begin: Instant = Instant.MIN
   private var end: Instant = Instant.MIN
@@ -36,6 +37,7 @@ class MeasuredStatement(base: Statement,
   private var cpuEnd: Long = 0
 
   override var status: Status.Value = Status.notStarted
+  // scalastyle:on
   override val description: Option[Description] = Some(this._description)
 
   override def getThreadCPUTime: Duration = {

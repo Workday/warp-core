@@ -13,7 +13,7 @@ import org.junit.runners.model.Statement
 class TelemetronNameRule extends TestRule {
 
   private val testName: TestName = new TestName
-  private var maybeDescription: Option[Description] = None
+  private var maybeDescription: Option[Description] = None // scalastyle:ignore
 
   override def apply(base: Statement, description: Description): Statement = {
     this.maybeDescription = Some(description)

@@ -51,6 +51,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     CorePersistenceUtils.initSchema()
   }
 
+  // scalastyle:off method.length
   /** Test various insertion behavior of tags with and without metatags for both Execution and Definition type tags */
   @Test
   @Category(Array(classOf[UnitTest]))
@@ -89,7 +90,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
       DefinitionTag("key2", "val21")
     )
 
-    val controller : DefaultMeasurementCollectionController = new DefaultMeasurementCollectionController(tags = newTags)
+    val controller: DefaultMeasurementCollectionController = new DefaultMeasurementCollectionController(tags = newTags)
     controller.isIntrusive should be (false)
     controller.measurementInProgress should be (false)
     val tryRecordTags: List[PersistTagResult] =
@@ -148,6 +149,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     tryRecordTags(4).tryTag._2(0).tryMetaTag.isFailure should be (true)
     tryRecordTags(4).tryTag._2(1).tryMetaTag.isFailure should be (true)
   }
+  // scalastyle:on
 
 
   /**

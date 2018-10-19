@@ -67,16 +67,34 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     val threshold: Duration = this.smartNumber(rawResponseTimes).seconds
     val responseTime: Duration = TimeUtils.toNanos(testExecution.responseTime, TimeUnit.SECONDS).nanoseconds
 
-    // fatal error threshold is value and try persistence fails
     if (threshold.isPositive) {
       tryRecordSmartThreshold(threshold, testExecution) match {
-        case Success(_) => Logger.debug("Smart threshold successfully persisted to TestExecutionMetaTag table")
+        case Success(_) =>
+          Logger.trace("Smart threshold successfully persisted to TestExecutionMetaTag table")
+          this.vote(testExecution, responseTime, threshold)
+
+        // fatal error threshold is value and try persistence fails
         case Failure(exception) =>
           Logger.error(s"Smart threshold failed to persist to TestExecutionMetaTag table with exception $exception")
-          return Option(new WarpFieldPersistenceException(s"Smart Threshold failed to persist", exception))
+          Option(new WarpFieldPersistenceException(s"Smart Threshold failed to persist", exception))
       }
     }
+    else {
+      None
+    }
+  }
 
+
+  /**
+    * Checks that the measured response time is not greater than the calculated threshold.
+    *
+    * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
+    * @param responseTime measured response time of the test execution.
+    * @param threshold calculated threshold of the test history.
+    * @tparam T
+    * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
+    */
+  private[this] def vote[T: TestExecutionRowLikeType](testExecution: T, responseTime: Duration, threshold: Duration): Option[Throwable] = {
     if (threshold.isPositive && responseTime > threshold) {
       val testId: String = this.persistenceUtils.getMethodSignature(testExecution)
       Option(new RequirementViolationException(
