@@ -91,6 +91,16 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     */
   val WARP_LOG_FILE: PropertyEntry = PropertyEntry("wd.warp.log.file", isRequired = false, "build/warp.log")
 
+  /**
+    * Whether MeasurementCollectors should log stacktraces when errors occur, or just an error message.
+    *
+    * Note that setting this to true can result in an overly verbose build log.
+    *
+    * Required: No
+    * Default Value: false
+    */
+  val WARP_LOG_STACKTRACES: PropertyEntry = PropertyEntry("wd.warp.log.stacktraces", isRequired = false, "false")
+
   // tracks build number of the stack, defaults to the beginning of unix time
   val SILVER_BUILD_NUMBER: PropertyEntry = PropertyEntry("SILVER_BUILD_NUMBER", isRequired = false, "1970.1.1")
 
