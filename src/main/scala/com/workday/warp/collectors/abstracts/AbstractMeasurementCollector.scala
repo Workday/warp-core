@@ -3,7 +3,7 @@ package com.workday.warp.collectors.abstracts
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.common.utils.{MeasurementUtils, WarpStopwatch}
-import com.workday.warp.common.CoreWarpProperty.WARP_LOG_STACKTRACES
+import com.workday.warp.common.CoreWarpProperty.WARP_LOG_MC_STACKTRACES
 import org.apache.commons.io.FileUtils.byteCountToDisplaySize
 import org.pmw.tinylog.Logger
 
@@ -75,7 +75,7 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: S
   /**
    * Simple error handling around `startMeasurement`. Sets enabled=false if there is an error.
    */
-  final def tryStartMeasurement(shouldLogStacktrace: Boolean = WARP_LOG_STACKTRACES.value.toBoolean): Unit = {
+  final def tryStartMeasurement(shouldLogStacktrace: Boolean = WARP_LOG_MC_STACKTRACES.value.toBoolean): Unit = {
     Logger.trace(s"starting collector ${this.name}")
 
     Try(this.startMeasurement()) recover { case exception: Exception =>
@@ -103,7 +103,7 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: S
    */
   final def tryStopMeasurement[T: TestExecutionRowLikeType](
                                                              maybeTestExecution: Option[T],
-                                                             shouldLogStacktrace: Boolean = WARP_LOG_STACKTRACES.value.toBoolean
+                                                             shouldLogStacktrace: Boolean = WARP_LOG_MC_STACKTRACES.value.toBoolean
                                                            ): Unit = {
     Logger.trace(s"stopping collector ${this.name}")
 
