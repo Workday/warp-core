@@ -36,7 +36,8 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   def testSmartNumberBehavior(): Unit = {
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter
     // create 1000 gaussian numbers with mean 50
-    val responseTimes: List[Double] = List.fill(1000)(50 + (Random.nextGaussian * 4))
+    val random: Random = new Random(seed = 123456)
+    val responseTimes: List[Double] = List.fill(1000)(50 + (random.nextGaussian * 4))
     val smartNumber: Double = arbiter.smartNumber(responseTimes)
     Logger.info(s"detected smart number: $smartNumber")
 

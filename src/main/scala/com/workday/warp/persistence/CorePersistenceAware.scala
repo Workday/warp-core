@@ -398,12 +398,12 @@ trait CorePersistenceAware extends PersistenceAware {
         tags: Seq[(String, String)] <- this.testExecutionMetaTagQuery(idTestExecutionTag, nameRow.idTagName).result
         _ <- tags.toList match {
           case Nil =>
-            Logger.info(s"tags: $tags")
-            Logger.info(s"$idTestExecutionTag $nameRow Nil")
+            Logger.debug(s"tags: $tags")
+            Logger.debug(s"$idTestExecutionTag $nameRow Nil")
             Tables.TestExecutionMetaTag += TestExecutionMetaTagRow(idTestExecutionTag, nameRow.idTagName, value)
 
           case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
-            Logger.info(s"tags: $tags")
+            Logger.debug(s"tags: $tags")
             Logger.debug(s"Attempting to log an execution metatag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful((oldKey, oldValue))
 
