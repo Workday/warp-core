@@ -140,7 +140,7 @@ trait Connection {
     * @tparam Row return type of `action`.
     * @return [[Try]] containing the result of executing `action`.
     */
-  def trySynchronously[Row](action: DBIO[Row]): Try[Row] = Try(Await.result(Connection.db.run(action), Duration.Inf))
+  def trySynchronously[Row](action: DBIO[Row]): Try[Row] = Try(Await.result(Connection.db.run(action), Duration(60, "seconds")))
 }
 
 object Connection {
@@ -179,7 +179,7 @@ object Connection {
 
   /** Shutdown and recreate our database connection. */
   def refresh(): Unit = {
-      Await.result(this.db.shutdown, Duration.Inf)
+      Await.result(this.db.shutdown, Duration(60, "seconds"))
       this.db = this.connect
   }
 }

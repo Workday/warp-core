@@ -18,6 +18,8 @@ object TablesLike extends model.TablesLike
 object Drivers {
 
   val mysql: String = "com.mysql.jdbc.Driver"
+  // see https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-api-changes.html
+  val cjMysql: String = "com.mysql.cj.jdbc.Driver"
   val h2: String = "org.h2.Driver"
 
   /**
@@ -37,12 +39,14 @@ trait CommonTables {
 
   val disableForeignKeys: String = WARP_DATABASE_DRIVER.value match {
     case Drivers.mysql => "SET FOREIGN_KEY_CHECKS=0;"
+    case Drivers.cjMysql => "SET FOREIGN_KEY_CHECKS=0;"
     case Drivers.h2 => "SET REFERENTIAL_INTEGRITY FALSE;"
     case unsupported => throw Drivers.unsupportedDriverException(unsupported)
   }
 
   val enableForeignKeys: String = WARP_DATABASE_DRIVER.value match {
     case Drivers.mysql => "SET FOREIGN_KEY_CHECKS=1;"
+    case Drivers.cjMysql => "SET FOREIGN_KEY_CHECKS=1;"
     case Drivers.h2 => "SET REFERENTIAL_INTEGRITY TRUE;"
     case unsupported => throw Drivers.unsupportedDriverException(unsupported)
   }
@@ -53,6 +57,7 @@ trait HasProfile {
   // shameless assumption
   val profile: JdbcProfile = WARP_DATABASE_DRIVER.value match {
     case Drivers.mysql => slick.jdbc.MySQLProfile
+    case Drivers.cjMysql => slick.jdbc.MySQLProfile
     case Drivers.h2 => slick.jdbc.H2Profile
     case unsupported => throw Drivers.unsupportedDriverException(unsupported)
   }

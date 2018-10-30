@@ -79,14 +79,20 @@ dependencies {
     compile "org.scala-lang:scala-library:%scala-version%"
     compile "org.scala-lang:scala-compiler:%scala-version%"
     compile "org.scalatest:scalatest_%%:${versions.scalatest}"
-    compile "org.tinylog:slf4j-binding:${versions.slf4jBinding}"
     compile "org.tinylog:tinylog:${versions.tinylog}"
-    scoverage "org.scoverage:scalac-scoverage-plugin_%%:${versions.scalacScoverage}",
-            "org.scoverage:scalac-scoverage-runtime_%%:${versions.scalacScoverage}"
     compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
-    compile "io.gatling:gatling-core:${versions.gatling}"
+    compile ("io.gatling:gatling-core:${versions.gatling}") {
+        exclude (group: "ch.qos.logback", module: "logback-classic")
+    }
     compile "io.gatling:gatling-http:${versions.gatling}"
     compile "io.gatling:gatling-app:${versions.gatling}"
+    scoverage "org.scoverage:scalac-scoverage-plugin_%%:${versions.scalacScoverage}",
+            "org.scoverage:scalac-scoverage-runtime_%%:${versions.scalacScoverage}"
+    runtime "org.tinylog:slf4j-binding:${versions.tinylogSlf4jBinding}"
+}
+
+configurations {
+    all*.exclude group: 'ch.qos.logback', module:'logback-classic'
 }
 
 sourceSets {

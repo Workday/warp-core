@@ -83,18 +83,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -166,13 +154,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -265,17 +259,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -471,8 +465,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -733,7 +727,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -744,20 +737,12 @@
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
-                "org.asynchttpclient:netty-resolver-dns",
-                "org.tinylog:slf4j-binding"
+                "org.asynchttpclient:netty-resolver-dns"
             ]
-        },
-        "org.tinylog:slf4j-binding": {
-            "locked": "1.3.5",
-            "requested": "1.3.5"
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
-            "transitive": [
-                "org.tinylog:slf4j-binding"
-            ]
+            "requested": "1.3.5"
         }
     },
     "compileClasspath": {
@@ -767,18 +752,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -850,13 +823,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -949,17 +928,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -1155,8 +1134,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -1417,7 +1396,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -1428,20 +1406,12 @@
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
-                "org.asynchttpclient:netty-resolver-dns",
-                "org.tinylog:slf4j-binding"
+                "org.asynchttpclient:netty-resolver-dns"
             ]
-        },
-        "org.tinylog:slf4j-binding": {
-            "locked": "1.3.5",
-            "requested": "1.3.5"
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
-            "transitive": [
-                "org.tinylog:slf4j-binding"
-            ]
+            "requested": "1.3.5"
         }
     },
     "default": {
@@ -1451,18 +1421,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -1534,13 +1492,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -1633,17 +1597,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -1839,8 +1803,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -2101,7 +2065,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -2122,7 +2085,7 @@
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
+            "requested": "1.3.5",
             "transitive": [
                 "org.tinylog:slf4j-binding"
             ]
@@ -2135,18 +2098,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -2218,13 +2169,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -2317,17 +2274,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -2523,8 +2480,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -2785,7 +2742,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -2806,7 +2762,7 @@
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
+            "requested": "1.3.5",
             "transitive": [
                 "org.tinylog:slf4j-binding"
             ]
@@ -2819,18 +2775,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -2902,13 +2846,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -3001,17 +2951,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -3207,8 +3157,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -3469,7 +3419,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -3490,7 +3439,7 @@
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
+            "requested": "1.3.5",
             "transitive": [
                 "org.tinylog:slf4j-binding"
             ]
@@ -3533,18 +3482,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -3616,13 +3553,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -3715,17 +3658,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -3921,8 +3864,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -4183,7 +4126,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -4194,20 +4136,12 @@
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
-                "org.asynchttpclient:netty-resolver-dns",
-                "org.tinylog:slf4j-binding"
+                "org.asynchttpclient:netty-resolver-dns"
             ]
-        },
-        "org.tinylog:slf4j-binding": {
-            "locked": "1.3.5",
-            "requested": "1.3.5"
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
-            "transitive": [
-                "org.tinylog:slf4j-binding"
-            ]
+            "requested": "1.3.5"
         }
     },
     "testCompileClasspath": {
@@ -4217,18 +4151,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -4300,13 +4222,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -4399,17 +4327,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -4605,8 +4533,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -4867,7 +4795,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -4878,20 +4805,12 @@
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
-                "org.asynchttpclient:netty-resolver-dns",
-                "org.tinylog:slf4j-binding"
+                "org.asynchttpclient:netty-resolver-dns"
             ]
-        },
-        "org.tinylog:slf4j-binding": {
-            "locked": "1.3.5",
-            "requested": "1.3.5"
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
-            "transitive": [
-                "org.tinylog:slf4j-binding"
-            ]
+            "requested": "1.3.5"
         }
     },
     "testRuntime": {
@@ -4901,18 +4820,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -4984,13 +4891,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -5083,17 +4996,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -5289,8 +5202,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -5551,7 +5464,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -5572,7 +5484,7 @@
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
+            "requested": "1.3.5",
             "transitive": [
                 "org.tinylog:slf4j-binding"
             ]
@@ -5585,18 +5497,6 @@
                 "com.google.inject:guice"
             ]
         },
-        "ch.qos.logback:logback-classic": {
-            "locked": "1.2.3",
-            "transitive": [
-                "io.gatling:gatling-commons"
-            ]
-        },
-        "ch.qos.logback:logback-core": {
-            "locked": "1.2.3",
-            "transitive": [
-                "ch.qos.logback:logback-classic"
-            ]
-        },
         "com.dongxiguo:fastring_2.12": {
             "locked": "0.3.1",
             "transitive": [
@@ -5668,13 +5568,19 @@
             ]
         },
         "com.google.inject:guice": {
-            "locked": "4.1.0",
-            "requested": "4.1.0"
+            "locked": "4.2.2",
+            "requested": "4.2.2"
         },
         "com.google.j2objc:j2objc-annotations": {
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -5767,17 +5673,17 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
@@ -5973,8 +5879,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.46",
-            "requested": "5.1.46"
+            "locked": "8.0.13",
+            "requested": "8.0.13"
         },
         "net.databinder.dispatch:dispatch-core_%%": {
             "project": true,
@@ -6235,7 +6141,6 @@
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
             "transitive": [
-                "ch.qos.logback:logback-classic",
                 "com.typesafe.akka:akka-slf4j_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -6256,7 +6161,7 @@
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.1",
+            "requested": "1.3.5",
             "transitive": [
                 "org.tinylog:slf4j-binding"
             ]
