@@ -12,11 +12,12 @@ import com.workday.warp.common.utils.StackTraceFilter
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
-import org.influxdb.dto.{BatchPoints, Point, Pong}
+import org.influxdb.dto._
 import org.influxdb.{InfluxDB, InfluxDBFactory}
 import org.pmw.tinylog.Logger
 
 import scala.collection.JavaConverters._
+import scala.collection.mutable
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -34,12 +35,12 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
    * @param seriesName the series (also referred to as a measurement) to use for persistence.
    */
   def persistHeapHistogram(histo: HeapHistogram, dbName: String, seriesName: String, warpTestName: String): Try[Unit] = {
-    InfluxDBClient.client match {
+    InfluxDBClient.maybeClient match {
       case None => Failure(new RuntimeException("unable to connect to influxdb"))
       case Some(client) =>
         // create the database if necessary
         if (!this.databaseExists(dbName).getOrElse(false)) {
-          client.createDatabase(dbName)
+          this.createDatabase(dbName)
         }
 
         // timestamp to use for all points in this batch
@@ -120,12 +121,12 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
                                                 testExecutions: Iterable[T],
                                                 threshold: Option[Duration] = None): Try[Unit] = {
 
-    InfluxDBClient.client match {
+    InfluxDBClient.maybeClient match {
       case None => Failure(new RuntimeException("unable to connect to influxdb"))
       case Some(client) =>
         // create the database if necessary
         if (!this.databaseExists(dbName).getOrElse(false)) {
-          client.createDatabase(dbName)
+          this.createDatabase(dbName)
         }
 
         val points = addPoints(dbName, seriesName, testExecutions, threshold)
@@ -157,9 +158,20 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
    * @return true iff databaseName exists as a database in InfluxDB and we have a successful connection.
    */
   def databaseExists(databaseName: String): Try[Boolean] = {
-    InfluxDBClient.client match {
+    val showQuery: Query = new Query("SHOW DATABASES", databaseName)
+    InfluxDBClient.maybeClient match {
       case None => Failure(new WarpConfigurationException(InfluxDBClient.error))
-      case Some(client) => Try(client.describeDatabases.asScala.exists(_.equals(databaseName)))
+      case Some(client) => Try {
+        val results: Seq[QueryResult.Result] = client.query(showQuery).getResults.asScala
+        val databaseNames: Seq[String] = for {
+          res <- results
+          serie <- res.getSeries.asScala
+          value <- serie.getValues.asScala
+          name <- value.asScala
+        } yield name.toString
+
+        databaseNames.exists(_.equals(databaseName))
+      }
     }
   }
 
@@ -169,10 +181,22 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
     *
     * @param database name of the database to delete
     */
-  def deleteDatabase(database: String): Try[Unit] = {
-    InfluxDBClient.client match {
+  def dropDatabase(database: String): Try[Unit] = {
+    val dropQuery: Query = new Query(s"""DROP DATABASE "$database"""", database)
+
+    InfluxDBClient.maybeClient match {
       case None => Failure(new WarpConfigurationException(InfluxDBClient.error))
-      case Some(client) => Try(client.deleteDatabase(database))
+      case Some(client) => Try(client.query(dropQuery))
+    }
+  }
+
+
+  def createDatabase(database: String): Try[Unit] = {
+    val createQuery: Query = new Query(s"""CREATE DATABASE "$database"""", database)
+
+    InfluxDBClient.maybeClient match {
+      case None => Failure(new WarpConfigurationException(InfluxDBClient.error))
+      case Some(client) => Try(client.query(createQuery))
     }
   }
 
@@ -181,7 +205,7 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
    * @return a Pong object describing the deployed influxdb server
    */
   def ping: Try[Pong] = {
-    InfluxDBClient.client match {
+    InfluxDBClient.maybeClient match {
       case None => Failure(new WarpConfigurationException(InfluxDBClient.error))
       case Some(client) => Try(client.ping)
     }
@@ -197,7 +221,7 @@ object InfluxDBClient {
   private val password: String = WARP_INFLUXDB_PASSWORD.value
 
   /** [[Option]] containing an [[InfluxDB]]. Use this to write datapoints to influxdb. */
-  val client: Option[InfluxDB] = this.connect
+  val maybeClient: Option[InfluxDB] = this.connect
 
 
   /** a simple error message containing url, user, password we attempted to connect with. */

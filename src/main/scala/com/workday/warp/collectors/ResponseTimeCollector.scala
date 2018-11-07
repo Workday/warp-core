@@ -28,7 +28,7 @@ class ResponseTimeCollector(testId: String) extends AbstractMeasurementCollector
     * Called prior to starting an individual test invocation.
     */
   override def startMeasurement(): Unit = {
-    if (InfluxDBClient.client.isEmpty) {
+    if (InfluxDBClient.maybeClient.isEmpty) {
       this.isEnabled = false
     }
   }

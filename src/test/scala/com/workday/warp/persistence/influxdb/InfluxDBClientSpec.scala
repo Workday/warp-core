@@ -1,6 +1,6 @@
 package com.workday.warp.persistence.influxdb
 
-import java.util.Date
+import java.util.{Date, UUID}
 
 import com.workday.warp.common.category.IntegrationTest
 import com.workday.warp.common.heaphistogram.{HeapHistogram, HeapHistogramEntry}
@@ -44,7 +44,7 @@ class InfluxDBClientSpec extends WarpJUnitSpec with CorePersistenceAware with In
     val histo: HeapHistogram = new HeapHistogram(List(e1, e2, e3, e4))
 
     this.persistHeapHistogram(histo, "testHeapHistograms", "testSeries", "com.workday.warp.test").get
-    this.deleteDatabase("testHeapHistograms").get
+    this.dropDatabase("testHeapHistograms").get
   }
 
 
@@ -55,6 +55,23 @@ class InfluxDBClientSpec extends WarpJUnitSpec with CorePersistenceAware with In
     Connection.refresh()
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, new Date, 1.0, 1.5)
     this.persistThreshold("testResponseTimes", "testResponseTimes", testExecution).get
-    this.deleteDatabase("testResponseTimes").get
+    this.dropDatabase("testResponseTimes").get
+  }
+
+
+  /** Checks that we can persist response times and thresholds. */
+  @Test
+  @Category(Array(classOf[IntegrationTest]))
+  def createDatabase(): Unit = {
+    val dbName: String = s"schema-${UUID.randomUUID().toString}"
+
+    val exists: Boolean = this.databaseExists(dbName).get
+    if (exists) {
+      this.dropDatabase(dbName).get
+    }
+
+    this.createDatabase(dbName).get
+    this.databaseExists(dbName).get should be (true)
+    this.dropDatabase(dbName).get
   }
 }
