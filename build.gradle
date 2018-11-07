@@ -1,28 +1,10 @@
-allprojects {
-    apply plugin: 'base'
-    apply plugin: 'java'
-    apply plugin: 'checkstyle'
-    apply plugin: 'scala'
-    apply plugin: 'scalaStyle'
-    apply plugin: 'idea'
-    apply plugin: "com.adtran.scala-multiversion-plugin"
-    apply plugin: "org.ajoberstar.grgit"
-    apply plugin: "nebula.dependency-lock"
-    apply plugin: "nebula.gradle-git-scm"
-    apply plugin: 'nebula.release'
-    apply plugin: "nebula.maven-resolved-dependencies"
-    apply plugin: "org.scoverage"
-    apply plugin: "com.github.kt3k.coveralls"
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
-}
-
 buildscript {
     // set a valid scala suffix for the buildscript itself
     project.ext.scalaSuffix = '_2.11'
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
+        mavenLocal()
 		jcenter()
     }
 
@@ -30,6 +12,7 @@ buildscript {
         classpath "com.adtran:scala-multiversion-plugin:${versions.scalaMultiversion}"
         classpath "com.netflix.nebula:gradle-dependency-lock-plugin:${versions.nebulaDependencyLock}"
         classpath "com.netflix.nebula:gradle-git-scm-plugin:${versions.nebulaGit}"
+        classpath "com.netflix.nebula:gradle-lint-plugin:${versions.nebulaGradleLint}"
         classpath "com.netflix.nebula:nebula-release-plugin:${versions.nebulaRelease}"
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
         classpath "org.ajoberstar:grgit:${versions.gradleGit}"
@@ -39,6 +22,23 @@ buildscript {
     }
 }
 
+apply plugin: 'base'
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'scala'
+apply plugin: 'scalaStyle'
+apply plugin: 'idea'
+apply plugin: 'com.adtran.scala-multiversion-plugin'
+apply plugin: 'org.ajoberstar.grgit'
+apply plugin: 'nebula.dependency-lock'
+apply plugin: 'nebula.gradle-git-scm'
+apply plugin: 'nebula.lint'
+apply plugin: 'nebula.release'
+apply plugin: 'nebula.maven-resolved-dependencies'
+apply plugin: 'org.scoverage'
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
 apply from: file("${rootDir}/versionInfo.gradle")
 
 repositories {
@@ -62,35 +62,34 @@ dependencies {
     compile "com.google.code.gson:gson:${versions.gson}"
     compile "com.google.guava:guava:${versions.guava}"
     compile "com.google.inject:guice:${versions.guice}"
-    compile "com.h2database:h2:${versions.h2}"
-    compile "commons-configuration:commons-configuration:${versions.commonsConfiguration}"
-    compile "commons-io:commons-io:${versions.commonsIo}"
+    compile "com.typesafe:config:${versions.typesafeConfig}"
     compile "com.typesafe.slick:slick_%%:${versions.slick}"
     compile "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
+    compile "commons-configuration:commons-configuration:${versions.commonsConfiguration}"
+    compile "commons-io:commons-io:${versions.commonsIo}"
+    compile "io.gatling:gatling-core:${versions.gatling}"
+    compile "io.gatling:gatling-http:${versions.gatling}"
     compile "junit:junit:${versions.junit}"
-    compile "mysql:mysql-connector-java:${versions.mysqlConnector}"
-    compile "net.databinder.dispatch:dispatch-core_%%:${versions.dispatch}"
-    compile "org.apache.commons:commons-lang3:${versions.commonsLang3}"
     compile "org.apache.commons:commons-math3:${versions.math3}"
     compile "org.flywaydb:flyway-core:${versions.flyway}"
     compile "org.influxdb:influxdb-java:${versions.influxDbClient}"
-    compile "org.json4s:json4s-jackson_%%:${versions.json4s}"
-    compile "org.ow2.asm:asm-tree:${versions.asm}"
     compile "org.scala-lang:scala-library:%scala-version%"
-    compile "org.scala-lang:scala-compiler:%scala-version%"
+    compile "org.scala-lang:scala-reflect:%scala-version%"
+    compile "org.scalactic:scalactic_%%:${versions.scalactic}"
     compile "org.scalatest:scalatest_%%:${versions.scalatest}"
     compile "org.tinylog:tinylog:${versions.tinylog}"
+
     compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
-    compile ("io.gatling:gatling-core:${versions.gatling}") {
-        exclude (group: "ch.qos.logback", module: "logback-classic")
-    }
-    compile "io.gatling:gatling-http:${versions.gatling}"
-    compile "io.gatling:gatling-app:${versions.gatling}"
-    scoverage "org.scoverage:scalac-scoverage-plugin_%%:${versions.scalacScoverage}",
-            "org.scoverage:scalac-scoverage-runtime_%%:${versions.scalacScoverage}"
+
+    scoverage "org.scoverage:scalac-scoverage-plugin_%%:${versions.scalacScoverage}"
+    scoverage "org.scoverage:scalac-scoverage-runtime_%%:${versions.scalacScoverage}"
+
+    runtime "com.h2database:h2:${versions.h2}"
+    runtime "mysql:mysql-connector-java:${versions.mysqlConnector}"
     runtime "org.tinylog:slf4j-binding:${versions.tinylogSlf4jBinding}"
 }
 
+// exclude concrete log bindings from gatling
 configurations {
     all*.exclude group: 'ch.qos.logback', module:'logback-classic'
 }
@@ -221,6 +220,10 @@ dependencyLock {
 
 commitDependencyLock {
     message = "(auto) update dependency lock file, version=${project.version.toString()}"
+}
+
+gradleLint {
+    rules = ['unused-dependency']
 }
 
 scoverage {

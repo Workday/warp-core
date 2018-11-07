@@ -165,14 +165,6 @@ object Connection {
 
   var db: DatabaseDef = this.connect // scalastyle:ignore
 
-  // shutdown db on jvm exit
-  Runtime.getRuntime.addShutdownHook(new Thread {
-    override def run(): Unit = {
-      Logger.info("run done. shutting down db connection.")
-      Await.result(Connection.db.shutdown, Duration(60, "seconds"))
-    }
-  })
-
   /** @return a synchronous database connection. */
   def connect: DatabaseDef = {
     val name: String = "db"

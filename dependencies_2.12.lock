@@ -107,8 +107,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -163,16 +162,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
-        "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
-        },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
             "transitive": [
@@ -219,24 +208,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -259,23 +235,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -308,12 +285,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -326,16 +297,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -346,45 +307,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -464,48 +392,20 @@
             "locked": "4.12",
             "requested": "4.12"
         },
-        "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -555,12 +455,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -583,46 +477,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -652,18 +511,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -674,42 +526,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -732,7 +576,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -776,8 +619,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -832,16 +674,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
-        "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
-        },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
             "transitive": [
@@ -888,24 +720,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -928,23 +747,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -977,12 +797,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -995,16 +809,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -1015,45 +819,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -1133,48 +904,20 @@
             "locked": "4.12",
             "requested": "4.12"
         },
-        "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -1224,12 +967,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -1252,46 +989,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -1321,18 +1023,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -1343,42 +1038,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -1401,7 +1088,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -1445,8 +1131,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -1501,12 +1186,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
@@ -1557,24 +1236,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -1597,23 +1263,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -1646,12 +1313,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -1664,16 +1325,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -1684,45 +1335,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -1803,21 +1421,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
+            "locked": "5.1.47",
+            "requested": "5.1.47"
         },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
@@ -1825,25 +1430,14 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -1893,12 +1487,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -1921,46 +1509,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -1990,18 +1543,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -2012,42 +1558,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -2070,7 +1608,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -2122,8 +1659,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -2178,12 +1714,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
@@ -2234,24 +1764,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -2274,23 +1791,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -2323,12 +1841,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -2341,16 +1853,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -2361,45 +1863,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -2480,21 +1949,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
+            "locked": "5.1.47",
+            "requested": "5.1.47"
         },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
@@ -2502,25 +1958,14 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -2570,12 +2015,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -2598,46 +2037,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -2667,18 +2071,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -2689,42 +2086,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -2747,7 +2136,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -2799,8 +2187,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -2855,12 +2242,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
@@ -2911,24 +2292,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -2951,23 +2319,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -3000,12 +2369,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -3018,16 +2381,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -3038,45 +2391,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -3157,21 +2477,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
+            "locked": "5.1.47",
+            "requested": "5.1.47"
         },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
@@ -3179,25 +2486,14 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -3247,12 +2543,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -3275,46 +2565,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -3344,18 +2599,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -3366,42 +2614,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -3424,7 +2664,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -3506,8 +2745,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -3562,16 +2800,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
-        "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
-        },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
             "transitive": [
@@ -3618,24 +2846,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -3658,23 +2873,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -3707,12 +2923,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -3725,16 +2935,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -3745,45 +2945,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -3863,48 +3030,20 @@
             "locked": "4.12",
             "requested": "4.12"
         },
-        "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -3954,12 +3093,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -3982,46 +3115,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -4051,18 +3149,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -4073,42 +3164,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -4131,7 +3214,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -4175,8 +3257,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -4231,16 +3312,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
-        "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
-        },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
             "transitive": [
@@ -4287,24 +3358,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -4327,23 +3385,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -4376,12 +3435,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -4394,16 +3447,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -4414,45 +3457,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -4532,48 +3542,20 @@
             "locked": "4.12",
             "requested": "4.12"
         },
-        "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -4623,12 +3605,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -4651,46 +3627,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -4720,18 +3661,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -4742,42 +3676,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -4800,7 +3726,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -4844,8 +3769,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -4900,12 +3824,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
@@ -4956,24 +3874,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -4996,23 +3901,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -5045,12 +3951,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -5063,16 +3963,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -5083,45 +3973,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -5202,21 +4059,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
+            "locked": "5.1.47",
+            "requested": "5.1.47"
         },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
@@ -5224,25 +4068,14 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -5292,12 +4125,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -5320,46 +4147,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -5389,18 +4181,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -5411,42 +4196,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -5469,7 +4246,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -5521,8 +4297,7 @@
             "locked": "2.9.0",
             "transitive": [
                 "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
-                "io.gatling:gatling-core",
-                "org.json4s:json4s-jackson_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv": {
@@ -5577,12 +4352,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.google.protobuf:protobuf-java": {
-            "locked": "3.6.1",
-            "transitive": [
-                "mysql:mysql-connector-java"
-            ]
-        },
         "com.h2database:h2": {
             "locked": "1.4.191",
             "requested": "1.4.191"
@@ -5633,24 +4402,11 @@
                 "org.influxdb:influxdb-java"
             ]
         },
-        "com.tdunning:t-digest": {
-            "locked": "3.1",
-            "transitive": [
-                "io.gatling:gatling-charts"
-            ]
-        },
-        "com.thoughtworks.paranamer:paranamer": {
-            "locked": "2.8",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "com.typesafe.akka:akka-actor_2.12": {
             "locked": "2.5.4",
             "transitive": [
                 "com.typesafe.akka:akka-slf4j_2.12",
-                "io.gatling:gatling-core",
-                "net.debasishg:redisclient_2.12"
+                "io.gatling:gatling-core"
             ]
         },
         "com.typesafe.akka:akka-slf4j_2.12": {
@@ -5673,23 +4429,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.3"
+            "locked": "3.2.0"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.3"
+            "requested": "3.2.0"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.3",
+            "locked": "3.2.0",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
+            "requested": "1.3.1",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -5722,12 +4479,6 @@
                 "commons-configuration:commons-configuration"
             ]
         },
-        "commons-pool:commons-pool": {
-            "locked": "1.6",
-            "transitive": [
-                "net.debasishg:redisclient_2.12"
-            ]
-        },
         "io.advantageous.boon:boon-json": {
             "locked": "0.6.6",
             "transitive": [
@@ -5740,16 +4491,6 @@
                 "io.advantageous.boon:boon-json"
             ]
         },
-        "io.gatling:gatling-app": {
-            "locked": "2.3.1",
-            "requested": "2.3.1"
-        },
-        "io.gatling:gatling-charts": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
             "transitive": [
@@ -5760,45 +4501,12 @@
             "locked": "2.3.1",
             "requested": "2.3.1",
             "transitive": [
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
-                "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis"
+                "io.gatling:gatling-http"
             ]
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
-            "requested": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jdbc": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-jms": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-metrics": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
-        },
-        "io.gatling:gatling-redis": {
-            "locked": "2.3.1",
-            "transitive": [
-                "io.gatling:gatling-app"
-            ]
+            "requested": "2.3.1"
         },
         "io.gatling:jsonpath_2.12": {
             "locked": "0.6.9",
@@ -5879,21 +4587,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "8.0.13",
-            "requested": "8.0.13"
-        },
-        "net.databinder.dispatch:dispatch-core_%%": {
-            "project": true,
-            "requested": "0.13.0"
-        },
-        "net.databinder.dispatch:dispatch-core_2.12": {
-            "locked": "0.13.0"
-        },
-        "net.debasishg:redisclient_2.12": {
-            "locked": "3.4",
-            "transitive": [
-                "io.gatling:gatling-redis"
-            ]
+            "locked": "5.1.47",
+            "requested": "5.1.47"
         },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
@@ -5901,25 +4596,14 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "org.apache.commons:commons-lang3": {
-            "locked": "3.4",
-            "requested": "3.4"
-        },
         "org.apache.commons:commons-math3": {
             "locked": "3.5",
             "requested": "3.5"
         },
-        "org.apache.geronimo.specs:geronimo-jms_1.1_spec": {
-            "locked": "1.1.1",
-            "transitive": [
-                "io.gatling:gatling-jms"
-            ]
-        },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.39",
             "transitive": [
-                "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12"
+                "io.gatling:gatling-http"
             ]
         },
         "org.asynchttpclient:async-http-client-netty-utils": {
@@ -5969,12 +4653,6 @@
                 "junit:junit"
             ]
         },
-        "org.hdrhistogram:HdrHistogram": {
-            "locked": "2.1.9",
-            "transitive": [
-                "io.gatling:gatling-metrics"
-            ]
-        },
         "org.influxdb:influxdb-java": {
             "locked": "2.14",
             "requested": "2.14"
@@ -5997,46 +4675,11 @@
                 "org.jodd:jodd-lagarto"
             ]
         },
-        "org.json4s:json4s-ast_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
-        "org.json4s:json4s-core_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-jackson_2.12"
-            ]
-        },
-        "org.json4s:json4s-jackson_%%": {
-            "project": true,
-            "requested": "3.4.2"
-        },
-        "org.json4s:json4s-jackson_2.12": {
-            "locked": "3.4.2"
-        },
-        "org.json4s:json4s-scalap_2.12": {
-            "locked": "3.4.2",
-            "transitive": [
-                "org.json4s:json4s-core_2.12"
-            ]
-        },
         "org.msgpack:msgpack-core": {
             "locked": "0.8.16",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
-        },
-        "org.ow2.asm:asm": {
-            "locked": "5.0.3",
-            "transitive": [
-                "org.ow2.asm:asm-tree"
-            ]
-        },
-        "org.ow2.asm:asm-tree": {
-            "locked": "5.0.3",
-            "requested": "5.0.3"
         },
         "org.reactivestreams:reactive-streams": {
             "locked": "1.0.0",
@@ -6066,18 +4709,11 @@
             "locked": "1.0.6",
             "transitive": [
                 "io.gatling:gatling-http",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scalatest:scalatest_2.12"
             ]
         },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.12.6",
-            "requested": "%scala-version%"
-        },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
             "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
@@ -6088,42 +4724,34 @@
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "com.typesafe.slick:slick-hikaricp_2.12",
                 "com.typesafe.slick:slick_2.12",
-                "io.gatling:gatling-app",
-                "io.gatling:gatling-charts",
                 "io.gatling:gatling-commons",
                 "io.gatling:gatling-core",
                 "io.gatling:gatling-http",
-                "io.gatling:gatling-jdbc",
-                "io.gatling:gatling-jms",
-                "io.gatling:gatling-metrics",
-                "io.gatling:gatling-redis",
                 "io.gatling:jsonpath_2.12",
                 "io.suzaku:boopickle_2.12",
-                "net.databinder.dispatch:dispatch-core_2.12",
-                "org.json4s:json4s-ast_2.12",
-                "org.json4s:json4s-core_2.12",
-                "org.json4s:json4s-jackson_2.12",
-                "org.json4s:json4s-scalap_2.12",
                 "org.scala-lang.modules:scala-java8-compat_2.12",
                 "org.scala-lang.modules:scala-parser-combinators_2.12",
                 "org.scala-lang.modules:scala-xml_2.12",
-                "org.scala-lang:scala-compiler",
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.6",
+            "locked": "2.12.7",
+            "requested": "%scala-version%",
             "transitive": [
                 "com.dongxiguo:fastring_2.12",
                 "com.softwaremill.quicklens:quicklens_2.12",
                 "com.typesafe.scala-logging:scala-logging_2.12",
                 "io.gatling:gatling-commons",
-                "org.scala-lang:scala-compiler",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12"
             ]
+        },
+        "org.scalactic:scalactic_%%": {
+            "project": true,
+            "requested": "3.0.0"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -6146,7 +4774,6 @@
                 "com.typesafe.slick:slick_2.12",
                 "com.zaxxer:HikariCP",
                 "io.gatling:gatling-commons",
-                "net.debasishg:redisclient_2.12",
                 "org.asynchttpclient:async-http-client",
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
@@ -6164,6 +4791,53 @@
             "requested": "1.3.5",
             "transitive": [
                 "org.tinylog:slf4j-binding"
+            ]
+        }
+    },
+    "zinc": {
+        "com.typesafe.sbt:compiler-interface": {
+            "locked": "0.13.15",
+            "transitive": [
+                "com.typesafe.zinc:zinc"
+            ]
+        },
+        "com.typesafe.sbt:incremental-compiler": {
+            "locked": "0.13.15",
+            "transitive": [
+                "com.typesafe.zinc:zinc"
+            ]
+        },
+        "com.typesafe.sbt:sbt-interface": {
+            "locked": "0.13.15",
+            "transitive": [
+                "com.typesafe.sbt:incremental-compiler"
+            ]
+        },
+        "com.typesafe.zinc:zinc": {
+            "locked": "0.3.15",
+            "requested": "0.3.15"
+        },
+        "org.scala-lang:scala-compiler": {
+            "locked": "2.10.6",
+            "transitive": [
+                "com.typesafe.sbt:incremental-compiler"
+            ]
+        },
+        "org.scala-lang:scala-library": {
+            "locked": "2.10.6",
+            "transitive": [
+                "com.typesafe.sbt:compiler-interface",
+                "com.typesafe.sbt:incremental-compiler",
+                "com.typesafe.sbt:sbt-interface",
+                "com.typesafe.zinc:zinc",
+                "org.scala-lang:scala-compiler",
+                "org.scala-lang:scala-reflect"
+            ]
+        },
+        "org.scala-lang:scala-reflect": {
+            "locked": "2.10.6",
+            "transitive": [
+                "org.scala-lang:scala-compiler"
             ]
         }
     }
