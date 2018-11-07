@@ -235,24 +235,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -508,7 +508,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -553,7 +553,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -747,24 +747,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -1020,7 +1020,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -1065,7 +1065,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -1263,24 +1263,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -1540,7 +1540,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -1585,7 +1585,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -1791,24 +1791,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -2068,7 +2068,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -2113,7 +2113,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -2319,24 +2319,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -2596,7 +2596,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -2641,7 +2641,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -2873,24 +2873,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -3146,7 +3146,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -3191,7 +3191,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -3385,24 +3385,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -3658,7 +3658,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -3703,7 +3703,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -3901,24 +3901,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -4178,7 +4178,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -4223,7 +4223,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",
@@ -4429,24 +4429,24 @@
         },
         "com.typesafe.slick:slick-hikaricp_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick-hikaricp_2.12": {
-            "locked": "3.2.0"
+            "locked": "3.2.3"
         },
         "com.typesafe.slick:slick_%%": {
             "project": true,
-            "requested": "3.2.0"
+            "requested": "3.2.3"
         },
         "com.typesafe.slick:slick_2.12": {
-            "locked": "3.2.0",
+            "locked": "3.2.3",
             "transitive": [
                 "com.typesafe.slick:slick-hikaricp_2.12"
             ]
         },
         "com.typesafe:config": {
             "locked": "1.3.1",
-            "requested": "1.3.1",
+            "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
                 "com.typesafe.slick:slick_2.12",
@@ -4706,7 +4706,7 @@
             ]
         },
         "org.scala-lang.modules:scala-xml_2.12": {
-            "locked": "1.0.6",
+            "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
                 "org.scalatest:scalatest_2.12"
@@ -4751,7 +4751,7 @@
         },
         "org.scalactic:scalactic_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
             "locked": "3.0.0",

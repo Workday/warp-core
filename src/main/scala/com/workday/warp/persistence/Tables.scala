@@ -38,15 +38,13 @@ trait CommonTables {
   val nullId: Int = 0
 
   val disableForeignKeys: String = WARP_DATABASE_DRIVER.value match {
-    case Drivers.mysql => "SET FOREIGN_KEY_CHECKS=0;"
-    case Drivers.cjMysql => "SET FOREIGN_KEY_CHECKS=0;"
+    case Drivers.mysql | Drivers.cjMysql => "SET FOREIGN_KEY_CHECKS=0;"
     case Drivers.h2 => "SET REFERENTIAL_INTEGRITY FALSE;"
     case unsupported => throw Drivers.unsupportedDriverException(unsupported)
   }
 
   val enableForeignKeys: String = WARP_DATABASE_DRIVER.value match {
-    case Drivers.mysql => "SET FOREIGN_KEY_CHECKS=1;"
-    case Drivers.cjMysql => "SET FOREIGN_KEY_CHECKS=1;"
+    case Drivers.mysql | Drivers.cjMysql => "SET FOREIGN_KEY_CHECKS=1;"
     case Drivers.h2 => "SET REFERENTIAL_INTEGRITY TRUE;"
     case unsupported => throw Drivers.unsupportedDriverException(unsupported)
   }
@@ -56,8 +54,7 @@ trait CommonTables {
 trait HasProfile {
   // shameless assumption
   val profile: JdbcProfile = WARP_DATABASE_DRIVER.value match {
-    case Drivers.mysql => slick.jdbc.MySQLProfile
-    case Drivers.cjMysql => slick.jdbc.MySQLProfile
+    case Drivers.mysql | Drivers.cjMysql => slick.jdbc.MySQLProfile
     case Drivers.h2 => slick.jdbc.H2Profile
     case unsupported => throw Drivers.unsupportedDriverException(unsupported)
   }
