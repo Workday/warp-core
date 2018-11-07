@@ -12,12 +12,11 @@ import com.workday.warp.common.utils.StackTraceFilter
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
-import org.influxdb.dto._
+import org.influxdb.dto.{BatchPoints, Point, Pong, Query, QueryResult}
 import org.influxdb.{InfluxDB, InfluxDBFactory}
 import org.pmw.tinylog.Logger
 
 import scala.collection.JavaConverters._
-import scala.collection.mutable
 import scala.util.{Failure, Success, Try}
 
 /**
