@@ -140,10 +140,12 @@ trait Connection {
     * @tparam Row return type of `action`.
     * @return [[Try]] containing the result of executing `action`.
     */
-  def trySynchronously[Row](action: DBIO[Row]): Try[Row] = Try(Await.result(Connection.db.run(action), Duration(60, "seconds")))
+  def trySynchronously[Row](action: DBIO[Row]): Try[Row] = Try(Await.result(Connection.db.run(action), Connection.timeout))
 }
 
 object Connection {
+
+  val timeout: Duration = Duration(90, "seconds")
 
   val driver: String = WARP_DATABASE_DRIVER.value
   val url: String = WARP_DATABASE_URL.value
@@ -179,7 +181,7 @@ object Connection {
 
   /** Shutdown and recreate our database connection. */
   def refresh(): Unit = {
-      Await.result(this.db.shutdown, Duration(60, "seconds"))
+      Await.result(this.db.shutdown, this.timeout)
       this.db = this.connect
   }
 }
