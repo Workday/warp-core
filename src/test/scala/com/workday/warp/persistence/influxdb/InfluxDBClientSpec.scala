@@ -8,6 +8,7 @@ import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.persistence.{Connection, CorePersistenceAware}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
+import org.influxdb.InfluxDB
 import org.influxdb.dto.Pong
 import org.junit.Test
 import org.junit.experimental.categories.Category
@@ -20,6 +21,14 @@ import scala.util.Try
 class InfluxDBClientSpec extends WarpJUnitSpec with CorePersistenceAware with InfluxDBClient {
 
 
+  @Test
+  @Category(Array(classOf[IntegrationTest]))
+  def failedConnection(): Unit = {
+    val maybeClient: Either[String, InfluxDB] = InfluxDBClient.connect("http://localhost:1234/bogus/", "dsjak", "sjk")
+    maybeClient.isLeft should be (true)
+  }
+
+
   /** Checks that we can establish a connection to influxdb. */
   @Test
   @Category(Array(classOf[IntegrationTest]))
@@ -27,8 +36,6 @@ class InfluxDBClientSpec extends WarpJUnitSpec with CorePersistenceAware with In
     val ping: Try[Pong] = this.ping
     ping.isSuccess should be (true)
     ping.get.getVersion should not be "unknown"
-
-    InfluxDBClient.error should startWith ("unable to connect to influxdb at")
   }
 
 

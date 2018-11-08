@@ -35,8 +35,8 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
    */
   def persistHeapHistogram(histo: HeapHistogram, dbName: String, seriesName: String, warpTestName: String): Try[Unit] = {
     InfluxDBClient.maybeClient match {
-      case None => Failure(new RuntimeException("unable to connect to influxdb"))
-      case Some(client) =>
+      case Left(error) => Failure(new WarpConfigurationException(error))
+      case Right(client) =>
         // create the database if necessary
         if (!this.databaseExists(dbName).getOrElse(false)) {
           this.createDatabase(dbName)
@@ -121,8 +121,8 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
                                                 threshold: Option[Duration] = None): Try[Unit] = {
 
     InfluxDBClient.maybeClient match {
-      case None => Failure(new RuntimeException("unable to connect to influxdb"))
-      case Some(client) =>
+      case Left(error) => Failure(new WarpConfigurationException(error))
+      case Right(client) =>
         // create the database if necessary
         if (!this.databaseExists(dbName).getOrElse(false)) {
           this.createDatabase(dbName)
@@ -159,8 +159,8 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
   def databaseExists(databaseName: String): Try[Boolean] = {
     val showQuery: Query = new Query("SHOW DATABASES", databaseName)
     InfluxDBClient.maybeClient match {
-      case None => Failure(new WarpConfigurationException(InfluxDBClient.error))
-      case Some(client) => Try {
+      case Left(error) => Failure(new WarpConfigurationException(error))
+      case Right(client) => Try {
         val results: Seq[QueryResult.Result] = client.query(showQuery).getResults.asScala
         val databaseNames: Seq[String] = for {
           res <- results
@@ -184,18 +184,23 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
     val dropQuery: Query = new Query(s"""DROP DATABASE "$database"""", database)
 
     InfluxDBClient.maybeClient match {
-      case None => Failure(new WarpConfigurationException(InfluxDBClient.error))
-      case Some(client) => Try(client.query(dropQuery))
+      case Left(error) => Failure(new WarpConfigurationException(error))
+      case Right(client) => Try(client.query(dropQuery))
     }
   }
 
 
+  /**
+    *
+    * @param database
+    * @return
+    */
   def createDatabase(database: String): Try[Unit] = {
     val createQuery: Query = new Query(s"""CREATE DATABASE "$database"""", database)
 
     InfluxDBClient.maybeClient match {
-      case None => Failure(new WarpConfigurationException(InfluxDBClient.error))
-      case Some(client) => Try(client.query(createQuery))
+      case Left(error) => Failure(new WarpConfigurationException(error))
+      case Right(client) => Try(client.query(createQuery))
     }
   }
 
@@ -205,8 +210,8 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
    */
   def ping: Try[Pong] = {
     InfluxDBClient.maybeClient match {
-      case None => Failure(new WarpConfigurationException(InfluxDBClient.error))
-      case Some(client) => Try(client.ping)
+      case Left(error) => Failure(new WarpConfigurationException(error))
+      case Right(client) => Try(client.ping)
     }
   }
 }
@@ -219,15 +224,8 @@ object InfluxDBClient {
   private val user: String = WARP_INFLUXDB_USER.value
   private val password: String = WARP_INFLUXDB_PASSWORD.value
 
-  /** [[Option]] containing an [[InfluxDB]]. Use this to write datapoints to influxdb. */
-  val maybeClient: Option[InfluxDB] = this.connect
-
-
-  /** a simple error message containing url, user, password we attempted to connect with. */
-  lazy val error: String = {
-    s"unable to connect to influxdb at ${this.url} using credentials (user = ${this.user}, password = ${this.password})"
-  }
-
+  /** [[Either]] containing an error message, or an [[InfluxDB]]. Use this to write datapoints to influxdb. */
+  val maybeClient: Either[String, InfluxDB] = this.connect(this.url, this.user, this.password)
 
   /**
     * Constructs a [[BatchPoints]].
@@ -245,14 +243,17 @@ object InfluxDBClient {
 
 
   /** @return an InfluxDB connection based on the values set in WarpProperty. */
-  private[this] def connect: Option[InfluxDB] = {
-    val influx: InfluxDB = InfluxDBFactory.connect(this.url, this.user, this.password)
+  protected[influxdb] def connect(url: String, user: String, password: String): Either[String, InfluxDB] = {
+    val influx: InfluxDB = InfluxDBFactory.connect(url, user, password)
 
     Try(influx.ping) match {
       case Failure(exception) =>
-        Logger.warn(this.error, exception.getMessage)
-        None
-      case Success(_) => Option(influx)
+        val error: String =
+          s"unable to connect to influxdb at $url using credentials (user = $user, password = $password)"
+        Logger.warn(error, exception.getMessage)
+        Left(error)
+      case Success(_) =>
+        Right(influx)
     }
   }
 }
