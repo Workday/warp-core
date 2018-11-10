@@ -65,12 +65,12 @@ dependencies {
     compile "com.typesafe:config:${versions.typesafeConfig}"
     compile "com.typesafe.slick:slick_%%:${versions.slick}"
     compile "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
-    compile "commons-configuration:commons-configuration:${versions.commonsConfiguration}"
     compile "commons-io:commons-io:${versions.commonsIo}"
     // exclude concrete log bindings from gatling
     compile "io.gatling:gatling-core:${versions.gatling}" exclude group: 'ch.qos.logback', module:'logback-classic'
     compile "io.gatling:gatling-http:${versions.gatling}" exclude group: 'ch.qos.logback', module:'logback-classic'
     compile "junit:junit:${versions.junit}"
+    compile "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
     compile "org.apache.commons:commons-math3:${versions.math3}"
     compile "org.flywaydb:flyway-core:${versions.flyway}"
     compile "org.influxdb:influxdb-java:${versions.influxDbClient}"

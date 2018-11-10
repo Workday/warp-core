@@ -1,12 +1,13 @@
 package com.workday.warp.common
 
-import java.io.File
+import java.io.{File, FileReader}
 import java.util.Properties
 
 import com.workday.warp.common.exception.WarpConfigurationException
 import com.workday.warp.inject.WarpGuicer
 import com.workday.warp.logger.WarpLogUtils
-import org.apache.commons.configuration.{ConfigurationException, PropertiesConfiguration}
+import org.apache.commons.configuration2.PropertiesConfiguration
+import org.apache.commons.configuration2.ex.ConfigurationException
 import org.pmw.tinylog.Logger
 
 import scala.collection.JavaConverters._
@@ -45,7 +46,7 @@ object WarpPropertyManager {
   val propertyFile: String = computePropertyFile
 
   // load the configuration file
-  Try(configuration.load(propertyFile)) recover {
+  Try(configuration.read(new FileReader(propertyFile))) recover {
     case exception: ConfigurationException => Logger.error(exception, s"Error loading WARP Configuration file: $propertyFile \n\n")
   }
 
