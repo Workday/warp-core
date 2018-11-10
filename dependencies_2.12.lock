@@ -1714,10 +1714,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
-        },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
             "transitive": [
@@ -1948,10 +1944,6 @@
             "locked": "4.12",
             "requested": "4.12"
         },
-        "mysql:mysql-connector-java": {
-            "locked": "5.1.47",
-            "requested": "5.1.47"
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
@@ -2140,20 +2132,12 @@
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
-                "org.asynchttpclient:netty-resolver-dns",
-                "org.tinylog:slf4j-binding"
+                "org.asynchttpclient:netty-resolver-dns"
             ]
-        },
-        "org.tinylog:slf4j-binding": {
-            "locked": "1.3.5",
-            "requested": "1.3.5"
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.3.5",
-            "transitive": [
-                "org.tinylog:slf4j-binding"
-            ]
+            "requested": "1.3.5"
         }
     },
     "runtimeClasspath": {
@@ -3824,10 +3808,6 @@
                 "com.google.guava:guava"
             ]
         },
-        "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
-        },
         "com.softwaremill.quicklens:quicklens_2.12": {
             "locked": "1.4.8",
             "transitive": [
@@ -4058,10 +4038,6 @@
             "locked": "4.12",
             "requested": "4.12"
         },
-        "mysql:mysql-connector-java": {
-            "locked": "5.1.47",
-            "requested": "5.1.47"
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.8.0-4",
             "transitive": [
@@ -4250,20 +4226,12 @@
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
-                "org.asynchttpclient:netty-resolver-dns",
-                "org.tinylog:slf4j-binding"
+                "org.asynchttpclient:netty-resolver-dns"
             ]
-        },
-        "org.tinylog:slf4j-binding": {
-            "locked": "1.3.5",
-            "requested": "1.3.5"
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.3.5",
-            "transitive": [
-                "org.tinylog:slf4j-binding"
-            ]
+            "requested": "1.3.5"
         }
     },
     "testRuntimeClasspath": {
@@ -4791,53 +4759,6 @@
             "requested": "1.3.5",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        }
-    },
-    "zinc": {
-        "com.typesafe.sbt:compiler-interface": {
-            "locked": "0.13.15",
-            "transitive": [
-                "com.typesafe.zinc:zinc"
-            ]
-        },
-        "com.typesafe.sbt:incremental-compiler": {
-            "locked": "0.13.15",
-            "transitive": [
-                "com.typesafe.zinc:zinc"
-            ]
-        },
-        "com.typesafe.sbt:sbt-interface": {
-            "locked": "0.13.15",
-            "transitive": [
-                "com.typesafe.sbt:incremental-compiler"
-            ]
-        },
-        "com.typesafe.zinc:zinc": {
-            "locked": "0.3.15",
-            "requested": "0.3.15"
-        },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.10.6",
-            "transitive": [
-                "com.typesafe.sbt:incremental-compiler"
-            ]
-        },
-        "org.scala-lang:scala-library": {
-            "locked": "2.10.6",
-            "transitive": [
-                "com.typesafe.sbt:compiler-interface",
-                "com.typesafe.sbt:incremental-compiler",
-                "com.typesafe.sbt:sbt-interface",
-                "com.typesafe.zinc:zinc",
-                "org.scala-lang:scala-compiler",
-                "org.scala-lang:scala-reflect"
-            ]
-        },
-        "org.scala-lang:scala-reflect": {
-            "locked": "2.10.6",
-            "transitive": [
-                "org.scala-lang:scala-compiler"
             ]
         }
     }
