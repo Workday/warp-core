@@ -34,7 +34,6 @@ apply plugin: 'nebula.gradle-git-scm'
 apply plugin: 'nebula.lint'
 apply plugin: 'nebula.release'
 apply plugin: 'nebula.maven-resolved-dependencies'
-apply plugin: 'maven'
 apply plugin: 'org.scoverage'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'maven-publish'
@@ -276,15 +275,6 @@ publishing {
                     developerConnection = 'scm:git:ssh://github.com:Workday/warp-core.git'
                     url = 'https://github.com/Workday/warp-core/tree/master'
                 }
-
-//                withXml {
-//                    asNode().dependencies.'*'.findAll() {
-//                        it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->
-//                            dep.name == it.artifactId.text()
-//                            println(it.scope.text())
-//                        }
-//                    }
-//                }
             }
         }
     }
