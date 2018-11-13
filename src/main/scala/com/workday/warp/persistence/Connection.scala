@@ -10,6 +10,7 @@ import Tables.profile.backend.DatabaseDef
 import com.typesafe.config.ConfigFactory
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
+import org.flywaydb.core.api.configuration.FluentConfiguration
 import slick.dbio.DBIOAction
 import org.pmw.tinylog.Logger
 import slick.jdbc.{JdbcDataSource, TransactionIsolation}
@@ -52,13 +53,16 @@ trait Connection {
     *
     * @return an [[Option]] containing a [[Flyway]] instance for database schema migration.
     */
-  def maybeFlyway(): Option[Flyway] = {
+  def maybeFlyway(locations: Seq[String] = Seq.empty): Option[Flyway] = {
     this.getMySQLDbName map { _ =>
-      val flyway: Flyway = new Flyway
-      // initialize the metadata table if we don't have it already
-      flyway.setBaselineOnMigrate(true)
-      flyway.setDataSource(Connection.url, Connection.user, Connection.password)
-      flyway
+      val config: FluentConfiguration = Flyway.configure
+        // initialize the metadata table if we don't have it already
+        .baselineOnMigrate(true)
+        .dataSource(Connection.url, Connection.user, Connection.password)
+
+      // override migration search locations if specified
+      if (locations.isEmpty) config.load()
+      else config.locations(locations: _*).load()
     }
   }
 

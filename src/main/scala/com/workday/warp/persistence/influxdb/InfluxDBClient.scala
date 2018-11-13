@@ -176,9 +176,10 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
 
 
   /**
-    * Deletes the database specified by databaseName
+    * Deletes the database with the specified name.
     *
-    * @param database name of the database to delete
+    * @param database name of the database to delete.
+    * @return
     */
   def dropDatabase(database: String): Try[Unit] = {
     val dropQuery: Query = new Query(s"""DROP DATABASE "$database"""", database)
@@ -191,6 +192,7 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
 
 
   /**
+    * Creates a database with the specified name.
     *
     * @param database
     * @return

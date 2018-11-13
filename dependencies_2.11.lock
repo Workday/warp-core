@@ -135,20 +135,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -264,24 +276,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -396,9 +398,26 @@
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -432,20 +451,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -507,14 +526,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -560,17 +579,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -652,20 +671,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -781,24 +812,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -913,9 +934,26 @@
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -949,20 +987,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -1024,14 +1062,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -1077,17 +1115,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -1169,20 +1207,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -1196,8 +1246,8 @@
             ]
         },
         "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
+            "locked": "1.4.197",
+            "requested": "1.4.197"
         },
         "com.softwaremill.quicklens:quicklens_2.11": {
             "locked": "1.4.8",
@@ -1302,24 +1352,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -1438,9 +1478,26 @@
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -1474,20 +1531,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -1549,14 +1606,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -1602,17 +1659,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -1702,20 +1759,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -1727,10 +1796,6 @@
             "transitive": [
                 "com.google.guava:guava"
             ]
-        },
-        "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
         },
         "com.softwaremill.quicklens:quicklens_2.11": {
             "locked": "1.4.8",
@@ -1835,24 +1900,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -1961,19 +2016,32 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "mysql:mysql-connector-java": {
-            "locked": "5.1.47",
-            "requested": "5.1.47"
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.7.0-10",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -2007,20 +2075,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -2082,14 +2150,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -2135,17 +2203,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -2160,20 +2228,12 @@
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
-                "org.asynchttpclient:netty-resolver-dns",
-                "org.tinylog:slf4j-binding"
+                "org.asynchttpclient:netty-resolver-dns"
             ]
-        },
-        "org.tinylog:slf4j-binding": {
-            "locked": "1.3.5",
-            "requested": "1.3.5"
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.3.5",
-            "transitive": [
-                "org.tinylog:slf4j-binding"
-            ]
+            "requested": "1.3.5"
         }
     },
     "runtimeClasspath": {
@@ -2235,20 +2295,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -2262,8 +2334,8 @@
             ]
         },
         "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
+            "locked": "1.4.197",
+            "requested": "1.4.197"
         },
         "com.softwaremill.quicklens:quicklens_2.11": {
             "locked": "1.4.8",
@@ -2368,24 +2440,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -2504,9 +2566,26 @@
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -2540,20 +2619,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -2615,14 +2694,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -2668,17 +2747,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -2798,20 +2877,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -2927,24 +3018,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -3059,9 +3140,26 @@
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -3095,20 +3193,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -3170,14 +3268,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -3223,17 +3321,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -3315,20 +3413,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -3444,24 +3554,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -3576,9 +3676,26 @@
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -3612,20 +3729,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -3687,14 +3804,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -3740,17 +3857,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -3832,20 +3949,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -3857,10 +3986,6 @@
             "transitive": [
                 "com.google.guava:guava"
             ]
-        },
-        "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
         },
         "com.softwaremill.quicklens:quicklens_2.11": {
             "locked": "1.4.8",
@@ -3965,24 +4090,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -4091,19 +4206,32 @@
                 "io.gatling:gatling-core"
             ]
         },
-        "mysql:mysql-connector-java": {
-            "locked": "5.1.47",
-            "requested": "5.1.47"
-        },
         "net.sf.saxon:Saxon-HE": {
             "locked": "9.7.0-10",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -4137,20 +4265,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -4212,14 +4340,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -4265,17 +4393,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -4290,20 +4418,12 @@
                 "org.asynchttpclient:async-http-client-netty-utils",
                 "org.asynchttpclient:netty-codec-dns",
                 "org.asynchttpclient:netty-resolver",
-                "org.asynchttpclient:netty-resolver-dns",
-                "org.tinylog:slf4j-binding"
+                "org.asynchttpclient:netty-resolver-dns"
             ]
-        },
-        "org.tinylog:slf4j-binding": {
-            "locked": "1.3.5",
-            "requested": "1.3.5"
         },
         "org.tinylog:tinylog": {
             "locked": "1.3.5",
-            "requested": "1.3.5",
-            "transitive": [
-                "org.tinylog:slf4j-binding"
-            ]
+            "requested": "1.3.5"
         }
     },
     "testRuntimeClasspath": {
@@ -4365,20 +4485,32 @@
             ]
         },
         "com.google.code.gson:gson": {
-            "locked": "2.8.0",
-            "requested": "2.8.0"
+            "locked": "2.8.5",
+            "requested": "2.8.5"
         },
         "com.google.errorprone:error_prone_annotations": {
-            "locked": "2.1.3",
+            "locked": "2.2.0",
+            "transitive": [
+                "com.google.guava:guava"
+            ]
+        },
+        "com.google.guava:failureaccess": {
+            "locked": "1.0",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "com.google.guava:guava": {
-            "locked": "25.1-jre",
-            "requested": "25.1-jre",
+            "locked": "27.0-jre",
+            "requested": "27.0-jre",
             "transitive": [
                 "com.google.inject:guice"
+            ]
+        },
+        "com.google.guava:listenablefuture": {
+            "locked": "9999.0-empty-to-avoid-conflict-with-guava",
+            "transitive": [
+                "com.google.guava:guava"
             ]
         },
         "com.google.inject:guice": {
@@ -4392,8 +4524,8 @@
             ]
         },
         "com.h2database:h2": {
-            "locked": "1.4.191",
-            "requested": "1.4.191"
+            "locked": "1.4.197",
+            "requested": "1.4.197"
         },
         "com.softwaremill.quicklens:quicklens_2.11": {
             "locked": "1.4.8",
@@ -4498,24 +4630,14 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
-        "commons-configuration:commons-configuration": {
-            "locked": "1.9",
-            "requested": "1.9"
-        },
         "commons-io:commons-io": {
-            "locked": "2.4",
-            "requested": "2.4"
-        },
-        "commons-lang:commons-lang": {
             "locked": "2.6",
-            "transitive": [
-                "commons-configuration:commons-configuration"
-            ]
+            "requested": "2.6"
         },
         "commons-logging:commons-logging": {
-            "locked": "1.1.1",
+            "locked": "1.2",
             "transitive": [
-                "commons-configuration:commons-configuration"
+                "org.apache.commons:commons-configuration2"
             ]
         },
         "io.advantageous.boon:boon-json": {
@@ -4634,9 +4756,26 @@
                 "io.gatling:gatling-core"
             ]
         },
+        "org.apache.commons:commons-configuration2": {
+            "locked": "2.4",
+            "requested": "2.4"
+        },
+        "org.apache.commons:commons-lang3": {
+            "locked": "3.8.1",
+            "transitive": [
+                "org.apache.commons:commons-configuration2",
+                "org.apache.commons:commons-text"
+            ]
+        },
         "org.apache.commons:commons-math3": {
-            "locked": "3.5",
-            "requested": "3.5"
+            "locked": "3.6.1",
+            "requested": "3.6.1"
+        },
+        "org.apache.commons:commons-text": {
+            "locked": "1.6",
+            "transitive": [
+                "org.apache.commons:commons-configuration2"
+            ]
         },
         "org.asynchttpclient:async-http-client": {
             "locked": "2.0.29",
@@ -4670,20 +4809,20 @@
             ]
         },
         "org.checkerframework:checker-qual": {
-            "locked": "2.0.0",
+            "locked": "2.5.2",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.codehaus.mojo:animal-sniffer-annotations": {
-            "locked": "1.14",
+            "locked": "1.17",
             "transitive": [
                 "com.google.guava:guava"
             ]
         },
         "org.flywaydb:flyway-core": {
-            "locked": "5.1.1",
-            "requested": "5.1.1"
+            "locked": "5.2.1",
+            "requested": "5.2.1"
         },
         "org.hamcrest:hamcrest-core": {
             "locked": "1.3",
@@ -4745,14 +4884,14 @@
             "locked": "1.0.4",
             "transitive": [
                 "io.gatling:gatling-core",
-                "io.gatling:jsonpath_2.11",
-                "org.scalatest:scalatest_2.11"
+                "io.gatling:jsonpath_2.11"
             ]
         },
         "org.scala-lang.modules:scala-xml_2.11": {
             "locked": "1.1.0",
             "transitive": [
                 "io.gatling:gatling-http",
+                "org.scalactic:scalactic_2.11",
                 "org.scalatest:scalatest_2.11"
             ]
         },
@@ -4798,17 +4937,17 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.0",
+            "locked": "3.0.6-SNAP5",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.0"
+            "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.0"
+            "locked": "3.0.6-SNAP5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -4836,53 +4975,6 @@
             "requested": "1.3.5",
             "transitive": [
                 "org.tinylog:slf4j-binding"
-            ]
-        }
-    },
-    "zinc": {
-        "com.typesafe.sbt:compiler-interface": {
-            "locked": "0.13.15",
-            "transitive": [
-                "com.typesafe.zinc:zinc"
-            ]
-        },
-        "com.typesafe.sbt:incremental-compiler": {
-            "locked": "0.13.15",
-            "transitive": [
-                "com.typesafe.zinc:zinc"
-            ]
-        },
-        "com.typesafe.sbt:sbt-interface": {
-            "locked": "0.13.15",
-            "transitive": [
-                "com.typesafe.sbt:incremental-compiler"
-            ]
-        },
-        "com.typesafe.zinc:zinc": {
-            "locked": "0.3.15",
-            "requested": "0.3.15"
-        },
-        "org.scala-lang:scala-compiler": {
-            "locked": "2.10.6",
-            "transitive": [
-                "com.typesafe.sbt:incremental-compiler"
-            ]
-        },
-        "org.scala-lang:scala-library": {
-            "locked": "2.10.6",
-            "transitive": [
-                "com.typesafe.sbt:compiler-interface",
-                "com.typesafe.sbt:incremental-compiler",
-                "com.typesafe.sbt:sbt-interface",
-                "com.typesafe.zinc:zinc",
-                "org.scala-lang:scala-compiler",
-                "org.scala-lang:scala-reflect"
-            ]
-        },
-        "org.scala-lang:scala-reflect": {
-            "locked": "2.10.6",
-            "transitive": [
-                "org.scala-lang:scala-compiler"
             ]
         }
     }
