@@ -47,8 +47,8 @@ object WarpPropertyManager {
   val configuration: PropertiesConfiguration = Try(new Configurations().properties(propertyFile)).recoverWith {
     case _: ConfigurationException if !new File(propertyFile).exists() =>
       Logger.warn(s"$propertyFile does not exist!" +
-      "\n    Be aware that if the property values you require have not been passed in as Java System properties" +
-      "\n    this program is very likely to fail when an unset required property is accessed.\n")
+        "\n    Be aware that if the property values you require have not been passed in as Java System properties" +
+        "\n    this program is very likely to fail when an unset required property is accessed.\n")
       // fall back on empty config
       Success(new PropertiesConfiguration)
     case exception: Exception =>
@@ -241,12 +241,12 @@ object WarpPropertyManager {
    *
    * 1. If wd.warp.config.directory Java system property is supplied in the TeamCity build configuration, look for
    * warp.properties file in that location.
-   * 2. If wd.warp.config.directory is not defined, check if warp.properties exists in the current working directory
-   * (i.e. /data/teamcity/buildAgent1140/work/{unique job identifier}/{module}/warp.properties).
+   * 2. If wd.warp.config.directory is not defined, check if ./config/warp.properties exists
+   * (i.e. /data/teamcity/buildAgent1140/work/{unique job identifier}/{module}/config/warp.properties).
    * 3. Finally, look for a warp.properties file in the users home .warp directory (i.e. /home/teamcity/.warp)
    */
   def computeConfigDirectory: String = {
-    val propertyFile: File = new File(this.WARP_PROPERTIES)
+    val propertyFile: File = new File(s"./config/${this.WARP_PROPERTIES}")
 
     // check the jvm system property
     if (this.systemProps.contains(this.WARP_CONFIG_DIRECTORY_PROPERTY)) {

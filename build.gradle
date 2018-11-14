@@ -140,6 +140,15 @@ scaladoc {
     destinationDir file("$rootDir/gh-pages-src/static/scaladoc/${project.name}")
 }
 
+task copyConfigTemplate(type: Copy) {
+    from "config-templates/warp.properties.template"
+    rename { String filename ->
+        filename - '.template'
+    }
+
+    into "config/"
+}
+
 task unitTest(type: Test) {
     useJUnit {
         excludeCategories 'com.workday.warp.common.category.IntegrationTest'

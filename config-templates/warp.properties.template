@@ -1,3 +1,6 @@
+# template config file used in ci builds
+# this file is copied into config directory
+# for local development, this template can be used as a starting point for more customized settings
 wd.warp.jdbc.url=jdbc:mysql://localhost:3307/warp_core?createDatabaseIfNotExist=true&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=true
 # make sure to use something more secure in production
 wd.warp.jdbc.password=1234
