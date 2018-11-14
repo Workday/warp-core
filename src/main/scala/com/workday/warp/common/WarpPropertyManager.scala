@@ -246,7 +246,7 @@ object WarpPropertyManager {
    * 3. Finally, look for a warp.properties file in the users home .warp directory (i.e. /home/teamcity/.warp)
    */
   def computeConfigDirectory: String = {
-    val propertyFile: File = new File(s"./config/${this.WARP_PROPERTIES}")
+    val propertyFile: File = new File(s"config/${this.WARP_PROPERTIES}")
 
     // check the jvm system property
     if (this.systemProps.contains(this.WARP_CONFIG_DIRECTORY_PROPERTY)) {

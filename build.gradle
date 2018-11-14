@@ -140,6 +140,10 @@ scaladoc {
     destinationDir file("$rootDir/gh-pages-src/static/scaladoc/${project.name}")
 }
 
+// copy config template into a usable place
+// note this task does not have any dependencies, and nothing depends on this task.
+// the expectation is this task will always be run in a ci environment,
+// and can be run once locally on a fresh checkout to create a starting config point
 task copyConfigTemplate(type: Copy) {
     from "config-templates/warp.properties.template"
     rename { String filename ->
