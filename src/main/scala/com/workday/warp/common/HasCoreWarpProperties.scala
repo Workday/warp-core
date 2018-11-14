@@ -434,32 +434,6 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   )
 
   /**
-    * Whether anomaly detection provided by lambda function is enabled.
-    *
-    * Required: Yes
-    * Default Value: false
-    */
-  val WARP_LAMBDA_ARBITER_ENABLED: PropertyEntry = PropertyEntry("wd.warp.lambda.arbiter.enabled", isRequired = true, "false")
-
-  /**
-    * Fully qualified URL for anomaly detection lambda function.
-    *
-    * Required: Yes
-    * Default Value: https://nsd0jwpj65.execute-api.us-west-1.amazonaws.com/prod/anomaly_detection
-    */
-  val WARP_LAMBDA_ARBITER_URL: PropertyEntry = PropertyEntry(
-    "wd.warp.lambda.arbiter.url", isRequired = true, "https://nsd0jwpj65.execute-api.us-west-1.amazonaws.com/prod/anomaly_detection"
-  )
-
-  /**
-    * API key for the API that invokes the anomaly detection lambda function
-    *
-    * Required: Yes
-    * Default Value: None
-    */
-  val WARP_LAMBDA_ARBITER_API_KEY: PropertyEntry = PropertyEntry("wd.warp.lambda.arbiter.api.key", isRequired = true)
-
-  /**
     * Threshold used by the percentile (gaussian distribution z-score) arbiter.
     *
     * Required: No

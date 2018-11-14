@@ -1,18 +1,19 @@
 package com.workday.warp.common
 
-import java.io.{File, FileReader}
+import java.io.{File, FileNotFoundException, FileReader}
 import java.util.Properties
 
 import com.workday.warp.common.exception.WarpConfigurationException
 import com.workday.warp.inject.WarpGuicer
 import com.workday.warp.logger.WarpLogUtils
 import org.apache.commons.configuration2.PropertiesConfiguration
+import org.apache.commons.configuration2.builder.fluent.Configurations
 import org.apache.commons.configuration2.ex.ConfigurationException
 import org.pmw.tinylog.Logger
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 /**
   * Manages runtime-determination of warp configuration properties.
@@ -35,9 +36,6 @@ object WarpPropertyManager {
   private val WARP_PROPERTIES: String = "warp.properties"
   private val WARP_CONFIG_DIRECTORY_PROPERTY: String = "wd.warp.config.directory"
 
-
-  // load properties from the property file into this configuration
-  val configuration: PropertiesConfiguration = new PropertiesConfiguration
   // immutable copy of jvm system properties
   val systemProps: Map[String, String] = System.getProperties.asScala.toMap
   // determine the directory to search for warp configuration files
@@ -46,9 +44,17 @@ object WarpPropertyManager {
   val propertyFile: String = computePropertyFile
 
   // load the configuration file
-  Try(configuration.read(new FileReader(propertyFile))) recover {
-    case exception: ConfigurationException => Logger.error(exception, s"Error loading WARP Configuration file: $propertyFile \n\n")
-  }
+  val configuration: PropertiesConfiguration = Try(new Configurations().properties(propertyFile)).recoverWith {
+    case _: ConfigurationException if !new File(propertyFile).exists() =>
+      Logger.warn(s"$propertyFile does not exist!" +
+      "\n    Be aware that if the property values you require have not been passed in as Java System properties" +
+      "\n    this program is very likely to fail when an unset required property is accessed.\n")
+      // fall back on empty config
+      Success(new PropertiesConfiguration)
+    case exception: Exception =>
+      Logger.error(exception, s"Error loading WARP Configuration file: $propertyFile \n\n")
+      Failure(exception)
+  }.getOrElse(new PropertiesConfiguration)
 
   // use di to see which property set we are working with
   val propertyEntries: Seq[PropertyEntry] = WarpGuicer.getProperty.values
@@ -224,16 +230,8 @@ object WarpPropertyManager {
     val versionedPropertyFile: File = new File(s"$default-$version")
 
     // check for a properties file declared with an extension that matches the current version
-    val propertyFile: String = if (versionedPropertyFile.exists) versionedPropertyFile.getAbsolutePath else default
-
-    // if the warp properties file does not exist, log a warning message
-    if (!new File(propertyFile).exists) {
-      Logger.warn(s"$propertyFile does not exist!" +
-        "\n    Be aware that if the property values you require have not been passed in as Java System properties" +
-        "\n    this program is very likely to fail when an unset required property is accessed.\n")
-    }
-
-    propertyFile
+    if (versionedPropertyFile.exists) versionedPropertyFile.getAbsolutePath
+    else default
   }
 
 

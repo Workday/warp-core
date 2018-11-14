@@ -37,7 +37,8 @@ def gatlingVersion() {
 // don't include paren, and don't use the longer syntax like:
 //   compile group: 'com.h2database', name: 'h2', version: "${versions.h2}"
 project.ext.versions = [
-    checkstyle: '8.11'
+    beanUtils: '1.9.3'
+    , checkstyle: '8.11'
     , commonsConfiguration2: '2.4'
     , commonsIo: '2.6'
     , coveralls: '2.8.2'

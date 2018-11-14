@@ -85,6 +85,7 @@ dependencies {
     scoverage "org.scoverage:scalac-scoverage-runtime_%%:${versions.scalacScoverage}"
 
     runtimeOnly "com.h2database:h2:${versions.h2}"
+    runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
     runtimeOnly "org.tinylog:slf4j-binding:${versions.tinylogSlf4jBinding}"
 }
