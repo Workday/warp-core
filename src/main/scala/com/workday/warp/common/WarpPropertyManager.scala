@@ -44,6 +44,8 @@ object WarpPropertyManager {
   val propertyFile: String = computePropertyFile
 
   // load the configuration file
+  // note that if the file does not exist, we log a warning and continue execution with an empty property set.
+  // if there is an unrecoverable exception from configuration library, we'll throw that exception
   val configuration: PropertiesConfiguration = Try(new Configurations().properties(propertyFile)).recoverWith {
     case _: ConfigurationException if !new File(propertyFile).exists() =>
       Logger.warn(s"$propertyFile does not exist!" +
@@ -54,7 +56,7 @@ object WarpPropertyManager {
     case exception: Exception =>
       Logger.error(exception, s"Error loading WARP Configuration file: $propertyFile \n\n")
       Failure(exception)
-  }.getOrElse(new PropertiesConfiguration)
+  }.get
 
   // use di to see which property set we are working with
   val propertyEntries: Seq[PropertyEntry] = WarpGuicer.getProperty.values
