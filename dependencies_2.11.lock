@@ -1352,6 +1352,16 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
+        "commons-beanutils:commons-beanutils": {
+            "locked": "1.9.3",
+            "requested": "1.9.3"
+        },
+        "commons-collections:commons-collections": {
+            "locked": "3.2.2",
+            "transitive": [
+                "commons-beanutils:commons-beanutils"
+            ]
+        },
         "commons-io:commons-io": {
             "locked": "2.6",
             "requested": "2.6"
@@ -1359,6 +1369,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.2",
             "transitive": [
+                "commons-beanutils:commons-beanutils",
                 "org.apache.commons:commons-configuration2"
             ]
         },
@@ -2440,6 +2451,16 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
+        "commons-beanutils:commons-beanutils": {
+            "locked": "1.9.3",
+            "requested": "1.9.3"
+        },
+        "commons-collections:commons-collections": {
+            "locked": "3.2.2",
+            "transitive": [
+                "commons-beanutils:commons-beanutils"
+            ]
+        },
         "commons-io:commons-io": {
             "locked": "2.6",
             "requested": "2.6"
@@ -2447,6 +2468,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.2",
             "transitive": [
+                "commons-beanutils:commons-beanutils",
                 "org.apache.commons:commons-configuration2"
             ]
         },
@@ -4630,6 +4652,16 @@
                 "com.typesafe.slick:slick-hikaricp_2.11"
             ]
         },
+        "commons-beanutils:commons-beanutils": {
+            "locked": "1.9.3",
+            "requested": "1.9.3"
+        },
+        "commons-collections:commons-collections": {
+            "locked": "3.2.2",
+            "transitive": [
+                "commons-beanutils:commons-beanutils"
+            ]
+        },
         "commons-io:commons-io": {
             "locked": "2.6",
             "requested": "2.6"
@@ -4637,6 +4669,7 @@
         "commons-logging:commons-logging": {
             "locked": "1.2",
             "transitive": [
+                "commons-beanutils:commons-beanutils",
                 "org.apache.commons:commons-configuration2"
             ]
         },
