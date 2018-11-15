@@ -45,6 +45,7 @@ object WarpPropertyManager {
 
   // load the configuration file
   // note that if the file does not exist, we log a warning and continue execution with an empty property set.
+  // (all default property values will be used)
   // if there is an unrecoverable exception from configuration library, we'll throw that exception
   val configuration: PropertiesConfiguration = Try(new Configurations().properties(propertyFile)).recoverWith {
     case _: ConfigurationException if !new File(propertyFile).exists() =>
