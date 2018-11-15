@@ -9,7 +9,7 @@ import org.junit.experimental.categories.Category
 /**
   * Created by tomas.mccandless on 11/14/18.
   */
-class ContinuousMeasurementSpec extends WarpJUnitSpec with ContinuousMeasurement {
+class ContinuousMeasurementSpec extends WarpJUnitSpec {
 
 
   class DummyCollector extends ContinuousMeasurement {
