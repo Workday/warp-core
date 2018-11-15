@@ -149,7 +149,7 @@
  </check>
  <check customId="two.spaces" enabled="true" class="org.scalastyle.file.RegexChecker" level="error">
   <parameters>
-   <parameter name="regex">[^\s]  [^\s]</parameter>
+   <parameter name="regex">[^\s/]  [^\s]</parameter>
    <parameter name="line">false</parameter>
   </parameters>
   <customMessage>tokens should not be separated by two spaces</customMessage>
