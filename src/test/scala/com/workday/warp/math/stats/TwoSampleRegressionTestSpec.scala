@@ -4,11 +4,13 @@ import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import org.junit.Test
 import org.junit.experimental.categories.Category
+import org.pmw.tinylog.Logger
 
 import scala.util.Random
 
 class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   val alpha: Double = 0.05
+  val epsilon: Double = 0.001
 
   /**
     * No results should be generated if there aren't enough samples
@@ -124,24 +126,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   @Test
   @Category(Array(classOf[UnitTest]))
   def allRegressionStatTestResultsSpec(): Unit = {
-    val baseline: Array[Double] = Array(50.47447827652541, 51.19056188274574, 46.69662195125984, 50.007577732739456, 50.73212737638565,
-      48.720532737394244, 50.37628834545585, 47.430369257858835, 49.843991279948774, 52.74919901693785, 49.84939042441965,
-      50.22471204583642, 52.17880361260057, 51.55835199934892, 47.63629420088256, 50.30541009636413, 48.9791243878714, 47.41514762769728,
-      53.03984642449924, 53.164206231291026, 52.616586172672086, 52.461504472437994, 57.37002726210362, 52.087832335016685,
-      51.566861124295166, 47.417565922523686, 49.50294294702823, 45.67148663143992, 48.24809154629195, 47.822892199809836,
-      46.04215177780783, 52.53186349754487, 46.28609569648771, 48.670411676403845, 48.416855542631644, 53.03181993975837,
-      51.687675493876505, 53.07885465033194, 52.09962664333855, 51.89332697906147, 46.33135020545271, 48.32966521292674,
-      49.91222023766576, 56.876512520854625, 53.28057507992899, 53.42773707832225, 48.751833217314704, 48.00134951645327,
-      48.33885561418202, 49.951357463993816)
-    val regression: Array[Double] = Array(56.22548793696133, 52.01864730269899, 52.51257147367692, 53.2019524259662, 61.22523654366998,
-      53.426509273761745, 49.256950019514704, 54.0352718806236, 48.16211793443062, 62.20226579975082, 60.51560614241627,
-      58.78448522244503, 55.37978397070854, 53.647254361354015, 56.93120966627623, 60.42554241406304, 56.50461888207819,
-      57.33530313830278, 51.40433045411728, 53.190330336512524, 57.84660165957101, 54.318564730831106, 54.43240347395981,
-      50.667882918296144, 52.92581587390851, 52.13238299697053, 47.39016585724261, 54.60191314197977, 55.45002241477095,
-      56.466882207383804, 54.11088967346992, 53.89882202487878, 55.141126836353685, 57.70086386675392, 56.647887029525215,
-      49.34491951840146, 63.88031598424999, 46.21520454710136, 50.95475895636524, 59.07181121338295, 54.62086081444151, 59.59686662356923,
-      55.852033139005215, 52.88763961916183, 55.02177911674332, 57.825460565849966, 57.40258070773403, 57.14611977913637,
-      53.72711782865388, 51.266241878543866)
+    import TwoSampleRegressionTestSpec._
 
     val expectedString: String =
       """Kolmogorov-Smirnov Normality Test, p-value: 0.8732, Test Reference: https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test,
@@ -154,4 +139,118 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
 
     oneSided.toString should be (expectedString)
   }
+
+
+  @Test
+  def equalVarianceTestProbability(): Unit = {
+    import TwoSampleRegressionTestSpec._
+
+    val pValue: Double = TwoSampleRegressionTest.equalVarianceTestProbability(baseline, regression, true)
+    pValue should be < 0.05
+  }
+
+  /**
+    * Checks t-distribution parameters for both homoscedastic and non-homoscedastic
+    */
+  @Test
+  def tDistributionParameters(): Unit = {
+    val baselineVariance: Double = 6.86
+    val baselineSize: Int = 50
+    val newVariance: Double = 14.09
+    val newSize: Int = 50
+    val alpha: Double = 0.05
+
+    val homoParams: (Double, Double) = TwoSampleRegressionTest.getTDistributionParameters(
+      baselineVariance,
+      baselineSize,
+      newVariance,
+      newSize,
+      isHomoscedastic = true,
+      alpha
+    )
+
+    homoParams._1 should be (1.66 +- epsilon)
+    homoParams._2 should be (18.525 +- epsilon)
+
+
+    val nonHomoParams: (Double, Double) = TwoSampleRegressionTest.getTDistributionParameters(
+      baselineVariance,
+      baselineSize,
+      newVariance,
+      newSize,
+      isHomoscedastic = false,
+      alpha
+    )
+
+    nonHomoParams._1 should be (1.662 +- epsilon)
+    nonHomoParams._2 should be (0.647 +- epsilon)
+  }
+
+
+  @Test
+  def tTestResults(): Unit = {
+    val results: (Double, Double, TestType) = TwoSampleRegressionTest.tTestResults(
+      TwoSampleRegressionTestSpec.baseline,
+      TwoSampleRegressionTestSpec.regression,
+      isHomoscedastic = true,
+      isTwoSided = false
+    )
+
+    results._1 should be (-7.124 +- epsilon)
+    results._2 should be < epsilon
+    results._3 should be (StudentsTTest)
+  }
+
+  @Test
+  def chooseAndConductTTest(): Unit = {
+    val result: (Option[StatTestResult], GenericStatTestResult) = TwoSampleRegressionTest.chooseAndConductTTest(
+      TwoSampleRegressionTestSpec.baseline,
+      0.06,
+      TwoSampleRegressionTestSpec.regression,
+      0.89,
+      alpha,
+      isTwoSided = false
+    )
+
+    result._1.map(_.testType) should be (Some(LevenesVarienceHomogenietyTest))
+    result._1.map(_.pValue).get should be (0.043 +- epsilon)
+    result._2.pValue should be (0.0 +- epsilon)
+
+
+    val resultLowAlpha: (Option[StatTestResult], GenericStatTestResult) = TwoSampleRegressionTest.chooseAndConductTTest(
+      TwoSampleRegressionTestSpec.baseline,
+      0.06,
+      TwoSampleRegressionTestSpec.regression,
+      0.89,
+      // use a lower confidence interval to cover a different code branch
+      alpha = 0.01,
+      isTwoSided = false
+    )
+
+    resultLowAlpha._1.map(_.testType) should be (Some(LevenesVarienceHomogenietyTest))
+    resultLowAlpha._1.map(_.pValue).get should be (0.043 +- epsilon)
+    resultLowAlpha._2.pValue should be (0.0 +- epsilon)
+  }
+}
+
+object TwoSampleRegressionTestSpec {
+
+  val baseline: Array[Double] = Array(50.47447827652541, 51.19056188274574, 46.69662195125984, 50.007577732739456, 50.73212737638565,
+    48.720532737394244, 50.37628834545585, 47.430369257858835, 49.843991279948774, 52.74919901693785, 49.84939042441965,
+    50.22471204583642, 52.17880361260057, 51.55835199934892, 47.63629420088256, 50.30541009636413, 48.9791243878714, 47.41514762769728,
+    53.03984642449924, 53.164206231291026, 52.616586172672086, 52.461504472437994, 57.37002726210362, 52.087832335016685,
+    51.566861124295166, 47.417565922523686, 49.50294294702823, 45.67148663143992, 48.24809154629195, 47.822892199809836,
+    46.04215177780783, 52.53186349754487, 46.28609569648771, 48.670411676403845, 48.416855542631644, 53.03181993975837,
+    51.687675493876505, 53.07885465033194, 52.09962664333855, 51.89332697906147, 46.33135020545271, 48.32966521292674,
+    49.91222023766576, 56.876512520854625, 53.28057507992899, 53.42773707832225, 48.751833217314704, 48.00134951645327,
+    48.33885561418202, 49.951357463993816)
+  val regression: Array[Double] = Array(56.22548793696133, 52.01864730269899, 52.51257147367692, 53.2019524259662, 61.22523654366998,
+    53.426509273761745, 49.256950019514704, 54.0352718806236, 48.16211793443062, 62.20226579975082, 60.51560614241627,
+    58.78448522244503, 55.37978397070854, 53.647254361354015, 56.93120966627623, 60.42554241406304, 56.50461888207819,
+    57.33530313830278, 51.40433045411728, 53.190330336512524, 57.84660165957101, 54.318564730831106, 54.43240347395981,
+    50.667882918296144, 52.92581587390851, 52.13238299697053, 47.39016585724261, 54.60191314197977, 55.45002241477095,
+    56.466882207383804, 54.11088967346992, 53.89882202487878, 55.141126836353685, 57.70086386675392, 56.647887029525215,
+    49.34491951840146, 63.88031598424999, 46.21520454710136, 50.95475895636524, 59.07181121338295, 54.62086081444151, 59.59686662356923,
+    55.852033139005215, 52.88763961916183, 55.02177911674332, 57.825460565849966, 57.40258070773403, 57.14611977913637,
+    53.72711782865388, 51.266241878543866)
 }

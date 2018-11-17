@@ -56,6 +56,16 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   val WARP_DATABASE_DRIVER: PropertyEntry = PropertyEntry("wd.warp.jdbc.driver", isRequired = true, "org.h2.Driver")
 
   /**
+    * Timeout for DB queries in seconds.
+    *
+    * We'll await slick futures for this duration.
+    *
+    * Required: Yes
+    * Default Value: 90
+    */
+  val WARP_DATABASE_TIMEOUT: PropertyEntry = PropertyEntry("wd.warp.jdbc.timeout", isRequired = true, "90")
+
+  /**
     * Whether or not we should apply flyway schema migrations.
     *
     * This should be disabled in the warp pipelines, where we want to manually run the schema migration jobs.
