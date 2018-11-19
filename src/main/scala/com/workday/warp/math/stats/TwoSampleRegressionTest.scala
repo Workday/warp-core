@@ -66,7 +66,7 @@ case class AllRegressionStatTestResults(baselineNormalityTest: StatTestResult,
                                         maybeHomoVarianceTest: Option[StatTestResult],
                                         regressionTest: GenericStatTestResult) {
   // helper function used to print out optional line breaks for the view
-  private def printMaybeTest(test: Option[StatTestResult]) : String = if (test.isDefined) s"${test.get.toString}" else ""
+  private def printMaybeTest(test: Option[StatTestResult]) : String = test.map(_.toString).getOrElse("")
 
   override def toString: String = {
     s"""${baselineNormalityTest.toString} ${newNormalityTest.toString} ${printMaybeTest(maybeHomoVarianceTest)}
@@ -90,7 +90,7 @@ object TwoSampleRegressionTest {
     *
     * @return the p-value associated with running either a levene's test or brown-forsythe test for variance homogeneity
     */
-  private def equalVarianceTestProbability(series1: Array[Double], series2: Array[Double], weakNormality: Boolean): Double = {
+  protected[stats] def equalVarianceTestProbability(series1: Array[Double], series2: Array[Double], weakNormality: Boolean): Double = {
     val N: Int = series1.length + series2.length
     val k: Int = 2
     val percentileCalculator: Percentile = new Percentile
@@ -225,8 +225,10 @@ object TwoSampleRegressionTest {
     * @param isTwoSided whether the t-test performed should be two-sided; this affects which alternate hypothesis to use
     * @return a tuple packaging together the t-test statistic, the p-value, and the hyperlink for the view
     */
-  private def tTestResults(baselineSeries: Array[Double], newSeries: Array[Double],
-                           isHomoscedastic: Boolean, isTwoSided: Boolean): (Double, Double, TestType) = {
+  protected[stats] def tTestResults(baselineSeries: Array[Double],
+                                    newSeries: Array[Double],
+                                    isHomoscedastic: Boolean,
+                                    isTwoSided: Boolean): (Double, Double, TestType) = {
     val tTest: TTest = new TTest
 
     /*
@@ -259,8 +261,12 @@ object TwoSampleRegressionTest {
     * @param alpha significance level used to reject the test
     * @return a tuple packaging the critical t-value for the given alpha and the standard error
     */
-  private def getTDistributionParameters(baselineSeriesVariance: Double, baselineSeriesSize: Int, newSeriesVariance: Double,
-                                         newSeriesSize: Int, isHomoscedastic: Boolean, alpha: Double): (Double, Double) = {
+  protected[stats] def getTDistributionParameters(baselineSeriesVariance: Double,
+                                                  baselineSeriesSize: Int,
+                                                  newSeriesVariance: Double,
+                                                  newSeriesSize: Int,
+                                                  isHomoscedastic: Boolean,
+                                                  alpha: Double): (Double, Double) = {
     // degrees of freedom and the standard error use different formulas based on students and welchs tests
     if (isHomoscedastic) {
       val df: Int = baselineSeriesSize + newSeriesSize - 2
@@ -282,16 +288,16 @@ object TwoSampleRegressionTest {
     * not respectively.
     *
     * @param baselineSeries the original series
-    * @param baselineSeriesSize the size of the original series
     * @param newSeries the new series
-    * @param newSeriesSize the size of the new series
     * @param alpha the significance level used to reject the test
     * @param isHomoscedastic whether both series have the same constant variance
     * @param isTwoSided whether the t-test performed should be two-sided; this affects which alternate hypothesis to use
     * @return TTestResult with the display info, the p-value, and hte upperBound for the one sided confidence interval
     */
-  private def conductTTest(baselineSeries: Array[Double], baselineSeriesSize: Int, newSeries: Array[Double],
-                           newSeriesSize: Int, alpha: Double, isHomoscedastic: Boolean,
+  private def conductTTest(baselineSeries: Array[Double],
+                           newSeries: Array[Double],
+                           alpha: Double,
+                           isHomoscedastic: Boolean,
                            isTwoSided: Boolean): TTestResult = {
     val (tTestStatistic, tTestPValue, testType): (Double, Double, TestType) = tTestResults(baselineSeries,
                                                                                                  newSeries,
@@ -304,7 +310,7 @@ object TwoSampleRegressionTest {
     val newSeriesVariance: Double = StatUtils.variance(newSeries)
 
     val (criticalTValue, standardError): (Double, Double) =
-      getTDistributionParameters(baselineSeriesVariance, baselineSeriesSize, newSeriesVariance, newSeriesSize,
+      getTDistributionParameters(baselineSeriesVariance, baselineSeries.length, newSeriesVariance, newSeries.length,
                                  isHomoscedastic, alpha)
 
     val differenceInMeans: Double = StatUtils.mean(baselineSeries) - StatUtils.mean(newSeries)
@@ -335,20 +341,20 @@ object TwoSampleRegressionTest {
     *
     * @param baselineSeries the original series
     * @param baselineSeriesNormalityPValue the normality p-value of the original series
-    * @param baselineSeriesSize the size of the original series
     * @param newSeries the new series
     * @param newSeriesNormalityPValue the normality p-value of the new series
-    * @param newSeriesSize the size of the new series
     * @param alpha the significance level to reject the test
     * @return the result of the homogeneity check and also the result of the t-test chosen packaged into a 2-tuple
     */
-  private def chooseAndConductTTest(baselineSeries: Array[Double], baselineSeriesNormalityPValue: Double,
-                                    baselineSeriesSize: Int, newSeries: Array[Double], newSeriesNormalityPValue: Double,
-                                    newSeriesSize: Int, alpha: Double,
-                                    isTwoSided: Boolean): (Option[StatTestResult], GenericStatTestResult) = {
+  protected[stats] def chooseAndConductTTest(baselineSeries: Array[Double],
+                                             baselineSeriesNormalityPValue: Double,
+                                             newSeries: Array[Double],
+                                             newSeriesNormalityPValue: Double,
+                                             alpha: Double,
+                                             isTwoSided: Boolean): (Option[StatTestResult], GenericStatTestResult) = {
     // use brown-forsythe test if normality isn't particularly evident, and levene's test if it is
     val (equalVariancePValue, testType): (Double, TestType) =
-      if (normalityCheck(baselineSeriesNormalityPValue, baselineSeriesSize, newSeriesNormalityPValue, newSeriesSize,
+      if (normalityCheck(baselineSeriesNormalityPValue, baselineSeries.length, newSeriesNormalityPValue, newSeries.length,
                          WEAK_NORMALITY_PVALUE_CUTOFF)) {
         Logger.trace("Somewhat weak normality; Using Browns-Forsythe test for variance equality")
         val brownForsythePValue: Double = equalVarianceTestProbability(baselineSeries, newSeries, weakNormality = true)
@@ -365,14 +371,23 @@ object TwoSampleRegressionTest {
     // if equal variance assumed, use homoscedastic t-test; else uses Welch's t-test
     val regressionTest: GenericStatTestResult = if (equalVariancePValue < alpha) {
       Logger.trace("equal variances rejected; using Welch's t-test")
-      conductTTest(baselineSeries, baselineSeriesSize, newSeries, newSeriesSize, alpha,
-                                  isHomoscedastic = false, isTwoSided)
+      conductTTest(
+        baselineSeries,
+        newSeries,
+        alpha,
+        isHomoscedastic = false,
+        isTwoSided
+      )
     }
-
     else {
       Logger.trace("equal variances detected; using Student's t-test")
-      conductTTest(baselineSeries, baselineSeriesSize, newSeries, newSeriesSize, alpha,
-                                  isHomoscedastic = true, isTwoSided)
+      conductTTest(
+        baselineSeries,
+        newSeries,
+        alpha,
+        isHomoscedastic = true,
+        isTwoSided
+      )
     }
 
     (Some(homoVarianceTest), regressionTest)
@@ -475,12 +490,10 @@ object TwoSampleRegressionTest {
           // t-test normality condition satisfied
           case false if checkVarianceHomogeneity =>
             Logger.trace("Normality assumption satisfied with variance homogeneity; proceeding with t-test.")
-            chooseAndConductTTest(baselineSeries, baselineSeriesNormalityPValue, baselineSeriesSize, newSeries,
-              newSeriesNormalityPValue, newSeriesSize, alpha, isTwoSided)
+            chooseAndConductTTest(baselineSeries, baselineSeriesNormalityPValue, newSeries, newSeriesNormalityPValue, alpha, isTwoSided)
           case false =>
             Logger.trace("Normality assumption satisfied without variance homogeneity; proceeding with t-test.")
-            (None, conductTTest(baselineSeries, baselineSeriesSize, newSeries, newSeriesSize, alpha, isHomoscedastic = false,
-              isTwoSided))
+            (None, conductTTest(baselineSeries, newSeries, alpha, isHomoscedastic = false, isTwoSided))
       }
 
       Some(AllRegressionStatTestResults(baselineNormalityTest, newNormalityTest, maybeHomoVarianceTest, regressionTest))

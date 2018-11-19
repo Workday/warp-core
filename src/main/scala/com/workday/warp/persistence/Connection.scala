@@ -149,7 +149,7 @@ trait Connection {
 
 object Connection {
 
-  val timeout: Duration = Duration(90, "seconds")
+  val timeout: Duration = Duration(WARP_DATABASE_TIMEOUT.value.toInt, "seconds")
 
   val driver: String = WARP_DATABASE_DRIVER.value
   val url: String = WARP_DATABASE_URL.value

@@ -56,6 +56,16 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   val WARP_DATABASE_DRIVER: PropertyEntry = PropertyEntry("wd.warp.jdbc.driver", isRequired = true, "org.h2.Driver")
 
   /**
+    * Timeout for DB queries in seconds.
+    *
+    * We'll await slick futures for this duration.
+    *
+    * Required: Yes
+    * Default Value: 90
+    */
+  val WARP_DATABASE_TIMEOUT: PropertyEntry = PropertyEntry("wd.warp.jdbc.timeout", isRequired = true, "90")
+
+  /**
     * Whether or not we should apply flyway schema migrations.
     *
     * This should be disabled in the warp pipelines, where we want to manually run the schema migration jobs.
@@ -432,32 +442,6 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   val WARP_ZSCORE_PERCENTILE_ARBITER_ENABLED: PropertyEntry = PropertyEntry(
     "wd.warp.zscore.percentile.arbiter.enabled", isRequired = false, "false"
   )
-
-  /**
-    * Whether anomaly detection provided by lambda function is enabled.
-    *
-    * Required: Yes
-    * Default Value: false
-    */
-  val WARP_LAMBDA_ARBITER_ENABLED: PropertyEntry = PropertyEntry("wd.warp.lambda.arbiter.enabled", isRequired = true, "false")
-
-  /**
-    * Fully qualified URL for anomaly detection lambda function.
-    *
-    * Required: Yes
-    * Default Value: https://nsd0jwpj65.execute-api.us-west-1.amazonaws.com/prod/anomaly_detection
-    */
-  val WARP_LAMBDA_ARBITER_URL: PropertyEntry = PropertyEntry(
-    "wd.warp.lambda.arbiter.url", isRequired = true, "https://nsd0jwpj65.execute-api.us-west-1.amazonaws.com/prod/anomaly_detection"
-  )
-
-  /**
-    * API key for the API that invokes the anomaly detection lambda function
-    *
-    * Required: Yes
-    * Default Value: None
-    */
-  val WARP_LAMBDA_ARBITER_API_KEY: PropertyEntry = PropertyEntry("wd.warp.lambda.arbiter.api.key", isRequired = true)
 
   /**
     * Threshold used by the percentile (gaussian distribution z-score) arbiter.
