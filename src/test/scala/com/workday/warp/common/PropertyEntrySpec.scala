@@ -15,5 +15,6 @@ class PropertyEntrySpec extends WarpJUnitSpec {
   def constructor(): Unit = {
     new PropertyEntry("com.workday.warp.foo").propertyName should be ("com.workday.warp.foo")
     PropertyEntry("com.workday.warp.foo").propertyName should be ("com.workday.warp.foo")
+    PropertyEntry("com.workday.warp.foo").envVarName should be ("COM_WORKDAY_WARP_FOO")
   }
 }

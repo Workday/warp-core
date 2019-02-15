@@ -7,6 +7,8 @@ package com.workday.warp.common
   */
 case class PropertyEntry(propertyName: String, isRequired: Boolean, defaultValue: String) {
 
+  val envVarName: String = this.propertyName.map(_.toUpper).replace(".", "_")
+
   def this(propertyName: String, isRequired: Boolean) = this(propertyName, isRequired, None.orNull)
   def this(propertyName: String) = this(propertyName, isRequired = false)
 
