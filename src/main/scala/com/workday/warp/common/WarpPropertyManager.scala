@@ -113,9 +113,10 @@ object WarpPropertyManager {
    */
   def logPropertyValues(): Unit = {
     val banner: StringBuilder = new StringBuilder
+    val usedConfigFile: String = if (new File(this.propertyFile).exists()) this.propertyFile else "none"
 
     // add WARP Framework Version and Configuration File in startup banner
-    banner ++= s"\nWARP Framework Version = '$version', Configuration File = '$propertyFile'"
+    banner ++= s"\nWARP Framework Version = '$version', Configuration File = '$usedConfigFile'"
 
     // retrieve all properties with SystemProp. prefix from configuration file
     val systemProperties: Iterator[String] = this.configuration.getKeys.asScala.filter(_.startsWith(this.SYSTEM_PROPERTY_PREFIX))
