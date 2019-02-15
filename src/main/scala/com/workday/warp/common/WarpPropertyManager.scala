@@ -174,15 +174,16 @@ object WarpPropertyManager {
 
 
   /**
-   * Computes a map containing the assigned values of each WarpProperty according to the following sources in order of
-   * decreasing precedence:
-   *
-   *   1: jvm system properties
-   *   2: properties from the warp configuration file (warp.properties)
-   *   3: default property values provided in the enum
-   *
-   * @return an immutable Map containing the values for each WarpProperty
-   */
+    * Computes a map containing the assigned values of each WarpProperty according to the following sources in order of
+    * decreasing precedence:
+    *
+    *   1: environment variables
+    *   2: jvm system properties
+    *   3: properties from the warp configuration file (warp.properties)
+    *   4: default property values provided in the enum
+    *
+    * @return an immutable [[Map]] containing the values for each WarpProperty
+    */
   def overlayProperties: Map[String, String] = {
     val properties: mutable.Map[String, String] = mutable.Map[String, String]()
 
@@ -204,6 +205,11 @@ object WarpPropertyManager {
 
       // if we find a system property override, add it to our map
       this.systemProps.get(key) foreach { value =>
+        properties += (key -> value)
+      }
+
+      // if we find an environment variable override, add it to our map
+      sys.env.get(entry.envVarName) foreach { value =>
         properties += (key -> value)
       }
     }
