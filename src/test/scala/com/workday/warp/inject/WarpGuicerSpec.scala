@@ -48,4 +48,12 @@ class WarpGuicerSpec extends WarpJUnitSpec {
     WarpGuicer.getProperty.getClass should be (CoreWarpProperty.getClass)
     WarpGuicer.getInstance(classOf[WarpPropertyLike]).getClass should be (CoreWarpProperty.getClass)
   }
+
+
+  /** Checks that we have the correct env var name for injection module. */
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  def envVar(): Unit = {
+    WarpGuicer.moduleEnvVar should be ("WD_WARP_INJECT_MODULE")
+  }
 }
