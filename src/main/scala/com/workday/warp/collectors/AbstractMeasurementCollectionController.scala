@@ -203,6 +203,18 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
 
 
   /**
+    * Finalizes persistence before arbiter votes are evaluated (before we throw any exceptions).
+    *
+    * Last chance to add any tags, mirror results in a secondary db, etc.
+    *
+    * Override this in your controllers.
+    *
+    * @param idTestExecution id of the current test execution.
+    */
+  def finalizePersistence(idTestExecution: Int): Unit = { }
+
+
+  /**
     * Handles post-measurement processing (i.e. finalize response time, create TestExecution, stop collectors, collect votes
     * on enabledArbiters).
     *
@@ -238,6 +250,9 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
         this.enabledArbiters foreach {
           _.collectVote(ballotBox, testExecution)
         }
+
+        // finalize any persistence. note that we do this before arbiter votes are evaluated
+        this.finalizePersistence(testExecution.idTestExecution)
 
         // throw an error if we need to
         ballotBox.checkAndThrow()
