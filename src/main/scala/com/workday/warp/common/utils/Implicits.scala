@@ -141,6 +141,7 @@ object Implicits {
     }
 
 
+    // scalastyle:off cyclomatic.complexity
     /**
       * Converts the specified json element to an instance of type T. Small wrapper around the provided getAs* functions.
       *
@@ -171,6 +172,7 @@ object Implicits {
 
       result.asInstanceOf[T]
     }
+    // scalastyle:on
   }
 
   /**

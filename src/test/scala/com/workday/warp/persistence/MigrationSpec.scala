@@ -15,11 +15,14 @@ import org.pmw.tinylog.Logger
 class MigrationSpec extends WarpJUnitSpec with Connection with CorePersistenceAware with MigrateSchemaLike {
 
 
-  override val maybeFlyway: Option[Flyway] = this.persistenceUtils.maybeFlyway()
+  val maybeFlyway: Option[Flyway] = this.persistenceUtils.maybeFlyway()
 
   /** Drops the schema once before we start our concurrent test. */
   @BeforeOnce
-  def dropSchema(): Unit = CorePersistenceUtils.dropSchema()
+  def dropSchema(): Unit = {
+    CorePersistenceUtils.dropSchema()
+    Connection.refresh()
+  }
 
   /** Ensures the schema is in a sane state after our test. (H2) */
   @AfterOnce

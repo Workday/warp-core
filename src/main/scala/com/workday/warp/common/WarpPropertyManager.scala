@@ -1,17 +1,19 @@
 package com.workday.warp.common
 
-import java.io.File
+import java.io.{File, FileNotFoundException, FileReader}
 import java.util.Properties
 
 import com.workday.warp.common.exception.WarpConfigurationException
 import com.workday.warp.inject.WarpGuicer
 import com.workday.warp.logger.WarpLogUtils
-import org.apache.commons.configuration.{ConfigurationException, PropertiesConfiguration}
+import org.apache.commons.configuration2.PropertiesConfiguration
+import org.apache.commons.configuration2.builder.fluent.Configurations
+import org.apache.commons.configuration2.ex.ConfigurationException
 import org.pmw.tinylog.Logger
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 /**
   * Manages runtime-determination of warp configuration properties.
@@ -34,9 +36,6 @@ object WarpPropertyManager {
   private val WARP_PROPERTIES: String = "warp.properties"
   private val WARP_CONFIG_DIRECTORY_PROPERTY: String = "wd.warp.config.directory"
 
-
-  // load properties from the property file into this configuration
-  val configuration: PropertiesConfiguration = new PropertiesConfiguration
   // immutable copy of jvm system properties
   val systemProps: Map[String, String] = System.getProperties.asScala.toMap
   // determine the directory to search for warp configuration files
@@ -45,9 +44,20 @@ object WarpPropertyManager {
   val propertyFile: String = computePropertyFile
 
   // load the configuration file
-  Try(configuration.load(propertyFile)) recover {
-    case exception: ConfigurationException => Logger.error(exception, s"Error loading WARP Configuration file: $propertyFile \n\n")
-  }
+  // note that if the file does not exist, we log a warning and continue execution with an empty property set.
+  // (all default property values will be used)
+  // if there is an unrecoverable exception from configuration library, we'll throw that exception
+  val configuration: PropertiesConfiguration = Try(new Configurations().properties(propertyFile)).recoverWith {
+    case _: ConfigurationException if !new File(propertyFile).exists() =>
+      Logger.warn(s"$propertyFile does not exist!" +
+        "\n    Be aware that if the property values you require have not been passed in as Java System properties" +
+        "\n    this program is very likely to fail when an unset required property is accessed.\n")
+      // fall back on empty config
+      Success(new PropertiesConfiguration)
+    case exception: Exception =>
+      Logger.error(exception, s"Error loading WARP Configuration file: $propertyFile \n\n")
+      Failure(exception)
+  }.get
 
   // use di to see which property set we are working with
   val propertyEntries: Seq[PropertyEntry] = WarpGuicer.getProperty.values
@@ -103,9 +113,10 @@ object WarpPropertyManager {
    */
   def logPropertyValues(): Unit = {
     val banner: StringBuilder = new StringBuilder
+    val usedConfigFile: String = if (new File(this.propertyFile).exists()) this.propertyFile else "none"
 
     // add WARP Framework Version and Configuration File in startup banner
-    banner ++= s"\nWARP Framework Version = '$version', Configuration File = '$propertyFile'"
+    banner ++= s"\nWARP Framework Version = '$version', Configuration File = '$usedConfigFile'"
 
     // retrieve all properties with SystemProp. prefix from configuration file
     val systemProperties: Iterator[String] = this.configuration.getKeys.asScala.filter(_.startsWith(this.SYSTEM_PROPERTY_PREFIX))
@@ -164,15 +175,16 @@ object WarpPropertyManager {
 
 
   /**
-   * Computes a map containing the assigned values of each WarpProperty according to the following sources in order of
-   * decreasing precedence:
-   *
-   *   1: jvm system properties
-   *   2: properties from the warp configuration file (warp.properties)
-   *   3: default property values provided in the enum
-   *
-   * @return an immutable Map containing the values for each WarpProperty
-   */
+    * Computes a map containing the assigned values of each WarpProperty according to the following sources in order of
+    * decreasing precedence:
+    *
+    *   1: environment variables
+    *   2: jvm system properties
+    *   3: properties from the warp configuration file (warp.properties)
+    *   4: default property values provided in the enum
+    *
+    * @return an immutable [[Map]] containing the values for each WarpProperty
+    */
   def overlayProperties: Map[String, String] = {
     val properties: mutable.Map[String, String] = mutable.Map[String, String]()
 
@@ -194,6 +206,11 @@ object WarpPropertyManager {
 
       // if we find a system property override, add it to our map
       this.systemProps.get(key) foreach { value =>
+        properties += (key -> value)
+      }
+
+      // if we find an environment variable override, add it to our map
+      sys.env.get(entry.envVarName) foreach { value =>
         properties += (key -> value)
       }
     }
@@ -223,16 +240,8 @@ object WarpPropertyManager {
     val versionedPropertyFile: File = new File(s"$default-$version")
 
     // check for a properties file declared with an extension that matches the current version
-    val propertyFile: String = if (versionedPropertyFile.exists) versionedPropertyFile.getAbsolutePath else default
-
-    // if the warp properties file does not exist, log a warning message
-    if (!new File(propertyFile).exists) {
-      Logger.warn(s"$propertyFile does not exist!" +
-        "\n    Be aware that if the property values you require have not been passed in as Java System properties" +
-        "\n    this program is very likely to fail when an unset required property is accessed.\n")
-    }
-
-    propertyFile
+    if (versionedPropertyFile.exists) versionedPropertyFile.getAbsolutePath
+    else default
   }
 
 
@@ -242,12 +251,12 @@ object WarpPropertyManager {
    *
    * 1. If wd.warp.config.directory Java system property is supplied in the TeamCity build configuration, look for
    * warp.properties file in that location.
-   * 2. If wd.warp.config.directory is not defined, check if warp.properties exists in the current working directory
-   * (i.e. /data/teamcity/buildAgent1140/work/{unique job identifier}/{module}/warp.properties).
+   * 2. If wd.warp.config.directory is not defined, check if ./config/warp.properties exists
+   * (i.e. /data/teamcity/buildAgent1140/work/{unique job identifier}/{module}/config/warp.properties).
    * 3. Finally, look for a warp.properties file in the users home .warp directory (i.e. /home/teamcity/.warp)
    */
   def computeConfigDirectory: String = {
-    val propertyFile: File = new File(this.WARP_PROPERTIES)
+    val propertyFile: File = new File(s"config/${this.WARP_PROPERTIES}")
 
     // check the jvm system property
     if (this.systemProps.contains(this.WARP_CONFIG_DIRECTORY_PROPERTY)) {

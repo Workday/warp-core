@@ -6,6 +6,12 @@ jdk:
 services:
   - docker
 
+# skip the install step, we don't want to compile code again in this step
+# the default is gradle assemble task. ideally we probably want to just download
+# all dependencies in this step
+install: true
+
+# see https://docs.travis-ci.com/user/languages/java/#caching
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -17,5 +23,7 @@ cache:
 
 script:
   - docker-compose up -d
-  - ./gradlew clean test checkScoverage
-  - docker-compose down
+  - ./gradlew -PallScalaVersions copyConfigTemplate reportScoverage checkScoverage --stacktrace
+
+after_success:
+  - ./gradlew coveralls

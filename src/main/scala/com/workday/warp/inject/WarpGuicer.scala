@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor
 
 import com.google.inject.{AbstractModule, Guice, Injector}
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
-import com.workday.warp.common.WarpPropertyLike
+import com.workday.warp.common.{PropertyEntry, WarpPropertyLike}
 import com.workday.warp.inject.modules.{DefaultWarpModule, HasWarpBindings}
 import com.workday.warp.persistence.Tag
 import org.pmw.tinylog.Logger
@@ -27,10 +27,11 @@ object WarpGuicer {
   type WarpModule = AbstractModule with HasWarpBindings
 
   val moduleProp: String = "wd.warp.inject.module"
+  val moduleEnvVar: String = PropertyEntry(moduleProp).envVarName
 
   // TODO support csv values?
   // in that case, we don't need to ensure that at least one of the modules is the correct type (ControllerModule)
-  val maybeModuleClass: Option[String] = Option(System.getProperty(this.moduleProp))
+  val maybeModuleClass: Option[String] = sys.env.get(this.moduleEnvVar).orElse(sys.props.get(this.moduleProp))
 
   val moduleClass: Class[WarpModule] = maybeModuleClass match {
     case Some(className) =>

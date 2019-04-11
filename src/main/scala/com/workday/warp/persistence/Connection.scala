@@ -10,6 +10,7 @@ import Tables.profile.backend.DatabaseDef
 import com.typesafe.config.ConfigFactory
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
+import org.flywaydb.core.api.configuration.FluentConfiguration
 import slick.dbio.DBIOAction
 import org.pmw.tinylog.Logger
 import slick.jdbc.{JdbcDataSource, TransactionIsolation}
@@ -52,13 +53,16 @@ trait Connection {
     *
     * @return an [[Option]] containing a [[Flyway]] instance for database schema migration.
     */
-  def maybeFlyway(): Option[Flyway] = {
+  def maybeFlyway(locations: Seq[String] = Seq.empty): Option[Flyway] = {
     this.getMySQLDbName map { _ =>
-      val flyway: Flyway = new Flyway
-      // initialize the metadata table if we don't have it already
-      flyway.setBaselineOnMigrate(true)
-      flyway.setDataSource(Connection.url, Connection.user, Connection.password)
-      flyway
+      val config: FluentConfiguration = Flyway.configure
+        // initialize the metadata table if we don't have it already
+        .baselineOnMigrate(true)
+        .dataSource(Connection.url, Connection.user, Connection.password)
+
+      // override migration search locations if specified
+      if (locations.isEmpty) config.load()
+      else config.locations(locations: _*).load()
     }
   }
 
@@ -140,10 +144,12 @@ trait Connection {
     * @tparam Row return type of `action`.
     * @return [[Try]] containing the result of executing `action`.
     */
-  def trySynchronously[Row](action: DBIO[Row]): Try[Row] = Try(Await.result(Connection.db.run(action), Duration.Inf))
+  def trySynchronously[Row](action: DBIO[Row]): Try[Row] = Try(Await.result(Connection.db.run(action), Connection.timeout))
 }
 
 object Connection {
+
+  val timeout: Duration = Duration(WARP_DATABASE_TIMEOUT.value.toInt, "seconds")
 
   val driver: String = WARP_DATABASE_DRIVER.value
   val url: String = WARP_DATABASE_URL.value
@@ -163,7 +169,7 @@ object Connection {
     """.stripMargin
   // scalastyle:on two.spaces
 
-  var db: DatabaseDef = this.connect
+  var db: DatabaseDef = this.connect // scalastyle:ignore
 
   /** @return a synchronous database connection. */
   def connect: DatabaseDef = {
@@ -179,7 +185,7 @@ object Connection {
 
   /** Shutdown and recreate our database connection. */
   def refresh(): Unit = {
-      Await.result(this.db.shutdown, Duration.Inf)
+      Await.result(this.db.shutdown, this.timeout)
       this.db = this.connect
   }
 }

@@ -12,7 +12,7 @@ import com.workday.warp.utils.Ballot
 trait ArbiterLike extends PersistenceAware {
 
   /** Whether this arbiter is enabled. */
-  var isEnabled: Boolean = true
+  var isEnabled: Boolean = true // scalastyle:ignore
 
   /**
     * Checks that the measured test passed its performance requirement. If the requirement is failed, constructs an

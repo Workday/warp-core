@@ -424,11 +424,8 @@ trait MigrateSchemaLike extends PersistenceAware {
     * @param locations locations we'll recursively scan for migration scripts.
     */
   def migrate(locations: Seq[String] = Seq.empty): Unit = {
-    this.persistenceUtils.maybeFlyway() match {
+    this.persistenceUtils.maybeFlyway(locations) match {
       case Some(flyway) =>
-        if (locations.nonEmpty) {
-          flyway.setLocations(locations: _*)
-        }
         this.retry({
           val before: Long = System.currentTimeMillis()
           flyway.migrate()

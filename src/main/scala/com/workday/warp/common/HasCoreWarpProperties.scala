@@ -56,6 +56,16 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   val WARP_DATABASE_DRIVER: PropertyEntry = PropertyEntry("wd.warp.jdbc.driver", isRequired = true, "org.h2.Driver")
 
   /**
+    * Timeout for DB queries in seconds.
+    *
+    * We'll await slick futures for this duration.
+    *
+    * Required: Yes
+    * Default Value: 90
+    */
+  val WARP_DATABASE_TIMEOUT: PropertyEntry = PropertyEntry("wd.warp.jdbc.timeout", isRequired = true, "90")
+
+  /**
     * Whether or not we should apply flyway schema migrations.
     *
     * This should be disabled in the warp pipelines, where we want to manually run the schema migration jobs.
@@ -90,6 +100,16 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     * Default Value: build/warp.log
     */
   val WARP_LOG_FILE: PropertyEntry = PropertyEntry("wd.warp.log.file", isRequired = false, "build/warp.log")
+
+  /**
+    * Whether MeasurementCollectors should log stacktraces when errors occur, or just an error message.
+    *
+    * Note that setting this to true can result in an overly verbose build log.
+    *
+    * Required: No
+    * Default Value: false
+    */
+  val WARP_LOG_MC_STACKTRACES: PropertyEntry = PropertyEntry("wd.warp.log.mc.stacktraces", isRequired = false, "false")
 
   // tracks build number of the stack, defaults to the beginning of unix time
   val SILVER_BUILD_NUMBER: PropertyEntry = PropertyEntry("SILVER_BUILD_NUMBER", isRequired = false, "1970.1.1")
@@ -303,6 +323,7 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     */
   val WARP_ANOMALY_RPCA_MINIMUM_N: PropertyEntry = PropertyEntry("wd.warp.anomaly.rpca.minimum.n", isRequired = false, "30")
 
+
   /**
     * When this is set to true, we'll run rpca on all historical data, then filter out anomalies and rerun the algorithm
     * on only normal historical measurements. Comparing today's measurement to only normal historical measurements
@@ -313,6 +334,17 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     * Default Value: false
     */
   val WARP_ANOMALY_DOUBLE_RPCA: PropertyEntry = PropertyEntry("wd.warp.anomaly.double.rpca", isRequired = false, "false")
+
+
+  /**
+    * Used to override results of Dickey-Fuller test and treat the time series as non-stationary.
+    *
+    * When this is set to true, we'll perform anomaly detection on the consecutive diffs between entries, as if the
+    * Dickey-Fuller test had reported the series is non-stationary.
+    *
+    * When this is set to false, we'll treat the time series as stationary.
+    */
+  val WARP_ANOMALY_USE_DIFF: PropertyEntry = PropertyEntry("wd.warp.anomaly.use.diff", isRequired = false, None.orNull)
 
   /**
     * Number of most recent measurements we'll consider when wd.warp.anomaly.double.rpca is true. Running double rpca
@@ -352,6 +384,17 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     * Default Value: 1.0
     */
   val WARP_ANOMALY_SMART_SCALAR: PropertyEntry = PropertyEntry("wd.warp.anomaly.smart.scalar", isRequired = false, "1.0")
+
+  /**
+    * Smoothing factor for SMART number calculation.
+    *
+    * During calculation of SMART number, the last k entries of the time series will be replaced by their average
+    * in a smoothing process. This parameter controls the value of k.
+    *
+    * Required: No
+    * Default Value: 5
+    */
+  val WARP_ANOMALY_SMART_SMOOTHING: PropertyEntry = PropertyEntry("wd.warp.anomaly.smart.smoothing", isRequired = false, "5")
 
   /**
     * Number of retries that will be attempted for find or create operations.
@@ -399,32 +442,6 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   val WARP_ZSCORE_PERCENTILE_ARBITER_ENABLED: PropertyEntry = PropertyEntry(
     "wd.warp.zscore.percentile.arbiter.enabled", isRequired = false, "false"
   )
-
-  /**
-    * Whether anomaly detection provided by lambda function is enabled.
-    *
-    * Required: Yes
-    * Default Value: false
-    */
-  val WARP_LAMBDA_ARBITER_ENABLED: PropertyEntry = PropertyEntry("wd.warp.lambda.arbiter.enabled", isRequired = true, "false")
-
-  /**
-    * Fully qualified URL for anomaly detection lambda function.
-    *
-    * Required: Yes
-    * Default Value: https://nsd0jwpj65.execute-api.us-west-1.amazonaws.com/prod/anomaly_detection
-    */
-  val WARP_LAMBDA_ARBITER_URL: PropertyEntry = PropertyEntry(
-    "wd.warp.lambda.arbiter.url", isRequired = true, "https://nsd0jwpj65.execute-api.us-west-1.amazonaws.com/prod/anomaly_detection"
-  )
-
-  /**
-    * API key for the API that invokes the anomaly detection lambda function
-    *
-    * Required: Yes
-    * Default Value: None
-    */
-  val WARP_LAMBDA_ARBITER_API_KEY: PropertyEntry = PropertyEntry("wd.warp.lambda.arbiter.api.key", isRequired = true)
 
   /**
     * Threshold used by the percentile (gaussian distribution z-score) arbiter.

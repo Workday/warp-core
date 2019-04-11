@@ -11,7 +11,7 @@ import org.pmw.tinylog.Logger
   * Created by tomas.mccandless on 10/13/15.
   */
 class WarpStopwatch private(private[this] val logMessage: String) {
-  private[this] var isTiming: Boolean = true
+  private[this] var isTiming: Boolean = true // scalastyle:ignore
   private[this] val stopwatch: Stopwatch = Stopwatch.createStarted()
 
   /**

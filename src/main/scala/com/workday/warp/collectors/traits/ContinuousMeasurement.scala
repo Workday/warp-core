@@ -6,6 +6,8 @@ import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 
+import scala.annotation.tailrec
+
 
 /**
   * Represents the capability for continuous measurement collection.
@@ -16,15 +18,16 @@ import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
   */
 trait ContinuousMeasurement extends AbstractMeasurementCollector {
 
-  var measurementInProgress: AtomicBoolean = new AtomicBoolean(false)
-  var measurementIntervalMs: Int = WARP_CONTINUOUS_MEASUREMENT_INTERVAL.value.toInt
+  val measurementInProgress: AtomicBoolean = new AtomicBoolean(false)
+  val measurementIntervalMs: Int = WARP_CONTINUOUS_MEASUREMENT_INTERVAL.value.toInt
 
   // separate thread will sample a measurement at a configurable interval
   val collector: Thread = new Thread {
-    override def run(): Unit = {
-      while (measurementInProgress.get) {
+    @tailrec override def run(): Unit = {
+      if (measurementInProgress.get) {
         collectMeasurement()
         Thread sleep measurementIntervalMs
+        this.run()
       }
     }
   }

@@ -3,7 +3,7 @@ package com.workday.warp.adapters.gatling.traits
 import com.workday.warp.common.CoreConstants.{UNDEFINED_TEST_ID => DEFAULT_TEST_ID}
 
 /**
-  * Created by ruiqi.wang 
+  * Created by ruiqi.wang
   */
 trait HasDefaultTestName extends HasBasePackageName {
 

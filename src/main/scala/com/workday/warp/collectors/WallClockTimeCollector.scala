@@ -12,8 +12,10 @@ import com.workday.warp.persistence.Tables._
   */
 class WallClockTimeCollector(testId: String) extends AbstractMeasurementCollector(testId) with CorePersistenceAware {
 
+  // scalastyle:off var.field
   private var timeBeforeMs: Long = _
   private var timeAfterMs: Long = _
+  // scalastyle:on
 
   private val description: String = "elapsed wall clock time"
 

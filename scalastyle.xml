@@ -128,7 +128,7 @@
  <check level="error" class="org.scalastyle.scalariform.EmptyClassChecker" enabled="true"></check>
  <check level="warning" class="org.scalastyle.scalariform.ClassTypeParameterChecker" enabled="true">
   <parameters>
-   <parameter name="regex"><![CDATA[^[A-Z_]$]]></parameter>
+   <parameter name="regex"><![CDATA[^[A-Z_][a-zA-Z0-9]*$]]></parameter>
   </parameters>
  </check>
  <check level="warning" class="org.scalastyle.scalariform.UnderscoreImportChecker" enabled="false"></check>
@@ -149,7 +149,7 @@
  </check>
  <check customId="two.spaces" enabled="true" class="org.scalastyle.file.RegexChecker" level="error">
   <parameters>
-   <parameter name="regex">[^\s]  [^\s]</parameter>
+   <parameter name="regex">[^\s/]  [^\s]</parameter>
    <parameter name="line">false</parameter>
   </parameters>
   <customMessage>tokens should not be separated by two spaces</customMessage>

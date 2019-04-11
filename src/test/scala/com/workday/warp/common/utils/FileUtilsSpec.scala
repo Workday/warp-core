@@ -1,6 +1,7 @@
 package com.workday.warp.common.utils
 
 import java.io.InputStream
+import java.nio.charset.Charset
 import java.util.zip.ZipException
 
 import com.workday.warp.common.category.UnitTest
@@ -36,7 +37,7 @@ class FileUtilsSpec extends WarpJUnitSpec {
 
     val stream: InputStream = FileUtils.getStreamToLogFileInZip(filePath, "zipEntryFile.txt")
 
-    IOUtils.toString(stream) should include ("This is a zip entry")
+    IOUtils.toString(stream, Charset.defaultCharset) should include ("This is a zip entry")
   }
 
   /**

@@ -1,11 +1,13 @@
 package com.workday.warp.collectors.abstracts
 
 import com.workday.warp.common.CoreConstants
-import com.workday.warp.common.utils.StackTraceFilter.filter
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.common.utils.{MeasurementUtils, WarpStopwatch}
+import com.workday.warp.common.CoreWarpProperty.WARP_LOG_MC_STACKTRACES
 import org.apache.commons.io.FileUtils.byteCountToDisplaySize
 import org.pmw.tinylog.Logger
+
+import scala.util.Try
 
 /**
   * Used to start and stop measurement collection.
@@ -27,13 +29,13 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: S
   // TODO consider adding a separate persist method, so measurements can be obtained and then persisted separately
 
   // whether collector is enabled. can be set to false during initialization, for example if jmx is unavailable
-  var isEnabled: Boolean = true
+  var isEnabled: Boolean = true // scalastyle:ignore
 
   /**
    * Priority for this collector. A lower number indicates that this collector should run closer to the test it is
    * measuring.
    */
-  var priority: Int = Int.MaxValue
+  val priority: Int = Int.MaxValue
 
   /**
     * An intrusive collector is one that should not be enabled for nested measurements. For example, execution metrics
@@ -73,15 +75,13 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: S
   /**
    * Simple error handling around `startMeasurement`. Sets enabled=false if there is an error.
    */
-  final def tryStartMeasurement(): Unit = {
+  final def tryStartMeasurement(shouldLogStacktrace: Boolean = WARP_LOG_MC_STACKTRACES.value.toBoolean): Unit = {
     Logger.trace(s"starting collector ${this.name}")
-    try {
-      this.startMeasurement()
-    }
-    catch {
-      case exception: Exception =>
-        Logger.error(this.filterStackTrace(exception), s"error starting collector: ${this.toString}:")
-        this.isEnabled = false
+
+    Try(this.startMeasurement()) recover { case exception: Exception =>
+      this.isEnabled = false
+      if (shouldLogStacktrace) Logger.error(this.filterStackTrace(exception), s"error starting collector: ${this.toString}:")
+      else Logger.error(s"error starting collector: ${this.toString}: ${exception.getMessage}")
     }
   }
 
@@ -101,11 +101,13 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: S
    * @param maybeTestExecution     Optional field. If the test execution is None the client should
    *                          not attempt to write out to the database.
    */
-  final def tryStopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
+  final def tryStopMeasurement[T: TestExecutionRowLikeType](
+                                                             maybeTestExecution: Option[T],
+                                                             shouldLogStacktrace: Boolean = WARP_LOG_MC_STACKTRACES.value.toBoolean
+                                                           ): Unit = {
     Logger.trace(s"stopping collector ${this.name}")
 
-    // TODO use scala.util.Try
-    try {
+    Try {
       val initialHeap: Long = MeasurementUtils.heapUsed
       val stopwatch: WarpStopwatch = WarpStopwatch.start(s"Elapsed time to stop ${this.name}")
       this.stopMeasurement(maybeTestExecution)
@@ -114,10 +116,9 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: S
       Logger.trace(s"Initial heap usage: ${byteCountToDisplaySize(initialHeap)}, " +
         s"Resulting heap usage: ${byteCountToDisplaySize(endHeap)}, " +
         s"Difference: ${byteCountToDisplaySize(endHeap-initialHeap)}")
-    }
-    catch {
-      case exception: Exception =>
-        Logger.error(this.filterStackTrace(exception), s"error stopping collector: ${this.toString}:")
+    } recover { case exception: Exception =>
+      if (shouldLogStacktrace) Logger.error(this.filterStackTrace(exception), s"error stopping collector: ${this.toString}:")
+      else Logger.error(s"error stopping collector: ${this.toString}: ${exception.getMessage}")
     }
   }
 

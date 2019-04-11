@@ -3,6 +3,7 @@ package com.workday.warp.collectors
 import java.time.Duration
 import java.util.Date
 
+import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
@@ -38,6 +39,7 @@ import scala.util.{Failure, Success, Try}
 abstract class AbstractMeasurementCollectionController(val testId: String = Defaults.testId,
                                                        val tags: List[Tag] = Defaults.tags) extends PersistenceAware {
 
+  // scalastyle:off var.field
   /** collectors that will be wrapped around this test. */
   protected var _collectors: List[AbstractMeasurementCollector] = List.empty
   /** @return collectors wrapped around this test. */
@@ -61,6 +63,7 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
   protected var _measurementInProgress: Boolean = false
   /** @return whether measurement is currently underway. */
   def measurementInProgress: Boolean = this._measurementInProgress
+  // scalastyle:on
 
 
   /** @return a List containing only those collectors that are enabled */
@@ -208,18 +211,14 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
     */
   @throws[PreExistingTagException]
   private def recordTrial[TrialType](trial: TrialResult[TrialType]): TrialResult[TrialType] = {
-    val responseTime: Duration = trial.maybeResponseTime match {
-      // verify measurement is non-negative value greater than zero, else default to 1 millisecond
-      case Some(duration) => if (!duration.isPositive) Duration.ofMillis(1) else duration
+    val responseTime: Duration = TimeUtils.max(
       // fall back on elapsed wall clock time
-      case None => math.max(new Date().getTime - this.timeStarted.getTime, 1) millis
-    }
-
+      trial.maybeResponseTime.getOrElse(TimeUtils.elapsedTimeSince(this.timeStarted)),
+      // verify measurement is non-negative value greater than zero, else default to 1 millisecond
+      1.milli
+    )
     // if there isn't a threshold set on the trial result already, use what is set on the required annotation
-    val threshold: Duration = trial.maybeThreshold match {
-      case Some(duration) => duration
-      case None => AnnotationReader.getRequiredMaxValue(this.testId)
-    }
+    val threshold: Duration = trial.maybeThreshold.getOrElse(AnnotationReader.getRequiredMaxValue(this.testId))
 
     val maybeTestExecution: Option[TestExecutionRowLike] = Option(this.createTestExecution(
       responseTime,
@@ -227,34 +226,14 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
       trial.maybeDocumentation
     ))
 
-    stopCollectors(maybeTestExecution)
+    this.stopCollectors(maybeTestExecution)
 
     maybeTestExecution match {
       case Some(testExecution) =>
         val ballotBox: Ballot = new Ballot(this.testId)
 
         // read all tried outer tags
-        this.recordTags(this.tags, testExecution) foreach {
-          case PersistTagResult(outerTag, tryOuterTag) =>
-            tryOuterTag match {
-              case (Success(_), _) =>
-                Logger.debug(s"OuterTag $outerTag persisted... testing MetaTags")
-              case (Failure(pte: PreExistingTagException), _) =>
-                throw pte
-              case (Failure(exception), _) =>
-                Logger.error(s"OuterTag $outerTag failed to persist with exception: $exception")
-            }
-
-            // loop on metatags
-            tryOuterTag._2 foreach {
-              case PersistMetaTagResult(metaTag, triedMetaTag) =>
-                triedMetaTag match {
-                  case Success(_) => Logger.debug(s"MetaTag $metaTag persisted")
-                  case Failure(pte: PreExistingTagException) => throw pte
-                  case Failure(exception) => Logger.error(s"MetaTag $metaTag failed to persist with exception: $exception")
-                }
-            }
-        }
+        this.logTagErrors(this.recordTags(this.tags, testExecution))
 
         this.enabledArbiters foreach {
           _.collectVote(ballotBox, testExecution)
@@ -329,6 +308,36 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
 
 
   /**
+    * Logs any error messages resulting from attempted tag persistence.
+    *
+    * @param results
+    */
+  private def logTagErrors(results: Seq[PersistTagResult]): Unit = {
+    results foreach {
+      case PersistTagResult(outerTag, tryOuterTag) =>
+        tryOuterTag match {
+          case (Success(_), _) =>
+            Logger.debug(s"OuterTag $outerTag persisted... testing MetaTags")
+          case (Failure(pte: PreExistingTagException), _) =>
+            throw pte
+          case (Failure(exception), _) =>
+            Logger.error(s"OuterTag $outerTag failed to persist with exception: $exception")
+        }
+
+        // loop on metatags
+        tryOuterTag._2 foreach {
+          case PersistMetaTagResult(metaTag, triedMetaTag) =>
+            triedMetaTag match {
+              case Success(_) => Logger.debug(s"MetaTag $metaTag persisted")
+              case Failure(pte: PreExistingTagException) => throw pte
+              case Failure(exception) => Logger.error(s"MetaTag $metaTag failed to persist with exception: $exception")
+            }
+        }
+    }
+  }
+
+
+  /**
     * Stops currently active collectors.
     *
     * @param maybeTestExecution an [[Option]] of type [[TestExecutionRowLike]]
@@ -375,11 +384,12 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
     this.synchronized {
       if (this._measurementInProgress) {
         Logger.warn(s"measurement in progress. arbiter ${arbiter.getClass.getCanonicalName} will not be registered.")
-        return false
+        false
       }
-
-      this._arbiters = arbiter :: this._arbiters
-      true
+      else {
+        this._arbiters = arbiter :: this._arbiters
+        true
+      }
     }
   }
 

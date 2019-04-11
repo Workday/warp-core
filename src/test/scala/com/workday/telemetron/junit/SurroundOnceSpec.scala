@@ -3,7 +3,7 @@ package com.workday.telemetron.junit
 import com.workday.telemetron.annotation.{AfterOnce, BeforeOnce, Schedule}
 import org.junit.{Rule, Test}
 import org.scalatest.Matchers
-import org.scalatest.junit.JUnitSuite
+import org.scalatestplus.junit.JUnitSuite
 
 /**
   * Created by vignesh.kalidas on 2/8/17.
@@ -72,7 +72,9 @@ object SurroundOnceSpec {
     SurroundOnceSpec.shouldBeNonZero += 1
   }
 
+  // scalastyle:off var.field
   var shouldBeNonZero: Int = 0
   var invocations: Int = 2
+  // scalastyle:on
 }
 
