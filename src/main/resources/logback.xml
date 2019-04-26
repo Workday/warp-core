@@ -1,0 +1,37 @@
+<configuration>
+
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%coloredLevel - %logger - %message%n%xException</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+      The logger name is typically the Java/Scala package name.
+      This configures the log level to log at for a package and its children packages.
+      play and applications level=DEBUG
+      org.avaje.ebean.SQL  level=TRACE can assist in debugging.
+    -->
+    <logger name="play" level="INFO" />
+    <logger name="application" level="DEBUG" />
+
+    <logger name="com.zaxxer.hikari" level="INFO"/>
+    <logger name="slick" level="INFO"/>
+
+
+
+    <!-- Uncomment for logging ALL HTTP request and responses -->
+    <!-- logger name="io.gatling.http.ahc" level="TRACE" /-->
+    <!--logger name="io.gatling.http.response" level="TRACE" /-->
+
+    <!-- Uncomment for logging ONLY FAILED HTTP request and responses -->
+    <!--<logger name="io.gatling.http.ahc" level="DEBUG" />-->
+    <!--<logger name="io.gatling.http.response" level="DEBUG" />-->
+
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

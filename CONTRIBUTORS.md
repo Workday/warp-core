@@ -15,3 +15,5 @@ Tomas McCandless [tomnis](https://github.com/tomnis) (anomaly detection, arbiter
 Richie Wang [rooeque](https://github.com/rooeque) (tags)
 
 Vignesh Kalidas [sarcasticsimba](https://github.com/sarcasticsimba) (tags)
+
+Aakanksha Pudipeddi [aakankshap](https://github.com/aakankshap) (gatling-junit)
