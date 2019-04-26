@@ -342,6 +342,7 @@
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -354,6 +355,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -964,6 +966,7 @@
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -976,6 +979,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -1601,6 +1605,7 @@
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -1613,6 +1618,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -2227,6 +2233,7 @@
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -2239,6 +2246,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -2864,6 +2872,7 @@
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -2876,6 +2885,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -3514,12 +3524,14 @@
         },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -3532,6 +3544,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -4136,12 +4149,14 @@
         },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -4154,6 +4169,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -4758,12 +4774,14 @@
         },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -4776,6 +4794,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -5395,12 +5414,14 @@
         },
         "io.gatling:gatling-commons": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-core"
             ]
         },
         "io.gatling:gatling-core": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -5413,6 +5434,7 @@
         },
         "io.gatling:gatling-http": {
             "locked": "2.3.1",
+            "requested": "2.3.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
