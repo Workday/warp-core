@@ -65,7 +65,7 @@ project.ext.versions = [
     , scalaStyle: '1.0.1'
     , scalacScoverage: '1.3.1'
     , slick: '3.2.3'
-    , tinylogSlf4jBinding: '1.3.5'
-    , tinylog: '1.3.5'
+    , tinylogSlf4jBinding: '1.3.6'
+    , tinylog: '1.3.6'
     , typesafeConfig: '1.3.+'
 ]

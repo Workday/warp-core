@@ -65,9 +65,10 @@ dependencies {
     compile "com.typesafe.slick:slick_%%:${versions.slick}"
     compile "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
     compile "commons-io:commons-io:${versions.commonsIo}"
-    // exclude concrete log bindings from gatling
-    compile "io.gatling:gatling-core:${versions.gatling}" exclude group: 'ch.qos.logback', module:'logback-classic'
-    compile "io.gatling:gatling-http:${versions.gatling}" exclude group: 'ch.qos.logback', module:'logback-classic'
+    // Could not exclude concrete logger implementation due to it being directly used within gatling-app
+    compile "io.gatling:gatling-app:${versions.gatling}"
+    compile "io.gatling:gatling-core:${versions.gatling}"
+    compile "io.gatling:gatling-http:${versions.gatling}"
     compile "junit:junit:${versions.junit}"
     compile "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
     compile "org.apache.commons:commons-math3:${versions.math3}"
@@ -81,13 +82,14 @@ dependencies {
 
     compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
 
+    testCompile "io.gatling:gatling-commons:${versions.gatling}"
+
     scoverage "org.scoverage:scalac-scoverage-plugin_%%:${versions.scalacScoverage}"
     scoverage "org.scoverage:scalac-scoverage-runtime_%%:${versions.scalacScoverage}"
 
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
-    runtimeOnly "org.tinylog:slf4j-binding:${versions.tinylogSlf4jBinding}"
 }
 
 sourceSets {
