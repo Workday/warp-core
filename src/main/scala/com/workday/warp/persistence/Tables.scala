@@ -54,7 +54,7 @@ trait CommonTables {
 trait HasProfile {
   // shameless assumption
   val profile: JdbcProfile = WARP_DATABASE_DRIVER.value match {
-    case Drivers.mysql | Drivers.cjMysql => slick.jdbc.MySQLProfile
+    case Drivers.mysql | Drivers.cjMysql => WarpMySQLProfile
     case Drivers.h2 => slick.jdbc.H2Profile
     case unsupported => throw Drivers.unsupportedDriverException(unsupported)
   }
