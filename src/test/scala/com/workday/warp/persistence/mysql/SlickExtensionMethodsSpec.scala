@@ -5,7 +5,7 @@ import java.util.Date
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.persistence.Tables._
-import com.workday.warp.persistence.Tables.profile.api._
+import com.workday.warp.persistence.WarpMySQLProfile.api._
 import com.workday.warp.persistence.mysql.SlickExtensionMethodsSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
 import org.junit.experimental.categories.Category
@@ -14,7 +14,7 @@ import org.junit.{Before, Test}
 /**
   * Created by ruiqi.wang
   */
-class SlickExtensionMethodsSpec extends WarpJUnitSpec with CorePersistenceAware with WarpSlickImplicits {
+class SlickExtensionMethodsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Truncates the schema. */
   @Before
