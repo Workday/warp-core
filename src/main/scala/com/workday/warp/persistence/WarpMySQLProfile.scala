@@ -7,14 +7,14 @@ import slick.jdbc.MySQLProfile
 import scala.language.{higherKinds, implicitConversions}
 
 /**
-  * Created by ruiqi.wang 
+  * Created by ruiqi.wang
   */
 trait WarpMySQLProfile extends MySQLProfile {
 
   trait WarpSlickAPI extends API {
 
 
-    implicit class RegexLikeOperators(stringToMatch: Rep[String]) {
+    implicit class RegexExtensions(stringToMatch: Rep[String]) {
       def regexLike(pattern: Rep[String]): Rep[Boolean] = {
         val expression = SimpleExpression.binary[String, String, Boolean] { (stringToMatch, pattern, queryBuilder) =>
           queryBuilder.expr(stringToMatch)
@@ -25,7 +25,7 @@ trait WarpMySQLProfile extends MySQLProfile {
       }
     }
 
-    implicit class TimeStampComparisons(timestamp: Rep[Timestamp]) {
+    implicit class TimeStampExtensions(timestamp: Rep[Timestamp]) {
       def minusTime(interval: Rep[String]): Rep[Boolean] = {
         val expression = SimpleExpression.binary[Timestamp, String, Boolean] { (timestamp, interval, queryBuilder) =>
           queryBuilder.expr(timestamp)

@@ -8,7 +8,7 @@ import slick.lifted.{Query, Rep}
 
 import scala.language.{higherKinds, implicitConversions}
 /**
-  * Created by ruiqi.wang 
+  * Created by ruiqi.wang
   */
 class SlickExtensionMethods[B1, P1, C[_]](val q: Query[Rep[P1], _, C]) extends AnyVal {
   type OptionTM = TypedType[Option[B1]]
