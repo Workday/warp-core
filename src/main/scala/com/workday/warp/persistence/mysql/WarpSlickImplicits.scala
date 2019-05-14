@@ -5,7 +5,7 @@ import slick.ast.BaseTypedType
 import slick.lifted.{Query, Rep, SimpleExpression}
 
 /**
-  * Created by ruiqi.wang 
+  * Created by ruiqi.wang
   */
 trait WarpSlickImplicits extends ColumnImplicits
 
