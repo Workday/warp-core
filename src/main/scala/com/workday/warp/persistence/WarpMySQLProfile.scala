@@ -2,6 +2,7 @@ package com.workday.warp.persistence
 
 import java.sql.Timestamp
 
+import com.workday.warp.persistence.mysql.WarpSlickImplicits
 import slick.jdbc.MySQLProfile
 
 import scala.language.{higherKinds, implicitConversions}
@@ -11,14 +12,13 @@ import scala.language.{higherKinds, implicitConversions}
   */
 trait WarpMySQLProfile extends MySQLProfile {
 
-  trait WarpSlickAPI extends API {
-
+  trait WarpSlickAPI extends API with WarpSlickImplicits {
 
     implicit class RegexExtensions(stringToMatch: Rep[String]) {
       def regexLike(pattern: Rep[String]): Rep[Boolean] = {
         val expression = SimpleExpression.binary[String, String, Boolean] { (stringToMatch, pattern, queryBuilder) =>
           queryBuilder.expr(stringToMatch)
-          queryBuilder.sqlBuilder += " ~* "
+          queryBuilder.sqlBuilder += " REGEXP "
           queryBuilder.expr(pattern)
         }
         expression.apply(stringToMatch, pattern)
@@ -36,15 +36,10 @@ trait WarpMySQLProfile extends MySQLProfile {
       }
     }
 
-
-
   }
 
   override val api: WarpSlickAPI = new WarpSlickAPI {}
 
 }
 
-
 object WarpMySQLProfile extends WarpMySQLProfile
-
-
