@@ -1,6 +1,6 @@
-package com.workday.warp.persistence.mysqlslick
+package com.workday.warp.persistence.mysql
 
-import com.workday.warp.persistence.mysqlslick.SlickExtensionMethods._
+import com.workday.warp.persistence.mysql.SlickExtensionMethods._
 import slick.ast.Library.SqlAggregateFunction
 import slick.ast.TypedType
 import slick.lifted.FunctionSymbolExtensionMethods._
