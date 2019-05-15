@@ -18,5 +18,3 @@ trait ColumnImplicits {
   WarpSlickFunctions[B1, Option[B1], C] = new WarpSlickFunctions[B1, Option[B1], C](q)
 
 }
-
-

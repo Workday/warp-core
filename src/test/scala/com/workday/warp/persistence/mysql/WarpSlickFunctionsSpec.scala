@@ -49,7 +49,6 @@ class WarpSlickFunctionsSpec extends WarpJUnitSpec with CorePersistenceAware {
     rows.head._2.get should equal (STD_1)
     rows(1)._2 shouldBe defined
     rows(1)._2.get should equal (STD_2)
-
   }
 
 }
