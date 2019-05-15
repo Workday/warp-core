@@ -14,7 +14,7 @@ import org.junit.{Before, Test}
 /**
   * Created by ruiqi.wang
   */
-class SlickExtensionMethodsSpec extends WarpJUnitSpec with CorePersistenceAware {
+class WarpSlickFunctionsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Truncates the schema. */
   @Before
