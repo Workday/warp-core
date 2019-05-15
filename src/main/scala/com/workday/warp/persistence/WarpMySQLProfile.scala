@@ -1,42 +1,16 @@
 package com.workday.warp.persistence
 
-import java.sql.Timestamp
-
-import com.workday.warp.persistence.mysql.WarpSlickImplicits
+import com.workday.warp.persistence.mysql.{HasWarpSlickDsl, WarpSlickImplicits}
 import slick.jdbc.MySQLProfile
-
 import scala.language.{higherKinds, implicitConversions}
 
 /**
   * Created by ruiqi.wang
+  * Extended MySQL Profile that adds some standard MySQL functions to the slick DSL.
   */
 trait WarpMySQLProfile extends MySQLProfile {
 
-  trait WarpSlickAPI extends API with WarpSlickImplicits {
-
-    implicit class RegexExtensions(stringToMatch: Rep[String]) {
-      def regexLike(pattern: Rep[String]): Rep[Boolean] = {
-        val expression = SimpleExpression.binary[String, String, Boolean] { (stringToMatch, pattern, queryBuilder) =>
-          queryBuilder.expr(stringToMatch)
-          queryBuilder.sqlBuilder += " REGEXP "
-          queryBuilder.expr(pattern)
-        }
-        expression.apply(stringToMatch, pattern)
-      }
-    }
-
-    implicit class TimeStampExtensions(timestamp: Rep[Timestamp]) {
-      def minusTime(interval: Rep[String]): Rep[Boolean] = {
-        val expression = SimpleExpression.binary[Timestamp, String, Boolean] { (timestamp, interval, queryBuilder) =>
-          queryBuilder.expr(timestamp)
-          queryBuilder.sqlBuilder += " > Now() - Interval "
-          queryBuilder.expr(interval)
-        }
-        expression.apply(timestamp, interval)
-      }
-    }
-
-  }
+  trait WarpSlickAPI extends API with HasWarpSlickDsl with WarpSlickImplicits
 
   override val api: WarpSlickAPI = new WarpSlickAPI {}
 
