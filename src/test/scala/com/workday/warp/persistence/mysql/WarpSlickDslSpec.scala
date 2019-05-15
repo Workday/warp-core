@@ -30,9 +30,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     this.persistenceUtils.findOrCreateTestDefinition(methodSignature1)
     this.persistenceUtils.findOrCreateTestDefinition(methodSignature2)
 
-    val action = TestDefinition.filter(testDefinitions =>
-      testDefinitions.methodSignature regexMatch "hello"
-    )
+    val action = TestDefinition.filter(_.methodSignature regexMatch "hello")
 
     val rows: Seq[TestDefinitionRow] = this.persistenceUtils.runWithRetries(action.result, 5)
     rows.size shouldEqual 1
@@ -49,14 +47,10 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
     Thread.sleep(2000)
 
-    val query1 = TestExecution.filter(testExecution =>
-      testExecution.endTime betweenInterval "1 SECOND"
-    )
+    val query1 = TestExecution.filter(_.endTime betweenInterval "1 SECOND")
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe empty
 
-    val query2 = TestExecution.filter(testExecution =>
-      testExecution.endTime betweenInterval "5 MINUTE"
-    )
+    val query2 = TestExecution.filter(_.endTime betweenInterval "5 MINUTE")
     this.persistenceUtils.runWithRetries(query2.result, 5).size shouldBe 3
   }
 
