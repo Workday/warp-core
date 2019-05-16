@@ -1,7 +1,7 @@
-package com.workday.warp.persistence
+package com.workday.warp.persistence.mysql
 
-import com.workday.warp.persistence.mysql.{HasWarpSlickDsl, WarpSlickImplicits}
 import slick.jdbc.MySQLProfile
+
 import scala.language.{higherKinds, implicitConversions}
 
 /**
