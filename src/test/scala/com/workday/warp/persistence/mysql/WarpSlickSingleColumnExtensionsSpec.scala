@@ -6,7 +6,7 @@ import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
-import com.workday.warp.persistence.mysql.SlickExtensionMethodsSpec._
+import com.workday.warp.persistence.mysql.WarpSlickSingleColumnExtensionsSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
 import org.junit.experimental.categories.Category
 import org.junit.{Before, Test}
@@ -14,7 +14,7 @@ import org.junit.{Before, Test}
 /**
   * Created by ruiqi.wang
   */
-class WarpSlickFunctionsSpec extends WarpJUnitSpec with CorePersistenceAware {
+class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Truncates the schema. */
   @Before
@@ -53,7 +53,7 @@ class WarpSlickFunctionsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 }
 
-object SlickExtensionMethodsSpec {
+object WarpSlickSingleColumnExtensionsSpec {
 
   val methodSignature1 = "com.workday.warp.slick.implicits.test.1"
   val methodSignature2 = "com.workday.warp.slick.implicits.test.2"

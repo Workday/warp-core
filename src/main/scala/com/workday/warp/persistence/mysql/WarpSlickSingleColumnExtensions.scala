@@ -1,17 +1,18 @@
 package com.workday.warp.persistence.mysql
 
-import com.workday.warp.persistence.mysql.WarpSlickFunctions._
+import com.workday.warp.persistence.mysql.WarpSlickSingleColumnExtensions._
 import slick.ast.Library.SqlAggregateFunction
 import slick.ast.TypedType
 import slick.lifted.FunctionSymbolExtensionMethods._
 import slick.lifted.{Query, Rep}
+
 import scala.language.{higherKinds, implicitConversions}
 
 /**
   * Created by ruiqi.wang
   *
   */
-protected class WarpSlickFunctions[B1, P1, C[_]](val q: Query[Rep[P1], _, C]) extends AnyVal {
+protected class WarpSlickSingleColumnExtensions[B1, P1, C[_]](val q: Query[Rep[P1], _, C]) {
   type OptionTM = TypedType[Option[B1]]
 
   /** Aggregation function for standard deviation */
@@ -19,7 +20,7 @@ protected class WarpSlickFunctions[B1, P1, C[_]](val q: Query[Rep[P1], _, C]) ex
 
 }
 
-object WarpSlickFunctions {
+object WarpSlickSingleColumnExtensions {
 
   val Std: SqlAggregateFunction = new SqlAggregateFunction("STD")
 
