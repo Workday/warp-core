@@ -43,7 +43,7 @@ trait HasWarpSlickDsl {
       * @param interval interval in string format
       * @return whether or not given timestamp is between now and `interval` ago.
       */
-    def betweenInterval(interval: String): Rep[Boolean] = {
+    def isWithinPast(interval: String): Rep[Boolean] = {
       val expression = SimpleExpression.unary[Timestamp, Boolean] { (timestamp, queryBuilder) =>
         queryBuilder.expr(timestamp)
         queryBuilder.sqlBuilder += " > Now() - Interval "
