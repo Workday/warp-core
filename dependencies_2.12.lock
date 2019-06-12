@@ -666,7 +666,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -676,7 +676,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -1290,7 +1290,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -1300,7 +1300,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -1432,6 +1432,12 @@
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -1726,8 +1732,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.47",
-            "requested": "5.1.47"
+            "locked": "8.0.16",
+            "requested": "8.0.16"
         },
         "net.debasishg:redisclient_2.12": {
             "locked": "3.4",
@@ -1933,7 +1939,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -1943,7 +1949,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -2557,7 +2563,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -2567,7 +2573,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -2699,6 +2705,12 @@
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -2993,8 +3005,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.47",
-            "requested": "5.1.47"
+            "locked": "8.0.16",
+            "requested": "8.0.16"
         },
         "net.debasishg:redisclient_2.12": {
             "locked": "3.4",
@@ -3200,7 +3212,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -3210,7 +3222,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -3855,7 +3867,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -3865,7 +3877,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -4480,7 +4492,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -4490,7 +4502,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -5105,7 +5117,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -5115,7 +5127,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -5247,6 +5259,12 @@
             "locked": "1.1",
             "transitive": [
                 "com.google.guava:guava"
+            ]
+        },
+        "com.google.protobuf:protobuf-java": {
+            "locked": "3.6.1",
+            "transitive": [
+                "mysql:mysql-connector-java"
             ]
         },
         "com.h2database:h2": {
@@ -5542,8 +5560,8 @@
             "requested": "4.12"
         },
         "mysql:mysql-connector-java": {
-            "locked": "5.1.47",
-            "requested": "5.1.47"
+            "locked": "8.0.16",
+            "requested": "8.0.16"
         },
         "net.debasishg:redisclient_2.12": {
             "locked": "3.4",
@@ -5749,7 +5767,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8-RC2",
+            "locked": "3.0.8-RC5",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
@@ -5759,7 +5777,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8-RC2"
+            "locked": "3.0.8-RC5"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
