@@ -50,7 +50,7 @@ project.ext.versions = [
     , guice: '4.2.2'
     , gson: '2.8.5'
     , h2: '1.4.197'
-    , influxDbClient: '2.14'
+    , influxDbClient: '2.15'
     , junit: '4.12'
     , math3: '3.6.1'
     , mysqlConnector: '8.0.16'
