@@ -199,13 +199,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -213,20 +213,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -561,8 +561,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
@@ -823,13 +823,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -837,20 +837,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -1185,8 +1185,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
@@ -1457,13 +1457,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -1471,20 +1471,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -1834,8 +1834,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
@@ -2096,13 +2096,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -2110,20 +2110,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -2458,8 +2458,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
@@ -2730,13 +2730,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -2744,20 +2744,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -3107,8 +3107,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
@@ -3399,13 +3399,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -3413,20 +3413,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -3762,8 +3762,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
@@ -4024,13 +4024,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -4038,20 +4038,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -4387,8 +4387,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
@@ -4649,13 +4649,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -4663,20 +4663,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -5012,8 +5012,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
@@ -5284,13 +5284,13 @@
             ]
         },
         "com.squareup.okhttp3:logging-interceptor": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.okhttp3:okhttp": {
-            "locked": "3.11.0",
+            "locked": "3.13.1",
             "transitive": [
                 "com.squareup.okhttp3:logging-interceptor",
                 "com.squareup.retrofit2:retrofit",
@@ -5298,20 +5298,20 @@
             ]
         },
         "com.squareup.okio:okio": {
-            "locked": "1.14.0",
+            "locked": "1.17.2",
             "transitive": [
                 "com.squareup.moshi:moshi",
                 "com.squareup.okhttp3:okhttp"
             ]
         },
         "com.squareup.retrofit2:converter-moshi": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "org.influxdb:influxdb-java"
             ]
         },
         "com.squareup.retrofit2:retrofit": {
-            "locked": "2.4.0",
+            "locked": "2.5.0",
             "transitive": [
                 "com.squareup.retrofit2:converter-moshi",
                 "org.influxdb:influxdb-java"
@@ -5662,8 +5662,8 @@
             ]
         },
         "org.influxdb:influxdb-java": {
-            "locked": "2.14",
-            "requested": "2.14"
+            "locked": "2.15",
+            "requested": "2.15"
         },
         "org.jodd:jodd-core": {
             "locked": "3.8.6",
