@@ -7,6 +7,11 @@
 | STDDEV                              | std                   | Completed          |
 | IFNULL                              |                       | TODO               |
 | ROUND                               |                       | TODO               |
-| LEFT OUTER JOIN                     |                       | TODO               |
 | JOIN                                |                       | TODO               |
+| AS                                  |                       | TODO               |
+| IN                                  |                       | TODO               |
+| OR                                  |                       | TODO               |
+| UNIX.TIMESTAMP                      |                       | TODO               |
+| DISTINCT                            |                       | TODO               |
+|                                     |                       | TODO               |
 |                                     |                       | TODO               |
