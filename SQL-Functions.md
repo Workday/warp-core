@@ -12,7 +12,6 @@ Essential functions currently cannot be written in Scala but only raw SQL. These
 | REGEXP                              | regexMatch            | Completed          |
 | TimeStamp > Now () - Interval       | isWithinPast          | Completed          |
 | STDDEV                              | std                   | Completed          |
-| IFNULL (expr, value)                |                       | TODO               |
 | ROUND                               |                       | TODO               |
 | AS                                  |                       | TODO               |
 | UNIX.TIMESTAMP                      |                       | TODO               |
