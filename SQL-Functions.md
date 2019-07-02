@@ -1,4 +1,7 @@
-## SQL to Slick Functions
+ SQL Functions in Slick 
+==========================
+
+## Essential Functions
 
 | SQL Function                        | Scala Function        | Status             | 
 | ----------------------------------- | --------------------- | -------------------| 
@@ -7,7 +10,6 @@
 | STDDEV                              | std                   | Completed          |
 | IFNULL                              |                       | TODO               |
 | ROUND                               |                       | TODO               |
-| JOIN ON                             |                       | TODO               |
 | AS                                  |                       | TODO               |
 | IN                                  |                       | TODO               |
 | UNIX.TIMESTAMP                      |                       | TODO               |
@@ -15,9 +17,14 @@
 | DATE                                |                       | TODO               |
 | YEAR                                |                       | TODO               |
 | NOW                                 |                       | TODO               |
-| DATE                                |                       | TODO               |
-| LEFT JOIN                           |                       | TODO               |
 | HAVING SUM                          |                       | TODO               |
 | DISTINCT                            |                       | TODO               |
-| OUTER LEFT JOIN                     |                       | TODO               |
-| 
+
+
+## Slick Extensions
+
+| SQL Function                        | Scala Function        | Status             | 
+| ----------------------------------- | --------------------- | -------------------| 
+| LEFT OUTER JOIN                     |                       | TODO               |
+| LEFT JOIN                           |                       | TODO               |
+| JOIN ON                             |                       | TODO               |
