@@ -137,7 +137,7 @@ object WarpPropertyManager {
 
     banner ++= "\nWarp Configuration Properties:"
 
-    this.propertyEntries.foreach { entry: PropertyEntry =>
+    this.propertyEntries.toList.sortBy(_.propertyName).map { entry: PropertyEntry =>
       val name: String = entry.propertyName
       // value is not required to be present just for this lookup
       val propertyValue: String = entry.normalize(this.valueOf(name, required = false))
