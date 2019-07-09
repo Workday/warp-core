@@ -29,8 +29,7 @@ trait HasWarpSlickDsl {
       }
       expression.apply(str, pattern)
     }
-
-  }
+}
 
   /**
     * dsl class for Timestamp related operations
@@ -40,6 +39,7 @@ trait HasWarpSlickDsl {
 
     /**
       * Roughly translates to `[Timestamp] > Now() - Interval` MySQL syntax.
+      *
       * @param interval interval in string format
       * @return whether or not given timestamp is between now and `interval` ago.
       */
@@ -52,6 +52,64 @@ trait HasWarpSlickDsl {
       expression.apply(timestamp)
     }
 
-  }
 
+    /**
+      *  Translates to YEAR() function
+      *  @return just the year in Int
+      */
+    def getYear (): Rep[Int] = {
+      val expression = SimpleExpression.unary[Timestamp, Int] { (timestamp, queryBuilder) =>
+        queryBuilder.sqlBuilder += " YEAR ("
+        queryBuilder.expr(timestamp)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(timestamp)
+    }
+
+
+    /**
+      * Translates to DATE() function
+      * @return just date in "yyyy-MM-dd"
+      */
+    def getDate(): Rep[String] = {
+      val expression = SimpleExpression.unary[Timestamp, String] { (timestamp, queryBuilder) =>
+        queryBuilder.sqlBuilder += " DATE ("
+        queryBuilder.expr(timestamp)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(timestamp)
+    }
+
+    /**
+      * equivalent to NOW()
+      * @return string of date and time
+      */
+    def currentTimestamp(): Rep[String] = {
+      val expression = SimpleExpression.nullary[String] { (queryBuilder) =>
+        queryBuilder.sqlBuilder += " NOW() "
+      }
+      expression
+    }
+
+    /**
+      *
+      * Translates to subdate(timestamp, interval) function
+      * @param interval to subtract
+      * @return timestamp of timestamp - interval
+      */
+    /**
+    def subtractDate (interval: String, unit: String): Rep[Timestamp] = {
+    val expression = SimpleExpression.binary[String, String, Timestamp] {
+      (interval, unit, queryBuilder) =>
+      queryBuilder.sqlBuilder += " subdate ("
+      queryBuilder.expr(timestamp.toNode)
+      queryBuilder.sqlBuilder += ", INTERVAL "
+      queryBuilder.expr(unit)
+      queryBuilder.expr(interval)
+      queryBuilder.sqlBuilder += ")"
+    }
+    expression.apply(unit, interval)
+  } **/
+
+    }
 }
