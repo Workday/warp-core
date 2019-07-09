@@ -15,6 +15,7 @@ import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
 import slick.lifted.Query
+import TablesLike.TestExecutionRowLike
 
 
 /**
@@ -67,7 +68,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests YEAR dsl. */
   def returnYear(): Unit = {
-    val testExecution: TablesLike.TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
     val query1: Rep[Int] = timeStamp year()
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe Year.now.getValue
@@ -84,7 +85,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val format: SimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
     val date: String = format.format(new java.util.Date())
 
-    val testExecution: TablesLike.TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
     val query1: Rep[String] = timeStamp date()
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe date
