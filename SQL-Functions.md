@@ -16,9 +16,9 @@ Essential functions currently cannot be written in Scala but only raw SQL. These
 | AS                                  |                       | TODO               |
 | UNIX.TIMESTAMP                      |                       | TODO               |
 | subdate (current_date(), INTERVAL)  |                       | TODO               |
-| DATE (TimeStamp)                    |                       | TODO               |
-| YEAR (TimeStamp)                    |                       | TODO               |
-| NOW                                 |                       | TODO               |
+| DATE (TimeStamp)                    |                       | Completed          |
+| YEAR (TimeStamp)                    |                       | Completed          |
+| NOW                                 |                       | Completed          |
 | HAVING SUM                          |                       | TODO               |
 | DISTINCT                            |                       | TODO               |
 
