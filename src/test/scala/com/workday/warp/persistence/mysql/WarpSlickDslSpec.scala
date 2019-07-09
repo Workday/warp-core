@@ -1,7 +1,7 @@
 package com.workday.warp.persistence.mysql
 
-import java.util.{Date, SimpleTimeZone}
-import java.time._
+import java.util.Date
+import java.time.{Year, ZoneId, ZonedDateTime}
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
@@ -13,10 +13,9 @@ import org.junit.{Before, Test}
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
-import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, Tables, TablesLike}
-import org.scalatest.time.Now
-import slick.dbio.Effect
-import slick.sql.FixedSqlStreamingAction
+import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
+import slick.lifted.Query
+
 
 /**
   * Created by ruiqi.wang
@@ -68,15 +67,13 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests YEAR dsl. */
   def returnYear(): Unit = {
-    val testExecution = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
+    val testExecution: TablesLike.TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val queryDefined: Rep[Int] = timeStamp getYear()
-    val result = this.persistenceUtils.runWithRetries(queryDefined.result, 5)
-    result shouldBe Year.now.getValue
+    val query1: Rep[Int] = timeStamp year()
+    this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe Year.now.getValue
 
-    val query: FixedSqlStreamingAction[Seq[Int], Int, Effect.Read] = TestExecution.map(t => t.startTime getYear()).result
-    val check: Int = this.persistenceUtils.runWithRetries(query, 5).head
-    check shouldBe Year.now.getValue
+    val query2: Query[Rep[Int], Int, Seq] = TestExecution.map(t => t.startTime year())
+    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldBe Year.now.getValue
 
   }
 
@@ -89,30 +86,30 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val testExecution: TablesLike.TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val queryDefined: Rep[String] = timeStamp getDate()
-    val result: String = this.persistenceUtils.runWithRetries(queryDefined.result, 5)
-    result shouldBe date
+    val query1: Rep[String] = timeStamp date()
+    this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe date
 
-    val query: FixedSqlStreamingAction[Seq[String], String, Effect.Read] = TestExecution.map(t => t.startTime getDate()).result
-    val check: String = this.persistenceUtils.runWithRetries(query, 5).head
-    check shouldBe date
+    val query2: Query[Rep[String], String, Seq] = TestExecution.map(t => t.startTime date())
+    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldBe date
+
   }
 
   @Test
   @Category(Array(classOf[UnitTest]))
   /** Tests NOW dsl. */
   def getCurrentTimestamp(): Unit = {
-    val testExecution = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
+    val testExecution: TablesLike.TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val query = timeStamp currentTimestamp()
+    val query: Rep[String] = timeStamp now()
     val result: String = this.persistenceUtils.runWithRetries(query.result, 5)
 
-    val UTCZone = ZoneId.of("UTC")
-    val zonedTime = ZonedDateTime.now
-    val utcDate = zonedTime.withZoneSameInstant(UTCZone)
-    val dateAsString = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcDate)
+    val UTCZone: ZoneId = ZoneId.of("UTC")
+    val zonedTime: ZonedDateTime = ZonedDateTime.now
+    val utcDate: ZonedDateTime = zonedTime.withZoneSameInstant(UTCZone)
+    val dateAsString: String = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcDate)
 
     result shouldBe dateAsString
+
   }
 
 }
