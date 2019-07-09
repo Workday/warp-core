@@ -91,25 +91,5 @@ trait HasWarpSlickDsl {
       expression
     }
 
-    /**
-      *
-      * Translates to subdate(timestamp, interval) function
-      * @param interval to subtract
-      * @return timestamp of timestamp - interval
-      */
-    /**
-    def subtractDate (interval: String, unit: String): Rep[Timestamp] = {
-    val expression = SimpleExpression.binary[String, String, Timestamp] {
-      (interval, unit, queryBuilder) =>
-      queryBuilder.sqlBuilder += " subdate ("
-      queryBuilder.expr(timestamp.toNode)
-      queryBuilder.sqlBuilder += ", INTERVAL "
-      queryBuilder.expr(unit)
-      queryBuilder.expr(interval)
-      queryBuilder.sqlBuilder += ")"
-    }
-    expression.apply(unit, interval)
-  } **/
-
     }
 }
