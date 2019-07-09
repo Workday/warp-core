@@ -57,7 +57,7 @@ trait HasWarpSlickDsl {
       *  Translates to YEAR() function
       *  @return just the year in Int
       */
-    def getYear (): Rep[Int] = {
+    def year(): Rep[Int] = {
       val expression = SimpleExpression.unary[Timestamp, Int] { (timestamp, queryBuilder) =>
         queryBuilder.sqlBuilder += " YEAR ("
         queryBuilder.expr(timestamp)
@@ -71,7 +71,7 @@ trait HasWarpSlickDsl {
       * Translates to DATE() function
       * @return just date in "yyyy-MM-dd"
       */
-    def getDate(): Rep[String] = {
+    def date(): Rep[String] = {
       val expression = SimpleExpression.unary[Timestamp, String] { (timestamp, queryBuilder) =>
         queryBuilder.sqlBuilder += " DATE ("
         queryBuilder.expr(timestamp)
@@ -84,7 +84,7 @@ trait HasWarpSlickDsl {
       * equivalent to NOW()
       * @return string of date and time
       */
-    def currentTimestamp(): Rep[String] = {
+    def now(): Rep[String] = {
       val expression = SimpleExpression.nullary[String] { (queryBuilder) =>
         queryBuilder.sqlBuilder += " NOW() "
       }
