@@ -11,7 +11,7 @@ import com.workday.warp.common.utils.TypeAliases._
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 /**
   * Utility implicits.
@@ -317,6 +317,16 @@ object Implicits {
       }
 
       this.aTry transform (cleanup, cleanup)
+    }
+
+
+    /**
+      * Transforms this [[Try]] to an [[Either]].
+      * @return
+      */
+    def toEither: Either[Throwable, T] = aTry match {
+      case Success(value) => Right(value)
+      case Failure(err) => Left(err)
     }
   }
 }
