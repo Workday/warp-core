@@ -98,17 +98,6 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     check shouldBe date
   }
 
-/**
-  @Test
-  @Category(Array(classof[UnitTest]))
-  /** Tests YEAR dsl. */
-  def subtractDate(): Unit = {
-    this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
-    val query1 = TestDefinition.filter()
-    this.persistenceUtils.runWithRetries((query1.result, ))
-  } **/
-
-
   @Test
   @Category(Array(classOf[UnitTest]))
   /** Tests NOW dsl. */
