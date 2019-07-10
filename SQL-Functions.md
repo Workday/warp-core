@@ -14,8 +14,8 @@ Essential functions currently cannot be written in Scala but only raw SQL. These
 | STDDEV                              | std                   | Completed          |
 | ROUND                               |                       | TODO               |
 | AS                                  |                       | TODO               |
-| UNIX.TIMESTAMP                      |                       | TODO               |
-| subdate (current_date(), INTERVAL)  |                       | TODO               |
+| UNIX.TIMESTAMP                      | UNIX.TIMESTAMP        | Completed          |
+| subdate (current_date(), INTERVAL)  | subdate               | Completed          |
 | DATE (TimeStamp)                    | DATE                  | Completed          |
 | YEAR (TimeStamp)                    | YEAR                  | Completed          |
 | NOW                                 | NOW                   | Completed          |
