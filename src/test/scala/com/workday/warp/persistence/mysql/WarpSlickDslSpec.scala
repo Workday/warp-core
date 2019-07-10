@@ -1,10 +1,12 @@
 package com.workday.warp.persistence.mysql
 
-import java.util.Date
+import java.util.{Date, Calendar}
 import java.time.{Year, ZoneId, ZonedDateTime}
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
+import java.time.Instant
+import java.util.concurrent.TimeUnit
 
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
@@ -99,9 +101,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests NOW dsl. */
   def getCurrentTimestamp(): Unit = {
-    val testExecution: TablesLike.TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
-    val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val query: Rep[String] = timeStamp now()
+    val query: Rep[String] = TimeStampExtensions.now()
     val result: String = this.persistenceUtils.runWithRetries(query.result, 5)
 
     val UTCZone: ZoneId = ZoneId.of("UTC")
