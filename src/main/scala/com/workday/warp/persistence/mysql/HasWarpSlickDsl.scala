@@ -123,10 +123,9 @@ trait HasWarpSlickDsl {
       * @return string of date and time
       */
     def now(): Rep[String] = {
-      val expression = SimpleExpression.nullary[String] { (queryBuilder) =>
+      SimpleExpression.nullary[String] { (queryBuilder) =>
         queryBuilder.sqlBuilder += " NOW() "
       }
-      expression
     }
   }
 }
