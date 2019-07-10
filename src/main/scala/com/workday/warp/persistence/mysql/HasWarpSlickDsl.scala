@@ -2,7 +2,6 @@ package com.workday.warp.persistence.mysql
 
 import java.sql.Timestamp
 import slick.jdbc.MySQLProfile.api._
-import java.util.concurrent.TimeUnit
 import slick.lifted.{Rep, SimpleExpression}
 
 /**
@@ -53,7 +52,6 @@ trait HasWarpSlickDsl {
       expression.apply(timestamp)
     }
 
-
     /**
       *  Translates to YEAR() function
       *  @return just the year in Int
@@ -67,7 +65,6 @@ trait HasWarpSlickDsl {
       expression.apply(timestamp)
     }
 
-
     /**
       * Translates to DATE() function
       * @return just date in "yyyy-MM-dd"
@@ -79,6 +76,34 @@ trait HasWarpSlickDsl {
         queryBuilder.sqlBuilder += ")"
       }
       expression.apply(timestamp)
+    }
+
+    /**
+      * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
+      * @return seconds in int
+      */
+    def UNIX_TIMESTAMP(): Rep[Int] = {
+      val expression = SimpleExpression.unary[Timestamp, Int] { (timestamp, queryBuilder) =>
+        queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ("
+        queryBuilder.expr(timestamp)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(timestamp)
+    }
+
+    /**
+      * subdate operation: date - interval
+      * @return timestamp date
+      */
+    def subdate(date: String, interval: String): Rep[String] = {
+      val expression = SimpleExpression.unary[String, String] { (date, queryBuilder) =>
+        queryBuilder.sqlBuilder += " subdate("
+        queryBuilder.expr(date)
+        queryBuilder.sqlBuilder += ", INTERVAL "
+        queryBuilder.sqlBuilder += interval
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(date)
     }
   }
 

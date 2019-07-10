@@ -6,7 +6,6 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.time.Instant
-import java.util.concurrent.TimeUnit
 
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
@@ -58,13 +57,13 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     Thread.sleep(2000)
 
     val query1 = TestExecution.filter(_.endTime isWithinPast "1 SECOND")
+    println(query1.result.statements.head)
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe empty
 
     val query2 = TestExecution.filter(_.endTime isWithinPast "5 MINUTE")
     this.persistenceUtils.runWithRetries(query2.result, 5).size shouldBe 3
 
   }
-
 
   @Test
   @Category(Array(classOf[UnitTest]))
@@ -113,6 +112,61 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   }
 
+  @Test
+  @Category(Array(classOf[UnitTest]))
+   /** Tests UNIX_TIMESTAMP dsl. */
+  def returnUNIXTimeStamp(): Unit = {
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
+    val timeStamp: Rep[Timestamp] = testExecution.startTime
+    val query: Rep[Int] = timeStamp UNIX_TIMESTAMP()
+    val result: Int = this.persistenceUtils.runWithRetries(query.result, 5)
+    val unixTimestamp: Long = Instant.now.getEpochSecond()
+    result shouldEqual unixTimestamp
+
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests subdate dsl. */
+  def getSubdate(): Unit = {
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
+    val timeStamp: Rep[Timestamp] = testExecution.startTime
+    val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
+    val cal: Calendar = Calendar.getInstance()
+    val currentDate: String = format.format(cal.getTime())
+
+    //Test years
+    val cal1: Calendar = Calendar.getInstance()
+    val query1: Rep[String] = timeStamp subdate (currentDate, "1 YEAR")
+    val queryYear: String = this.persistenceUtils.runWithRetries(query1.result, 5)
+    cal1.add(Calendar.YEAR, -1)
+    val resultYear: String = format.format(cal1.getTime)
+    resultYear shouldEqual queryYear
+
+    //Test days
+    val cal2: Calendar = Calendar.getInstance()
+    val query2: Rep[String] = timeStamp subdate (currentDate, "57 DAY")
+    val queryDay: String = this.persistenceUtils.runWithRetries(query2.result, 5)
+    cal2.add(Calendar.DATE, -57)
+    val resultDay: String = format.format(cal2.getTime)
+    resultDay shouldEqual queryDay
+
+    //Set to midnight
+    val hourFormatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    val cal3: Calendar = Calendar.getInstance()
+    cal3.set(Calendar.HOUR_OF_DAY, 0)
+    cal3.set(Calendar.MILLISECOND, 0)
+    cal3.set(Calendar.SECOND, 0)
+    cal3.set(Calendar.MINUTE, 0)
+
+    //Test hours
+    val query3 = timeStamp subdate (currentDate, "-3 HOUR")
+    val queryHour: String = this.persistenceUtils.runWithRetries(query3.result, 5)
+    cal3.add(Calendar.HOUR, 3)
+    val resultHour: String = hourFormatter.format(cal3.getTime)
+    resultHour shouldEqual queryHour
+
+  }
 }
 
 object WarpSlickDslSpec {
