@@ -160,7 +160,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     cal3.set(Calendar.MINUTE, 0)
 
     //Test hours
-    val query3 = timeStamp subdate (currentDate, "-3 HOUR")
+    val query3: Rep[String] = timeStamp subdate (currentDate, "-3 HOUR")
     val queryHour: String = this.persistenceUtils.runWithRetries(query3.result, 5)
     cal3.add(Calendar.HOUR, 3)
     val resultHour: String = hourFormatter.format(cal3.getTime)
