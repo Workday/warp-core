@@ -43,7 +43,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val rows: Seq[TestDefinitionRow] = this.persistenceUtils.runWithRetries(action.result, 5)
     rows.size shouldEqual 1
     val check: Boolean = rows.exists(t => t.methodSignature.contains("hello") && !t.methodSignature.contains("bye"))
-    check shouldBe true
+    check shouldEqual true
 
   }
 
@@ -57,11 +57,10 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     Thread.sleep(2000)
 
     val query1 = TestExecution.filter(_.endTime isWithinPast "1 SECOND")
-    println(query1.result.statements.head)
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe empty
 
     val query2 = TestExecution.filter(_.endTime isWithinPast "5 MINUTE")
-    this.persistenceUtils.runWithRetries(query2.result, 5).size shouldBe 3
+    this.persistenceUtils.runWithRetries(query2.result, 5).size shouldEqual 3
 
   }
 
@@ -72,10 +71,10 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
     val query1: Rep[Int] = timeStamp year()
-    this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe Year.now.getValue
+    this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual Year.now.getValue
 
     val query2: Query[Rep[Int], Int, Seq] = TestExecution.map(t => t.startTime year())
-    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldBe Year.now.getValue
+    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldEqual Year.now.getValue
 
   }
 
@@ -89,10 +88,10 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
     val query1: Rep[String] = timeStamp date()
-    this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe date
+    this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual date
 
     val query2: Query[Rep[String], String, Seq] = TestExecution.map(t => t.startTime date())
-    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldBe date
+    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldEqual date
 
   }
 
@@ -108,7 +107,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val utcDate: ZonedDateTime = zonedTime.withZoneSameInstant(UTCZone)
     val dateAsString: String = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcDate)
 
-    result shouldBe dateAsString
+    result shouldEqual dateAsString
 
   }
 
@@ -118,7 +117,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   def returnUNIXTimeStamp(): Unit = {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val query: Rep[Int] = timeStamp UNIX_TIMESTAMP()
+    val query: Rep[Int] = timeStamp unixTimestamp()
     val result: Int = this.persistenceUtils.runWithRetries(query.result, 5)
     val unixTimestamp: Long = Instant.now.getEpochSecond()
     result shouldEqual unixTimestamp
