@@ -1,11 +1,10 @@
 package com.workday.warp.persistence.mysql
 
 import java.util.{Calendar, Date}
-import java.time.{Year, ZoneId, ZonedDateTime}
+import java.time.{Year, ZoneId, ZonedDateTime, Instant}
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
-import java.time.Instant
 import java.text.DecimalFormat
 
 import com.workday.warp.common.category.UnitTest
