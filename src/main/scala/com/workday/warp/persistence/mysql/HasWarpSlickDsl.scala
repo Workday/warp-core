@@ -100,9 +100,14 @@ trait HasWarpSlickDsl {
 
     /**
       * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
+      * Takes in a parameter of TimeStamp: equivalent to UNIX_TIMESTAMP(date)
+      *
+      * TODO: default empty parameter to calculate seconds based on current time, as well
+      * as DATE and DATETIME parameters
+      *
       * @return seconds in int
       */
-    def UNIX_TIMESTAMP(): Rep[Int] = {
+    def unixTimestamp(): Rep[Int] = {
       val expression = SimpleExpression.unary[Timestamp, Int] { (timestamp, queryBuilder) =>
         queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ("
         queryBuilder.expr(timestamp)
@@ -112,8 +117,12 @@ trait HasWarpSlickDsl {
     }
 
     /**
-      * subdate operation: date - interval
-      * @return timestamp date
+      * SUBDATE operation: date - interval
+      * Equivalent to SUBDATE(date, INTERVAL expr unit)
+      *
+      * TODO: SUBDATE(expr, days)
+      *
+      * @return string date
       */
     def subdate(date: String, interval: String): Rep[String] = {
       val expression = SimpleExpression.unary[String, String] { (date, queryBuilder) =>
@@ -134,10 +143,9 @@ trait HasWarpSlickDsl {
       * @return string of date and time
       */
     def now(): Rep[String] = {
-      val expression = SimpleExpression.nullary[String] { (queryBuilder) =>
+      SimpleExpression.nullary[String] { (queryBuilder) =>
         queryBuilder.sqlBuilder += " NOW() "
       }
-      expression
     }
   }
 }
