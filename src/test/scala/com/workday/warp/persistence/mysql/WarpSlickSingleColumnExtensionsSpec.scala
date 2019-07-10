@@ -48,11 +48,11 @@ class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersist
 
     val rows: Seq[(Int, Option[Double])] = this.persistenceUtils.runWithRetries(action.result, 5).sortBy(_._1)
     rows.head._2 shouldBe defined
-    rows.head._2.get should equal (STD_1)
+    rows.head._2.get shouldEqual STD_1
     rows(1)._2 shouldBe defined
-    rows(1)._2.get should equal (STD_2)
+    rows(1)._2.get shouldEqual STD_2
     rows(2)._2 shouldBe defined
-    rows(2)._2.get should equal (0)
+    rows(2)._2.get shouldEqual 0
   }
 
 }
