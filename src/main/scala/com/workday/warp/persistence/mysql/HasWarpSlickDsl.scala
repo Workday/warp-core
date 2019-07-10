@@ -30,6 +30,26 @@ trait HasWarpSlickDsl {
       expression.apply(str, pattern)
     }
 }
+  /**
+    * dsl class for math related operation
+    */
+  object numberExtension {
+    /**
+      * translates to Round()
+      * @param number and decimal places
+      * @return number
+      */
+    def round(number: Double, decimal: Int): Rep[Double] = {
+      val expression = SimpleExpression.binary[Double, Int, Double] { (number, decimal, queryBuilder) =>
+        queryBuilder.sqlBuilder += "ROUND ("
+        queryBuilder.expr(number)
+        queryBuilder.sqlBuilder += ","
+        queryBuilder.expr(decimal)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(number,decimal)
+    }
+  }
 
   /**
     * dsl class for Timestamp related operations
