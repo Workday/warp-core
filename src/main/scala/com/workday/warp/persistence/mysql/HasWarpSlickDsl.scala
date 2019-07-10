@@ -2,6 +2,7 @@ package com.workday.warp.persistence.mysql
 
 import java.sql.Timestamp
 import slick.jdbc.MySQLProfile.api._
+import java.util.concurrent.TimeUnit
 import slick.lifted.{Rep, SimpleExpression}
 
 /**
@@ -79,6 +80,9 @@ trait HasWarpSlickDsl {
       }
       expression.apply(timestamp)
     }
+  }
+
+  object TimeStampExtensions {
 
     /**
       * equivalent to NOW()
@@ -90,6 +94,5 @@ trait HasWarpSlickDsl {
       }
       expression
     }
-
-    }
+  }
 }
