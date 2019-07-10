@@ -19,7 +19,7 @@ Essential functions currently cannot be written in Scala but only raw SQL. These
 | DATE (TimeStamp)                    | DATE                  | Completed          |
 | YEAR (TimeStamp)                    | YEAR                  | Completed          |
 | NOW                                 | NOW                   | Completed          |
-| HAVING SUM                          |                       | TODO               |
+| HAVING                              |                       | TODO               |
 | DISTINCT                            |                       | TODO               |
 
 
