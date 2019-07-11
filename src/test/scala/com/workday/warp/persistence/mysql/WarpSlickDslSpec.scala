@@ -107,7 +107,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val utcDate: ZonedDateTime = zonedTime.withZoneSameInstant(UTCZone)
     val dateAsString: String = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcDate)
 
-    result shouldEqual dateAsString
+    result shouldEqual dateAsString || result
 
   }
 
@@ -117,10 +117,10 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   def returnUNIXTimeStamp(): Unit = {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val query: Rep[Int] = timeStamp unixTimestamp()
-    val result: Int = this.persistenceUtils.runWithRetries(query.result, 5)
+    val query: Rep[Long] = timeStamp unixTimestamp()
+    val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
     val unixTimestamp: Long = Instant.now.getEpochSecond()
-    result shouldEqual unixTimestamp
+    result shouldEqual unixTimestamp +- 2
 
   }
 

@@ -107,8 +107,8 @@ trait HasWarpSlickDsl {
       *
       * @return seconds in int
       */
-    def unixTimestamp(): Rep[Int] = {
-      val expression = SimpleExpression.unary[Timestamp, Int] { (timestamp, queryBuilder) =>
+    def unixTimestamp(): Rep[Long] = {
+      val expression = SimpleExpression.unary[Timestamp, Long] { (timestamp, queryBuilder) =>
         queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ("
         queryBuilder.expr(timestamp)
         queryBuilder.sqlBuilder += ")"
