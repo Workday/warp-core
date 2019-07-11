@@ -47,7 +47,7 @@ trait HasWarpSlickDsl {
         queryBuilder.expr(decimal)
         queryBuilder.sqlBuilder += ")"
       }
-      expression.apply(number,decimal)
+      expression.apply(number, decimal)
     }
   }
 
@@ -73,8 +73,8 @@ trait HasWarpSlickDsl {
     }
 
     /**
-      *  Translates to YEAR() function
-      *  @return just the year in Int
+      * Translates to YEAR() function
+      * @return just the year in Int
       */
     def year(): Rep[Int] = {
       val expression = SimpleExpression.unary[Timestamp, Int] { (timestamp, queryBuilder) =>
