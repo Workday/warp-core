@@ -12,22 +12,27 @@ Essential functions currently cannot be written in Scala but only raw SQL. These
 | REGEXP                              | regexMatch            | Completed          |
 | TimeStamp > Now () - Interval       | isWithinPast          | Completed          |
 | STDDEV                              | std                   | Completed          |
-| ROUND                               |                       | TODO               |
+| ROUND                               | ROUND                 | Completed          |
 | AS                                  |                       | TODO               |
-| UNIX.TIMESTAMP                      | UNIX.TIMESTAMP        | Completed          |
+| UNIX.TIMESTAMP (Timestamp)          | UNIX.TIMESTAMP        | Completed          |
 | subdate (current_date(), INTERVAL)  | subdate               | Completed          |
 | DATE (TimeStamp)                    | DATE                  | Completed          |
 | YEAR (TimeStamp)                    | YEAR                  | Completed          |
 | NOW                                 | NOW                   | Completed          |
 | HAVING                              |                       | TODO               |
-| DISTINCT                            |                       | TODO               |
+
 
 
 ## Slick Extensions
 
-Although these functions can be easily written in Scala, there is technically no passing parameter function available. As a result, these should be addressed later on if necessary.
+These functions can be easily implemented in SCALA or we already have the version of the function that we need for Vulcan.
+However, we may need cases for parameter overloading.
 
 | SQL Function                        | Scala Function        | Status             | 
 | ----------------------------------- | --------------------- | -------------------| 
 | LEFT JOIN                           |                       | TODO               |
 | JOIN ON                             |                       | TODO               |
+| subdate (current_date(), DAYS)      |                       | TODO               |
+| UNIX.TIMESTAMP                      |                       | TODO               |
+| UNIX.TIMESTAMP (Date)               |                       | TODO               |
+| UNIX.TIMESTAMP (DateTime)           |                       | TODO               |
