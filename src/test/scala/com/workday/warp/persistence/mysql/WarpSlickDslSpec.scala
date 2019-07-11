@@ -15,7 +15,7 @@ import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
-import slick.lifted.Query
+import slick.lifted.{Query, ExtensionMethods}
 import TablesLike.TestExecutionRowLike
 
 

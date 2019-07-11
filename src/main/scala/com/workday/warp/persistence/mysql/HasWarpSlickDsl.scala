@@ -35,8 +35,8 @@ trait HasWarpSlickDsl {
     */
   object numberExtension {
     /**
-      * translates to Round()
-      * @param number and decimal places
+      * translates to Round(number, decimals)
+      * TODO: Implement truncation for 3 parameters
       * @return number
       */
     def round(number: Double, decimal: Int): Rep[Double] = {
@@ -147,5 +147,6 @@ trait HasWarpSlickDsl {
         queryBuilder.sqlBuilder += " NOW() "
       }
     }
+
   }
 }
