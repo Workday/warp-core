@@ -140,7 +140,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val cal: Calendar = Calendar.getInstance()
     val currentDate: String = format.format(cal.getTime())
 
-    //Test years
+    // Test years
     val cal1: Calendar = Calendar.getInstance()
     val query1: Rep[String] = timeStamp subdate(currentDate, "1 YEAR")
     val queryYear: String = this.persistenceUtils.runWithRetries(query1.result, 5)
@@ -148,7 +148,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val resultYear: String = format.format(cal1.getTime)
     resultYear shouldEqual queryYear
 
-    //Test days
+    // Test days
     val cal2: Calendar = Calendar.getInstance()
     val query2: Rep[String] = timeStamp subdate(currentDate, "57 DAY")
     val queryDay: String = this.persistenceUtils.runWithRetries(query2.result, 5)
@@ -156,7 +156,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val resultDay: String = format.format(cal2.getTime)
     resultDay shouldEqual queryDay
 
-    //Set to midnight
+    // Set to midnight
     val hourFormatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     val cal3: Calendar = Calendar.getInstance()
     cal3.set(Calendar.HOUR_OF_DAY, 0)
@@ -164,7 +164,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     cal3.set(Calendar.SECOND, 0)
     cal3.set(Calendar.MINUTE, 0)
 
-    //Test hours
+    // Test hours
     val query3: Rep[String] = timeStamp subdate(currentDate, "-3 HOUR")
     val queryHour: String = this.persistenceUtils.runWithRetries(query3.result, 5)
     cal3.add(Calendar.HOUR, 3)
