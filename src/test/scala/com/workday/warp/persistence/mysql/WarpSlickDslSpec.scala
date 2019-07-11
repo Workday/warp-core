@@ -1,7 +1,7 @@
 package com.workday.warp.persistence.mysql
 
 import java.util.{Calendar, Date}
-import java.time.{Year, ZoneId, ZonedDateTime, Instant}
+import java.time._
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
@@ -15,7 +15,7 @@ import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
-import slick.lifted.{Query, ExtensionMethods}
+import slick.lifted.{ExtensionMethods, Query}
 import TablesLike.TestExecutionRowLike
 
 
@@ -101,13 +101,19 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   def getCurrentTimestamp(): Unit = {
     val query: Rep[String] = TimeStampExtensions.now()
     val result: String = this.persistenceUtils.runWithRetries(query.result, 5)
+    val format: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val convertToTimeStamp: LocalDateTime = LocalDateTime.parse(result, format)
+    val parsedResult: ZonedDateTime = convertToTimeStamp.atZone(ZoneId.of("UTC"))
+
 
     val UTCZone: ZoneId = ZoneId.of("UTC")
     val zonedTime: ZonedDateTime = ZonedDateTime.now
     val utcDate: ZonedDateTime = zonedTime.withZoneSameInstant(UTCZone)
-    val dateAsString: String = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcDate)
 
-    result shouldEqual dateAsString || result
+    val period: Duration = Duration.between(parsedResult, utcDate)
+    val difference: Long = Math.abs(period.toMinutes())
+
+    difference shouldEqual 0.toLong +- 1
 
   }
 
