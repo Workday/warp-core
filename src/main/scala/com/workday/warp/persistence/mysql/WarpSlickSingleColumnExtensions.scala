@@ -18,10 +18,12 @@ protected class WarpSlickSingleColumnExtensions[B1, P1, C[_]](val q: Query[Rep[P
   /** Aggregation function for standard deviation */
   def std(implicit tm: OptionTM): Rep[Option[B1]] = Std.column[Option[B1]](q.toNode)
 
+  //def distinct(implicit tm: OptionTM): Rep[Option[B1]] = distinct.column[Option[B1]](q.toNode)
 }
 
 object WarpSlickSingleColumnExtensions {
 
   val Std: SqlAggregateFunction = new SqlAggregateFunction("STD")
+  //val distinct: SQLAggregateFunction = new SqlAggregateFunction("DISTINCT")
 
 }
