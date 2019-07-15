@@ -33,7 +33,7 @@ trait HasWarpSlickDsl {
   /**
     * dsl class for math related operation
     */
-  object numberExtension {
+  object NumberExtension {
     /**
       * translates to Round(number, decimals)
       * TODO: Implement truncation for 3 parameters
