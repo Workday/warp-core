@@ -28,7 +28,7 @@ However, we may need cases for parameter overloading.
 
 | SQL Function                        | Scala Function        | Status             | 
 | ----------------------------------- | --------------------- | -------------------| 
-| subdate (current_date(), DAYS)      |                       | TODO               |
-| UNIX.TIMESTAMP                      |                       | TODO               |
+| subdate (current_date(), DAYS)      |                       | Completed          |
+| UNIX.TIMESTAMP                      |                       | Completed          |
 | UNIX.TIMESTAMP (Date)               |                       | TODO               |
 | UNIX.TIMESTAMP (DateTime)           |                       | TODO               |
