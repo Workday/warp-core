@@ -142,7 +142,6 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
     val cal: Calendar = Calendar.getInstance()
     cal.set(Calendar.HOUR_OF_DAY, 0)
-    cal.set(Calendar.MILLISECOND, 0)
     cal.set(Calendar.SECOND, 0)
     cal.set(Calendar.MINUTE, 0)
     val instant: Instant = cal.getTime().toInstant
@@ -192,7 +191,6 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val hourFormatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     val cal3: Calendar = Calendar.getInstance()
     cal3.set(Calendar.HOUR_OF_DAY, 0)
-    cal3.set(Calendar.MILLISECOND, 0)
     cal3.set(Calendar.SECOND, 0)
     cal3.set(Calendar.MINUTE, 0)
 
