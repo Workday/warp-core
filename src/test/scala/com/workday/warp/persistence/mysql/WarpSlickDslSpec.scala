@@ -3,7 +3,7 @@ package com.workday.warp.persistence.mysql
 import java.sql
 import java.util.{Calendar, TimeZone, Date => JUDate}
 import java.time._
-import java.sql.{Date, Timestamp}
+import java.sql.{Timestamp}
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.text.DecimalFormat
@@ -133,7 +133,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests UNIX_TIMESTAMP (TIMESTAMP) dsl. */
+  /** Tests UNIX_TIMESTAMP (Date) dsl. */
   def returnUNIXTimeStampDate(): Unit = {
     val date: Rep[java.sql.Date] = new sql.Date(Instant.now.toEpochMilli)
     val query: Rep[Long] = date unixTimestamp()
@@ -152,7 +152,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests UNIX_TIMESTAMP() dsl. */
+  /** Tests UNIX_TIMESTAMP dsl. */
   def returnUNIXTimeStampNow(): Unit = {
     val query: Rep[Long] = TimeStampExtensions.unixTimestamp()
     val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
@@ -163,7 +163,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests subdate dsl. */
+  /** Tests subdate(date, interval) dsl. */
   def getSubdateInterval(): Unit = {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
@@ -205,7 +205,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests subdate dsl. */
+  /** Tests subdate(date, days) dsl. */
   def getSubdateNoInterval(): Unit = {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
@@ -230,7 +230,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests ROUND dsl. */
+  /** Tests ROUND(number, decimal) dsl. */
   def roundNumber(): Unit = {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.593, 10.352)
 
