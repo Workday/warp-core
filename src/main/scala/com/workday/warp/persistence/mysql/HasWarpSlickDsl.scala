@@ -134,12 +134,31 @@ trait HasWarpSlickDsl {
       }
       expression.apply(date)
     }
-  }
+
+    /**
+      * SUBDATE operation: date - days
+      * Equivalent to SUBDATE(date, days)
+      *
+      * @return string date
+      */
+    def subdate(date: String, amount: Int): Rep[String] = {
+      val expression = SimpleExpression.binary[String, Int, String] { (date, amount, queryBuilder) =>
+        queryBuilder.sqlBuilder += " subdate("
+        queryBuilder.expr(date)
+        queryBuilder.sqlBuilder += " , "
+        queryBuilder.expr(amount)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(date, amount)
+    }
+}
+
 
   object TimeStampExtensions {
 
     /**
       * equivalent to NOW()
+      *
       * @return string of date and time
       */
     def now(): Rep[String] = {
@@ -148,5 +167,16 @@ trait HasWarpSlickDsl {
       }
     }
 
+    /**
+      * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
+      *
+      * @return seconds in int
+      */
+    def unixTimestamp(): Rep[Long] = {
+      SimpleExpression.nullary[Long] { (queryBuilder) =>
+        queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ()"
+      }
+    }
   }
 }
+
