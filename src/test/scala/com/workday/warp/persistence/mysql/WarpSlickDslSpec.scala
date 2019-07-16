@@ -82,7 +82,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests DATE dsl. */
   def returnDate(): Unit = {
-    val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
+    val format: SimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
     val date: String = format.format(new java.util.Date())
 
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
@@ -119,7 +119,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests UNIX_TIMESTAMP (TIMESTAMP) dsl. */
+  /** Tests UNIX_TIMESTAMP dsl. */
   def returnUNIXTimeStamp(): Unit = {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
@@ -132,19 +132,8 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests UNIX_TIMESTAMP() dsl. */
-  def returnUNIXTimeStampNow(): Unit = {
-    val query: Rep[Long] = TimeStampExtensions.unixTimestamp()
-    val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
-    val unixTimestamp: Long = Instant.now.getEpochSecond()
-    result shouldEqual unixTimestamp +- 2
-
-  }
-
-  @Test
-  @Category(Array(classOf[UnitTest]))
   /** Tests subdate dsl. */
-  def getSubdateInterval(): Unit = {
+  def getSubdate(): Unit = {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
@@ -182,31 +171,6 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val resultHour: String = hourFormatter.format(cal3.getTime)
     resultHour shouldEqual queryHour
 
-  }
-
-  @Test
-  @Category(Array(classOf[UnitTest]))
-  /** Tests subdate dsl. */
-  def getSubdateNoInterval(): Unit = {
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
-    val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
-    val cal: Calendar = Calendar.getInstance()
-    val currentDate: String = format.format(cal.getTime())
-
-    val cal2: Calendar = Calendar.getInstance()
-    val query: Rep[String] = timeStamp subdate(currentDate, 57)
-    val queryDay: String = this.persistenceUtils.runWithRetries(query.result, 5)
-    cal2.add(Calendar.DATE, -57)
-    val resultDay: String = format.format(cal2.getTime)
-    resultDay shouldEqual queryDay
-
-    val cal3: Calendar = Calendar.getInstance()
-    val query2: Rep[String] = timeStamp subdate(currentDate, -1)
-    val queryDay2: String = this.persistenceUtils.runWithRetries(query2.result, 5)
-    cal3.add(Calendar.DATE, 1)
-    val resultDay2: String = format.format(cal3.getTime)
-    resultDay2 shouldEqual queryDay2
   }
 
   @Test
