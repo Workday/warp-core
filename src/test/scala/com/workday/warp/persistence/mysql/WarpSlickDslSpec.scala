@@ -1,6 +1,11 @@
 package com.workday.warp.persistence.mysql
 
-import java.util.Date
+import java.util.{Calendar, Date}
+import java.time._
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.text.DecimalFormat
 
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
@@ -9,7 +14,10 @@ import org.junit.{Before, Test}
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
-import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
+import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
+import slick.lifted.{ExtensionMethods, Query}
+import TablesLike.TestExecutionRowLike
+
 
 /**
   * Created by ruiqi.wang
@@ -35,7 +43,8 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val rows: Seq[TestDefinitionRow] = this.persistenceUtils.runWithRetries(action.result, 5)
     rows.size shouldEqual 1
     val check: Boolean = rows.exists(t => t.methodSignature.contains("hello") && !t.methodSignature.contains("bye"))
-    check shouldBe true
+    check shouldEqual true
+
   }
 
   @Test
@@ -51,9 +60,140 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe empty
 
     val query2 = TestExecution.filter(_.endTime isWithinPast "5 MINUTE")
-    this.persistenceUtils.runWithRetries(query2.result, 5).size shouldBe 3
+    this.persistenceUtils.runWithRetries(query2.result, 5).size shouldEqual 3
+
   }
 
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests YEAR dsl. */
+  def returnYear(): Unit = {
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
+    val timeStamp: Rep[Timestamp] = testExecution.startTime
+    val query1: Rep[Int] = timeStamp year()
+    this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual Year.now.getValue
+
+    val query2: Query[Rep[Int], Int, Seq] = TestExecution.map(t => t.startTime year())
+    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldEqual Year.now.getValue
+
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests DATE dsl. */
+  def returnDate(): Unit = {
+    val format: SimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
+    val date: String = format.format(new java.util.Date())
+
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
+    val timeStamp: Rep[Timestamp] = testExecution.startTime
+    val query1: Rep[String] = timeStamp date()
+    this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual date
+
+    val query2: Query[Rep[String], String, Seq] = TestExecution.map(t => t.startTime date())
+    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldEqual date
+
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests NOW dsl. */
+  def getCurrentTimestamp(): Unit = {
+    val query: Rep[String] = TimeStampExtensions.now()
+    val result: String = this.persistenceUtils.runWithRetries(query.result, 5)
+    val format: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val convertToTimeStamp: LocalDateTime = LocalDateTime.parse(result, format)
+    val parsedResult: ZonedDateTime = convertToTimeStamp.atZone(ZoneId.of("UTC"))
+
+
+    val UTCZone: ZoneId = ZoneId.of("UTC")
+    val zonedTime: ZonedDateTime = ZonedDateTime.now
+    val utcDate: ZonedDateTime = zonedTime.withZoneSameInstant(UTCZone)
+
+    val period: Duration = Duration.between(parsedResult, utcDate)
+    val difference: Long = Math.abs(period.toMinutes())
+
+    difference shouldEqual 0.toLong +- 1
+
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests UNIX_TIMESTAMP dsl. */
+  def returnUNIXTimeStamp(): Unit = {
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
+    val timeStamp: Rep[Timestamp] = testExecution.startTime
+    val query: Rep[Long] = timeStamp unixTimestamp()
+    val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
+    val unixTimestamp: Long = Instant.now.getEpochSecond()
+    result shouldEqual unixTimestamp +- 2
+
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests subdate dsl. */
+  def getSubdate(): Unit = {
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date(), 1.0, 10)
+    val timeStamp: Rep[Timestamp] = testExecution.startTime
+    val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
+    val cal: Calendar = Calendar.getInstance()
+    val currentDate: String = format.format(cal.getTime())
+
+    // Test years
+    val cal1: Calendar = Calendar.getInstance()
+    val query1: Rep[String] = timeStamp subdate(currentDate, "1 YEAR")
+    val queryYear: String = this.persistenceUtils.runWithRetries(query1.result, 5)
+    cal1.add(Calendar.YEAR, -1)
+    val resultYear: String = format.format(cal1.getTime)
+    resultYear shouldEqual queryYear
+
+    // Test days
+    val cal2: Calendar = Calendar.getInstance()
+    val query2: Rep[String] = timeStamp subdate(currentDate, "57 DAY")
+    val queryDay: String = this.persistenceUtils.runWithRetries(query2.result, 5)
+    cal2.add(Calendar.DATE, -57)
+    val resultDay: String = format.format(cal2.getTime)
+    resultDay shouldEqual queryDay
+
+    // Set to midnight
+    val hourFormatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    val cal3: Calendar = Calendar.getInstance()
+    cal3.set(Calendar.HOUR_OF_DAY, 0)
+    cal3.set(Calendar.MILLISECOND, 0)
+    cal3.set(Calendar.SECOND, 0)
+    cal3.set(Calendar.MINUTE, 0)
+
+    // Test hours
+    val query3: Rep[String] = timeStamp subdate(currentDate, "-3 HOUR")
+    val queryHour: String = this.persistenceUtils.runWithRetries(query3.result, 5)
+    cal3.add(Calendar.HOUR, 3)
+    val resultHour: String = hourFormatter.format(cal3.getTime)
+    resultHour shouldEqual queryHour
+
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests ROUND dsl. */
+  def roundNumber(): Unit = {
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.593, 10.352)
+
+    val df1: DecimalFormat = new DecimalFormat("#.#")
+    val responseTimeTest1: Double = testExecution.responseTime
+    val query1: Rep[Double] = NumberExtension.round(responseTimeTest1, 1)
+    val result1: Double = this.persistenceUtils.runWithRetries(query1.result, 5)
+    val roundedNumber1: Double = df1.format(responseTimeTest1).toDouble
+    result1 shouldEqual roundedNumber1
+
+    val df2: DecimalFormat = new DecimalFormat("#")
+    val responseTimeTest2: Double = testExecution.responseTimeRequirement
+    val query2: Rep[Double] = NumberExtension.round(responseTimeTest2, 0)
+    val result2: Double = this.persistenceUtils.runWithRetries(query2.result, 5)
+    val roundedNumber2: Double = df2.format(responseTimeTest2).toDouble
+    result2 shouldEqual roundedNumber2
+
+  }
 }
 
 object WarpSlickDslSpec {
