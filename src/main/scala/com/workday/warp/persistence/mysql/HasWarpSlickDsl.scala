@@ -1,6 +1,7 @@
 package com.workday.warp.persistence.mysql
 
 import java.sql.Timestamp
+
 import slick.jdbc.MySQLProfile.api._
 import slick.lifted.{Rep, SimpleExpression}
 
@@ -60,6 +61,29 @@ trait HasWarpSlickDsl {
         queryBuilder.sqlBuilder += ")"
       }
       expression.apply(number)
+    }
+  }
+
+  /**
+    * dsl class for DateTime related operations
+    * @param date sql DateTime to perform operations on
+    */
+  implicit class DateExtensions(date: Rep[java.sql.Date]) {
+
+    /**
+      * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
+      * Takes in a parameter of DATETIME: equivalent to UNIX_TIMESTAMP(DateTime)
+      *
+      * @return seconds in int
+      */
+    def unixTimestamp(): Rep[Long] = {
+      val expression = SimpleExpression.unary[java.sql.Date, Long] { (dateNode, queryBuilder) =>
+        queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ("
+        queryBuilder.expr(dateNode)
+        queryBuilder.sqlBuilder += ")"
+      }
+
+      expression.apply(date)
     }
   }
 
