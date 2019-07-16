@@ -82,7 +82,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests DATE dsl. */
   def returnDate(): Unit = {
-    val format: SimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
+    val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
     val date: String = format.format(new java.util.Date())
 
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
