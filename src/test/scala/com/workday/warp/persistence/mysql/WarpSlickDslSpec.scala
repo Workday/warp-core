@@ -139,7 +139,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val query: Rep[Long] = date unixTimestamp()
     val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
 
-    val timezone: Unit = TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+    TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
     val cal: Calendar = Calendar.getInstance()
     cal.set(Calendar.HOUR_OF_DAY, 0)
     cal.set(Calendar.MILLISECOND, 0)
