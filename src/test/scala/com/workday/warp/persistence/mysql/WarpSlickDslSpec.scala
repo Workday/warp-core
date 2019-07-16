@@ -15,7 +15,7 @@ import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
-import slick.lifted.{ExtensionMethods, Query}
+import slick.lifted.Query
 import TablesLike.TestExecutionRowLike
 
 
@@ -193,6 +193,20 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val roundedNumber2: Double = df2.format(responseTimeTest2).toDouble
     result2 shouldEqual roundedNumber2
 
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests ROUND dsl. */
+  def roundNumberNoParameter(): Unit = {
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.593, 10.352)
+
+    val df1: DecimalFormat = new DecimalFormat("#")
+    val responseTimeTest1: Double = testExecution.responseTime
+    val query1: Rep[Int] = NumberExtension.round(responseTimeTest1)
+    val result1: Int = this.persistenceUtils.runWithRetries(query1.result, 5)
+    val roundedNumber1: Int = df1.format(responseTimeTest1).toInt
+    result1 shouldEqual roundedNumber1
   }
 }
 

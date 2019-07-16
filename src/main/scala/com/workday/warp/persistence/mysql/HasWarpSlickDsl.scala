@@ -36,7 +36,6 @@ trait HasWarpSlickDsl {
   object NumberExtension {
     /**
       * translates to Round(number, decimals)
-      * TODO: Implement truncation for 3 parameters
       * @return number
       */
     def round(number: Double, decimal: Int): Rep[Double] = {
@@ -48,6 +47,19 @@ trait HasWarpSlickDsl {
         queryBuilder.sqlBuilder += ")"
       }
       expression.apply(number, decimal)
+    }
+
+    /**
+      * translates to Round(number)
+      * @return number
+      */
+    def round(number: Double): Rep[Int] = {
+      val expression = SimpleExpression.unary[Double, Int] { (number, queryBuilder) =>
+        queryBuilder.sqlBuilder += "ROUND ("
+        queryBuilder.expr(number)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(number)
     }
   }
 
