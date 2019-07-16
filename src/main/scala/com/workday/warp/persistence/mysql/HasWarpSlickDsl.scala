@@ -113,9 +113,7 @@ trait HasWarpSlickDsl {
     /**
       * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
       * Takes in a parameter of TimeStamp: equivalent to UNIX_TIMESTAMP(date)
-      *
-      * TODO: default empty parameter to calculate seconds based on current time, as well
-      * as DATE and DATETIME parameters
+      * TODO: DATE and DATETIME parameters
       *
       * @return seconds in int
       */
@@ -131,8 +129,6 @@ trait HasWarpSlickDsl {
     /**
       * SUBDATE operation: date - interval
       * Equivalent to SUBDATE(date, INTERVAL expr unit)
-      *
-      * TODO: SUBDATE(expr, days)
       *
       * @return string date
       */
@@ -170,7 +166,6 @@ trait HasWarpSlickDsl {
 
     /**
       * equivalent to NOW()
-      *
       * @return string of date and time
       */
     def now(): Rep[String] = {
@@ -181,7 +176,6 @@ trait HasWarpSlickDsl {
 
     /**
       * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
-      *
       * @return seconds in int
       */
     def unixTimestamp(): Rep[Long] = {
