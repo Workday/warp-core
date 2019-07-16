@@ -32,4 +32,4 @@ However, we may need cases for parameter overloading.
 | UNIX.TIMESTAMP                      | unixTimestamp            | Completed          |
 | UNIX.TIMESTAMP (Date)               |                          | TODO               |
 | UNIX.TIMESTAMP (DateTime)           |                          | TODO               |
-| ROUND (number, decimals, operation) |                          | TODO               |
+| ROUND                               | round                    | Completed          |
