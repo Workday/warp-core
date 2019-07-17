@@ -52,7 +52,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests INTERVAL dsl. */
   def betweenInterval(): Unit = {
-    this.persistenceUtils.createTestExecution(methodSignature1, new JUDate(), 1.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     Thread.sleep(2000)
