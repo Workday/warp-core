@@ -18,7 +18,7 @@ Essential functions currently cannot be written in Scala but only raw SQL. These
 | DATE (TimeStamp)                    | date                     | Completed          |
 | YEAR (TimeStamp)                    | year                     | Completed          |
 | NOW                                 | now                      | Completed          |
-
+| QUOTE                               | quote                    | Completed          |
 
 
 ## Slick Extensions
