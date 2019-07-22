@@ -3,7 +3,7 @@ package com.workday.warp.persistence.mysql
 import java.sql
 import java.util.{Calendar, TimeZone, Date => JUDate}
 import java.time._
-import java.sql.{Timestamp}
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.text.DecimalFormat
@@ -17,7 +17,7 @@ import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
 import slick.lifted.Query
-import TablesLike.TestExecutionRowLike
+import TablesLike.{TestExecutionRowLike, TestDefinitionRowLike}
 
 
 /**
@@ -46,6 +46,20 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val check: Boolean = rows.exists(t => t.methodSignature.contains("hello") && !t.methodSignature.contains("bye"))
     check shouldEqual true
 
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests QUOTE dsl. */
+  def returnQuoted(): Unit = {
+    val testDefinition: TestDefinitionRowLike = this.persistenceUtils.findOrCreateTestDefinition(methodSignature3)
+    val cast: Rep[String] = testDefinition.methodSignature
+    val test: Rep[String] = cast quote()
+    val query1 = this.persistenceUtils.runWithRetries(test.result, 5)
+
+    val addBackSlash = testDefinition.methodSignature.replaceAll("\'", "\\\\\'")
+    val query2 = "\'" + addBackSlash + "\'"
+    query1 shouldEqual query2
   }
 
   @Test
@@ -263,11 +277,12 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val roundedNumber1: Int = df1.format(responseTimeTest1).toInt
     result1 shouldEqual roundedNumber1
   }
+
 }
 
 object WarpSlickDslSpec {
 
   val methodSignature1 = "com.workday.warp.slick.implicits.hello"
   val methodSignature2 = "com.workday.warp.slick.implicits.bye"
-
+  val methodSignature3 = "com.workday.wa'rp.slick.implic'its.bye"
 }
