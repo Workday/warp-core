@@ -30,6 +30,19 @@ trait HasWarpSlickDsl {
       }
       expression.apply(str, pattern)
     }
+
+    /**
+      * Correlates to "QUOTE()"
+      * @return properly SQL formatted escape string
+      */
+    def quote(): Rep[String] = {
+      val expression = SimpleExpression.unary[String, String] { (str, queryBuilder) =>
+        queryBuilder.sqlBuilder += " QUOTE ("
+        queryBuilder.expr(str)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(str)
+    }
 }
   /**
     * dsl class for math related operation
