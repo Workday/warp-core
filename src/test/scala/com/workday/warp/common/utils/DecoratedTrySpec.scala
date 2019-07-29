@@ -6,7 +6,7 @@ import com.workday.warp.common.utils.Implicits.DecoratedTry
 import org.junit.Test
 import org.junit.experimental.categories.Category
 
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 /**
   * Created by tomas.mccandless on 10/24/16.
@@ -27,5 +27,16 @@ class DecoratedTrySpec extends WarpJUnitSpec {
     val aFailedTry: Try[_] = Try(throw new RuntimeException)
     aFailedTry == (aFailedTry andThen { n += 1 }) should be (true)
     n should be (2)
+  }
+
+
+
+  /** Checks that we can transform a [[Try]] to an [[Either]]. */
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  def toEither(): Unit = {
+    Success(1 + 1).toEither should be (Right(2))
+    val msg: String = "something failed"
+    Failure(new RuntimeException(msg)).toEither.left.map(_.getMessage) should be (Left(msg))
   }
 }

@@ -18,7 +18,7 @@ class FutureUtilsSpec extends WarpJUnitSpec {
   @Test
   @Category(Array(classOf[UnitTest]))
   def testParseThreadpoolSize(): Unit = {
-    val defaultThreads: Int = WARP_NUM_COLLECTOR_THREADS.defaultValue.toInt
+    val defaultThreads: Int = WARP_NUM_COLLECTOR_THREADS.value.toInt
 
     FutureUtils.threadpoolSize("16") shouldBe 16
     FutureUtils.threadpoolSize("32") shouldBe 32
