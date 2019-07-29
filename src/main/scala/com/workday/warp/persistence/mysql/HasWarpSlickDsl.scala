@@ -44,38 +44,6 @@ trait HasWarpSlickDsl {
       expression.apply(str)
     }
 }
-  /**
-    * dsl class for math related operation
-    */
-  object NumberExtension {
-    /**
-      * translates to Round(number, decimals)
-      * @return number
-      */
-    def round(number: Double, decimal: Int): Rep[Double] = {
-      val expression = SimpleExpression.binary[Double, Int, Double] { (number, decimal, queryBuilder) =>
-        queryBuilder.sqlBuilder += "ROUND ("
-        queryBuilder.expr(number)
-        queryBuilder.sqlBuilder += ","
-        queryBuilder.expr(decimal)
-        queryBuilder.sqlBuilder += ")"
-      }
-      expression.apply(number, decimal)
-    }
-
-    /**
-      * translates to Round(number)
-      * @return number
-      */
-    def round(number: Double): Rep[Int] = {
-      val expression = SimpleExpression.unary[Double, Int] { (number, queryBuilder) =>
-        queryBuilder.sqlBuilder += "ROUND ("
-        queryBuilder.expr(number)
-        queryBuilder.sqlBuilder += ")"
-      }
-      expression.apply(number)
-    }
-  }
 
   /**
     * dsl class for DateTime related operations
@@ -219,6 +187,39 @@ trait HasWarpSlickDsl {
       SimpleExpression.nullary[Long] { (queryBuilder) =>
         queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ()"
       }
+    }
+  }
+
+  /**
+    * dsl class for math related operation
+    */
+  object NumberExtension {
+    /**
+      * translates to Round(number, decimals)
+      * @return number
+      */
+    def round(number: Double, decimal: Int): Rep[Double] = {
+      val expression = SimpleExpression.binary[Double, Int, Double] { (number, decimal, queryBuilder) =>
+        queryBuilder.sqlBuilder += "ROUND ("
+        queryBuilder.expr(number)
+        queryBuilder.sqlBuilder += ","
+        queryBuilder.expr(decimal)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(number, decimal)
+    }
+
+    /**
+      * translates to Round(number)
+      * @return number
+      */
+    def round(number: Double): Rep[Int] = {
+      val expression = SimpleExpression.unary[Double, Int] { (number, queryBuilder) =>
+        queryBuilder.sqlBuilder += "ROUND ("
+        queryBuilder.expr(number)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(number)
     }
   }
 }
