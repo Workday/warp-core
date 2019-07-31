@@ -118,6 +118,12 @@ sourceSets {
     }
 }
 
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    filter(ReplaceTokens, tokens: ['version': project.version.toString()])
+}
+
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource

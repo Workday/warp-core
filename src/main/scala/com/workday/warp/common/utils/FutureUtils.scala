@@ -28,7 +28,7 @@ object FutureUtils {
     *         not parseable as an integer
     */
   def threadpoolSize(threads: String): Int = {
-    val defaultThreads: Int = WARP_NUM_COLLECTOR_THREADS.defaultValue.toInt
+    val defaultThreads: Int = WARP_NUM_COLLECTOR_THREADS.value.toInt
 
     try {
       val numThreads = threads.toInt
