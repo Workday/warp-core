@@ -83,13 +83,10 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests YEAR dsl. */
   def returnYear(): Unit = {
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
-    val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val query1: Rep[Int] = timeStamp year()
+    this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
+    val currentTimestamp: Rep[String] = TimeStampExtensions.now()
+    val query1: Rep[Int] = currentTimestamp.year()
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual Year.now.getValue
-
-    val query2: Query[Rep[Int], Int, Seq] = TestExecution.map(t => t.startTime year())
-    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldEqual Year.now.getValue
 
   }
 
@@ -179,15 +176,14 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests subdate(date, interval) dsl. */
   def getSubdateInterval(): Unit = {
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
-    val timeStamp: Rep[Timestamp] = testExecution.startTime
+  this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
     val cal: Calendar = Calendar.getInstance()
     val currentDate: String = format.format(cal.getTime())
 
     // Test years
     val cal1: Calendar = Calendar.getInstance()
-    val query1: Rep[String] = timeStamp subdate(currentDate, "1 YEAR")
+    val query1: Rep[String] = TimeStampExtensions.subdate(currentDate, "1 YEAR")
     val queryYear: String = this.persistenceUtils.runWithRetries(query1.result, 5)
     cal1.add(Calendar.YEAR, -1)
     val resultYear: String = format.format(cal1.getTime)
@@ -195,7 +191,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     // Test days
     val cal2: Calendar = Calendar.getInstance()
-    val query2: Rep[String] = timeStamp subdate(currentDate, "57 DAY")
+    val query2: Rep[String] = TimeStampExtensions.subdate(currentDate, "57 DAY")
     val queryDay: String = this.persistenceUtils.runWithRetries(query2.result, 5)
     cal2.add(Calendar.DATE, -57)
     val resultDay: String = format.format(cal2.getTime)
@@ -209,7 +205,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     cal3.set(Calendar.MINUTE, 0)
 
     // Test hours
-    val query3: Rep[String] = timeStamp subdate(currentDate, "-3 HOUR")
+    val query3: Rep[String] = TimeStampExtensions.subdate(currentDate, "-3 HOUR")
     val queryHour: String = this.persistenceUtils.runWithRetries(query3.result, 5)
     cal3.add(Calendar.HOUR, 3)
     val resultHour: String = hourFormatter.format(cal3.getTime)
@@ -221,21 +217,20 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests subdate(date, days) dsl. */
   def getSubdateNoInterval(): Unit = {
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
-    val timeStamp: Rep[Timestamp] = testExecution.startTime
+    this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
     val cal: Calendar = Calendar.getInstance()
     val currentDate: String = format.format(cal.getTime())
 
     val cal2: Calendar = Calendar.getInstance()
-    val query: Rep[String] = timeStamp subdate(currentDate, 57)
+    val query: Rep[String] = TimeStampExtensions.subdate(currentDate, 57)
     val queryDay: String = this.persistenceUtils.runWithRetries(query.result, 5)
     cal2.add(Calendar.DATE, -57)
     val resultDay: String = format.format(cal2.getTime)
     resultDay shouldEqual queryDay
 
     val cal3: Calendar = Calendar.getInstance()
-    val query2: Rep[String] = timeStamp subdate(currentDate, -1)
+    val query2: Rep[String] = TimeStampExtensions.subdate(currentDate, -1)
     val queryDay2: String = this.persistenceUtils.runWithRetries(query2.result, 5)
     cal3.add(Calendar.DATE, 1)
     val resultDay2: String = format.format(cal3.getTime)

@@ -43,6 +43,19 @@ trait HasWarpSlickDsl {
       }
       expression.apply(str)
     }
+
+    /**
+      * Translates to YEAR() function
+      * @return just the year in Int
+      */
+    def year(): Rep[Int] = {
+      val expression = SimpleExpression.unary[String, Int] { (str, queryBuilder) =>
+        queryBuilder.sqlBuilder += " YEAR ("
+        queryBuilder.expr(str)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(str)
+    }
 }
 
   /**
@@ -90,19 +103,6 @@ trait HasWarpSlickDsl {
     }
 
     /**
-      * Translates to YEAR() function
-      * @return just the year in Int
-      */
-    def year(): Rep[Int] = {
-      val expression = SimpleExpression.unary[Timestamp, Int] { (timestamp, queryBuilder) =>
-        queryBuilder.sqlBuilder += " YEAR ("
-        queryBuilder.expr(timestamp)
-        queryBuilder.sqlBuilder += ")"
-      }
-      expression.apply(timestamp)
-    }
-
-    /**
       * Translates to DATE() function
       * @return just date in "yyyy-MM-dd"
       */
@@ -129,6 +129,30 @@ trait HasWarpSlickDsl {
         queryBuilder.sqlBuilder += ")"
       }
       expression.apply(timestamp)
+    }
+}
+
+
+  object TimeStampExtensions {
+
+    /**
+      * equivalent to NOW()
+      * @return string of date and time
+      */
+    def now(): Rep[String] = {
+      SimpleExpression.nullary[String] { (queryBuilder) =>
+        queryBuilder.sqlBuilder += " NOW() "
+      }
+    }
+
+    /**
+      * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
+      * @return seconds in int
+      */
+    def unixTimestamp(): Rep[Long] = {
+      SimpleExpression.nullary[Long] { (queryBuilder) =>
+        queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ()"
+      }
     }
 
     /**
@@ -163,30 +187,6 @@ trait HasWarpSlickDsl {
         queryBuilder.sqlBuilder += ")"
       }
       expression.apply(date, amount)
-    }
-}
-
-
-  object TimeStampExtensions {
-
-    /**
-      * equivalent to NOW()
-      * @return string of date and time
-      */
-    def now(): Rep[String] = {
-      SimpleExpression.nullary[String] { (queryBuilder) =>
-        queryBuilder.sqlBuilder += " NOW() "
-      }
-    }
-
-    /**
-      * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
-      * @return seconds in int
-      */
-    def unixTimestamp(): Rep[Long] = {
-      SimpleExpression.nullary[Long] { (queryBuilder) =>
-        queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ()"
-      }
     }
   }
 
