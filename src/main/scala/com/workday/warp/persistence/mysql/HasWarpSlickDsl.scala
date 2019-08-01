@@ -45,10 +45,10 @@ trait HasWarpSlickDsl {
     }
 
     /**
-      * Translates to YEAR() function
+      * Translates to YEAR(string) function
       * @return just the year in Int
       */
-    def year(): Rep[Int] = {
+    def yearString(): Rep[Int] = {
       val expression = SimpleExpression.unary[String, Int] { (str, queryBuilder) =>
         queryBuilder.sqlBuilder += " YEAR ("
         queryBuilder.expr(str)
@@ -125,6 +125,19 @@ trait HasWarpSlickDsl {
     def unixTimestamp(): Rep[Long] = {
       val expression = SimpleExpression.unary[Timestamp, Long] { (timestamp, queryBuilder) =>
         queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ("
+        queryBuilder.expr(timestamp)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(timestamp)
+    }
+
+    /**
+      * Translates to YEAR(timestamp) function
+      * @return just the year in Int
+      */
+    def yearTimestamp(): Rep[Int] = {
+      val expression = SimpleExpression.unary[Timestamp, Int] { (timestamp, queryBuilder) =>
+        queryBuilder.sqlBuilder += " YEAR ("
         queryBuilder.expr(timestamp)
         queryBuilder.sqlBuilder += ")"
       }
