@@ -82,13 +82,24 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests YEAR dsl. */
-  def returnYear(): Unit = {
+  /** Tests YEAR (string) dsl. */
+  def returnYearString(): Unit = {
     this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val currentTimestamp: Rep[String] = TimeStampExtensions.now()
-    val query1: Rep[Int] = currentTimestamp.year()
+    val query1: Rep[Int] = currentTimestamp.yearString()
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual Year.now.getValue
 
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests YEAR (timestamp) dsl. */
+  def returnYearTimestamp(): Unit = {
+    this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
+    val timeStamp: Rep[Timestamp] = testExecution.startTime
+    val query1: Rep[Int] = timeStamp yearTimestamp()
+    this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual Year.now.getValue
   }
 
   @Test
