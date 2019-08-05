@@ -8,7 +8,7 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.text.DecimalFormat
-import java.time.temporal.{ChronoUnit, TemporalAccessor}
+import java.time.temporal.ChronoUnit
 
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
