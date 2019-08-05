@@ -143,6 +143,21 @@ trait HasWarpSlickDsl {
       }
       expression.apply(timestamp)
     }
+
+    /**
+      * Translates to SUBDATE(timestamp) function
+      * @return just the date as string
+      */
+    def subdate(interval: String): Rep[String] = {
+      val expression = SimpleExpression.unary[Timestamp, String] { (timestamp, queryBuilder) =>
+        queryBuilder.sqlBuilder += " subdate("
+        queryBuilder.expr(timestamp)
+        queryBuilder.sqlBuilder += ", INTERVAL "
+        queryBuilder.sqlBuilder += interval
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(timestamp)
+    }
 }
 
 
