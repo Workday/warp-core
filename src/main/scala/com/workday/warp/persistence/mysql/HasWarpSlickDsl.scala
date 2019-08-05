@@ -56,6 +56,19 @@ trait HasWarpSlickDsl {
       }
       expression.apply(str)
     }
+
+    /**
+      * Translates to DATE(string) function
+      * @return just the year in Int
+      */
+    def date(): Rep[String] = {
+      val expression = SimpleExpression.unary[String, String] { (str, queryBuilder) =>
+        queryBuilder.sqlBuilder += " DATE ("
+        queryBuilder.expr(str)
+        queryBuilder.sqlBuilder += ")"
+      }
+      expression.apply(str)
+    }
 }
 
   /**
