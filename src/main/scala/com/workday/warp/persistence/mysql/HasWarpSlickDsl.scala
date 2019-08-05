@@ -217,6 +217,7 @@ trait HasWarpSlickDsl {
       expression.apply(date, amount)
     }
   }
+}
 
   /**
     * dsl class for math related operation
@@ -250,5 +251,5 @@ trait HasWarpSlickDsl {
       expression.apply(number)
     }
   }
-}
+
 
