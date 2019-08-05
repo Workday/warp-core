@@ -7,9 +7,11 @@ import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import com.workday.warp.persistence.mysql.WarpSlickSingleColumnExtensionsSpec._
-import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
+import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
 import org.junit.experimental.categories.Category
+import TablesLike.TestExecutionRowLike
 import org.junit.{Before, Test}
+import slick.ast.LiteralNode
 
 /**
   * Created by ruiqi.wang
@@ -54,7 +56,6 @@ class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersist
     rows(2)._2 shouldBe defined
     rows(2)._2.get shouldEqual 0
   }
-
 }
 
 object WarpSlickSingleColumnExtensionsSpec {
