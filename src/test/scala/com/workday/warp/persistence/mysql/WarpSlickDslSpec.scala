@@ -7,6 +7,7 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.text.DecimalFormat
+import java.time.temporal.{ChronoUnit, TemporalAccessor}
 
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
@@ -17,7 +18,7 @@ import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
 import slick.lifted.Query
-import TablesLike.{TestExecutionRowLike, TestDefinitionRowLike}
+import TablesLike.{TestDefinitionRowLike, TestExecutionRowLike}
 
 /**
   * Created by ruiqi.wang
@@ -194,6 +195,29 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     cal3.add(Calendar.DATE, 1)
     val resultDay2: String = format.format(cal3.getTime)
     resultDay2 shouldEqual queryDay2
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests subdate(timestamp, interval) dsl. */
+  def getSubdateTimestamp(): Unit = {
+    this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
+    val time: ZonedDateTime = ZonedDateTime.now(ZoneOffset.UTC)
+    val startTime: Rep[Timestamp] = testExecution.startTime
+
+    val result: ZonedDateTime = time.minus(5, ChronoUnit.HOURS)
+    val timestamp = Timestamp.valueOf(result.toLocalDateTime)
+
+    val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+    val query: Rep[String] = startTime subdate("5 HOUR")
+    val queryDay: String = this.persistenceUtils.runWithRetries(query.result, 5)
+    val resultFormat: JUDate = format.parse(queryDay)
+    val timestamp2 = new Timestamp(resultFormat.getTime)
+
+    val difference: Long = (timestamp.getTime - timestamp2.getTime)/1000
+    difference shouldEqual(0.toLong +- 2)
+
   }
 
   @Test
