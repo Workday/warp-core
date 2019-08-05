@@ -237,8 +237,8 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   @Test
   @Category(Array(classOf[UnitTest]))
-  /** Tests DATE dsl. */
-  def returnDate(): Unit = {
+  /** Tests DATE(timestamp) dsl. */
+  def returnDateTimestamp(): Unit = {
     val format: SimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
     val date: String = format.format(new java.util.Date())
 
@@ -249,6 +249,21 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val query2: Query[Rep[String], String, Seq] = TestExecution.map(t => t.startTime date())
     this.persistenceUtils.runWithRetries(query2.result, 5).head shouldEqual date
+
+  }
+
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  /** Tests DATE(string) dsl. */
+  def returnDateString(): Unit = {
+    val format: SimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
+    val format2: SimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+    val currentDate: String = format.format(new java.util.Date())
+
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
+    val queryDate: Rep[String] = format2.format(testExecution.startTime)
+    val query: Rep[String] = queryDate date()
+    this.persistenceUtils.runWithRetries(query.result, 5) shouldEqual currentDate
 
   }
 
