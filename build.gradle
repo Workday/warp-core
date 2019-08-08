@@ -309,6 +309,10 @@ publishing {
     }
 }
 
+nebulaRelease {
+    addReleaseBranchPattern("(rc(\\.|/))?\\d+")
+}
+
 signing {
     // only require signing for non-snapshot versions being published to maven central
     required {
