@@ -79,7 +79,7 @@ trait HasWarpSlickDsl {
 
     /**
       * UNIX_TIMESTAMP operation - seconds elapsed since 1970-01-01 00:00:00 UTC
-      * Takes in a parameter of DATETIME: equivalent to UNIX_TIMESTAMP(DateTime)
+      * Takes in a parameter of date: equivalent to UNIX_TIMESTAMP(date)
       *
       * @return seconds in int
       */
