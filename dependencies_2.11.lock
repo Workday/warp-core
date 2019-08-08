@@ -670,7 +670,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -680,7 +680,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -1299,7 +1299,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -1309,7 +1309,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -1953,7 +1953,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -1963,7 +1963,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -2582,7 +2582,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -2592,7 +2592,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -3236,7 +3236,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -3246,7 +3246,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -3896,7 +3896,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -3906,7 +3906,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -4526,7 +4526,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -4536,7 +4536,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -5156,7 +5156,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -5166,7 +5166,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
@@ -5811,7 +5811,7 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.11": {
-            "locked": "3.0.8-RC4",
+            "locked": "3.0.8",
             "transitive": [
                 "org.scalatest:scalatest_2.11"
             ]
@@ -5821,7 +5821,7 @@
             "requested": "3.0.+"
         },
         "org.scalatest:scalatest_2.11": {
-            "locked": "3.0.8-RC4"
+            "locked": "3.0.8"
         },
         "org.slf4j:slf4j-api": {
             "locked": "1.7.25",
