@@ -310,7 +310,7 @@ publishing {
 }
 
 nebulaRelease {
-    addReleaseBranchPattern("*(rc(\\.|/))?\\d+")
+    addReleaseBranchPattern("\\*(rc(\\.|/))?\\d+")
 }
 
 signing {
