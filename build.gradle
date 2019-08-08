@@ -11,7 +11,6 @@ buildscript {
         classpath "com.adtran:scala-multiversion-plugin:${versions.scalaMultiversion}"
         classpath "com.netflix.nebula:gradle-dependency-lock-plugin:${versions.nebulaDependencyLock}"
         classpath "com.netflix.nebula:gradle-git-scm-plugin:${versions.nebulaGit}"
-        classpath "com.netflix.nebula:gradle-lint-plugin:${versions.nebulaGradleLint}"
         classpath "com.netflix.nebula:nebula-release-plugin:${versions.nebulaRelease}"
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
         classpath "org.ajoberstar:grgit:${versions.gradleGit}"
@@ -31,7 +30,6 @@ apply plugin: 'com.adtran.scala-multiversion-plugin'
 apply plugin: 'org.ajoberstar.grgit'
 apply plugin: 'nebula.dependency-lock'
 apply plugin: 'nebula.gradle-git-scm'
-apply plugin: 'nebula.lint'
 apply plugin: 'nebula.release'
 apply plugin: 'nebula.maven-resolved-dependencies'
 apply plugin: 'org.scoverage'
@@ -118,6 +116,12 @@ sourceSets {
             srcDirs = [] // don't compile Java code twice
         }
     }
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    filter(ReplaceTokens, tokens: ['version': project.version.toString()])
 }
 
 task sourcesJar(type: Jar) {
@@ -231,10 +235,6 @@ dependencyLock {
 
 commitDependencyLock {
     message = "(auto) update dependency lock file, version=${project.version.toString()}"
-}
-
-gradleLint {
-    rules = ['unused-dependency']
 }
 
 scoverage {

@@ -1,6 +1,6 @@
 package com.workday.warp.common
 
-import java.io.{File, FileNotFoundException, FileReader}
+import java.io.File
 import java.util.Properties
 
 import com.workday.warp.common.exception.WarpConfigurationException
@@ -137,12 +137,13 @@ object WarpPropertyManager {
 
     banner ++= "\nWarp Configuration Properties:"
 
-    this.propertyEntries.map(_.propertyName) foreach { propertyName =>
+    this.propertyEntries.toList.sortBy(_.propertyName).map { entry: PropertyEntry =>
+      val name: String = entry.propertyName
       // value is not required to be present just for this lookup
-      val propertyValue: String = this.valueOf(propertyName, required = false)
+      val propertyValue: String = entry.normalize(this.valueOf(name, required = false))
       // don't print password literals
-      val redactedValue: String = redact(propertyName, propertyValue)
-      banner ++= s"\n    $propertyName=$redactedValue"
+      val redactedValue: String = redact(name, propertyValue)
+      banner ++= s"\n    $name=$redactedValue"
     }
 
     Logger.info(banner.toString)
@@ -190,8 +191,8 @@ object WarpPropertyManager {
 
     // add non-null default values
     this.propertyEntries foreach { entry : PropertyEntry =>
-      if (Option(entry.defaultValue).isDefined) {
-        properties += (entry.propertyName -> entry.defaultValue)
+      entry.defaultValue foreach { default: String =>
+        properties += (entry.propertyName -> default)
       }
     }
 

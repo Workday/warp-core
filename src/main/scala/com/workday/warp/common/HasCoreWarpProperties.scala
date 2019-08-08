@@ -344,7 +344,7 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     *
     * When this is set to false, we'll treat the time series as stationary.
     */
-  val WARP_ANOMALY_USE_DIFF: PropertyEntry = PropertyEntry("wd.warp.anomaly.use.diff", isRequired = false, None.orNull)
+  val WARP_ANOMALY_USE_DIFF: PropertyEntry = PropertyEntry("wd.warp.anomaly.use.diff", isRequired = false)
 
   /**
     * Number of most recent measurements we'll consider when wd.warp.anomaly.double.rpca is true. Running double rpca
@@ -502,6 +502,4 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   val WARP_SLF4J_FLYWAY_LOG_LEVEL: PropertyEntry = PropertyEntry(
     "wd.warp.slf4j.flyway.log.level", isRequired = false, "INFO"
   )
-
-
 }
