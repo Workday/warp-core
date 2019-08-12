@@ -89,16 +89,22 @@ object WarpLogUtils {
     * uses [[Level.INFO]]
     *
     * @param level [[String]] to attempt to parse into a [[Level]].
-    * @param default [[String]] to attempt to parse if `level` is not valid.
+    * @param default [[Option[String]]] to attempt to parse if `level` is not valid.
     * @return a [[Level]] parsed from `level` or `default`, or [[Level.INFO]] if neither is valid.
     */
-  private[logger] def parseLevel(level: String, default: String): Level = {
+  private[logger] def parseLevel(level: String, default: Option[String]): Level = {
     Try { Level valueOf level.toUpperCase } match {
       case Success(logLevel: Level) =>
         logLevel
       case Failure(exception) =>
         Logger.error(exception, s"unable to parse $level as a valid logging level, using $default")
-        Try { Level valueOf default.toUpperCase } getOrElse Level.INFO
+
+        val maybeLevel: Option[Level] = for {
+          d <- default
+          l <- Try(Level.valueOf(d)).toOption
+        } yield l
+
+        maybeLevel getOrElse Level.INFO
     }
   }
 }

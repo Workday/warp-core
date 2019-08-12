@@ -5,7 +5,7 @@ wd.warp.jdbc.url=jdbc:mysql://localhost:3307/warp_core?createDatabaseIfNotExist=
 # make sure to use something more secure in production
 wd.warp.jdbc.password=1234
 wd.warp.jdbc.user=root
-wd.warp.jdbc.driver=com.mysql.jdbc.Driver
+wd.warp.jdbc.driver=com.mysql.cj.jdbc.Driver
 # TODO seems slower in travis than locally. investigate.
 wd.warp.jdbc.timeout=300
 wd.warp.migrate.schema=true
