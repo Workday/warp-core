@@ -228,10 +228,9 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.593, 10.352)
 
     val df1: DecimalFormat = new DecimalFormat("#")
-    val responseTimeTest1: Double = testExecution.responseTime
-    val query1: Rep[Int] = NumberExtension.round(responseTimeTest1)
+    val query1: Rep[Int] = NumberExtension.round(testExecution.responseTime)
     val result1: Int = this.persistenceUtils.runWithRetries(query1.result, 5)
-    val roundedNumber1: Int = df1.format(responseTimeTest1).toInt
+    val roundedNumber1: Int = df1.format(testExecution.responseTime).toInt
     result1 shouldEqual roundedNumber1
 
   }
@@ -310,17 +309,15 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.593, 10.352)
 
     val df1: DecimalFormat = new DecimalFormat("#.#")
-    val responseTimeTest1: Double = testExecution.responseTime
-    val query1: Rep[Double] = NumberExtension.round(responseTimeTest1, 1)
+    val query1: Rep[Double] = NumberExtension.round(testExecution.responseTime, 1)
     val result1: Double = this.persistenceUtils.runWithRetries(query1.result, 5)
-    val roundedNumber1: Double = df1.format(responseTimeTest1).toDouble
+    val roundedNumber1: Double = df1.format(testExecution.responseTime).toDouble
     result1 shouldEqual roundedNumber1
 
     val df2: DecimalFormat = new DecimalFormat("#")
-    val responseTimeTest2: Double = testExecution.responseTimeRequirement
-    val query2: Rep[Double] = NumberExtension.round(responseTimeTest2, 0)
+    val query2: Rep[Double] = NumberExtension.round(testExecution.responseTimeRequirement, 0)
     val result2: Double = this.persistenceUtils.runWithRetries(query2.result, 5)
-    val roundedNumber2: Double = df2.format(responseTimeTest2).toDouble
+    val roundedNumber2: Double = df2.format(testExecution.responseTimeRequirement).toDouble
     result2 shouldEqual roundedNumber2
 
   }
