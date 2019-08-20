@@ -241,7 +241,9 @@ trait HasWarpSlickDsl {
       * translates to Round(number, decimals)
       * @return number
       */
+
     def round(number: Rep[Double], decimal: Int): Rep[Double] = {
+    
       val expression = SimpleExpression.binary[Double, Int, Double] { (number, decimal, queryBuilder) =>
         queryBuilder.sqlBuilder += "ROUND ("
         queryBuilder.expr(number)
@@ -256,7 +258,9 @@ trait HasWarpSlickDsl {
       * translates to Round(number)
       * @return number
       */
+
     def round(number: Rep[Double]): Rep[Int] = {
+
       val expression = SimpleExpression.unary[Double, Int] { (number, queryBuilder) =>
         queryBuilder.sqlBuilder += "ROUND ("
         queryBuilder.expr(number)
