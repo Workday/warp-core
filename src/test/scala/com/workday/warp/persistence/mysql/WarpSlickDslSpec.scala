@@ -1,13 +1,13 @@
 package com.workday.warp.persistence.mysql
 
 import java.sql
-import java.util.{Calendar, TimeZone, Date => JUDate}
-import java.time._
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.text.DecimalFormat
+import java.time._
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.{Calendar, TimeZone, Date => JUDate}
 
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
@@ -25,8 +25,9 @@ import TablesLike.{TestDefinitionRowLike, TestExecutionRowLike}
   */
 class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
+  TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+
   /** Truncates the schema. */
-  @Before
   def truncateSchema(): Unit = {
     Connection.refresh()
     CorePersistenceUtils.truncateSchema()
@@ -41,7 +42,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val action = TestDefinition.filter(_.methodSignature regexMatch "hello")
 
-    val rows: Seq[TestDefinitionRow] = this.persistenceUtils.runWithRetries(action.result, 5)
+    val rows: Seq[TestDefinitionRow] = this.persistenceUtils.runWithRetries(action.result)
     rows.size shouldEqual 1
     val check: Boolean = rows.exists(t => t.methodSignature.contains("hello") && !t.methodSignature.contains("bye"))
     check shouldEqual true
@@ -55,7 +56,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val testDefinition: TestDefinitionRowLike = this.persistenceUtils.findOrCreateTestDefinition(methodSignature3)
     val cast: Rep[String] = testDefinition.methodSignature
     val test: Rep[String] = cast quote()
-    val query1 = this.persistenceUtils.runWithRetries(test.result, 5)
+    val query1 = this.persistenceUtils.runWithRetries(test.result)
 
     val addBackSlash = testDefinition.methodSignature.replaceAll("\'", "\\\\\'")
     val query2 = "\'" + addBackSlash + "\'"
@@ -67,6 +68,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   /** Tests INTERVAL dsl. */
   def betweenInterval(): Unit = {
+    this.truncateSchema()
     this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
@@ -110,7 +112,6 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val query: Rep[Long] = date unixTimestamp()
     val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
 
-    TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
     val cal: Calendar = Calendar.getInstance()
     cal.set(Calendar.HOUR_OF_DAY, 0)
     cal.set(Calendar.SECOND, 0)
@@ -126,7 +127,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   /** Tests UNIX_TIMESTAMP dsl. */
   def returnUNIXTimeStampNow(): Unit = {
     val query: Rep[Long] = TimeStampExtensions.unixTimestamp()
-    val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
+    val result: Long = this.persistenceUtils.runWithRetries(query.result)
     val unixTimestamp: Long = Instant.now.getEpochSecond()
     result shouldEqual unixTimestamp +- 2
 
@@ -139,12 +140,12 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
     val cal: Calendar = Calendar.getInstance()
-    val currentDate: String = format.format(cal.getTime())
+    val currentDate: String = format.format(cal.getTime)
 
     // Test years
     val cal1: Calendar = Calendar.getInstance()
     val query1: Rep[String] = TimeStampExtensions.subdate(currentDate, "1 YEAR")
-    val queryYear: String = this.persistenceUtils.runWithRetries(query1.result, 5)
+    val queryYear: String = this.persistenceUtils.runWithRetries(query1.result)
     cal1.add(Calendar.YEAR, -1)
     val resultYear: String = format.format(cal1.getTime)
     resultYear shouldEqual queryYear
@@ -152,7 +153,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     // Test days
     val cal2: Calendar = Calendar.getInstance()
     val query2: Rep[String] = TimeStampExtensions.subdate(currentDate, "57 DAY")
-    val queryDay: String = this.persistenceUtils.runWithRetries(query2.result, 5)
+    val queryDay: String = this.persistenceUtils.runWithRetries(query2.result)
     cal2.add(Calendar.DATE, -57)
     val resultDay: String = format.format(cal2.getTime)
     resultDay shouldEqual queryDay
@@ -166,7 +167,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     // Test hours
     val query3: Rep[String] = TimeStampExtensions.subdate(currentDate, "-3 HOUR")
-    val queryHour: String = this.persistenceUtils.runWithRetries(query3.result, 5)
+    val queryHour: String = this.persistenceUtils.runWithRetries(query3.result)
     cal3.add(Calendar.HOUR, 3)
     val resultHour: String = hourFormatter.format(cal3.getTime)
     resultHour shouldEqual queryHour
@@ -180,18 +181,18 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
     val cal: Calendar = Calendar.getInstance()
-    val currentDate: String = format.format(cal.getTime())
+    val currentDate: String = format.format(cal.getTime)
 
     val cal2: Calendar = Calendar.getInstance()
     val query: Rep[String] = TimeStampExtensions.subdate(currentDate, 57)
-    val queryDay: String = this.persistenceUtils.runWithRetries(query.result, 5)
+    val queryDay: String = this.persistenceUtils.runWithRetries(query.result)
     cal2.add(Calendar.DATE, -57)
     val resultDay: String = format.format(cal2.getTime)
     resultDay shouldEqual queryDay
 
     val cal3: Calendar = Calendar.getInstance()
     val query2: Rep[String] = TimeStampExtensions.subdate(currentDate, -1)
-    val queryDay2: String = this.persistenceUtils.runWithRetries(query2.result, 5)
+    val queryDay2: String = this.persistenceUtils.runWithRetries(query2.result)
     cal3.add(Calendar.DATE, 1)
     val resultDay2: String = format.format(cal3.getTime)
     resultDay2 shouldEqual queryDay2
@@ -242,12 +243,12 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val date: String = format.format(new java.util.Date())
 
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
-    val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val query1: Rep[String] = timeStamp date()
-    this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual date
+    val timeStamp: Rep[sql.Timestamp] = testExecution.startTime
+    val query1: Rep[sql.Date] = timeStamp.date()
+    this.persistenceUtils.runWithRetries(query1.result).toString shouldEqual date
 
-    val query2: Query[Rep[String], String, Seq] = TestExecution.map(t => t.startTime date())
-    this.persistenceUtils.runWithRetries(query2.result, 5).head shouldEqual date
+    val query2: Query[Rep[sql.Date], sql.Date, Seq] = TestExecution.map(_.startTime.date())
+    this.persistenceUtils.runWithRetries(query2.result).head.toString shouldEqual date
 
   }
 
@@ -261,8 +262,8 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val queryDate: Rep[String] = format2.format(testExecution.startTime)
-    val query: Rep[String] = queryDate date()
-    this.persistenceUtils.runWithRetries(query.result, 5) shouldEqual currentDate
+    val query: Rep[sql.Date] = queryDate.date()
+    this.persistenceUtils.runWithRetries(query.result).toString shouldEqual currentDate
 
   }
 
@@ -295,7 +296,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, new JUDate, 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
     val query: Rep[Long] = timeStamp unixTimestamp()
-    val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
+    val result: Long = this.persistenceUtils.runWithRetries(query.result)
     val unixTimestamp: Long = Instant.now.getEpochSecond()
     result shouldEqual unixTimestamp +- 2
 
@@ -309,13 +310,13 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val df1: DecimalFormat = new DecimalFormat("#.#")
     val query1: Rep[Double] = NumberExtension.round(testExecution.responseTime, 1)
-    val result1: Double = this.persistenceUtils.runWithRetries(query1.result, 5)
+    val result1: Double = this.persistenceUtils.runWithRetries(query1.result)
     val roundedNumber1: Double = df1.format(testExecution.responseTime).toDouble
     result1 shouldEqual roundedNumber1
 
     val df2: DecimalFormat = new DecimalFormat("#")
     val query2: Rep[Double] = NumberExtension.round(testExecution.responseTimeRequirement, 0)
-    val result2: Double = this.persistenceUtils.runWithRetries(query2.result, 5)
+    val result2: Double = this.persistenceUtils.runWithRetries(query2.result)
     val roundedNumber2: Double = df2.format(testExecution.responseTimeRequirement).toDouble
     result2 shouldEqual roundedNumber2
 
