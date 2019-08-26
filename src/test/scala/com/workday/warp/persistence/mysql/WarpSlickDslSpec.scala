@@ -162,19 +162,18 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     date2 shouldEqual queryDay
 
     // Set to midnight
-    val hourFormatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     val cal3: Calendar = Calendar.getInstance()
     cal3.set(Calendar.HOUR_OF_DAY, 0)
     cal3.set(Calendar.SECOND, 0)
     cal3.set(Calendar.MINUTE, 0)
+    cal3.set(Calendar.MILLISECOND, 0)
 
     // Test hours
     val query3: Rep[sql.Timestamp] = TimeStampExtensions.subdate(currentDate, "-3 HOUR")
     val queryHour: sql.Timestamp = this.persistenceUtils.runWithRetries(query3.result)
     cal3.add(Calendar.HOUR, 3)
-    val resultHour: String = hourFormatter.format(cal3.getTime)
-    val date3: JUDate = format.parse(resultHour)
-    date3 shouldEqual queryHour
+    val resultHour: sql.Timestamp = new Timestamp(cal3.getTimeInMillis)
+    resultHour shouldEqual queryHour
 
   }
 
@@ -210,7 +209,6 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val result: ZonedDateTime = time.minus(5, ChronoUnit.HOURS)
     val timestamp = Timestamp.valueOf(result.toLocalDateTime)
 
-    val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
     val query: Rep[sql.Timestamp] = startTime subdate("5 HOUR")
     val queryDay: sql.Timestamp = this.persistenceUtils.runWithRetries(query.result, 5)
     val timestamp2 = new Timestamp(queryDay.getTime)
