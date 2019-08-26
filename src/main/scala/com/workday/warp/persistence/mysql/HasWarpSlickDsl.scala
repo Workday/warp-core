@@ -168,12 +168,12 @@ trait HasWarpSlickDsl {
     }
 
     /**
-      * Translates to SUBDATE(timestamp) function
+      * Translates to SUBDATE(timestamp, interval) function
       *
       * @return just the date as string
       */
-    def subdate(interval: String): Rep[String] = {
-      val expression = SimpleExpression.unary[sql.Timestamp, String] { (timestamp, queryBuilder) =>
+    def subdate(interval: String): Rep[sql.Timestamp] = {
+      val expression = SimpleExpression.unary[sql.Timestamp, sql.Timestamp] { (timestamp, queryBuilder) =>
         queryBuilder.sqlBuilder += " subdate("
         queryBuilder.expr(timestamp)
         queryBuilder.sqlBuilder += ", INTERVAL "
@@ -193,7 +193,7 @@ trait HasWarpSlickDsl {
       * @return string of date and time
       */
     def now(): Rep[String] = {
-      SimpleExpression.nullary[String] { (queryBuilder) =>
+      SimpleExpression.nullary[String] { queryBuilder =>
         queryBuilder.sqlBuilder += " NOW() "
       }
     }
@@ -204,7 +204,7 @@ trait HasWarpSlickDsl {
       * @return seconds in int
       */
     def unixTimestamp(): Rep[Long] = {
-      SimpleExpression.nullary[Long] { (queryBuilder) =>
+      SimpleExpression.nullary[Long] { queryBuilder =>
         queryBuilder.sqlBuilder += " UNIX_TIMESTAMP ()"
       }
     }
@@ -215,8 +215,8 @@ trait HasWarpSlickDsl {
       *
       * @return string date
       */
-    def subdate(date: String, interval: String): Rep[String] = {
-      val expression = SimpleExpression.unary[String, String] { (date, queryBuilder) =>
+    def subdate(date: String, interval: String): Rep[sql.Timestamp] = {
+      val expression = SimpleExpression.unary[String, sql.Timestamp] { (date, queryBuilder) =>
         queryBuilder.sqlBuilder += " subdate("
         queryBuilder.expr(date)
         queryBuilder.sqlBuilder += ", INTERVAL "
@@ -232,8 +232,8 @@ trait HasWarpSlickDsl {
       *
       * @return string date
       */
-    def subdate(date: String, amount: Int): Rep[String] = {
-      val expression = SimpleExpression.binary[String, Int, String] { (date, amount, queryBuilder) =>
+    def subdate(date: String, amount: Int): Rep[sql.Timestamp] = {
+      val expression = SimpleExpression.binary[String, Int, sql.Timestamp] { (date, amount, queryBuilder) =>
         queryBuilder.sqlBuilder += " subdate("
         queryBuilder.expr(date)
         queryBuilder.sqlBuilder += " , "

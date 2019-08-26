@@ -145,19 +145,21 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     // Test years
     val cal1: Calendar = Calendar.getInstance()
-    val query1: Rep[String] = TimeStampExtensions.subdate(currentDate, "1 YEAR")
-    val queryYear: String = this.persistenceUtils.runWithRetries(query1.result)
+    val query1: Rep[sql.Timestamp] = TimeStampExtensions.subdate(currentDate, "1 YEAR")
+    val queryYear: sql.Timestamp = this.persistenceUtils.runWithRetries(query1.result)
     cal1.add(Calendar.YEAR, -1)
     val resultYear: String = format.format(cal1.getTime)
-    resultYear shouldEqual queryYear
+    val date1: JUDate = format.parse(resultYear)
+    date1 shouldEqual queryYear
 
     // Test days
     val cal2: Calendar = Calendar.getInstance()
-    val query2: Rep[String] = TimeStampExtensions.subdate(currentDate, "57 DAY")
-    val queryDay: String = this.persistenceUtils.runWithRetries(query2.result)
+    val query2: Rep[sql.Timestamp] = TimeStampExtensions.subdate(currentDate, "57 DAY")
+    val queryDay: sql.Timestamp = this.persistenceUtils.runWithRetries(query2.result)
     cal2.add(Calendar.DATE, -57)
     val resultDay: String = format.format(cal2.getTime)
-    resultDay shouldEqual queryDay
+    val date2: JUDate = format.parse(resultDay)
+    date2 shouldEqual queryDay
 
     // Set to midnight
     val hourFormatter: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -167,11 +169,12 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     cal3.set(Calendar.MINUTE, 0)
 
     // Test hours
-    val query3: Rep[String] = TimeStampExtensions.subdate(currentDate, "-3 HOUR")
-    val queryHour: String = this.persistenceUtils.runWithRetries(query3.result)
+    val query3: Rep[sql.Timestamp] = TimeStampExtensions.subdate(currentDate, "-3 HOUR")
+    val queryHour: sql.Timestamp = this.persistenceUtils.runWithRetries(query3.result)
     cal3.add(Calendar.HOUR, 3)
     val resultHour: String = hourFormatter.format(cal3.getTime)
-    resultHour shouldEqual queryHour
+    val date3: JUDate = format.parse(resultHour)
+    date3 shouldEqual queryHour
 
   }
 
@@ -183,20 +186,16 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
     val cal: Calendar = Calendar.getInstance()
     val currentDate: String = format.format(cal.getTime)
+    cal.set(Calendar.HOUR_OF_DAY, 0)
+    cal.set(Calendar.SECOND, 0)
+    cal.set(Calendar.MILLISECOND, 0)
+    cal.set(Calendar.MINUTE, 0)
 
-    val cal2: Calendar = Calendar.getInstance()
-    val query: Rep[String] = TimeStampExtensions.subdate(currentDate, 57)
-    val queryDay: String = this.persistenceUtils.runWithRetries(query.result)
-    cal2.add(Calendar.DATE, -57)
-    val resultDay: String = format.format(cal2.getTime)
+    val query: Rep[sql.Timestamp] = TimeStampExtensions.subdate(currentDate, -1)
+    val queryDay: sql.Timestamp = this.persistenceUtils.runWithRetries(query.result)
+    cal.add(Calendar.DATE, 1)
+    val resultDay: sql.Timestamp = new Timestamp(cal.getTimeInMillis)
     resultDay shouldEqual queryDay
-
-    val cal3: Calendar = Calendar.getInstance()
-    val query2: Rep[String] = TimeStampExtensions.subdate(currentDate, -1)
-    val queryDay2: String = this.persistenceUtils.runWithRetries(query2.result)
-    cal3.add(Calendar.DATE, 1)
-    val resultDay2: String = format.format(cal3.getTime)
-    resultDay2 shouldEqual queryDay2
   }
 
   @Test
@@ -212,10 +211,9 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val timestamp = Timestamp.valueOf(result.toLocalDateTime)
 
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-    val query: Rep[String] = startTime subdate("5 HOUR")
-    val queryDay: String = this.persistenceUtils.runWithRetries(query.result, 5)
-    val resultFormat: JUDate = format.parse(queryDay)
-    val timestamp2 = new Timestamp(resultFormat.getTime)
+    val query: Rep[sql.Timestamp] = startTime subdate("5 HOUR")
+    val queryDay: sql.Timestamp = this.persistenceUtils.runWithRetries(query.result, 5)
+    val timestamp2 = new Timestamp(queryDay.getTime)
 
     val difference: Long = (timestamp.getTime - timestamp2.getTime)/1000
     difference shouldEqual(0.toLong +- 2)
@@ -311,21 +309,13 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val df1: DecimalFormat = new DecimalFormat("#.#")
     val query1: Rep[Double] = NumberExtension.round(testExecution.responseTime, 1)
-<<<<<<< HEAD
-    val result1: Double = this.persistenceUtils.runWithRetries(query1.result, 5)
-=======
     val result1: Double = this.persistenceUtils.runWithRetries(query1.result)
->>>>>>> 317eb989fe63cf41fe44c357e9e28c87fa400961
     val roundedNumber1: Double = df1.format(testExecution.responseTime).toDouble
     result1 shouldEqual roundedNumber1
 
     val df2: DecimalFormat = new DecimalFormat("#")
     val query2: Rep[Double] = NumberExtension.round(testExecution.responseTimeRequirement, 0)
-<<<<<<< HEAD
-    val result2: Double = this.persistenceUtils.runWithRetries(query2.result, 5)
-=======
     val result2: Double = this.persistenceUtils.runWithRetries(query2.result)
->>>>>>> 317eb989fe63cf41fe44c357e9e28c87fa400961
     val roundedNumber2: Double = df2.format(testExecution.responseTimeRequirement).toDouble
     result2 shouldEqual roundedNumber2
 
