@@ -67,8 +67,8 @@ object WarpGatlingSpec {
   class CustomSimulation extends WarpSimulation("MyCustomSimulationTest")
 
   // GatlingFunSpec requires `baseURL` to be implemented
-  class DefaultFunSpec extends WarpFunSpec {val baseURL: String = ""}
-  class CustomFunSpec extends WarpFunSpec("MyCustomFunSpec") {val baseURL: String = ""}
+  class DefaultFunSpec extends WarpFunSpec {val baseUrl: String = ""}
+  class CustomFunSpec extends WarpFunSpec("MyCustomFunSpec") {val baseUrl: String = ""}
 
   // Child Spec that overrides CustomFunSpec
   class ChildCustomFunSpec(override val testId: String = "DAMNITJIM") extends CustomFunSpec
