@@ -56,7 +56,6 @@ final class GatlingJUnitRunner(simulationClass: Class[_ <: Simulation]) extends 
       val properties: GatlingPropertiesBuilder = new GatlingPropertiesBuilder
       properties.simulationClass(simulationClass.getCanonicalName)
       properties.noReports()
-      properties.outputDirectoryBaseName("build/")
       properties.resultsDirectory("build/")
       Gatling.fromMap(properties.build)
     } match {

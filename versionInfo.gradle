@@ -14,22 +14,6 @@ class UnsupportedScalaVersionException extends RuntimeException {
 }
 
 
-/**
- * Determines the gatling version we should use.
- *
- * This is a function of the scala version we are currently building with.
- *
- * @return version of the gatling library that we should depend on.
- */
-def gatlingVersion() {
-    String scalaSuffix = project.findProperty("scalaSuffix")
-
-    if (scalaSuffix == '_2.11') return '2.2.5'
-    else if (scalaSuffix == '_2.12') return '2.3.1'
-    else throw new UnsupportedScalaVersionException("$scalaSuffix is not a supported scala version suffix".toString())
-}
-
-
 
 // dependency versions, keep in alphabetical order
 // please declare your dependencies using the following syntax:
@@ -43,7 +27,7 @@ project.ext.versions = [
     , commonsIo: '2.6'
     , coveralls: '2.8.2'
     , flyway: '5.2.1'
-    , gatling: gatlingVersion()
+    , gatling: '3.2.1'
     , gradleGit: '1.7.2'
     , gradleScoverage: '2.3.0'
     , guava: '27.0-jre'

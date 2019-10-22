@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 @RunWith(classOf[GatlingJUnitRunner])
 class BasicSimulation extends WarpSimulation {
   val httpConf = http
-    .baseURL("http://google.com")
+    .baseUrl("http://google.com")
 
   val scn = scenario("Positive Scenario")
     .exec(
