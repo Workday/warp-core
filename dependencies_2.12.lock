@@ -276,7 +276,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -678,7 +678,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -712,7 +712,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -982,7 +982,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -1384,7 +1384,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -1418,7 +1418,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -1698,7 +1698,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -2115,7 +2115,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -2149,7 +2149,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -2419,7 +2419,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -2821,7 +2821,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -2855,7 +2855,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -3135,7 +3135,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -3552,7 +3552,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -3586,7 +3586,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -3671,19 +3671,13 @@
                 "org.scoverage:scalac-scoverage-runtime_2.12"
             ]
         },
-        "org.scoverage:scalac-scoverage-plugin_%%": {
-            "project": true,
-            "requested": "1.3.1"
-        },
         "org.scoverage:scalac-scoverage-plugin_2.12": {
-            "locked": "1.3.1"
-        },
-        "org.scoverage:scalac-scoverage-runtime_%%": {
-            "project": true,
+            "locked": "1.3.1",
             "requested": "1.3.1"
         },
         "org.scoverage:scalac-scoverage-runtime_2.12": {
-            "locked": "1.3.1"
+            "locked": "1.3.1",
+            "requested": "1.3.1"
         }
     },
     "testCompile": {
@@ -3886,7 +3880,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -4289,7 +4283,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -4323,7 +4317,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -4593,7 +4587,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -4996,7 +4990,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -5030,7 +5024,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -5300,7 +5294,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -5703,7 +5697,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -5737,7 +5731,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -6017,7 +6011,7 @@
             ]
         },
         "com.typesafe:config": {
-            "locked": "1.3.4",
+            "locked": "1.3.5-RC1",
             "requested": "1.3.+",
             "transitive": [
                 "com.typesafe.akka:akka-actor_2.12",
@@ -6435,7 +6429,7 @@
             ]
         },
         "org.scala-lang:scala-library": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.github.scopt:scopt_2.12",
@@ -6469,7 +6463,7 @@
             ]
         },
         "org.scala-lang:scala-reflect": {
-            "locked": "2.12.9",
+            "locked": "2.12.10",
             "requested": "%scala-version%",
             "transitive": [
                 "com.softwaremill.quicklens:quicklens_2.12",
@@ -6559,8 +6553,7 @@
             ]
         },
         "com.typesafe.zinc:zinc": {
-            "locked": "0.3.15",
-            "requested": "0.3.15"
+            "locked": "0.3.15"
         },
         "org.scala-lang:scala-compiler": {
             "locked": "2.10.6",
