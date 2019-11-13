@@ -56,31 +56,31 @@ targetCompatibility = 1.8
 
 // keep in alphabetical order
 dependencies {
-    compile "com.google.code.gson:gson:${versions.gson}"
-    compile "com.google.guava:guava:${versions.guava}"
-    compile "com.google.inject:guice:${versions.guice}"
-    compile "com.typesafe:config:${versions.typesafeConfig}"
-    compile "com.typesafe.slick:slick_%%:${versions.slick}"
-    compile "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
-    compile "commons-io:commons-io:${versions.commonsIo}"
+    implementation "com.google.code.gson:gson:${versions.gson}"
+    implementation "com.google.guava:guava:${versions.guava}"
+    implementation "com.google.inject:guice:${versions.guice}"
+    implementation "com.typesafe:config:${versions.typesafeConfig}"
+    implementation "com.typesafe.slick:slick_%%:${versions.slick}"
+    implementation "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
+    implementation "commons-io:commons-io:${versions.commonsIo}"
     // Could not exclude concrete logger implementation due to it being directly used within gatling-app
-    compile "io.gatling:gatling-app:${versions.gatling}"
-    compile "io.gatling:gatling-core:${versions.gatling}"
-    compile "io.gatling:gatling-http:${versions.gatling}"
-    compile "junit:junit:${versions.junit}"
-    compile "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
-    compile "org.apache.commons:commons-math3:${versions.math3}"
-    compile "org.flywaydb:flyway-core:${versions.flyway}"
-    compile "org.influxdb:influxdb-java:${versions.influxDbClient}"
-    compile "org.scala-lang:scala-library:%scala-version%"
-    compile "org.scala-lang:scala-reflect:%scala-version%"
-    compile "org.scalactic:scalactic_%%:${versions.scalactic}"
-    compile "org.scalatest:scalatest_%%:${versions.scalatest}"
-    compile "org.tinylog:tinylog:${versions.tinylog}"
+    implementation "io.gatling:gatling-app:${versions.gatling}"
+    implementation "io.gatling:gatling-core:${versions.gatling}"
+    implementation "io.gatling:gatling-http:${versions.gatling}"
+    implementation "junit:junit:${versions.junit}"
+    implementation "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
+    implementation "org.apache.commons:commons-math3:${versions.math3}"
+    implementation "org.flywaydb:flyway-core:${versions.flyway}"
+    implementation "org.influxdb:influxdb-java:${versions.influxDbClient}"
+    implementation "org.scala-lang:scala-library:%scala-version%"
+    implementation "org.scala-lang:scala-reflect:%scala-version%"
+    implementation "org.scalactic:scalactic_%%:${versions.scalactic}"
+    implementation "org.scalatest:scalatest_%%:${versions.scalatest}"
+    implementation "org.tinylog:tinylog:${versions.tinylog}"
 
-    compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
+    implementation files(org.gradle.internal.jvm.Jvm.current().toolsJar)
 
-    testCompile "io.gatling:gatling-commons:${versions.gatling}"
+    testImplementation "io.gatling:gatling-commons:${versions.gatling}"
 
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
