@@ -237,6 +237,12 @@ coveralls {
     coberturaReportPath = "${buildDir}/reports/scoverage/cobertura.xml"
 }
 
+configurations.all {
+    if (name.startsWith("incrementalScalaAnalysis")) {
+        extendsFrom = []
+    }
+}
+
 /**
  * @return true iff we are building a maven snapshot or a devSnapshot.
  */
