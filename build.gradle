@@ -237,6 +237,9 @@ coveralls {
     coberturaReportPath = "${buildDir}/reports/scoverage/cobertura.xml"
 }
 
+
+// current workaround nebula incremental analysis failure
+// see: https://github.com/gradle/gradle/issues/6854
 configurations.all {
     if (name.startsWith("incrementalScalaAnalysis")) {
         extendsFrom = []
