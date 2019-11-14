@@ -1,10 +1,13 @@
 buildscript {
     // set a valid scala suffix for the buildscript itself
-    project.ext.scalaSuffix = '_2.11'
+    project.ext.scalaSuffix = '_2.12'
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
 		jcenter()
+        maven {
+            url  "https://dl.bintray.com/ngbinh/maven"
+        }
     }
 
     dependencies {
