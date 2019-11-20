@@ -141,16 +141,16 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     val allResponseTimes: Iterable[Double] =
       createDummyTestExecutions(testID, 70, 350) ++ createDummyTestExecutions(testID, 30, 40)
 
-    val incomingTestExecution: TestExecutionRowLike = persistDummyTestExecution(testID, 45)
+    val incomingTestExecution: TestExecutionRowLike = persistDummyTestExecution(testID, 42)
     val slidingWindowArbiter: SmartNumberArbiter = new SmartNumberArbiter(useSlidingWindow = true, slidingWindowSize = 30)
     val windowSmartNumber: Double = slidingWindowArbiter.smartNumber(allResponseTimes takeRight slidingWindowArbiter.slidingWindowSize)
     val allResponseTimesSmartNumber: Double = slidingWindowArbiter.smartNumber(allResponseTimes)
 
-    Logger.info(s"detected sliding window size: ${slidingWindowArbiter.slidingWindowSize}")
-    Logger.info(s"sliding window smart number: $windowSmartNumber")
-    Logger.info(s"all response times smart number: $allResponseTimesSmartNumber")
+    Logger.debug(s"detected sliding window size: ${slidingWindowArbiter.slidingWindowSize}")
+    Logger.debug(s"sliding window smart number: $windowSmartNumber")
+    Logger.debug(s"all response times smart number: $allResponseTimesSmartNumber")
 
-    // 45ms is not an anomaly
+    // 42ms is not an anomaly
     slidingWindowArbiter.vote(new Ballot(testID), incomingTestExecution) should be (None)
   }
 
