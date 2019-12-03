@@ -23,6 +23,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'maven-publish'
+}
+
 apply plugin: 'base'
 apply plugin: 'java'
 apply plugin: 'checkstyle'
@@ -37,7 +41,6 @@ apply plugin: 'nebula.release'
 apply plugin: 'nebula.maven-resolved-dependencies'
 apply plugin: 'org.scoverage'
 apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply from: file("${rootDir}/versionInfo.gradle")
 
@@ -256,6 +259,16 @@ static boolean isSnapshot(String inferredVersion) {
     inferredVersion.endsWith("-SNAPSHOT") || inferredVersion.contains("-dev.") || inferredVersion.contains(".dev.")
 }
 
+// sonatype doesn't support gradle module metadata (gradle 6 auto feature) yet
+// see https://discuss.gradle.org/t/unable-to-publish-artifact-to-mavencentral/33727
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}
+
+// for some reason, project description is not being generated when included in the publishing pom block
+// so including it here (to pass sonatype staging check)
+project.description = 'A library for scientific performance testing.'
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -267,7 +280,6 @@ publishing {
             artifact scaladocJar
             pom {
                 name = 'warp-core'
-                description = 'A library for scientific performance testing.'
                 url = 'https://workday.github.io/warp-core/'
                 licenses {
                     license {
