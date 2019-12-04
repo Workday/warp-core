@@ -262,10 +262,6 @@ tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
 
-// for some reason, project description is not being generated when included in the publishing pom block
-// so moving it here (to pass sonatype staging check)
-// project.description = 'A library for scientific performance testing.'
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
