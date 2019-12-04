@@ -263,8 +263,8 @@ tasks.withType(GenerateModuleMetadata) {
 }
 
 // for some reason, project description is not being generated when included in the publishing pom block
-// so including it here (to pass sonatype staging check)
-project.description = 'A library for scientific performance testing.'
+// so moving it here (to pass sonatype staging check)
+// project.description = 'A library for scientific performance testing.'
 
 publishing {
     publications {
@@ -277,6 +277,7 @@ publishing {
             artifact scaladocJar
             pom {
                 name = 'warp-core'
+                project.description = 'A library for scientific performance testing.'
                 url = 'https://workday.github.io/warp-core/'
                 licenses {
                     license {
