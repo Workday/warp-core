@@ -23,10 +23,6 @@ buildscript {
     }
 }
 
-plugins {
-    id 'maven-publish'
-}
-
 apply plugin: 'base'
 apply plugin: 'java'
 apply plugin: 'checkstyle'
@@ -41,6 +37,7 @@ apply plugin: 'nebula.release'
 apply plugin: 'nebula.maven-resolved-dependencies'
 apply plugin: 'org.scoverage'
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply from: file("${rootDir}/versionInfo.gradle")
 
