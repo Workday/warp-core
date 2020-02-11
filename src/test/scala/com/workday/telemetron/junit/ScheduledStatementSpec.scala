@@ -1,6 +1,5 @@
 package com.workday.telemetron.junit
 
-import java.lang.annotation.Annotation
 
 import com.workday.telemetron.ResultReporter
 import com.workday.telemetron.annotation.Schedule

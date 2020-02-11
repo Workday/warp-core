@@ -5,7 +5,6 @@ import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.common.WarpPropertyLike
 import com.workday.warp.logger.WriterConfig
 import com.workday.warp.persistence.Tag
-import org.pmw.tinylog.writers.Writer
 
 /**
   * This trait should be mixed in and overridden with values that can be passed to create instances of

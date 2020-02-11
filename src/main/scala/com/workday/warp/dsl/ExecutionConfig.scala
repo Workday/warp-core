@@ -3,7 +3,6 @@ package com.workday.warp.dsl
 import com.workday.telemetron.math.DistributionLike
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.traits.ArbiterLike
-import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.persistence.Tag

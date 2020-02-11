@@ -5,7 +5,6 @@ import com.workday.warp.collectors.{AbstractMeasurementCollectionController, Def
 import com.workday.warp.common.{CoreWarpProperty, WarpPropertyLike}
 import com.workday.warp.logger.WriterConfig
 import com.workday.warp.persistence.Tag
-import org.pmw.tinylog.writers.Writer
 
 /**
   * Defines default dependency injection bindings for [[DefaultMeasurementCollectionController]] based on the values
