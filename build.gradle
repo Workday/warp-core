@@ -100,7 +100,6 @@ dependencies {
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
 
-    // transform .scala files into javadoc'able .java files before running the regular javadoc
     scalaCompilerPlugins "org.scalameta:semanticdb-scalac_${project.scalaVersion}:${versions.semanticDb}"
 }
 
@@ -111,7 +110,7 @@ sourceSets {
         scala {
             srcDir 'src/main/java'
             srcDir 'src/main/scala'
-            // we want our generated code to live in a separate directory so we can easily skip scalastyle,
+            // we want our generated code to live in a separate directory so we can easily skip scalastyle and scalafix,
             // however its convenient to treat this as part of the same source set and compile everything together
             srcDir 'src/generated/scala'
         }
