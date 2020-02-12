@@ -1,20 +1,5 @@
 group = 'com.workday.warp'
 
-/**
- * Thrown when an unsupported scala version is being used.
- */
-class UnsupportedScalaVersionException extends RuntimeException {
-    UnsupportedScalaVersionException(String message, Throwable cause) {
-        super(message, cause)
-    }
-
-    UnsupportedScalaVersionException(String message) {
-        super(message)
-    }
-}
-
-
-
 // dependency versions, keep in alphabetical order
 // please declare your dependencies using the following syntax:
 //   compile "com.h2database:h2:${versions.h2}"
@@ -43,6 +28,7 @@ project.ext.versions = [
     , nebulaRelease: '13.0.0'
     , nebulaPublish: '14.1.1'
     , scalactic: '3.0.+'
+    , scalafix: '0.1.0-beta.2'
     , scalaMultiversion: '1.+'
     , scalatest: '3.0.+'
     , scalaStyle: '1.0.0'
