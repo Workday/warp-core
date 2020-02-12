@@ -42,7 +42,7 @@ We use [scalafix](https://scalacenter.github.io/scalafix/) to automatically refa
 we also need to use semanticdb scala compiler plugin, which harvests and dumps semantic information about the symbols and types in our program.
 Scalafix semantic rules depend on semanticdb compiler output. Scalafix should be run like this:
 ```
-$ ./gradlew clean compileTestScala scalafix compileTestScala
+$ ./gradlew clean scalafix
 ```
 
 
