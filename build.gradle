@@ -77,6 +77,8 @@ configurations {
  * On the other hand, if our usage of a 3rd-party library is limited to private members or method bodies,
  * we can mark that library as implementation scope.
  *
+ * Also note that we should prefer implementation over api whenever possible.
+ *
  * https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_recognizing_dependencies
  */
 // keep in alphabetical order
