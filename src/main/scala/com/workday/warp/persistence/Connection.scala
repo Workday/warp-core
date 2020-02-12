@@ -20,8 +20,6 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success, Try}
 
-import scala.util.Random
-
 /**
   * Created by tomas.mccandless on 10/6/16.
   */
