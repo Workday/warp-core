@@ -29,7 +29,7 @@ buildscript {
 }
 
 apply plugin: 'base'
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'checkstyle'
 apply plugin: 'scala'
 apply plugin: 'scalaStyle'
@@ -68,29 +68,45 @@ configurations {
     scalaCompilerPlugins { transitive = false }
 }
 
+/**
+ * When adding new dependencies, we must be mindful of scope, eg api or implementation.
+ * The former will be exposed transitively to our consumers compile classpath.
+ *
+ * If any types from a 3rd-party library are used by us as superclasses, method parameters, or method return types,
+ * that library should be added under api scope.
+ * On the other hand, if our usage of a 3rd-party library is limited to private members or method bodies,
+ * we can mark that library as implementation scope.
+ *
+ * Also note that we should prefer implementation over api whenever possible.
+ *
+ * https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_recognizing_dependencies
+ */
 // keep in alphabetical order
 dependencies {
+    api "com.google.inject:guice:${versions.guice}"
+    api "com.typesafe.slick:slick_%%:${versions.slick}"
+    api "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
+    // Could not exclude concrete logger implementation due to it being directly used within gatling-app
+    api "io.gatling:gatling-app:${versions.gatling}"
+    api "org.flywaydb:flyway-core:${versions.flyway}"
+    // used for custom rules and runners
+    api "junit:junit:${versions.junit}"
+    api "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
+    // used for linear algebra implicits
+    api "org.apache.commons:commons-math3:${versions.math3}"
+    api "org.influxdb:influxdb-java:${versions.influxDbClient}"
+    // used for custom matchers
+    api "org.scalactic:scalactic_%%:${versions.scalactic}"
+    api "org.scalatest:scalatest_%%:${versions.scalatest}"
+    // used for custom log writers
+    api "org.tinylog:tinylog:${versions.tinylog}"
+
     implementation "com.google.code.gson:gson:${versions.gson}"
     implementation "com.google.guava:guava:${versions.guava}"
-    implementation "com.google.inject:guice:${versions.guice}"
     implementation "com.typesafe:config:${versions.typesafeConfig}"
-    implementation "com.typesafe.slick:slick_%%:${versions.slick}"
-    implementation "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
     implementation "commons-io:commons-io:${versions.commonsIo}"
-    // Could not exclude concrete logger implementation due to it being directly used within gatling-app
-    implementation "io.gatling:gatling-app:${versions.gatling}"
-    implementation "io.gatling:gatling-core:${versions.gatling}"
-    implementation "io.gatling:gatling-http:${versions.gatling}"
-    implementation "junit:junit:${versions.junit}"
-    implementation "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
-    implementation "org.apache.commons:commons-math3:${versions.math3}"
-    implementation "org.flywaydb:flyway-core:${versions.flyway}"
-    implementation "org.influxdb:influxdb-java:${versions.influxDbClient}"
     implementation "org.scala-lang:scala-library:%scala-version%"
     implementation "org.scala-lang:scala-reflect:%scala-version%"
-    implementation "org.scalactic:scalactic_%%:${versions.scalactic}"
-    implementation "org.scalatest:scalatest_%%:${versions.scalatest}"
-    implementation "org.tinylog:tinylog:${versions.tinylog}"
 
     implementation files(org.gradle.internal.jvm.Jvm.current().toolsJar)
 
