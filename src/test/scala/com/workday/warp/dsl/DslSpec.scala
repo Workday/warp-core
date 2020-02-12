@@ -427,7 +427,7 @@ class DslSpec extends WarpJUnitSpec with Matchers {
     val someTags: List[Tag] =
       List(DefinitionTag("some instance id", "some value"), ExecutionTag("some other key", "some other value"))
     // checking the implicit
-    val tags: List[Tag] = DefinitionTag("instance id 1", "some value")
+    DefinitionTag("instance id 1", "some value")
     val someConfig: ExecutionConfig = using testId "com.workday.warp.dsl" tags someTags
     Researcher(someConfig).collectionController().tags should be (someTags)
   }
@@ -473,7 +473,7 @@ class DslSpec extends WarpJUnitSpec with Matchers {
       val badCastList: List[TrialResult[Int]] = using no collectors measuring { "hello" }
       badCastList.length should be (1)
       // Unbox value. Should throw ClassCastException
-      val i: Int = badCastList.head.maybeResult.get
+      badCastList.head.maybeResult.get
     }
   }
 

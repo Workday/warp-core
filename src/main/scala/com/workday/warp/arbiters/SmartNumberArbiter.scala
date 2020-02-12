@@ -9,7 +9,7 @@ import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.arbiters.traits.{ArbiterLike, CanReadHistory}
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPca, RobustPcaRunner}
+import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException

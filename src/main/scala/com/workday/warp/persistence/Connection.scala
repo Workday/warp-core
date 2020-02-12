@@ -11,7 +11,6 @@ import com.typesafe.config.ConfigFactory
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
-import slick.dbio.DBIOAction
 import org.pmw.tinylog.Logger
 import slick.jdbc.{JdbcDataSource, TransactionIsolation}
 import slick.util.ClassLoaderUtil

@@ -8,6 +8,9 @@ buildscript {
         maven {
             url  "https://dl.bintray.com/ngbinh/maven"
         }
+        maven {
+            url  "https://dl.bintray.com/cosmicsilence/maven" // soon on the Gradle Plugin Portal :)
+        }
     }
 
     dependencies {
@@ -16,6 +19,8 @@ buildscript {
         classpath "com.netflix.nebula:gradle-git-scm-plugin:${versions.nebulaGit}"
         classpath "com.netflix.nebula:nebula-release-plugin:${versions.nebulaRelease}"
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
+        // TODO consume a final release instead of a beta
+        classpath "io.github.cosmicsilence:gradle-scalafix:${versions.scalafix}"
         classpath "org.ajoberstar.grgit:grgit-gradle:${versions.gradleGit}"
         classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin${project.scalaSuffix}:${versions.scalaStyle}"
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
@@ -30,6 +35,7 @@ apply plugin: 'scala'
 apply plugin: 'scalaStyle'
 apply plugin: 'idea'
 apply plugin: 'com.adtran.scala-multiversion-plugin'
+apply plugin: 'io.github.cosmicsilence.scalafix'
 apply plugin: 'org.ajoberstar.grgit'
 apply plugin: 'nebula.dependency-lock'
 apply plugin: 'nebula.gradle-git-scm'
@@ -56,6 +62,11 @@ if (project.hasProperty("teamcity")) {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+configurations {
+    // plugins won't show up as dependencies of the final output
+    scalaCompilerPlugins { transitive = false }
+}
 
 /**
  * When adding new dependencies, we must be mindful of scope, eg api or implementation.
@@ -102,6 +113,8 @@ dependencies {
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
+
+    scalaCompilerPlugins "org.scalameta:semanticdb-scalac_${project.scalaVersion}:${versions.semanticDb}"
 }
 
 sourceSets {
@@ -111,7 +124,7 @@ sourceSets {
         scala {
             srcDir 'src/main/java'
             srcDir 'src/main/scala'
-            // we want our generated code to live in a separate directory so we can easily skip scalastyle,
+            // we want our generated code to live in a separate directory so we can easily skip scalastyle and scalafix,
             // however its convenient to treat this as part of the same source set and compile everything together
             srcDir 'src/generated/scala'
         }
@@ -158,6 +171,14 @@ task scaladocJar(type: Jar) {
 scaladoc {
     classpath = sourceSets.main.runtimeClasspath
     destinationDir file("$rootDir/gh-pages-src/static/scaladoc/${project.name}")
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = [
+            '-Ywarn-unused',
+            '-Yrangepos',
+            '-Xplugin:' + configurations.scalaCompilerPlugins.asPath
+    ]
 }
 
 // copy config template into a usable place
