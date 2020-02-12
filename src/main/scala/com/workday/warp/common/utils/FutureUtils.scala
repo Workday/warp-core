@@ -5,8 +5,6 @@ import java.util.concurrent.Executors
 import com.workday.warp.common.CoreWarpProperty._
 import org.pmw.tinylog.Logger
 
-import scala.util.Random
-
 import scala.concurrent.{Await, Future, ExecutionContext}
 import scala.concurrent.duration._
 import scala.util.{Try, Failure, Success}
