@@ -9,8 +9,6 @@ import com.google.gson._
 import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.utils.TypeAliases._
 
-import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
 import scala.util.{Failure, Success, Try}
 
 /**
