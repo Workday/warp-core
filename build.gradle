@@ -63,11 +63,6 @@ if (project.hasProperty("teamcity")) {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-configurations {
-    // plugins won't show up as dependencies of the final output
-    scalaCompilerPlugins { transitive = false }
-}
-
 /**
  * When adding new dependencies, we must be mindful of scope, eg api or implementation.
  * The former will be exposed transitively to our consumers compile classpath.
@@ -115,8 +110,6 @@ dependencies {
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
-
-    scalaCompilerPlugins "org.scalameta:semanticdb-scalac_${project.scalaVersion}:${versions.semanticDb}"
 }
 
 sourceSets {
@@ -177,9 +170,8 @@ scaladoc {
 
 tasks.withType(ScalaCompile) {
     scalaCompileOptions.additionalParameters = [
-            '-Ywarn-unused',
-            '-Yrangepos',
-            '-Xplugin:' + configurations.scalaCompilerPlugins.asPath
+            // needed for "RemoveUnused" scalafix rule
+            '-Ywarn-unused'
     ]
 }
 
