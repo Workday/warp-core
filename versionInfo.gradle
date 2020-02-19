@@ -28,7 +28,7 @@ project.ext.versions = [
     , nebulaRelease: '13.0.0'
     , nebulaPublish: '14.1.1'
     , scalactic: '3.0.+'
-    , scalafix: '0.1.0-beta.2'
+    , scalafix: '0.1.0-beta.5'
     , scalaMultiversion: '1.+'
     , scalatest: '3.0.+'
     , scalaStyle: '1.0.0'

@@ -35,13 +35,14 @@ apply plugin: 'scala'
 apply plugin: 'scalaStyle'
 apply plugin: 'idea'
 apply plugin: 'com.adtran.scala-multiversion-plugin'
-apply plugin: 'io.github.cosmicsilence.scalafix'
 apply plugin: 'org.ajoberstar.grgit'
 apply plugin: 'nebula.dependency-lock'
 apply plugin: 'nebula.gradle-git-scm'
 apply plugin: 'nebula.release'
 apply plugin: 'nebula.maven-resolved-dependencies'
 apply plugin: 'org.scoverage'
+// must be applied after scoverage
+apply plugin: 'io.github.cosmicsilence.scalafix'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
@@ -267,6 +268,11 @@ scoverage {
 
 coveralls {
     coberturaReportPath = "${buildDir}/reports/scoverage/cobertura.xml"
+}
+
+scalafix {
+    excludes = ["**/generated/**"]
+    ignoreSourceSets = ["scoverage"]
 }
 
 
