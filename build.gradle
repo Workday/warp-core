@@ -271,7 +271,7 @@ coveralls {
 }
 
 scalafix {
-    excludes = ["**/generated/**"]
+    excludes = ["**/persistence/model/**"]
     ignoreSourceSets = ["scoverage"]
 }
 
