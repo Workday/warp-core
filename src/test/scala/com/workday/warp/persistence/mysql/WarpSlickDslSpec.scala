@@ -108,7 +108,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Test
   @Category(Array(classOf[UnitTest]))
   /** Tests UNIX_TIMESTAMP (Date) dsl. */
-  def returnUNIXTimeStampDate(): Unit = {
+  def returnUnixTimeStampDate(): Unit = {
     val date: Rep[java.sql.Date] = new sql.Date(Instant.now.toEpochMilli)
     val query: Rep[Long] = date unixTimestamp()
     val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
