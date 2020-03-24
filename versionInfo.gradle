@@ -1,36 +1,5 @@
 group = 'com.workday.warp'
 
-/**
- * Thrown when an unsupported scala version is being used.
- */
-class UnsupportedScalaVersionException extends RuntimeException {
-    UnsupportedScalaVersionException(String message, Throwable cause) {
-        super(message, cause)
-    }
-
-    UnsupportedScalaVersionException(String message) {
-        super(message)
-    }
-}
-
-
-/**
- * Determines the gatling version we should use.
- *
- * This is a function of the scala version we are currently building with.
- *
- * @return version of the gatling library that we should depend on.
- */
-def gatlingVersion() {
-    String scalaSuffix = project.findProperty("scalaSuffix")
-
-    if (scalaSuffix == '_2.11') return '2.2.5'
-    else if (scalaSuffix == '_2.12') return '2.3.1'
-    else throw new UnsupportedScalaVersionException("$scalaSuffix is not a supported scala version suffix".toString())
-}
-
-
-
 // dependency versions, keep in alphabetical order
 // please declare your dependencies using the following syntax:
 //   compile "com.h2database:h2:${versions.h2}"
@@ -43,9 +12,9 @@ project.ext.versions = [
     , commonsIo: '2.6'
     , coveralls: '2.8.2'
     , flyway: '5.2.1'
-    , gatling: gatlingVersion()
-    , gradleGit: '1.7.2'
-    , gradleScoverage: '2.3.0'
+    , gatling: '3.2.1'
+    , gradleGit: '4.0.0-rc.1'
+    , gradleScoverage: '3.2.0'
     , guava: '27.0-jre'
     , guice: '4.2.2'
     , gson: '2.8.5'
@@ -54,15 +23,17 @@ project.ext.versions = [
     , junit: '4.12'
     , math3: '3.6.1'
     , mysqlConnector: '8.0.16'
-    , nebulaDependencyLock: '5.0.0'
-    , nebulaGit: '3.0.1'
-    , nebulaRelease: '6.3.5'
-    , nebulaPublish: '8.2.0'
+    , nebulaDependencyLock: '8.3.0'
+    , nebulaGit: '4.2.0'
+    , nebulaRelease: '13.0.0'
+    , nebulaPublish: '14.1.1'
     , scalactic: '3.0.+'
+    , scalafix: '0.1.0-beta.5'
     , scalaMultiversion: '1.+'
     , scalatest: '3.0.+'
-    , scalaStyle: '1.0.1'
+    , scalaStyle: '1.0.0'
     , scalacScoverage: '1.3.1'
+    , semanticDb: '4.3.0'
     , slick: '3.2.3'
     , tinylogSlf4jBinding: '1.3.6'
     , tinylog: '1.3.6'

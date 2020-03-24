@@ -4,7 +4,6 @@ import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import org.junit.Test
 import org.junit.experimental.categories.Category
-import org.pmw.tinylog.Logger
 
 import scala.util.Random
 

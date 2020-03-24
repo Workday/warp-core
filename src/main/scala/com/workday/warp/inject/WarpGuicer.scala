@@ -26,14 +26,14 @@ object WarpGuicer {
 
   type WarpModule = AbstractModule with HasWarpBindings
 
-  val moduleProp: String = "wd.warp.inject.module"
-  val moduleEnvVar: String = PropertyEntry(moduleProp).envVarName
+  private val moduleProp: String = "wd.warp.inject.module"
+  private[inject] val moduleEnvVar: String = PropertyEntry(moduleProp).envVarName
 
   // TODO support csv values?
   // in that case, we don't need to ensure that at least one of the modules is the correct type (ControllerModule)
-  val maybeModuleClass: Option[String] = sys.env.get(this.moduleEnvVar).orElse(sys.props.get(this.moduleProp))
+  private val maybeModuleClass: Option[String] = sys.env.get(this.moduleEnvVar).orElse(sys.props.get(this.moduleProp))
 
-  val moduleClass: Class[WarpModule] = maybeModuleClass match {
+  private val moduleClass: Class[WarpModule] = maybeModuleClass match {
     case Some(className) =>
       Logger.info(s"will attempt using module class $className")
       Class.forName(className).asInstanceOf[Class[WarpModule]]
@@ -43,7 +43,7 @@ object WarpGuicer {
       module
   }
 
-  val moduleConstructor: Constructor[WarpModule] = this.moduleClass.getConstructor(
+  private val moduleConstructor: Constructor[WarpModule] = this.moduleClass.getConstructor(
     classOf[String], classOf[List[Tag]]
   )
 

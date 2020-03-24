@@ -11,7 +11,6 @@ import com.typesafe.config.ConfigFactory
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
-import slick.dbio.DBIOAction
 import org.pmw.tinylog.Logger
 import slick.jdbc.{JdbcDataSource, TransactionIsolation}
 import slick.util.ClassLoaderUtil
@@ -83,7 +82,7 @@ trait Connection {
       case Failure(exception) =>
         if (retries < 0) throw exception
         else {
-          Logger.warn(s"error in database operation: ${exception.getMessage}\n going to retry.")
+          Logger.trace(s"error in database operation: ${exception.getMessage}\n going to retry.")
           // back off a bit before retrying
           Thread.sleep(50)
           this.runWithRetries(action, retries - 1)

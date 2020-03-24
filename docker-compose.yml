@@ -11,7 +11,7 @@ services:
             - "${WARP_CORE_MYSQL_PORT}:3306"
         privileged: true
         # consider turning off general_log in production for performance
-        command: ['mysqld', '--innodb-print-all-deadlocks=true', '--general_log=1', '--sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION']
+        command: ['mysqld', '--innodb-print-all-deadlocks=true', '--general_log=1', '--innodb_lock_wait_timeout=100', '--sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION']
     influx:
         image: influxdb:${INFLUX_VERSION}
         ports:

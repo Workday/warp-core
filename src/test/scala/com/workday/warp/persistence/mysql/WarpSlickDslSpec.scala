@@ -13,7 +13,7 @@ import java.util.{Calendar, TimeZone, Date => JUDate}
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import org.junit.experimental.categories.Category
-import org.junit.{Before, Test}
+import org.junit.Test
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
@@ -108,7 +108,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Test
   @Category(Array(classOf[UnitTest]))
   /** Tests UNIX_TIMESTAMP (Date) dsl. */
-  def returnUNIXTimeStampDate(): Unit = {
+  def returnUnixTimeStampDate(): Unit = {
     val date: Rep[java.sql.Date] = new sql.Date(Instant.now.toEpochMilli)
     val query: Rep[Long] = date unixTimestamp()
     val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)

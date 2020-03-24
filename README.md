@@ -36,6 +36,15 @@ $ export COVERALLS_REPO_TOKEN=abcdefg
 $ ./gradlew clean reportScoverage coveralls
 ```
 
+## Scalafix
+
+We use [scalafix](https://scalacenter.github.io/scalafix/) to automatically refactor code. Since we are interested in using semantic rules,
+we also need to use semanticdb scala compiler plugin, which harvests and dumps semantic information about the symbols and types in our program.
+Scalafix semantic rules depend on semanticdb compiler output. Scalafix should be run like this:
+```
+$ ./gradlew clean scalafix
+```
+
 
 ## Publishing
 We use the `maven-publish` gradle plugin.
@@ -84,6 +93,7 @@ will use just one scala version. If you need to run with all configured scala ve
 ```
 $ ./gradlew -PallScalaVersions test
 ```
+Since some of our dependencies are not cross-compiled, currently we only build for 2.12.
 
 
 ## Versioning

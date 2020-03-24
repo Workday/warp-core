@@ -1,10 +1,16 @@
 buildscript {
     // set a valid scala suffix for the buildscript itself
-    project.ext.scalaSuffix = '_2.11'
+    project.ext.scalaSuffix = '_2.12'
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
 		jcenter()
+        maven {
+            url  "https://dl.bintray.com/ngbinh/maven"
+        }
+        maven {
+            url  "https://dl.bintray.com/cosmicsilence/maven" // soon on the Gradle Plugin Portal :)
+        }
     }
 
     dependencies {
@@ -13,7 +19,9 @@ buildscript {
         classpath "com.netflix.nebula:gradle-git-scm-plugin:${versions.nebulaGit}"
         classpath "com.netflix.nebula:nebula-release-plugin:${versions.nebulaRelease}"
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
-        classpath "org.ajoberstar:grgit:${versions.gradleGit}"
+        // TODO consume a final release instead of a beta
+        classpath "io.github.cosmicsilence:gradle-scalafix:${versions.scalafix}"
+        classpath "org.ajoberstar.grgit:grgit-gradle:${versions.gradleGit}"
         classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin${project.scalaSuffix}:${versions.scalaStyle}"
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
@@ -21,7 +29,7 @@ buildscript {
 }
 
 apply plugin: 'base'
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'checkstyle'
 apply plugin: 'scala'
 apply plugin: 'scalaStyle'
@@ -33,6 +41,8 @@ apply plugin: 'nebula.gradle-git-scm'
 apply plugin: 'nebula.release'
 apply plugin: 'nebula.maven-resolved-dependencies'
 apply plugin: 'org.scoverage'
+// must be applied after scoverage
+apply plugin: 'io.github.cosmicsilence.scalafix'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
@@ -54,36 +64,49 @@ if (project.hasProperty("teamcity")) {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+/**
+ * When adding new dependencies, we must be mindful of scope, eg api or implementation.
+ * The former will be exposed transitively to our consumers compile classpath.
+ *
+ * If any types from a 3rd-party library are used by us as superclasses, method parameters, or method return types,
+ * that library should be added under api scope.
+ * On the other hand, if our usage of a 3rd-party library is limited to private members or method bodies,
+ * we can mark that library as implementation scope.
+ *
+ * Also note that we should prefer implementation over api whenever possible.
+ *
+ * https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_recognizing_dependencies
+ */
 // keep in alphabetical order
 dependencies {
-    compile "com.google.code.gson:gson:${versions.gson}"
-    compile "com.google.guava:guava:${versions.guava}"
-    compile "com.google.inject:guice:${versions.guice}"
-    compile "com.typesafe:config:${versions.typesafeConfig}"
-    compile "com.typesafe.slick:slick_%%:${versions.slick}"
-    compile "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
-    compile "commons-io:commons-io:${versions.commonsIo}"
+    api "com.google.inject:guice:${versions.guice}"
+    api "com.typesafe.slick:slick_%%:${versions.slick}"
+    api "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
     // Could not exclude concrete logger implementation due to it being directly used within gatling-app
-    compile "io.gatling:gatling-app:${versions.gatling}"
-    compile "io.gatling:gatling-core:${versions.gatling}"
-    compile "io.gatling:gatling-http:${versions.gatling}"
-    compile "junit:junit:${versions.junit}"
-    compile "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
-    compile "org.apache.commons:commons-math3:${versions.math3}"
-    compile "org.flywaydb:flyway-core:${versions.flyway}"
-    compile "org.influxdb:influxdb-java:${versions.influxDbClient}"
-    compile "org.scala-lang:scala-library:%scala-version%"
-    compile "org.scala-lang:scala-reflect:%scala-version%"
-    compile "org.scalactic:scalactic_%%:${versions.scalactic}"
-    compile "org.scalatest:scalatest_%%:${versions.scalatest}"
-    compile "org.tinylog:tinylog:${versions.tinylog}"
+    api "io.gatling:gatling-app:${versions.gatling}"
+    api "org.flywaydb:flyway-core:${versions.flyway}"
+    // used for custom rules and runners
+    api "junit:junit:${versions.junit}"
+    api "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
+    // used for linear algebra implicits
+    api "org.apache.commons:commons-math3:${versions.math3}"
+    api "org.influxdb:influxdb-java:${versions.influxDbClient}"
+    // used for custom matchers
+    api "org.scalactic:scalactic_%%:${versions.scalactic}"
+    api "org.scalatest:scalatest_%%:${versions.scalatest}"
+    // used for custom log writers
+    api "org.tinylog:tinylog:${versions.tinylog}"
 
-    compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
+    implementation "com.google.code.gson:gson:${versions.gson}"
+    implementation "com.google.guava:guava:${versions.guava}"
+    implementation "com.typesafe:config:${versions.typesafeConfig}"
+    implementation "commons-io:commons-io:${versions.commonsIo}"
+    implementation "org.scala-lang:scala-library:%scala-version%"
+    implementation "org.scala-lang:scala-reflect:%scala-version%"
 
-    testCompile "io.gatling:gatling-commons:${versions.gatling}"
+    implementation files(org.gradle.internal.jvm.Jvm.current().toolsJar)
 
-    scoverage "org.scoverage:scalac-scoverage-plugin_%%:${versions.scalacScoverage}"
-    scoverage "org.scoverage:scalac-scoverage-runtime_%%:${versions.scalacScoverage}"
+    testImplementation "io.gatling:gatling-commons:${versions.gatling}"
 
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
@@ -97,7 +120,7 @@ sourceSets {
         scala {
             srcDir 'src/main/java'
             srcDir 'src/main/scala'
-            // we want our generated code to live in a separate directory so we can easily skip scalastyle,
+            // we want our generated code to live in a separate directory so we can easily skip scalastyle and scalafix,
             // however its convenient to treat this as part of the same source set and compile everything together
             srcDir 'src/generated/scala'
         }
@@ -125,25 +148,32 @@ processResources {
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
 // fake javadoc jar to pass sonatype rules
 // See https://central.sonatype.org/pages/requirements.html
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from new File('javadoc-fake')
 }
 
 task scaladocJar(type: Jar) {
-    classifier = 'scaladoc'
+    archiveClassifier = 'scaladoc'
     from scaladoc.destinationDir
 }
 
 scaladoc {
     classpath = sourceSets.main.runtimeClasspath
     destinationDir file("$rootDir/gh-pages-src/static/scaladoc/${project.name}")
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = [
+            // needed for "RemoveUnused" scalafix rule
+            '-Ywarn-unused'
+    ]
 }
 
 // copy config template into a usable place
@@ -167,16 +197,6 @@ task unitTest(type: Test) {
 }
 
 test {
-    minHeapSize = "500m"
-    maxHeapSize = "8g"
-
-    testLogging {
-        events 'started', 'passed'
-        showStandardStreams = true
-    }
-}
-
-testScoverage {
     minHeapSize = "500m"
     maxHeapSize = "8g"
 
@@ -241,11 +261,8 @@ scoverage {
     // Excluding autogenerated Tables
     excludedPackages = ["com.workday.warp.persistence.model", "com.workday.warp.examples"]
     excludedFiles = []
-}
 
-// Defaults: 75% of Statements. Other types of coverage: Line, Branch
-checkScoverage {
-    coverageType = 'Statement'
+    // Default Coverage Type is "Statement"
     minimumRate = 0.92
 }
 
@@ -253,11 +270,31 @@ coveralls {
     coberturaReportPath = "${buildDir}/reports/scoverage/cobertura.xml"
 }
 
+scalafix {
+    excludes = ["**/persistence/model/**"]
+    ignoreSourceSets = ["scoverage"]
+}
+
+
+// current workaround nebula incremental analysis failure
+// see: https://github.com/gradle/gradle/issues/6854
+configurations.all {
+    if (name.startsWith("incrementalScalaAnalysis")) {
+        extendsFrom = []
+    }
+}
+
 /**
  * @return true iff we are building a maven snapshot or a devSnapshot.
  */
 static boolean isSnapshot(String inferredVersion) {
     inferredVersion.endsWith("-SNAPSHOT") || inferredVersion.contains("-dev.") || inferredVersion.contains(".dev.")
+}
+
+// sonatype doesn't support gradle module metadata (gradle 6 auto feature) yet
+// see https://discuss.gradle.org/t/unable-to-publish-artifact-to-mavencentral/33727
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
 }
 
 publishing {
@@ -271,7 +308,7 @@ publishing {
             artifact scaladocJar
             pom {
                 name = 'warp-core'
-                description = 'A library for scientific performance testing.'
+                project.description = 'A library for scientific performance testing.'
                 url = 'https://workday.github.io/warp-core/'
                 licenses {
                     license {

@@ -8,7 +8,6 @@ import com.workday.warp.collectors.DefaultMeasurementCollectionController
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.scalatest.Matchers._
 import org.junit.Test
 import org.junit.experimental.categories.Category
 
@@ -26,7 +25,7 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
   @Category(Array(classOf[UnitTest]))
   def getHeapHistogramSpec(): Unit = {
     case class Cat()
-    val cats: List[Cat] = List.fill(1000)(new Cat)
+    List.fill(1000)(new Cat)
     val histogram: Seq[HeapHistogramEntry] = getHeapHistogram
 
     histogram.find(_.className.contains("HeapHistogramSpec$Cat")).map(_.numInstances) should be (Some(1000))
