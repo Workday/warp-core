@@ -7,11 +7,9 @@ import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import com.workday.warp.persistence.mysql.WarpSlickSingleColumnExtensionsSpec._
-import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
+import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
 import org.junit.experimental.categories.Category
-import TablesLike.TestExecutionRowLike
 import org.junit.{Before, Test}
-import slick.ast.LiteralNode
 
 /**
   * Created by ruiqi.wang

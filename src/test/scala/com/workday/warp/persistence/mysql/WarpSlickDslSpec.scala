@@ -13,7 +13,7 @@ import java.util.{Calendar, TimeZone, Date => JUDate}
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import org.junit.experimental.categories.Category
-import org.junit.{Before, Test}
+import org.junit.Test
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import WarpSlickDslSpec._
