@@ -29,6 +29,6 @@ class WarpStopwatchSpec extends WarpJUnitSpec {
     Thread.sleep(5)
     stopwatch.stop()
     val elapsed: Long = stopwatch.elapsedMilliseconds()
-    elapsed should be < 10L
+    elapsed should be < 15L
   }
 }

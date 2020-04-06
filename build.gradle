@@ -346,6 +346,10 @@ publishing {
     }
 }
 
+nebulaRelease {
+    addReleaseBranchPattern(".*feature")
+}
+
 signing {
     // only require signing for non-snapshot versions being published to maven central
     required {
