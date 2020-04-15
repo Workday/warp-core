@@ -94,6 +94,7 @@ dependencies {
     // used for custom matchers
     api "org.scalactic:scalactic_%%:${versions.scalactic}"
     api "org.scalatest:scalatest_%%:${versions.scalatest}"
+    api "org.scalatestplus:junit-4-12_%%:${versions.scalatestplus}"
     // used for custom log writers
     api "org.tinylog:tinylog:${versions.tinylog}"
 
