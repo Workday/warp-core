@@ -7,12 +7,11 @@ import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits._
 import org.junit.Test
 import org.junit.experimental.categories.Category
-import org.scalatest.Matchers
 
 /**
   * Created by tomas.mccandless on 7/22/16.
   */
-class DecoratedIntSpec extends WarpJUnitSpec with Matchers {
+class DecoratedIntSpec extends WarpJUnitSpec {
 
   /** Checks usage of `times` */
   @Test

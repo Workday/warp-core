@@ -7,12 +7,11 @@ import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits.DecoratedDuration
 import org.junit.Test
 import org.junit.experimental.categories.Category
-import org.scalatest.Matchers
 
 /**
   * Created by tomas.mccandless on 5/4/16.
   */
-class DurationUtilsSpec extends WarpJUnitSpec with Matchers {
+class DurationUtilsSpec extends WarpJUnitSpec {
 
   @Test
   @Category(Array(classOf[UnitTest]))

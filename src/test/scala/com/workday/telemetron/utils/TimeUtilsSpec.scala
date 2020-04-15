@@ -4,9 +4,9 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 import com.workday.warp.common.category.UnitTest
+import com.workday.warp.common.spec.WarpJUnitSpec
 import org.junit.Test
 import org.junit.experimental.categories.Category
-import org.scalatest.Matchers
 
 /**
   * A simple test to verify time formatting.
@@ -14,7 +14,7 @@ import org.scalatest.Matchers
   * Created by leslie.lam on 12/12/17
   * Based on java class created by michael.ottati on 9/17/15.
   */
-class TimeUtilsSpec extends Matchers {
+class TimeUtilsSpec extends WarpJUnitSpec {
 
   /**
     * Checks that we can create a human-readable [[Duration]].

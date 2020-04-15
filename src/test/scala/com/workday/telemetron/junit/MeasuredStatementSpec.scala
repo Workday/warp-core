@@ -8,14 +8,14 @@ import com.workday.warp.common.category.UnitTest
 import com.workday.warp.persistence.CorePersistenceAware
 import org.junit.experimental.categories.Category
 import org.junit.{AfterClass, Test}
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Created by leslie.lam on 1/17/2018
   *
   * Checks that Measured Statements persist response times.
   */
-class MeasuredStatementSpec extends TelemetronJUnitSpec with Matchers {
+class MeasuredStatementSpec extends TelemetronJUnitSpec {
 
   /**
     * A measured statement that reports a duration of 10 seconds.

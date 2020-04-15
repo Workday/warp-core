@@ -2,7 +2,8 @@ package com.workday.warp.common.spec
 
 import com.workday.telemetron.spec.HasTelemetron
 import com.workday.warp.common.utils.TryMatchers
-import org.scalatest._
+import org.scalatest.{Inside, Inspectors, OptionValues}
+import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.junit.{AssertionsForJUnit, JUnitSuite}
 
 /**

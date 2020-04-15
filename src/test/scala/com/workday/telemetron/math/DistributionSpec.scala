@@ -5,13 +5,12 @@ import com.workday.telemetron.spec.TelemetronJUnitSpec
 import com.workday.warp.common.category.UnitTest
 import org.junit.experimental.categories.Category
 import org.junit.Test
-import org.scalatest.Matchers
 
 /**
   * Created by leslie.lam on 12/12/17
   * Based on java class created tomas.mccandless
   */
-class DistributionSpec extends TelemetronJUnitSpec with Matchers {
+class DistributionSpec extends TelemetronJUnitSpec {
 
   @Test
   @Category(Array(classOf[UnitTest]))

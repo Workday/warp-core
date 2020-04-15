@@ -8,7 +8,6 @@ import com.workday.warp.common.category.UnitTest
 import org.junit.Test
 import org.junit.experimental.categories.Category
 import org.pmw.tinylog.Logger
-import org.scalatest.Matchers
 
 
 /**
@@ -17,7 +16,7 @@ import org.scalatest.Matchers
   * Created by leslie.lam on 12/12/17
   * Based on java class created by michael.ottati on 8/20/15.
   */
-class RepeatTimeRuleChainSpec extends TelemetronJUnitSpec with Matchers {
+class RepeatTimeRuleChainSpec extends TelemetronJUnitSpec {
 
   /**
     * Verify that test runs in under 1 second.

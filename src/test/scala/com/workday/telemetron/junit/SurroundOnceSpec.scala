@@ -1,23 +1,21 @@
 package com.workday.telemetron.junit
 
 import com.workday.telemetron.annotation.{AfterOnce, BeforeOnce, Schedule}
-import org.junit.{Rule, Test}
-import org.scalatest.Matchers
-import org.scalatestplus.junit.JUnitSuite
+import com.workday.telemetron.spec.TelemetronJUnitSpec
+import com.workday.warp.common.category.UnitTest
+import org.junit.experimental.categories.Category
+import org.junit.Test
 
 /**
   * Created by vignesh.kalidas on 2/8/17.
   */
-class SurroundOnceSpec extends JUnitSuite with Matchers {
-  private[this] val someTelemetronRule: TelemetronRule = TelemetronRule()
-
-  @Rule
-  def name: TelemetronRule = this.someTelemetronRule
+class SurroundOnceSpec extends TelemetronJUnitSpec {
 
   /**
     * Test whether the invocations counter has been decremented by the BeforeOnce method
     */
   @Test
+  @Category(Array(classOf[UnitTest]))
   def shouldBeOne(): Unit = SurroundOnceSpec.invocations should be (1)
 
   /**
@@ -25,6 +23,7 @@ class SurroundOnceSpec extends JUnitSuite with Matchers {
     * and also incremented by the AfterOnce method.
     */
   @Test
+  @Category(Array(classOf[UnitTest]))
   def shouldStillBeOne(): Unit = SurroundOnceSpec.invocations should be (1)
 
   /**
@@ -32,6 +31,7 @@ class SurroundOnceSpec extends JUnitSuite with Matchers {
     * AfterOnce method, with multiple threads and invocations
     */
   @Test
+  @Category(Array(classOf[UnitTest]))
   @Schedule(threads = 4, invocations = 128)
   def shouldStillBeOneMultithreaded(): Unit = SurroundOnceSpec.invocations should be (1)
 
@@ -40,6 +40,7 @@ class SurroundOnceSpec extends JUnitSuite with Matchers {
     * each test run, so its only requirement is to be greater than zero
     */
   @Test
+  @Category(Array(classOf[UnitTest]))
   def bothAnnotationsShouldWork(): Unit = SurroundOnceSpec.shouldBeNonZero should be > 0
 }
 

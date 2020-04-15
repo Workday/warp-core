@@ -18,7 +18,6 @@ import org.pmw.tinylog.Logger
 import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
-import org.scalatest.Matchers
 import org.scalatest.exceptions.TestFailedException
 
 import scala.util.Try
@@ -26,7 +25,7 @@ import scala.util.Try
 /**
   * Created by tomas.mccandless on 3/25/16.
   */
-class DslSpec extends WarpJUnitSpec with Matchers {
+class DslSpec extends WarpJUnitSpec {
 
   @Test
   @Category(Array(classOf[UnitTest]))

@@ -6,7 +6,7 @@ import com.workday.warp.common.category.UnitTest
 import org.junit.experimental.categories.Category
 import org.junit.{AfterClass, Before, Rule, Test}
 import org.pmw.tinylog.Logger
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Created by leslie.lam on 12/12/17
@@ -40,6 +40,7 @@ class RepeatSpec extends Matchers {
 }
 
 object RepeatSpec extends Matchers {
+
   /**
     * Invocation number on which we will intentionally fail the test
     */
@@ -57,5 +58,4 @@ object RepeatSpec extends Matchers {
   def verifyInvocationStopsOnTestFailure(): Unit = {
     RepeatSpec.invocations should be (RepeatSpec.failureInvocation)
   }
-
 }
