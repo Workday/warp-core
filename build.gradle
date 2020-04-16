@@ -6,11 +6,14 @@ buildscript {
     repositories {
 		jcenter()
         maven {
-            url  "https://dl.bintray.com/ngbinh/maven"
+            url "https://plugins.gradle.org/m2/"
         }
         maven {
-            url  "https://dl.bintray.com/cosmicsilence/maven" // soon on the Gradle Plugin Portal :)
+            url  "https://dl.bintray.com/ngbinh/maven"
         }
+//        maven {
+//            url  "https://dl.bintray.com/cosmicsilence/maven" // soon on the Gradle Plugin Portal :)
+//        }
     }
 
     dependencies {
