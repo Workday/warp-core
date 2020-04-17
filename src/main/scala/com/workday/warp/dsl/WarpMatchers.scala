@@ -7,7 +7,7 @@ import com.workday.warp.collectors.ResponseTimeCollector
 import com.workday.warp.common.utils.Implicits.DecoratedDuration
 import com.workday.warp.math.linalg.RobustPcaRunner
 import org.scalatest.matchers.{BeMatcher, MatchResult, Matcher}
-import org.scalatest.words.ResultOfNotWordForAny
+import org.scalatest.matchers.dsl.ResultOfNotWordForAny
 
 /** Matchers to be used with scalatest.
   *

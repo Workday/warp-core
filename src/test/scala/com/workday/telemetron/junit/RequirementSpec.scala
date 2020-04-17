@@ -5,11 +5,10 @@ import java.util.concurrent.TimeUnit
 
 import com.workday.telemetron.RequirementViolationException
 import com.workday.telemetron.annotation.Required
-import com.workday.telemetron.spec.HasTelemetron
+import com.workday.telemetron.spec.TelemetronJUnitSpec
 import com.workday.warp.common.category.UnitTest
 import org.junit.experimental.categories.Category
 import org.junit.Test
-import org.scalatest.Matchers
 
 
 /**
@@ -18,7 +17,7 @@ import org.scalatest.Matchers
   * Created by leslie.lam on 12/12/17
   * Based on java class created by michael.ottati on 9/11/15.
   */
-class RequirementSpec extends HasTelemetron with Matchers {
+class RequirementSpec extends TelemetronJUnitSpec {
 
   @Test
   @Category(Array(classOf[UnitTest]))
@@ -62,11 +61,6 @@ class RequirementSpec extends HasTelemetron with Matchers {
     val thrown = this.telemetron.getThrown
     thrown.expect(classOf[RequirementViolationException])
     thrown.expectMessage("Response time requirement exceeded, specified: 0:00:00.010 (10 ms)")
-    try {
-      Thread.sleep(11)
-    }
-    catch {
-      case _: InterruptedException => Thread.currentThread.interrupt()
-    }
+    Thread.sleep(11)
   }
 }

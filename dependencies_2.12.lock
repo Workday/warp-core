@@ -330,7 +330,6 @@
         },
         "io.gatling:gatling-core": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -349,7 +348,6 @@
         },
         "io.gatling:gatling-http": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -551,7 +549,10 @@
         },
         "junit:junit": {
             "locked": "4.12",
-            "requested": "4.12"
+            "requested": "4.12",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
         },
         "net.debasishg:redisclient_2.12": {
             "locked": "3.10",
@@ -708,6 +709,7 @@
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12",
+                "org.scalatestplus:junit-4-12_2.12",
                 "org.typelevel:spire-macros_2.12"
             ]
         },
@@ -727,17 +729,27 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8",
+            "locked": "3.1.1",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.+"
+            "requested": "3.1.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8"
+            "locked": "3.1.1",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
+        },
+        "org.scalatestplus:junit-4-12_%%": {
+            "project": true,
+            "requested": "3.1.1.0"
+        },
+        "org.scalatestplus:junit-4-12_2.12": {
+            "locked": "3.1.1.0"
         },
         "org.simpleflatmapper:lightning-csv": {
             "locked": "7.0.3",
@@ -1057,7 +1069,6 @@
         },
         "io.gatling:gatling-core": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -1076,7 +1087,6 @@
         },
         "io.gatling:gatling-http": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -1278,7 +1288,10 @@
         },
         "junit:junit": {
             "locked": "4.12",
-            "requested": "4.12"
+            "requested": "4.12",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
         },
         "mysql:mysql-connector-java": {
             "locked": "8.0.16",
@@ -1439,6 +1452,7 @@
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12",
+                "org.scalatestplus:junit-4-12_2.12",
                 "org.typelevel:spire-macros_2.12"
             ]
         },
@@ -1458,17 +1472,27 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8",
+            "locked": "3.1.1",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.+"
+            "requested": "3.1.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8"
+            "locked": "3.1.1",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
+        },
+        "org.scalatestplus:junit-4-12_%%": {
+            "project": true,
+            "requested": "3.1.1.0"
+        },
+        "org.scalatestplus:junit-4-12_2.12": {
+            "locked": "3.1.1.0"
         },
         "org.simpleflatmapper:lightning-csv": {
             "locked": "7.0.3",
@@ -1788,7 +1812,6 @@
         },
         "io.gatling:gatling-core": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -1807,7 +1830,6 @@
         },
         "io.gatling:gatling-http": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -2009,7 +2031,10 @@
         },
         "junit:junit": {
             "locked": "4.12",
-            "requested": "4.12"
+            "requested": "4.12",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
         },
         "mysql:mysql-connector-java": {
             "locked": "8.0.16",
@@ -2170,6 +2195,7 @@
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12",
+                "org.scalatestplus:junit-4-12_2.12",
                 "org.typelevel:spire-macros_2.12"
             ]
         },
@@ -2189,17 +2215,27 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8",
+            "locked": "3.1.1",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.+"
+            "requested": "3.1.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8"
+            "locked": "3.1.1",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
+        },
+        "org.scalatestplus:junit-4-12_%%": {
+            "project": true,
+            "requested": "3.1.1.0"
+        },
+        "org.scalatestplus:junit-4-12_2.12": {
+            "locked": "3.1.1.0"
         },
         "org.simpleflatmapper:lightning-csv": {
             "locked": "7.0.3",
@@ -2242,12 +2278,6 @@
             "transitive": [
                 "io.pebbletemplates:pebble"
             ]
-        }
-    },
-    "scalaCompilerPlugins": {
-        "org.scalameta:semanticdb-scalac_2.12.10": {
-            "locked": "4.3.0",
-            "requested": "4.3.0"
         }
     },
     "scoverage": {
@@ -2529,7 +2559,6 @@
         },
         "io.gatling:gatling-core": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -2548,7 +2577,6 @@
         },
         "io.gatling:gatling-http": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -2750,7 +2778,10 @@
         },
         "junit:junit": {
             "locked": "4.12",
-            "requested": "4.12"
+            "requested": "4.12",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
         },
         "net.debasishg:redisclient_2.12": {
             "locked": "3.10",
@@ -2907,6 +2938,7 @@
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12",
+                "org.scalatestplus:junit-4-12_2.12",
                 "org.typelevel:spire-macros_2.12"
             ]
         },
@@ -2926,17 +2958,27 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8",
+            "locked": "3.1.1",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.+"
+            "requested": "3.1.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8"
+            "locked": "3.1.1",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
+        },
+        "org.scalatestplus:junit-4-12_%%": {
+            "project": true,
+            "requested": "3.1.1.0"
+        },
+        "org.scalatestplus:junit-4-12_2.12": {
+            "locked": "3.1.1.0"
         },
         "org.simpleflatmapper:lightning-csv": {
             "locked": "7.0.3",
@@ -3257,7 +3299,6 @@
         },
         "io.gatling:gatling-core": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app",
                 "io.gatling:gatling-charts",
@@ -3276,7 +3317,6 @@
         },
         "io.gatling:gatling-http": {
             "locked": "3.2.1",
-            "requested": "3.2.1",
             "transitive": [
                 "io.gatling:gatling-app"
             ]
@@ -3478,7 +3518,10 @@
         },
         "junit:junit": {
             "locked": "4.12",
-            "requested": "4.12"
+            "requested": "4.12",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
         },
         "mysql:mysql-connector-java": {
             "locked": "8.0.16",
@@ -3639,6 +3682,7 @@
                 "org.scala-lang:scala-reflect",
                 "org.scalactic:scalactic_2.12",
                 "org.scalatest:scalatest_2.12",
+                "org.scalatestplus:junit-4-12_2.12",
                 "org.typelevel:spire-macros_2.12"
             ]
         },
@@ -3658,17 +3702,27 @@
             "requested": "3.0.+"
         },
         "org.scalactic:scalactic_2.12": {
-            "locked": "3.0.8",
+            "locked": "3.1.1",
             "transitive": [
                 "org.scalatest:scalatest_2.12"
             ]
         },
         "org.scalatest:scalatest_%%": {
             "project": true,
-            "requested": "3.0.+"
+            "requested": "3.1.+"
         },
         "org.scalatest:scalatest_2.12": {
-            "locked": "3.0.8"
+            "locked": "3.1.1",
+            "transitive": [
+                "org.scalatestplus:junit-4-12_2.12"
+            ]
+        },
+        "org.scalatestplus:junit-4-12_%%": {
+            "project": true,
+            "requested": "3.1.1.0"
+        },
+        "org.scalatestplus:junit-4-12_2.12": {
+            "locked": "3.1.1.0"
         },
         "org.simpleflatmapper:lightning-csv": {
             "locked": "7.0.3",

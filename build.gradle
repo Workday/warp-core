@@ -6,10 +6,10 @@ buildscript {
     repositories {
 		jcenter()
         maven {
-            url  "https://dl.bintray.com/ngbinh/maven"
+            url "https://plugins.gradle.org/m2/"
         }
         maven {
-            url  "https://dl.bintray.com/cosmicsilence/maven" // soon on the Gradle Plugin Portal :)
+            url  "https://dl.bintray.com/ngbinh/maven"
         }
     }
 
@@ -19,7 +19,6 @@ buildscript {
         classpath "com.netflix.nebula:gradle-git-scm-plugin:${versions.nebulaGit}"
         classpath "com.netflix.nebula:nebula-release-plugin:${versions.nebulaRelease}"
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
-        // TODO consume a final release instead of a beta
         classpath "io.github.cosmicsilence:gradle-scalafix:${versions.scalafix}"
         classpath "org.ajoberstar.grgit:grgit-gradle:${versions.gradleGit}"
         classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin${project.scalaSuffix}:${versions.scalaStyle}"
@@ -94,6 +93,7 @@ dependencies {
     // used for custom matchers
     api "org.scalactic:scalactic_%%:${versions.scalactic}"
     api "org.scalatest:scalatest_%%:${versions.scalatest}"
+    api "org.scalatestplus:junit-4-12_%%:${versions.scalatestplus}"
     // used for custom log writers
     api "org.tinylog:tinylog:${versions.tinylog}"
 
