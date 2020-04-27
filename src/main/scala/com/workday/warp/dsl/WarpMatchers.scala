@@ -26,7 +26,7 @@ trait WarpMatchers {
     * @return a [[MatchResult]] for whether `responseTime` is less than `threshold`.
     */
   private[this] def matchResult(threshold: Duration,
-                                responseTimes: List[Option[Duration]],
+                                responseTimes: Seq[Option[Duration]],
                                 negate: Boolean = false): MatchResult = {
     // check if there exists a responseTime greater than the threshold; xor for negating the result
     // responseTimes.flatten removes any None values in List[Option[Duration]] and returns a List[Duration]
