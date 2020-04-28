@@ -4,6 +4,7 @@ import com.workday.telemetron.math.DistributionLike
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
+import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.persistence.Tag
 
@@ -226,7 +227,7 @@ case class ExecutionConfig(invocations: Int = 1,
     * @return a [[List]] of type [[TrialResult]] containing the measured response time.
     */
   @DslApi
-  def measure[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): List[TrialResult[TrialType]] =
+  def measure[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): Seq[TrialResult[TrialType]] =
     this.measuring[ResultType, TrialType](measuredFunction)
 
 
@@ -246,7 +247,7 @@ case class ExecutionConfig(invocations: Int = 1,
     * @return a [[List]] of type [[TrialResult]] containing the measured response time.
     */
   @DslApi
-  def measuring[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): List[TrialResult[TrialType]] = {
+  def measuring[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): Seq[TrialResult[TrialType]] = {
     val researcher: Researcher[ResultType, TrialType] = Researcher(this)
     researcher.runExperiment(measuredFunction)
   }
