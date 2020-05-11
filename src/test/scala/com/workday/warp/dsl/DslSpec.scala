@@ -305,6 +305,16 @@ class DslSpec extends WarpJUnitSpec {
     }
   }
 
+  /** Checks that we can match using different Seq subtypes */
+  @Test
+  @Category(Array(classOf[UnitTest]))
+  def seqMatching(): Unit = {
+    List(TrialResult(2 milliseconds)) should notExceedThreshold (10 milliseconds)
+    List(TrialResult(2 milliseconds)) should notExceed (10 milliseconds)
+    List(TrialResult(5 milliseconds)) should not exceed (10 milliseconds)
+    List(TrialResult(500 milliseconds)) should not exceed (0.5 seconds)
+  }
+
 
   /** Checks that we can measure a function over multiple invocations. */
   @Test
