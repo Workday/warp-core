@@ -127,7 +127,7 @@ trait WarpMatchers {
     *
     * @param negated a [[ResultOfNotWordForAny]] representing a negated match condition.
     */
-  implicit class NegatedMatcher[T <: TrialResult[Any]](negated: ResultOfNotWordForAny[Seq[T]]) {
+  implicit class NegatedMatcher[T <: TrialResult[Any], L[_] <: Iterable[_]](negated: ResultOfNotWordForAny[L[T]]) {
 
     /** Part of the dsl. Allows syntax like `should not exceed (64 seconds)`. Uses scalatest dsl to create a
       * [[Matcher]] and a [[MatchResult]] for the measured response time.
@@ -139,7 +139,7 @@ trait WarpMatchers {
       this.negated be BeMatcher[Seq[TrialResult[_]]] { left: Seq[TrialResult[_]] =>
         ResponseTimeCollector.updateThresholds(left, threshold)
 
-        val measuredResponseTimes: Seq[Option[Duration]] = left map { _.maybeResponseTime }
+        val measuredResponseTimes: Seq[Option[Duration]] = left.map(_.maybeResponseTime)
         matchResult(threshold, measuredResponseTimes, negate = true)
       }
     }
