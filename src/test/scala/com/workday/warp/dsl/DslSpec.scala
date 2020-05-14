@@ -312,7 +312,7 @@ class DslSpec extends WarpJUnitSpec {
     List(TrialResult(2 milliseconds)) should notExceedThreshold (10 milliseconds)
     List(TrialResult(2 milliseconds)) should notExceed (10 milliseconds)
 
-    Seq(TrialResult(5 milliseconds)) should not exceed (10 milliseconds)
+    List(TrialResult(5 milliseconds)) should not exceed (10 milliseconds)
     List(TrialResult(500 milliseconds)) should not exceed (0.5 seconds)
   }
 
