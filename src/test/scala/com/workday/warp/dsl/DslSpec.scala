@@ -311,9 +311,13 @@ class DslSpec extends WarpJUnitSpec {
   def seqMatching(): Unit = {
     List(TrialResult(2 milliseconds)) should notExceedThreshold (10 milliseconds)
     List(TrialResult(2 milliseconds)) should notExceed (10 milliseconds)
-
     List(TrialResult(5 milliseconds)) should not exceed (10 milliseconds)
     List(TrialResult(500 milliseconds)) should not exceed (0.5 seconds)
+
+    Vector(TrialResult(2 milliseconds)) should notExceedThreshold (10 milliseconds)
+    Vector(TrialResult(2 milliseconds)) should notExceed (10 milliseconds)
+    Vector(TrialResult(5 milliseconds)) should not exceed (10 milliseconds)
+    Vector(TrialResult(500 milliseconds)) should not exceed (0.5 seconds)
   }
 
 
