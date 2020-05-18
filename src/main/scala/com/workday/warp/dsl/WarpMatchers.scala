@@ -141,10 +141,10 @@ trait WarpMatchers {
     @DslApi
     def exceed(threshold: Duration)(implicit ev: ClassTag[T]): Assertion = {
 
-      this.negated be BeMatcher[T] { ogLeft: T =>
-        val left: Seq[TrialResult[_]] = ogLeft.toSeq
-        ResponseTimeCollector.updateThresholds(left, threshold)
-        val measuredResponseTimes: Seq[Duration] = left.flatMap(_.maybeResponseTime)
+      this.negated be BeMatcher[T] { left: T =>
+        val trials: Seq[TrialResult[_]] = left.toSeq
+        ResponseTimeCollector.updateThresholds(trials, threshold)
+        val measuredResponseTimes: Seq[Duration] = trials.flatMap(_.maybeResponseTime)
         matchResult(threshold, measuredResponseTimes, negate = true)
       }
     }
