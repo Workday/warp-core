@@ -226,7 +226,7 @@ case class ExecutionConfig(invocations: Int = 1,
     * @return a [[List]] of type [[TrialResult]] containing the measured response time.
     */
   @DslApi
-  def measure[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): List[TrialResult[TrialType]] =
+  def measure[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): Seq[TrialResult[TrialType]] =
     this.measuring[ResultType, TrialType](measuredFunction)
 
 
@@ -246,7 +246,7 @@ case class ExecutionConfig(invocations: Int = 1,
     * @return a [[List]] of type [[TrialResult]] containing the measured response time.
     */
   @DslApi
-  def measuring[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): List[TrialResult[TrialType]] = {
+  def measuring[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): Seq[TrialResult[TrialType]] = {
     val researcher: Researcher[ResultType, TrialType] = Researcher(this)
     researcher.runExperiment(measuredFunction)
   }

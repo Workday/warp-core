@@ -64,7 +64,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
     // create some dummy data, we don't care about the actual values, just the size
     val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
 
-    val result: List[TrialResult[_]] = using no collectors no arbiters measure {
+    val result: Seq[TrialResult[_]] = using no collectors no arbiters measure {
       runner.robustPca(dummyData)
     }
 

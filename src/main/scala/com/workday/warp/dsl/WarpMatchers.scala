@@ -6,8 +6,11 @@ import com.workday.warp.TrialResult
 import com.workday.warp.collectors.ResponseTimeCollector
 import com.workday.warp.common.utils.Implicits.DecoratedDuration
 import com.workday.warp.math.linalg.RobustPcaRunner
+import org.scalatest.Assertion
 import org.scalatest.matchers.{BeMatcher, MatchResult, Matcher}
 import org.scalatest.matchers.dsl.ResultOfNotWordForAny
+
+import scala.reflect.ClassTag
 
 /** Matchers to be used with scalatest.
   *
@@ -26,23 +29,24 @@ trait WarpMatchers {
     * @return a [[MatchResult]] for whether `responseTime` is less than `threshold`.
     */
   private[this] def matchResult(threshold: Duration,
-                                responseTimes: List[Option[Duration]],
+                                responseTimes: Seq[Duration],
                                 negate: Boolean = false): MatchResult = {
-    // check if there exists a responseTime greater than the threshold; xor for negating the result
-    // responseTimes.flatten removes any None values in List[Option[Duration]] and returns a List[Duration]
-    val failed: Boolean = (responseTimes.flatten exists { _ > threshold }) ^ negate
+    val failed: Boolean = {
+      val exceeded: Boolean = responseTimes.exists(_ > threshold)
+      if (negate) !exceeded else exceeded
+    }
     val message: String = s"response time $responseTimes exceeded threshold $threshold"
     MatchResult(!failed, message, message)
   }
 
 
   /** [[Matcher]] for response time requirements set on [[TrialResult]] */
-  class ResponseTimeRequirementMatcher(threshold: Duration) extends Matcher[List[TrialResult[_]]] {
+  class ResponseTimeRequirementMatcher(threshold: Duration) extends Matcher[Seq[TrialResult[_]]] {
 
     /** Updates thresholds in mysql and influxdb, and creates a [[MatchResult]] */
-    override def apply(left: List[TrialResult[_]]): MatchResult = {
+    override def apply(left: Seq[TrialResult[_]]): MatchResult = {
       ResponseTimeCollector.updateThresholds(left, this.threshold)
-      matchResult(this.threshold, left map { _.maybeResponseTime })
+      matchResult(this.threshold, left.flatMap(_.maybeResponseTime))
     }
   }
 
@@ -74,7 +78,7 @@ trait WarpMatchers {
     * @param responseTimes a list containing [[TrialResult]]
     * @return a [[MatchResult]] that holds true if there's an anomaly, otherwise false
     */
-  private[this] def rpcaMatchResult(responseTimes: List[Double]): MatchResult = {
+  private[this] def rpcaMatchResult(responseTimes: Seq[Double]): MatchResult = {
     val runner: RobustPcaRunner = RobustPcaRunner(slidingWindowSize = 0, useSlidingWindow = false, useDoubleRpca = false)
     val result: Seq[(Double, Int)] = runner.singleRobustPca(responseTimes).get.containsAnomalies
     val matchResult: Boolean = result.nonEmpty
@@ -101,10 +105,10 @@ trait WarpMatchers {
 
 
   /** [[BeMatcher]] for anomaly detection */
-  class AnomalyMatcher extends BeMatcher[List[TrialResult[_]]] {
-    def apply(left: List[TrialResult[_]]): MatchResult = {
+  class AnomalyMatcher extends BeMatcher[Seq[TrialResult[_]]] {
+    def apply(left: Seq[TrialResult[_]]): MatchResult = {
       // get each TrialResult's response time, flatten, then convert Duration to Double
-      val responseTimes: List[Double] = left.flatMap(_.maybeResponseTime).map(_.doubleSeconds)
+      val responseTimes: Seq[Double] = left.flatMap(_.maybeResponseTime).map(_.doubleSeconds)
       rpcaMatchResult(responseTimes)
     }
   }
@@ -127,7 +131,7 @@ trait WarpMatchers {
     *
     * @param negated a [[ResultOfNotWordForAny]] representing a negated match condition.
     */
-  implicit class NegatedMatcher[T <: TrialResult[Any]](negated: ResultOfNotWordForAny[List[T]]) {
+  implicit class NegatedMatcher[T <: Iterable[TrialResult[_]]](negated: ResultOfNotWordForAny[T]) {
 
     /** Part of the dsl. Allows syntax like `should not exceed (64 seconds)`. Uses scalatest dsl to create a
       * [[Matcher]] and a [[MatchResult]] for the measured response time.
@@ -135,11 +139,12 @@ trait WarpMatchers {
       * @param threshold maximum response time threshold.
       */
     @DslApi
-    def exceed(threshold: Duration): Unit = {
-      this.negated be BeMatcher[List[TrialResult[_]]] { left: List[TrialResult[_]] =>
-        ResponseTimeCollector.updateThresholds(left, threshold)
+    def exceed(threshold: Duration)(implicit ev: ClassTag[T]): Assertion = {
 
-        val measuredResponseTimes: List[Option[Duration]] = left map { _.maybeResponseTime }
+      this.negated be BeMatcher[T] { left: T =>
+        val trials: Seq[TrialResult[_]] = left.toSeq
+        ResponseTimeCollector.updateThresholds(trials, threshold)
+        val measuredResponseTimes: Seq[Duration] = trials.flatMap(_.maybeResponseTime)
         matchResult(threshold, measuredResponseTimes, negate = true)
       }
     }
