@@ -1,7 +1,6 @@
 package com.workday.warp.collectors
 
-import java.time.Duration
-import java.util.Date
+import java.time.{Duration, Instant}
 
 import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.TrialResult
@@ -57,7 +56,7 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
   def arbiters: List[ArbiterLike] = this._arbiters
 
   /** time at which this test was invoked */
-  protected var timeStarted: Date = new Date
+  protected var timeStarted: Instant = _
 
   /** whether measurement is currently underway. used to prevent registration of new collectors during measurements */
   protected var _measurementInProgress: Boolean = false
@@ -83,12 +82,12 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
 
 
   /** Starts all the collectors that are configured. */
-  def beginMeasurementCollection(): Unit = {
+  def beginMeasurementCollection(timeStarted: Instant = Instant.now()): Unit = {
     this._measurementInProgress = true
 
     // only perform concurrent measurement collection if collector priorities and concurrent collection are enabled
     this.startCollectors()
-    this.timeStarted = new Date
+    this.timeStarted = timeStarted
   }
 
 

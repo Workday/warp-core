@@ -1,7 +1,7 @@
 package com.workday.telemetron.utils
 
 import com.workday.warp.common.utils.Implicits._
-import java.time.Duration
+import java.time.{Duration, Instant}
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
@@ -78,8 +78,10 @@ object TimeUtils {
     * @param since [[Date]] to compare with the current time.
     * @return a [[Duration]] representing the amount of time between now and `since`.
     */
+  @deprecated
   def elapsedTimeSince(since: Date): Duration = (new Date().getTime - since.getTime).milliseconds
 
+  def elapsedTimeSince(since: Instant): Duration = Duration.between(since, Instant.now())
 
   /**
     * @param d1

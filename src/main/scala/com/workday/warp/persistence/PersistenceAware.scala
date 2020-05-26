@@ -1,6 +1,6 @@
 package com.workday.warp.persistence
 
-import java.time.LocalDate
+import java.time.{Instant, LocalDate}
 import java.util.Date
 
 import com.workday.warp.common.CoreWarpProperty.WARP_DATABASE_URL
@@ -114,6 +114,7 @@ trait PersistenceAware {
       * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
+    @deprecated
     def createTestExecution(testId: String,
                        documentation: Option[String],
                        timeStarted: Date,
@@ -129,11 +130,26 @@ trait PersistenceAware {
       * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
       * @return a [[TestExecutionRowLike]] with the given parameters and no documentation.
       */
+    @deprecated
     def createTestExecution(testId: String,
                        timeStarted: Date,
                        responseTime: Double,
                        maxResponseTime: Double): TestExecutionRowLike
 
+
+    def createTestExecution(testId: String,
+                            maybeDocs: Option[String],
+                            timeStarted: Instant,
+                            responseTime: Double,
+                            maxResponseTime: Double): TestExecutionRowLike = {
+      this.createTestExecution(
+        testId,
+        maybeDocs,
+        Date.from(timeStarted),
+        responseTime,
+        maxResponseTime
+      )
+    }
 
     /**
       * Updates each [[TestExecutionRowLike]] in `testExecutions` to have the new provided threshold.
