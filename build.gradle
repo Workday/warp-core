@@ -25,6 +25,11 @@ buildscript {
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
     }
+
+    // lock buildscript dependencies
+    configurations.classpath {
+        resolutionStrategy.activateDependencyLocking()
+    }
 }
 
 apply plugin: 'base'
@@ -295,6 +300,23 @@ static boolean isSnapshot(String inferredVersion) {
 // see https://discuss.gradle.org/t/unable-to-publish-artifact-to-mavencentral/33727
 tasks.withType(GenerateModuleMetadata) {
     enabled = false
+}
+
+dependencyLocking {
+    lockAllConfigurations()
+}
+
+// taken from https://docs.gradle.org/6.2.1/userguide/dependency_locking.html#generating_and_updating_dependency_locks
+task resolveAndLockAll {
+    doFirst {
+        assert gradle.startParameter.writeDependencyLocks
+    }
+    doLast {
+        configurations.findAll {
+            // Add any custom filtering on the configurations to be resolved
+            it.canBeResolved
+        }.each { it.resolve() }
+    }
 }
 
 publishing {
