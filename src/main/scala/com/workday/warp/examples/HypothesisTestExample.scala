@@ -1,6 +1,6 @@
 package com.workday.warp.examples
 
-import java.util.Date
+import java.time.Instant
 
 import com.workday.warp.TrialResult
 import com.workday.warp.dsl.{defaults, using}
@@ -51,7 +51,8 @@ object HypothesisTestExample extends CorePersistenceAware {
       List(ExecutionTag("db-experiment", "newSeries"))
     } measure {
       for (i <- 1 to 20) {
-        val execution = this.persistenceUtils.createTestExecution(methodSignature, new Date, i + 1, 500)
+        // TODO check other tests
+        val execution = this.persistenceUtils.createTestExecution(methodSignature, Instant.now(), i + 1, 500)
         this.persistenceUtils.recordTestExecutionTag(execution.idTestExecution, "some name", "tagValue")
         this.persistenceUtils.recordMeasurement(execution.idTestExecution, "some measurement name", 0.1)
       }

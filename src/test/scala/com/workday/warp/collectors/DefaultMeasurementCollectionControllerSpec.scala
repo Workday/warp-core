@@ -1,6 +1,6 @@
 package com.workday.warp.collectors
 
-import java.util.Date
+import java.time.Instant
 
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.SmartNumberArbiter
@@ -94,7 +94,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     controller.isIntrusive should be (false)
     controller.measurementInProgress should be (false)
     val tryRecordTags: List[PersistTagResult] =
-              controller.recordTags(controller.tags, this.persistenceUtils.createTestExecution("1.2.3.4.5", new Date, 5, 10))
+              controller.recordTags(controller.tags, this.persistenceUtils.createTestExecution("1.2.3.4.5", Instant.now(), 5, 10))
 
     val outerTestExecutionTagLength: Int = this.persistenceUtils.synchronously(TestExecutionTag.length.result)
     val outerTestDefinitionTagLength: Int = this.persistenceUtils.synchronously(TestDefinitionTag.length.result)

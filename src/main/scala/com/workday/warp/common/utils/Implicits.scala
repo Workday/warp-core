@@ -309,7 +309,7 @@ object Implicits {
         * @param anything ignored. Defined so we can invoke `transform`.
         * @return `aTry`, after invoking `effect` for cleanup.
         */
-      def cleanup(anything: Any): Try[T] = {
+      val cleanup: Any => Try[T] = _ => {
         effect
         this.aTry
       }

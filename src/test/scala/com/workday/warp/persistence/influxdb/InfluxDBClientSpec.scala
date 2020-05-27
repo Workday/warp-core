@@ -1,5 +1,6 @@
 package com.workday.warp.persistence.influxdb
 
+import java.time.Instant
 import java.util.{Date, UUID}
 
 import com.workday.warp.common.category.IntegrationTest
@@ -60,7 +61,7 @@ class InfluxDBClientSpec extends WarpJUnitSpec with CorePersistenceAware with In
   @Category(Array(classOf[IntegrationTest]))
   def responseTimes(): Unit = {
     Connection.refresh()
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, new Date, 1.0, 1.5)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, Instant.now(), 1.0, 1.5)
     this.persistThreshold("testResponseTimes", "testResponseTimes", testExecution).get
     this.dropDatabase("testResponseTimes").get
   }

@@ -1,6 +1,6 @@
 package com.workday.warp.persistence
 
-import java.util.Date
+import java.time.Instant
 
 import com.workday.telemetron.annotation.Schedule
 import com.workday.warp.common.category.UnitTest
@@ -54,7 +54,7 @@ class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
   // TODO we should up the number of invocations when we have a @BeforeOnce annotation
   def concurrentTestExecution(): Unit = {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.methodSignature,
-                                                                     new Date, responseTime = 5.0,
+                                                                     Instant.now(), responseTime = 5.0,
                                                                      maxResponseTime = 6.0)
 
     this.persistenceUtils.recordMeasurement(testExecution.idTestExecution, "some measurement", result = 1.0)

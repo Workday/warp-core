@@ -231,11 +231,15 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
     // if there isn't a threshold set on the trial result already, use what is set on the required annotation
     val threshold: Duration = trial.maybeThreshold.getOrElse(AnnotationReader.getRequiredMaxValue(this.testId))
 
-    val maybeTestExecution: Option[TestExecutionRowLike] = Option(this.createTestExecution(
-      responseTime,
-      threshold,
-      trial.maybeDocumentation
-    ))
+    val maybeTestExecution: Option[TestExecutionRowLike] = Option(
+      this.persistenceUtils.createTestExecution(
+        this.testId,
+        this.timeStarted,
+        responseTime.doubleSeconds,
+        threshold.doubleSeconds,
+        trial.maybeDocumentation
+      )
+    )
 
     this.stopCollectors(maybeTestExecution)
 
@@ -450,30 +454,6 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
   def registerCollectors(collectors: Iterable[AbstractMeasurementCollector]): Iterable[Boolean] = {
     collectors map this.registerCollector
   }
-
-
-
-  /**
-    * Unboxes the result of PersistenceUtils.createTestExecution.
-    *
-    * @param responseTime [[Duration]] containing the measured response time of the test.
-    * @param threshold [[Duration]] containing the max threshold can be passed in. If this is negative, we won't fail the test
-    *                 based on response time.
-    * @return an [[Option]] of type [[TestExecutionRow]]
-    */
-  private def createTestExecution(responseTime: Duration,
-                             threshold: Duration,
-                             documentation: Option[String] = None): TestExecutionRowLike = {
-
-    this.persistenceUtils.createTestExecution(
-      this.testId,
-      documentation,
-      this.timeStarted,
-      responseTime.doubleSeconds,
-      threshold.doubleSeconds
-    )
-  }
-
 }
 
 /** Holds default constructor arguments referenced by both auxiliary constructors and named primary constructor args. */

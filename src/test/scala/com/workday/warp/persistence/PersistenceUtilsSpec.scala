@@ -1,8 +1,6 @@
 package com.workday.warp.persistence
 
-import java.sql.Timestamp
-import java.time.LocalDate
-import java.util
+import java.time.{Instant, LocalDate}
 
 import slick.jdbc.MySQLProfile.api._
 import com.workday.warp.common.category.UnitTest
@@ -33,7 +31,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   private[this] def createTestExecution(responseTime: Double): TestExecutionRowLike = {
     val threshold: Double = responseTime + 1
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, responseTime, threshold)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), responseTime, threshold)
   }
 
 
@@ -231,15 +229,15 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   def createTestExecution(): Unit = {
     // insert a test execution, should have id 1
-    val testExecution: Tables.TestExecutionRow = this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0)
+    val testExecution: Tables.TestExecutionRow = this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
     testExecution.idTestExecution should be (1)
 
     // insert a few more, with different signatures, and check that we can find all the ones for a ce
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0).idTestExecution should be (2)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0).idTestExecution should be (3)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.anotherMethodSignature, new util.Date, 5.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.anotherMethodSignature, new util.Date, 5.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0).idTestExecution should be (2)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0).idTestExecution should be (3)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.anotherMethodSignature, Instant.now(), 5.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.anotherMethodSignature, Instant.now(), 5.0, 6.0)
 
     this.persistenceUtils.synchronously(this.persistenceUtils.readTestExecutionQuery(this.methodSignature)) should have length 4
     this.persistenceUtils.synchronously(this.persistenceUtils.readTestExecutionQuery(this.anotherMethodSignature)) should have length 2
@@ -248,7 +246,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
     this.persistenceUtils.synchronously(this.persistenceUtils.numTestExecutionsQuery) should be (6)
 
     val error: IllegalArgumentException = intercept[IllegalArgumentException] {
-      this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 0.0, 1.0)
+      this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 0.0, 1.0)
     }
     error.getMessage should be ("Zero Time recorded for this measurement, check your adapter implementation.")
   }
@@ -257,7 +255,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Test
   @Category(Array(classOf[UnitTest]))
   def recordMeasurement(): Unit = {
-    val testExecution: Tables.TestExecutionRow = this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0)
+    val testExecution: Tables.TestExecutionRow = this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
     this.persistenceUtils.recordMeasurement(testExecution.idTestExecution, "some measurement name", 0.1)
 
     this.persistenceUtils.synchronously(
@@ -274,18 +272,18 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   def getResponseTimes(): Unit = {
 
     // insert a few test executions with different signatures
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.anotherMethodSignature, new util.Date, 5.5, 6.0)
-    this.persistenceUtils.createTestExecution(this.anotherMethodSignature, new util.Date, 5.5, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.anotherMethodSignature, Instant.now(), 5.5, 6.0)
+    this.persistenceUtils.createTestExecution(this.anotherMethodSignature, Instant.now(), 5.5, 6.0)
 
     // check that we can read back the expected lists of response time
     this.persistenceUtils.getResponseTimes(CoreIdentifier(this.methodSignature)) should be (List(5.0, 5.0, 5.0))
     this.persistenceUtils.getResponseTimes(CoreIdentifier(this.anotherMethodSignature)) should be (List(5.5, 5.5))
 
     // insert another test execution and check that we can read back its response time
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.1, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.1, 6.0)
     this.persistenceUtils.getResponseTimes(CoreIdentifier(this.methodSignature)) should be (List(5.0, 5.0, 5.0, 5.1))
 
     // check that we can exclude certain testcase id
@@ -294,8 +292,8 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     // check that we can exclude cases before startDateCutoff in addition to excluding certain testcase id
     val startDateLowerBound: LocalDate = LocalDate.now().minusWeeks(1)
-    val someDateBeforeCutoff: Timestamp = new Timestamp(0)
-    val someDateAfterCutoff: Timestamp = new Timestamp(System.currentTimeMillis())
+    val someDateBeforeCutoff: Instant = Instant.EPOCH
+    val someDateAfterCutoff: Instant = Instant.now()
 
     this.persistenceUtils.createTestExecution(this.methodSignature, someDateBeforeCutoff, 4.9, 6.0)
     this.persistenceUtils.createTestExecution(this.methodSignature, someDateAfterCutoff, 5.2, 6.0)
@@ -313,8 +311,8 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
     // check average of empty list
     this.persistenceUtils.getAverageResponseTime(CoreIdentifier(this.methodSignature)).isNaN should be (true)
 
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 5.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 6.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
 
     this.persistenceUtils.getAverageResponseTime(CoreIdentifier(this.methodSignature)) should be (5.5 +- 0.01)
   }
@@ -332,8 +330,8 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Test
   @Category(Array(classOf[UnitTest]))
   def getNumExecutions2(): Unit = {
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 6.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 6.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
     this.persistenceUtils.getNumExecutions(CoreIdentifier(this.methodSignature)) should be (2)
   }
 
@@ -342,11 +340,11 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Test
   @Category(Array(classOf[UnitTest]))
   def getNumExecutions5(): Unit = {
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 6.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 6.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 6.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 6.0, 6.0)
-    this.persistenceUtils.createTestExecution(this.methodSignature, new util.Date, 6.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
+    this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
 
     this.persistenceUtils.getNumExecutions(CoreIdentifier(this.methodSignature)) should be (5)
   }

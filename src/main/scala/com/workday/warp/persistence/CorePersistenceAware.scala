@@ -2,7 +2,6 @@ package com.workday.warp.persistence
 
 import java.sql.Timestamp
 import java.time.Instant
-import java.util.Date
 
 import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.common.WarpPropertyManager
@@ -130,17 +129,17 @@ trait CorePersistenceAware extends PersistenceAware {
       * Creates, inserts, and returns a [[TestExecutionRowLike]]
       *
       * @param testId id of the measured test (usually fully qualified junit method).
-      * @param documentation option containing documentation for the [[TestExecutionRow]]
       * @param timeStarted time the measured test was started.
       * @param responseTime observed duration of the measured test (seconds).
       * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
+      * @param maybeDocs containing documentation for the [[TestExecutionRow]]
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
     override def createTestExecution(testId: String,
-                                documentation: Option[String],
-                                timeStarted: Date,
-                                responseTime: Double,
-                                maxResponseTime: Double): TestExecutionRowLike = {
+                                     timeStarted: Instant,
+                                     responseTime: Double,
+                                     maxResponseTime: Double,
+                                     maybeDocs: Option[String] = None): TablesLike.TestExecutionRowLike = {
       if (responseTime == 0.0) {
         throw new IllegalArgumentException("Zero Time recorded for this measurement, check your adapter implementation.")
       }
@@ -148,7 +147,7 @@ trait CorePersistenceAware extends PersistenceAware {
       val build: BuildNumber = BuildNumber(SILVER_BUILD_NUMBER.value)
       val buildInfo: BuildRowLike = this.findOrCreateBuild(build.major, build.minor, build.patch)
       // TODO update build info with last tested
-      val testDefinition: TestDefinitionRowLike = this.findOrCreateTestDefinition(testId, documentation)
+      val testDefinition: TestDefinitionRowLike = this.findOrCreateTestDefinition(testId, maybeDocs)
       val testExecution: TestExecutionRow = TestExecutionRow(
         Tables.nullId,
         idTestDefinition = testDefinition.idTestDefinition,
@@ -156,30 +155,13 @@ trait CorePersistenceAware extends PersistenceAware {
         passed = true,
         responseTime = responseTime,
         responseTimeRequirement = maxResponseTime,
-        startTime = new Timestamp(timeStarted.getTime),
+        startTime = Timestamp from timeStarted,
+        // TODO consider deleting this field somewhat redundant
         endTime = Timestamp from Instant.now
       )
 
       this.synchronously(this.writeTestExecutionQuery(testExecution))
     }
-
-
-    /**
-      * Convenience function for creating a test execution with no documentation.
-      *
-      * @param testId id of the measured test (usually fully qualified junit method).
-      * @param timeStarted time the measured test was started.
-      * @param responseTime observed duration of the measured test (seconds).
-      * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
-      * @return a [[TestExecutionRowLike]] with the given parameters.
-      */
-    override def createTestExecution(testId: String,
-                                timeStarted: Date,
-                                responseTime: Double,
-                                maxResponseTime: Double): TestExecutionRowLike = {
-      this.createTestExecution(testId, None, timeStarted, responseTime, maxResponseTime)
-    }
-
 
     /**
       * Updates each [[TestExecutionRow]] in `testExecutions` to have the new provided threshold.
@@ -253,7 +235,7 @@ trait CorePersistenceAware extends PersistenceAware {
           case (oldKey, oldValue) :: Nil =>
             DBIO.failed(new PreExistingTagException(s"Tag exists with same name but different value: ($oldKey, $oldValue)"))
 
-          case multiple =>
+          case _ =>
             DBIO.failed(new PreExistingTagException("bad database state recording TestExecution tag"))
         }
       } yield action
@@ -316,7 +298,7 @@ trait CorePersistenceAware extends PersistenceAware {
             DBIO.failed(new PreExistingTagException(s"Tag exists with same name but different value: ($oldKey, $oldValue)" +
               s" new key, new value = (${nameRow.name}, $value)"))
 
-          case multiple =>
+          case _ =>
             DBIO.failed(new PreExistingTagException("bad database state recording TestDefinition tag"))
         }
       } yield action

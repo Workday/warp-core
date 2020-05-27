@@ -1,9 +1,8 @@
 package com.workday.warp.arbiters
 
 import java.io.InputStream
-import java.util
 import java.sql.Timestamp
-import java.time.LocalDate
+import java.time.{Instant, LocalDate}
 import java.util.UUID
 
 import com.workday.telemetron.RequirementViolationException
@@ -69,8 +68,8 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     // (if this test is run multiple times in a row without clearing the database)
     val testID: String = "a.b.c.d.e." + UUID.randomUUID().toString
     val baselineDate: LocalDate = LocalDate.now().minusWeeks(1)
-    val someDateBeforeCutoff: Timestamp = Timestamp.valueOf("1980-01-01 00:00:00")
-    val someDateAfterCutoff: Timestamp = new Timestamp(System.currentTimeMillis())
+    val someDateBeforeCutoff: Instant = Timestamp.valueOf("1980-01-01 00:00:00").toInstant
+    val someDateAfterCutoff: Instant = Instant.now()
 
     // create 90 test executions before date cutoff at ~50ms response time, then 10 test executions after cutoff at ~1000 ms
     for(_ <- 1 to 90) {
@@ -208,11 +207,11 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     // Create historical values to read
     for (_ <- 1 to WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt) {
-      this.persistenceUtils.createTestExecution(this.getTestId, new util.Date, 50 + (Random.nextGaussian * 4), 10000.0)
+      this.persistenceUtils.createTestExecution(this.getTestId, Instant.now(), 50 + (Random.nextGaussian * 4), 10000.0)
     }
 
     // Create a test execution
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, new util.Date, 5.0, 6.0)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, Instant.now(), 5.0, 6.0)
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter
 
     // before the test is added to TestExecutionTag table
@@ -287,9 +286,9 @@ object SmartNumberArbiterSpec extends CorePersistenceAware {
   def persistDummyTestExecution(testID: String, responseTime: Int): TestExecutionRowLike = {
     val incomingTestExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(
       testID,
-      new util.Date,
+      Instant.now(),
       responseTime,
-      10000.0
+      maxResponseTime = 10000.0
     )
     this.persistenceUtils.recordTestExecutionTag(
       incomingTestExecution.idTestExecution,
@@ -308,7 +307,7 @@ object SmartNumberArbiterSpec extends CorePersistenceAware {
                                 range: Int,
                                 responseTime: Int): Iterable[Double] = {
     val responseTimes: Iterable[Double] = for (_ <- 1 to range) yield {
-      this.persistenceUtils.createTestExecution(testID, new util.Date, responseTime + (Random.nextGaussian * 4), 10000.0).responseTime
+      this.persistenceUtils.createTestExecution(testID, Instant.now(), responseTime + (Random.nextGaussian * 4), 10000.0).responseTime
     }
 
     responseTimes

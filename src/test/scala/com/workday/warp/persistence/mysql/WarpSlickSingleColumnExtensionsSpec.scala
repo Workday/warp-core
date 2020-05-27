@@ -1,6 +1,6 @@
 package com.workday.warp.persistence.mysql
 
-import java.util.Date
+import java.time.Instant
 
 import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
@@ -29,15 +29,15 @@ class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersist
   @Test
   @Category(Array(classOf[UnitTest]))
   def standardDeviation(): Unit = {
-    this.persistenceUtils.createTestExecution(methodSignature1, new Date, 1.0, 10)
-    this.persistenceUtils.createTestExecution(methodSignature1, new Date, 2.0, 10)
-    this.persistenceUtils.createTestExecution(methodSignature1, new Date, 3.0, 10)
-    this.persistenceUtils.createTestExecution(methodSignature2, new Date, 2.0, 10)
-    this.persistenceUtils.createTestExecution(methodSignature2, new Date, 4.0, 10)
-    this.persistenceUtils.createTestExecution(methodSignature2, new Date, 6.0, 10)
-    this.persistenceUtils.createTestExecution(methodSignature3, new Date, 2.0, 10)
-    this.persistenceUtils.createTestExecution(methodSignature3, new Date, 2.0, 10)
-    this.persistenceUtils.createTestExecution(methodSignature3, new Date, 2.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 2.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 3.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature2, Instant.now(), 2.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature2, Instant.now(), 4.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature2, Instant.now(), 6.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature3, Instant.now(), 2.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature3, Instant.now(), 2.0, 10)
+    this.persistenceUtils.createTestExecution(methodSignature3, Instant.now(), 2.0, 10)
 
     val query = TestExecution.groupBy(_.idTestDefinition)
     val action = query.map { case (id, metrics) => (
