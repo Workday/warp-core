@@ -1,6 +1,5 @@
 package com.workday.warp.utils
 
-import java.util.concurrent.Executor
 import slick.util.AsyncExecutor
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor}
 
@@ -25,6 +24,6 @@ object SynchronousExecutor {
     * This runs tasks in the calling thread, rather than requesting a new thread like its asynchronous counterpart
     */
   val synchronousExecutionContext: ExecutionContextExecutor = ExecutionContext.fromExecutor(
-    new Executor { def execute(task: Runnable): Unit = task.run() }
+    (task: Runnable) => task.run()
   )
 }

@@ -82,13 +82,21 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
 
 
   /** Starts all the collectors that are configured. */
-  def beginMeasurementCollection(timeStarted: Instant = Instant.now()): Unit = {
+  def beginMeasurementCollection(timeStarted: Instant): Unit = {
     this._measurementInProgress = true
 
     // only perform concurrent measurement collection if collector priorities and concurrent collection are enabled
     this.startCollectors()
     this.timeStarted = timeStarted
   }
+
+
+  /**
+    * Starts all the collectors that are configured.
+    *
+    * Overloading included purely for java compat.
+    */
+  def beginMeasurementCollection(): Unit = this.beginMeasurementCollection(Instant.now())
 
 
   /**
