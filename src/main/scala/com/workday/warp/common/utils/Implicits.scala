@@ -2,7 +2,6 @@ package com.workday.warp.common.utils
 
 import java.math.BigInteger
 import java.time.Duration
-import java.util.Optional
 import java.util.concurrent.TimeUnit
 
 import com.google.gson._
@@ -182,32 +181,6 @@ object Implicits {
       val absoluteTimeDifferenceInDays: Long = Duration.ofMillis(this.date.getTime - other.getTime).abs().toDays
 
       absoluteTimeDifferenceInDays < 1
-    }
-  }
-
-
-  /**
-    * Converts a java [[Optional]] to a scala [[Option]]. Unwraps and re-wraps in an [[Option]].
-    *
-    * @param optional [[Optional]] to be converted.
-    * @tparam T type of the underlying element.
-    * @return an [[Option]] with the same underling element as `optional`.
-    */
-  implicit def optional2Option[T](optional: Optional[T]): Option[T] = if (optional.isPresent) Option(optional.get) else None
-
-
-
-  /**
-    * Converts a scala [[Option]] to a java [[Optional]].
-    *
-    * @param option [[Option]] to be converted.
-    * @tparam T type of the underlying element.
-    * @return an [[Optional]] with the same underlying element as `option`.
-    */
-  implicit def option2Optional[T](option: Option[T]): Optional[T] = {
-    option match {
-      case Some(value) => Optional.of(value)
-      case None => Optional.empty[T]
     }
   }
 
