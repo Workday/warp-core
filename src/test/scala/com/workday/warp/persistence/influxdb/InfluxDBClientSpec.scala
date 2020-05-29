@@ -1,7 +1,7 @@
 package com.workday.warp.persistence.influxdb
 
 import java.time.Instant
-import java.util.{Date, UUID}
+import java.util.UUID
 
 import com.workday.warp.common.category.IntegrationTest
 import com.workday.warp.common.heaphistogram.{HeapHistogram, HeapHistogramEntry}
