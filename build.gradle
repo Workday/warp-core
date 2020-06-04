@@ -15,7 +15,6 @@ buildscript {
 
     dependencies {
         classpath "com.adtran:scala-multiversion-plugin:${versions.scalaMultiversion}"
-        classpath "com.netflix.nebula:gradle-dependency-lock-plugin:${versions.nebulaDependencyLock}"
         classpath "com.netflix.nebula:gradle-git-scm-plugin:${versions.nebulaGit}"
         classpath "com.netflix.nebula:nebula-release-plugin:${versions.nebulaRelease}"
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
@@ -40,7 +39,6 @@ apply plugin: 'scalaStyle'
 apply plugin: 'idea'
 apply plugin: 'com.adtran.scala-multiversion-plugin'
 apply plugin: 'org.ajoberstar.grgit'
-apply plugin: 'nebula.dependency-lock'
 apply plugin: 'nebula.gradle-git-scm'
 apply plugin: 'nebula.release'
 apply plugin: 'nebula.maven-resolved-dependencies'
@@ -315,6 +313,7 @@ task resolveAndLockAll {
         configurations.findAll {
             // Add any custom filtering on the configurations to be resolved
             it.canBeResolved
+            it.getName
         }.each { it.resolve() }
     }
 }
