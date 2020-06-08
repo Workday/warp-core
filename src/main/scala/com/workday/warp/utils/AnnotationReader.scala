@@ -21,7 +21,7 @@ object AnnotationReader extends StackTraceFilter {
 
   /**
    * @param testId fully qualified name of the junit test method
-   * @return a Try containing the WARP JUnit Class referred to by testId
+   * @return an Option containing the WARP JUnit Class referred to by testId
    */
   protected def getWarpTestClass(testId: String): Option[Class[_]] = {
     // remove the method name to obtain the fully qualified class name
@@ -40,7 +40,9 @@ object AnnotationReader extends StackTraceFilter {
    */
   protected def getWarpTestMethod(testId: String): Option[Method] = {
     val methodName: String = testId drop testId.lastIndexOf('.') + 1
-    this.getWarpTestClass(testId) flatMap { clazz => Try(Option(clazz.getMethod(methodName, new Array[Class[_]](0): _*))).toOption.flatten }
+    // we expect the reflected method to have 0 parameters
+    val parameterTypes: Array[Class[_]] = Array.empty
+    this.getWarpTestClass(testId) flatMap { clazz => Try(Option(clazz.getMethod(methodName, parameterTypes: _*))).toOption.flatten }
   }
 
 
@@ -125,8 +127,8 @@ object AnnotationReader extends StackTraceFilter {
    */
   def getScheduleInvocations(testId: String): Int = {
     this.getWarpTestMethodAnnotation(classOf[Schedule], testId)
-      .map(_.invocations())
-      .getOrElse(1)
+      .map(_.invocations)
+      .getOrElse(Schedule.INVOCATIONS_DEFAULT)
   }
 
 
