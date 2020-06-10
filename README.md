@@ -124,18 +124,14 @@ under the wrong version.
 ## Dependencies
 
 To enforce repeatable builds while allowing developers to use the flexibility of dynamic dependency ranges, we use the
-dependency-lock plugin.
+gradle's native dependency-locking mechanism. Note, gradle creates a separate lockfile per *configuration*. 
 
-We create a new lock file as follows:
+We create/update lock files as follows:
 ```
-./gradlew generateLock saveLock test commitLock
+./gradlew resolveAndLockAll --write-locks
 ```
 
-Note that at publishing time, the build is configured to resolve dependencies for the pom from `dependencies_2.11.lock`
-or `dependencies_2.12.lock`, depending on the scala version being used.
-If you have updated `versionInfo.gradle`, you probably need to recreate the dependency lock file as well.
-
-Please see https://github.com/nebula-plugins/gradle-dependency-lock-plugin/wiki/Usage for more detailed information.
+Note that this locks all configurations in one single build execution. If you have updated `versionInfo.gradle`, you probably need to recreate the lock files as well. If any configuration needs to be excluded/filtered, you can do so in the `resolveAndLockAll` step. Please see https://docs.gradle.org/6.2.1/userguide/dependency_locking.html#generating_and_updating_dependency_locks for more detailed usage.
 
 Please avoid using global locks. We have noticed behavior where this can override the version of scala-library used by the
 zinc compiler.
