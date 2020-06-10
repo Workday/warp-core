@@ -93,6 +93,7 @@ dependencies {
     // used for linear algebra implicits
     api "org.apache.commons:commons-math3:${versions.math3}"
     api "org.influxdb:influxdb-java:${versions.influxDbClient}"
+    api "org.scala-lang:scala-library:%scala-version%"
     // used for custom matchers
     api "org.scalactic:scalactic_%%:${versions.scalactic}"
     api "org.scalatest:scalatest_%%:${versions.scalatest}"
@@ -104,8 +105,6 @@ dependencies {
     implementation "com.google.guava:guava:${versions.guava}"
     implementation "com.typesafe:config:${versions.typesafeConfig}"
     implementation "commons-io:commons-io:${versions.commonsIo}"
-    implementation "org.scala-lang:scala-library:%scala-version%"
-    implementation "org.scala-lang:scala-reflect:%scala-version%"
 
     implementation files(org.gradle.internal.jvm.Jvm.current().toolsJar)
 
@@ -293,9 +292,12 @@ tasks.withType(GenerateModuleMetadata) {
 
 dependencyLocking {
     lockAllConfigurations()
+    lockMode = LockMode.STRICT
 }
 
+
 // taken from https://docs.gradle.org/6.2.1/userguide/dependency_locking.html#generating_and_updating_dependency_locks
+// make sure to invoke with --write-locks flag
 task resolveAndLockAll {
     doFirst {
         assert gradle.startParameter.writeDependencyLocks
