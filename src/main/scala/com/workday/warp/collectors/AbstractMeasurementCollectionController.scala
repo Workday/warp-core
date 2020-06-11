@@ -1,7 +1,6 @@
 package com.workday.warp.collectors
 
-import java.time.Duration
-import java.util.Date
+import java.time.{Duration, Instant}
 
 import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.TrialResult
@@ -57,7 +56,7 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
   def arbiters: List[ArbiterLike] = this._arbiters
 
   /** time at which this test was invoked */
-  protected var timeStarted: Date = new Date
+  protected var timeStarted: Instant = _
 
   /** whether measurement is currently underway. used to prevent registration of new collectors during measurements */
   protected var _measurementInProgress: Boolean = false
@@ -83,13 +82,21 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
 
 
   /** Starts all the collectors that are configured. */
-  def beginMeasurementCollection(): Unit = {
+  def beginMeasurementCollection(timeStarted: Instant): Unit = {
     this._measurementInProgress = true
 
     // only perform concurrent measurement collection if collector priorities and concurrent collection are enabled
     this.startCollectors()
-    this.timeStarted = new Date
+    this.timeStarted = timeStarted
   }
+
+
+  /**
+    * Starts all the collectors that are configured.
+    *
+    * Overloading included purely for java compat.
+    */
+  def beginMeasurementCollection(): Unit = this.beginMeasurementCollection(Instant.now())
 
 
   /**
@@ -232,11 +239,15 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
     // if there isn't a threshold set on the trial result already, use what is set on the required annotation
     val threshold: Duration = trial.maybeThreshold.getOrElse(AnnotationReader.getRequiredMaxValue(this.testId))
 
-    val maybeTestExecution: Option[TestExecutionRowLike] = Option(this.createTestExecution(
-      responseTime,
-      threshold,
-      trial.maybeDocumentation
-    ))
+    val maybeTestExecution: Option[TestExecutionRowLike] = Option(
+      this.persistenceUtils.createTestExecution(
+        this.testId,
+        this.timeStarted,
+        responseTime.doubleSeconds,
+        threshold.doubleSeconds,
+        trial.maybeDocumentation
+      )
+    )
 
     this.stopCollectors(maybeTestExecution)
 
@@ -451,30 +462,6 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
   def registerCollectors(collectors: Iterable[AbstractMeasurementCollector]): Iterable[Boolean] = {
     collectors map this.registerCollector
   }
-
-
-
-  /**
-    * Unboxes the result of PersistenceUtils.createTestExecution.
-    *
-    * @param responseTime [[Duration]] containing the measured response time of the test.
-    * @param threshold [[Duration]] containing the max threshold can be passed in. If this is negative, we won't fail the test
-    *                 based on response time.
-    * @return an [[Option]] of type [[TestExecutionRow]]
-    */
-  private def createTestExecution(responseTime: Duration,
-                             threshold: Duration,
-                             documentation: Option[String] = None): TestExecutionRowLike = {
-
-    this.persistenceUtils.createTestExecution(
-      this.testId,
-      documentation,
-      this.timeStarted,
-      responseTime.doubleSeconds,
-      threshold.doubleSeconds
-    )
-  }
-
 }
 
 /** Holds default constructor arguments referenced by both auxiliary constructors and named primary constructor args. */

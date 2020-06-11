@@ -1,8 +1,7 @@
 package com.workday.telemetron.utils
 
 import com.workday.warp.common.utils.Implicits._
-import java.time.Duration
-import java.util.Date
+import java.time.{Duration, Instant}
 import java.util.concurrent.TimeUnit
 
 
@@ -73,13 +72,11 @@ object TimeUtils {
     */
   def toNanos(time: Double, timeUnit: TimeUnit): Long = (time * timeUnit.toNanos(1)).toLong
 
-
   /**
-    * @param since [[Date]] to compare with the current time.
+    * @param since [[Instant]] to compare with the current time.
     * @return a [[Duration]] representing the amount of time between now and `since`.
     */
-  def elapsedTimeSince(since: Date): Duration = (new Date().getTime - since.getTime).milliseconds
-
+  def elapsedTimeSince(since: Instant): Duration = Duration.between(since, Instant.now())
 
   /**
     * @param d1

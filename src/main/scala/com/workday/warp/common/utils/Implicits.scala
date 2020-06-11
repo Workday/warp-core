@@ -2,7 +2,6 @@ package com.workday.warp.common.utils
 
 import java.math.BigInteger
 import java.time.Duration
-import java.util.Optional
 import java.util.concurrent.TimeUnit
 
 import com.google.gson._
@@ -186,32 +185,6 @@ object Implicits {
   }
 
 
-  /**
-    * Converts a java [[Optional]] to a scala [[Option]]. Unwraps and re-wraps in an [[Option]].
-    *
-    * @param optional [[Optional]] to be converted.
-    * @tparam T type of the underlying element.
-    * @return an [[Option]] with the same underling element as `optional`.
-    */
-  implicit def optional2Option[T](optional: Optional[T]): Option[T] = if (optional.isPresent) Option(optional.get) else None
-
-
-
-  /**
-    * Converts a scala [[Option]] to a java [[Optional]].
-    *
-    * @param option [[Option]] to be converted.
-    * @tparam T type of the underlying element.
-    * @return an [[Optional]] with the same underlying element as `option`.
-    */
-  implicit def option2Optional[T](option: Option[T]): Optional[T] = {
-    option match {
-      case Some(value) => Optional.of(value)
-      case None => Optional.empty[T]
-    }
-  }
-
-
 
   /** Decorates [[Double]] with conversion functions to [[java.time.Duration]] */
   implicit class DecoratedDouble(val d: Double) {
@@ -309,7 +282,7 @@ object Implicits {
         * @param anything ignored. Defined so we can invoke `transform`.
         * @return `aTry`, after invoking `effect` for cleanup.
         */
-      def cleanup(anything: Any): Try[T] = {
+      val cleanup: Any => Try[T] = _ => {
         effect
         this.aTry
       }

@@ -1,7 +1,6 @@
 package com.workday.warp.persistence
 
-import java.time.LocalDate
-import java.util.Date
+import java.time.{Instant, LocalDate}
 
 import com.workday.warp.common.CoreWarpProperty.WARP_DATABASE_URL
 import com.workday.warp.persistence.exception.PreExistingTagException
@@ -104,36 +103,22 @@ trait PersistenceAware {
                                    nameType: String = "plain_txt",
                                    isUserGenerated: Boolean = true): TagNameRowLike
 
+
     /**
       * Creates, inserts, and returns a [[TestExecutionRowLike]].
       *
       * @param testId id of the measured test (usually fully qualified junit method).
-      * @param documentation option containing documentation for the [[TestExecutionRowLike]]
       * @param timeStarted time the measured test was started.
       * @param responseTime observed duration of the measured test (seconds).
       * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
+      * @param maybeDocs optional documentation for the [[TestExecutionRowLike]].
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
     def createTestExecution(testId: String,
-                       documentation: Option[String],
-                       timeStarted: Date,
-                       responseTime: Double,
-                       maxResponseTime: Double): TestExecutionRowLike
-
-    /**
-      * Convenience function for creating a test execution with no documentation.
-      *
-      * @param testId id of the measured test (usually fully qualified junit method).
-      * @param timeStarted time the measured test was started.
-      * @param responseTime observed duration of the measured test (seconds).
-      * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
-      * @return a [[TestExecutionRowLike]] with the given parameters and no documentation.
-      */
-    def createTestExecution(testId: String,
-                       timeStarted: Date,
-                       responseTime: Double,
-                       maxResponseTime: Double): TestExecutionRowLike
-
+                            timeStarted: Instant,
+                            responseTime: Double,
+                            maxResponseTime: Double,
+                            maybeDocs: Option[String] = None): TestExecutionRowLike
 
     /**
       * Updates each [[TestExecutionRowLike]] in `testExecutions` to have the new provided threshold.

@@ -10,6 +10,8 @@ import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZSc
 import com.workday.warp.common.utils.StackTraceFilter
 import com.workday.warp.junit.RoundRobinExecution
 
+import scala.util.Try
+
 /**
  * Utilities for reading annotations
  *
@@ -19,20 +21,15 @@ object AnnotationReader extends StackTraceFilter {
 
   /**
    * @param testId fully qualified name of the junit test method
-   * @return an Option containing the WARP JUnit Class refered to by testId
+   * @return an Option containing the WARP JUnit Class referred to by testId
    */
   protected def getWarpTestClass(testId: String): Option[Class[_]] = {
     // remove the method name to obtain the fully qualified class name
     val className: String = testId take testId.lastIndexOf('.')
 
-    try {
-      Option(Class.forName(className))
-    }
-    catch {
-      // return None if we can't locate the class
-      case e: ClassNotFoundException =>
-        None
-    }
+    // return None if we can't locate the class
+    // we have this double monadic nesting to avoid returning a Success(null)
+    Try(Option(Class.forName(className))).toOption.flatten
   }
 
 
@@ -43,18 +40,9 @@ object AnnotationReader extends StackTraceFilter {
    */
   protected def getWarpTestMethod(testId: String): Option[Method] = {
     val methodName: String = testId drop testId.lastIndexOf('.') + 1
-
-    // get an Option containing the Class based on the current value of testID
-    getWarpTestClass(testId) flatMap { clazz =>
-      try {
-        Option(clazz.getMethod(methodName, new Array[Class[_]](0): _*))
-      }
-      catch {
-        // return None if we can't locate the method
-        case e: NoSuchMethodException =>
-          None
-      }
-    }
+    // we expect the reflected method to have 0 parameters
+    val parameterTypes: Array[Class[_]] = Array.empty
+    this.getWarpTestClass(testId) flatMap { clazz => Try(Option(clazz.getMethod(methodName, parameterTypes: _*))).toOption.flatten }
   }
 
 
@@ -68,7 +56,7 @@ object AnnotationReader extends StackTraceFilter {
    * @return an Option containing the annotation annotationClass from the current WARP Junit class
    */
   def getWarpTestClassAnnotation[T <: Annotation](annotationClass: Class[T], testId: String): Option[T] = {
-    this.getWarpTestClass(testId) flatMap { clazz => Option(clazz.getAnnotation(annotationClass)) }
+    this.getWarpTestClass(testId) flatMap { clazz => Try(Option(clazz.getAnnotation(annotationClass))).toOption.flatten }
   }
 
 
@@ -82,7 +70,7 @@ object AnnotationReader extends StackTraceFilter {
    * @return an Option containing the annotation annotationClass from the current WARP Junit method
    */
   def getWarpTestMethodAnnotation[T <: Annotation](annotationClass: Class[T], testId: String): Option[T] = {
-    this.getWarpTestMethod(testId) flatMap { method => Option(method.getAnnotation(annotationClass)) }
+    this.getWarpTestMethod(testId) flatMap { method => Try(Option(method.getAnnotation(annotationClass))).toOption.flatten }
   }
 
 
@@ -93,12 +81,10 @@ object AnnotationReader extends StackTraceFilter {
    * @param testId fully qualified name of the junit test method
    * @return max response time as a [[Duration]] for the test we are about to invoke
    */
-  // TODO maybe return an Option?
   def getRequiredMaxValue(testId: String): Duration = {
-    getWarpTestMethodAnnotation(classOf[Required], testId) match {
-      case None => Duration.ofMillis(-1)
-      case Some(required) => Duration.ofNanos(TimeUtils.toNanos(required.maxResponseTime, required.timeUnit))
-    }
+    this.getWarpTestMethodAnnotation(classOf[Required], testId)
+      .map(req => Duration.ofNanos(TimeUtils.toNanos(req.maxResponseTime, req.timeUnit)))
+      .getOrElse(Duration.ofMillis(-1))
   }
 
 
@@ -111,10 +97,9 @@ object AnnotationReader extends StackTraceFilter {
    *         annotation set.
    */
   def getRoundRobinExecution(testId: String): Int = {
-    getWarpTestClassAnnotation(classOf[RoundRobinExecution], testId) match {
-      case None => RoundRobinExecution.DEFAULT_INVOCATIONS
-      case Some(roundRobinExecution) => roundRobinExecution.invocations
-    }
+    this.getWarpTestClassAnnotation(classOf[RoundRobinExecution], testId)
+      .map(_.invocations)
+      .getOrElse(RoundRobinExecution.DEFAULT_INVOCATIONS)
   }
 
 
@@ -127,10 +112,9 @@ object AnnotationReader extends StackTraceFilter {
    *         annotation set.
    */
   def getRoundRobinExecution(aClass: Class[_]): Int = {
-    Option(aClass.getAnnotation(classOf[RoundRobinExecution])) match {
-      case None => RoundRobinExecution.DEFAULT_INVOCATIONS
-      case Some(roundRobinExecution) => roundRobinExecution.invocations
-    }
+    Try(aClass.getAnnotation(classOf[RoundRobinExecution]))
+      .map(_.invocations)
+      .getOrElse(RoundRobinExecution.DEFAULT_INVOCATIONS)
   }
 
 
@@ -142,10 +126,9 @@ object AnnotationReader extends StackTraceFilter {
    * @return number of invocations set by the [[Schedule]] annotation.
    */
   def getScheduleInvocations(testId: String): Int = {
-    getWarpTestMethodAnnotation(classOf[Schedule], testId) match {
-      case None => 1
-      case Some(schedule) => schedule.invocations
-    }
+    this.getWarpTestMethodAnnotation(classOf[Schedule], testId)
+      .map(_.invocations)
+      .getOrElse(Schedule.INVOCATIONS_DEFAULT)
   }
 
 
@@ -159,10 +142,9 @@ object AnnotationReader extends StackTraceFilter {
     * @return z-score percentile threshold requirement
     */
   def getZScoreRequirement(testId: String): Double = {
-    getWarpTestMethodAnnotation(classOf[ZScoreRequirement], testId) match {
-      case None => ZScoreRequirement.DEFAULT_PERCENTILE
-      case Some(zScoreRequirement) => math.max(0.0, math.min(100.0, zScoreRequirement.percentile))
-    }
+    this.getWarpTestMethodAnnotation(classOf[ZScoreRequirement], testId)
+      .map(req => math.max(0.0, math.min(100.0, req.percentile)))
+      .getOrElse(ZScoreRequirement.DEFAULT_PERCENTILE)
   }
 
 
@@ -174,7 +156,7 @@ object AnnotationReader extends StackTraceFilter {
     * @return true iff the measured test is annotated with [[ZScoreRequirement]].
     */
   def hasZScoreRequirement(testId: String): Boolean = {
-    getWarpTestMethodAnnotation(classOf[ZScoreRequirement], testId).isDefined
+    this.getWarpTestMethodAnnotation(classOf[ZScoreRequirement], testId).isDefined
   }
 
 
@@ -188,10 +170,9 @@ object AnnotationReader extends StackTraceFilter {
     * @return percentage threshold requirement.
     */
   def getPercentageDegradationRequirement(testId: String): Double = {
-    getWarpTestMethodAnnotation(classOf[PercentageDegradationRequirement], testId) match {
-      case None => PercentageDegradationRequirement.DEFAULT_PERCENTAGE
-      case Some(percentageRequirement) => math.max(0.0, math.min(100.0, percentageRequirement.percentage))
-    }
+    this.getWarpTestMethodAnnotation(classOf[PercentageDegradationRequirement], testId)
+      .map(req => math.max(0.0, math.min(100.0, req.percentage)))
+      .getOrElse(PercentageDegradationRequirement.DEFAULT_PERCENTAGE)
   }
 
 
@@ -203,6 +184,6 @@ object AnnotationReader extends StackTraceFilter {
     * @return true iff the measured test is annotated with [[PercentageDegradationRequirement]].
     */
   def hasPercentageDegradationRequirement(testId: String): Boolean = {
-    getWarpTestMethodAnnotation(classOf[PercentageDegradationRequirement], testId).isDefined
+    this.getWarpTestMethodAnnotation(classOf[PercentageDegradationRequirement], testId).isDefined
   }
 }

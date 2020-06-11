@@ -1,6 +1,7 @@
 package com.workday.warp.arbiters
 
-import java.util.{Date, UUID}
+import java.time.Instant
+import java.util.UUID
 
 import com.workday.telemetron.RequirementViolationException
 import com.workday.warp.common.CoreWarpProperty._
@@ -49,7 +50,7 @@ class PercentageDegradationArbiterSpec extends WarpJUnitSpec with CorePersistenc
   def notEnoughData(): Unit = {
     val testId: String = s"com.workday.warp.ZScore.${UUID.randomUUID().toString}"
     val ballot: Ballot = new Ballot(testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, new Date, 4.0, 3.0)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 4.0, 3.0)
     val arbiter: PercentageDegradationArbiter = new PercentageDegradationArbiter
     arbiter.vote(ballot, testExecution) should be (empty)
   }
@@ -61,7 +62,7 @@ class PercentageDegradationArbiterSpec extends WarpJUnitSpec with CorePersistenc
   @PercentageDegradationRequirement(percentage = 20)
   def percentageVote(): Unit = {
     val ballot: Ballot = new Ballot(this.getTestId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, new Date, 4.0, 5.0)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, Instant.now(), 4.0, 5.0)
 
     val arbiter: PercentageDegradationArbiter = new PercentageDegradationArbiter
     arbiter.vote(List(1.0, 2.0, 3.0), ballot, testExecution, this.minimumHistoricalData) should be (defined)

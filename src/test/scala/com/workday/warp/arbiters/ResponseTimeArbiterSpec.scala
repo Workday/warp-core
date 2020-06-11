@@ -1,7 +1,7 @@
 package com.workday.warp.arbiters
 
-import java.util.Date
 import java.util.concurrent.TimeUnit
+import java.time.Instant
 
 import com.workday.telemetron.annotation.Required
 import com.workday.warp.common.category.UnitTest
@@ -24,7 +24,7 @@ class ResponseTimeArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @Category(Array(classOf[UnitTest]))
   def noRequired(): Unit = {
     val ballot: Ballot = new Ballot(this.getTestId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, new Date, 1.0, 4.0)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, Instant.now(), 1.0, 4.0)
     val arbiter: ResponseTimeArbiter = new ResponseTimeArbiter
 
     arbiter.vote(ballot, testExecution) should be (empty)
@@ -38,7 +38,7 @@ class ResponseTimeArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   def requiredPassed(): Unit = {
     val testId: String = this.getTestId
     val ballot: Ballot = new Ballot(testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, new Date, 2.0, 3.0)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 2.0, 3.0)
     val arbiter: ResponseTimeArbiter = new ResponseTimeArbiter
 
     arbiter.vote(ballot, testExecution) should be (empty)
@@ -52,7 +52,7 @@ class ResponseTimeArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   def requiredFailed(): Unit = {
     val testId: String = this.getTestId
     val ballot: Ballot = new Ballot(testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, new Date, 4.0, 3.0)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 4.0, 3.0)
     val arbiter: ResponseTimeArbiter = new ResponseTimeArbiter
 
     val vote: Option[Throwable] = arbiter.vote(ballot, testExecution)
@@ -69,7 +69,7 @@ class ResponseTimeArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   def requiredFailedMillis(): Unit = {
     val testId: String = this.getTestId
     val ballot: Ballot = new Ballot(testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, new Date, 4.0, 3.0)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 4.0, 3.0)
     val arbiter: ResponseTimeArbiter = new ResponseTimeArbiter
 
     val vote: Option[Throwable] = arbiter.vote(ballot, testExecution)
