@@ -2,14 +2,13 @@ package com.workday.warp.persistence.mysql
 
 import java.time.Instant
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
+import com.workday.warp.junit.UnitTest
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import com.workday.warp.persistence.mysql.WarpSlickSingleColumnExtensionsSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
-import org.junit.experimental.categories.Category
-import org.junit.{Before, Test}
+import org.junit.jupiter.api.BeforeEach
 
 /**
   * Created by ruiqi.wang
@@ -17,7 +16,7 @@ import org.junit.{Before, Test}
 class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Truncates the schema. */
-  @Before
+  @BeforeEach
   def truncateSchema(): Unit = {
     Connection.refresh()
     CorePersistenceUtils.truncateSchema()
@@ -26,8 +25,7 @@ class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersist
   /**
     * Checks that our custom standard deviation aggregation function works correctly.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def standardDeviation(): Unit = {
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 2.0, 10)

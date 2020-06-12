@@ -3,15 +3,14 @@ package com.workday.warp.persistence
 import java.time.{Instant, LocalDate}
 
 import slick.jdbc.MySQLProfile.api._
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
+import com.workday.warp.junit.UnitTest
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.CoreIdentifierType._
-import org.junit.{Before, Test}
-import org.junit.experimental.categories.Category
+import org.junit.jupiter.api.BeforeEach
 
 
 /**
@@ -36,7 +35,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Truncates the schema. */
-  @Before
+  @BeforeEach
   def truncateSchema(): Unit = {
     Connection.refresh()
     CorePersistenceUtils.truncateSchema()
@@ -46,9 +45,8 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   /**
     * Checks that we don't throw an exception when the schema already exists.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
-  def doubleInit: Unit = {
+  @UnitTest
+  def doubleInit(): Unit = {
     Connection.refresh()
     CorePersistenceUtils.initSchema()
     CorePersistenceUtils.initSchema()
@@ -56,8 +54,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can find or create [[Tables.Build]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def findOrCreateBuild(): Unit = {
     this.persistenceUtils.findOrCreateBuild(2016, 1, 345).idBuild should be (1)
     this.persistenceUtils.findOrCreateBuild(2016, 1, 345).idBuild should be (1)
@@ -73,8 +70,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can find or create [[Tables.TestDefinition]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def findOrCreateTestDefinition(): Unit = {
     this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature).idTestDefinition should be (1)
     this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature).idTestDefinition should be (1)
@@ -98,8 +94,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   }
 
   /** Checks that we can find or create [[Tables.MeasurementName]] with trimmed name. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def findOrCreateMeasurementName(): Unit = {
     this.persistenceUtils.findOrCreateMeasurementName("some name").idMeasurementName should be (1)
     this.persistenceUtils.findOrCreateMeasurementName("some name").idMeasurementName should be (1)
@@ -114,8 +109,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can find or create [[Tables.TagName]] with trimmed name. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def findOrCreateTagName(): Unit = {
     this.persistenceUtils.findOrCreateTagName("some name").idTagName should be (1)
     this.persistenceUtils.findOrCreateTagName("some name").idTagName should be (1)
@@ -130,8 +124,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can record a [[TestExecutionTagRowLike]], and that it properly returns the whole row including the autoInc rowID */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def recordTestExecutionTag(): Unit = {
     val testExecution: TestExecutionRowLike = this.createTestExecution(1)
 
@@ -162,8 +155,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can record a [[TestDefinitionTagRow]], and that it properly returns the whole row including the autoInc rowID */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def recordTestDefinitionTag(): Unit = {
     val testExecution: TestExecutionRow = this.createTestExecution(1)
     val testExecution2: TestExecutionRow = this.createTestExecution(2)
@@ -196,8 +188,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can record a [[TestDefinitionMetaTagRow]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def recordTestDefinitionMetaTag(): Unit = {
     val testExecution: TestExecutionRow = this.createTestExecution(1)
     this.persistenceUtils.recordTestDefinitionTag(testExecution.idTestDefinition, "instanceId", "755$1234")
@@ -210,8 +201,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   }
 
   /** Checks that we can record a [[TestDefinitionMetaTagRow]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def recordTestExecutionMetaTag(): Unit = {
     val testExecution: TestExecutionRow = this.createTestExecution(1)
     this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, "some name", "some value", isUserGenerated = true)
@@ -225,8 +215,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can create [[Tables.TestExecution]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def createTestExecution(): Unit = {
     // insert a test execution, should have id 1
     val testExecution: Tables.TestExecutionRow = this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
@@ -252,8 +241,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   }
 
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def recordMeasurement(): Unit = {
     val testExecution: Tables.TestExecutionRow = this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 5.0, 6.0)
     this.persistenceUtils.recordMeasurement(testExecution.idTestExecution, "some measurement name", 0.1)
@@ -267,8 +255,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   }
 
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def getResponseTimes(): Unit = {
 
     // insert a few test executions with different signatures
@@ -305,8 +292,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can compute average response times. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def average(): Unit = {
     // check average of empty list
     this.persistenceUtils.getAverageResponseTime(CoreIdentifier(this.methodSignature)).isNaN should be (true)
@@ -319,16 +305,14 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can correctly read number of executions. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def getNumExecutions0(): Unit = {
     this.persistenceUtils.getNumExecutions(CoreIdentifier(this.methodSignature)) should be (0)
   }
 
 
   /** Checks that we can correctly read number of executions. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def getNumExecutions2(): Unit = {
     this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
     this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
@@ -337,8 +321,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can correctly read number of executions. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def getNumExecutions5(): Unit = {
     this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
     this.persistenceUtils.createTestExecution(this.methodSignature, Instant.now(), 6.0, 6.0)
@@ -351,8 +334,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can correctly compute the mode response time. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def mode(): Unit = {
     this.createTestExecution(1)
     this.createTestExecution(2)
@@ -380,8 +362,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
 
   /** Checks that we can correctly compute the median response time. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def median(): Unit = {
     this.createTestExecution(1)
     this.createTestExecution(2)

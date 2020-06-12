@@ -2,11 +2,9 @@ package com.workday.warp.inject
 
 import com.google.inject.{AbstractModule, Guice, Injector}
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.{CoreWarpProperty, WarpPropertyLike}
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 /**
   *
@@ -15,8 +13,7 @@ import org.junit.experimental.categories.Category
 class WarpGuicerSpec extends WarpJUnitSpec {
 
   /** Just an example with binding an instance. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def booleanInjectionSpec(): Unit = {
 
     class BooleanBindingModule extends AbstractModule {
@@ -33,8 +30,7 @@ class WarpGuicerSpec extends WarpJUnitSpec {
 
 
   /** Checks that we bind the correct runtime implementation for collection controller. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def injectMeasurementCollectionController(): Unit = {
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController("com.workday.warp.some.test.id", List.empty)
     controller.getClass should be (classOf[DefaultMeasurementCollectionController])
@@ -42,8 +38,7 @@ class WarpGuicerSpec extends WarpJUnitSpec {
 
 
   /** Checks that we bind the correct runtime implementation for property. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def injectCoreWarpProperty(): Unit = {
     WarpGuicer.getProperty.getClass should be (CoreWarpProperty.getClass)
     WarpGuicer.getInstance(classOf[WarpPropertyLike]).getClass should be (CoreWarpProperty.getClass)
@@ -51,8 +46,7 @@ class WarpGuicerSpec extends WarpJUnitSpec {
 
 
   /** Checks that we have the correct env var name for injection module. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def envVar(): Unit = {
     WarpGuicer.moduleEnvVar should be ("WD_WARP_INJECT_MODULE")
   }

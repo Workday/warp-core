@@ -1,9 +1,7 @@
 package com.workday.warp.persistence
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 import scala.util.Try
 
@@ -15,8 +13,7 @@ class MethodSignatureSpec extends WarpJUnitSpec {
   private val signature: String = "com.workday.warp.product.subproduct.Class.method"
 
   /** Checks that we can deconstruct a fully qualified method signature. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def methodSignature(): Unit = {
     val expected: MethodSignature = MethodSignature("product", "subproduct", "Class", "method")
     MethodSignature(this.signature) should be (expected)

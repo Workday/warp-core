@@ -1,9 +1,7 @@
 package com.workday.warp.common.utils
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 /**
   * Created by tomas.mccandless on 5/13/16.
@@ -11,8 +9,7 @@ import org.junit.experimental.categories.Category
 class StackTraceFilterSpec extends WarpJUnitSpec with StackTraceFilter {
 
   /** Checks that we can filter stacktrace by class name using the signature defined in the trait. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def stackTraceFilterClassName(): Unit = {
     val exception: RuntimeException = new RuntimeException
     // retain only frames corresponding to this class
@@ -20,8 +17,7 @@ class StackTraceFilterSpec extends WarpJUnitSpec with StackTraceFilter {
   }
 
   /** Checks that we can filter using a custom predicate using the signature defined in the companion object. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def stackTraceFilterCustomPredicate(): Unit = {
     // define a custom predicate function
     def predicate(element: StackTraceElement): Boolean = element.getClassName startsWith "com.workday.warp"
@@ -31,8 +27,7 @@ class StackTraceFilterSpec extends WarpJUnitSpec with StackTraceFilter {
   }
 
   /** Checks that we can filter stacktrace cause. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def stackTraceFilterCause(): Unit = {
     val root: RuntimeException = new RuntimeException("i am the root cause")
     val cause: RuntimeException = new RuntimeException("i am an intermediate cause", root)

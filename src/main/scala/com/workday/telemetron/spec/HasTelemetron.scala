@@ -9,6 +9,7 @@ import org.junit.Rule
   *
   * Created by leslie.lam on 12/19/17.
   */
+@deprecated
 trait HasTelemetron {
   def shouldVerifyResponseTime: Boolean = true
   private[this] val _telemetron: TelemetronRule = TelemetronRule(context = TelemetronContext(this.shouldVerifyResponseTime))

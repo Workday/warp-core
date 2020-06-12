@@ -14,9 +14,12 @@ import java.lang.annotation.Target;
  * while determining the order of test methods to execute.
  *
  * Created by tomas.mccandless on 8/1/15.
+ *
+ * @deprecated use junit5 extensions
  */
 @Target(TYPE)
 @Retention(RUNTIME)
+@Deprecated
 public @interface RoundRobinExecution {
 
     int DEFAULT_INVOCATIONS = 1;

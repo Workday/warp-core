@@ -1,9 +1,7 @@
 package com.workday.warp.math.stats
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 import scala.util.Random
 
@@ -14,8 +12,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   /**
     * No results should be generated if there aren't enough samples
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def notEnoughSamplesSpec(): Unit = {
     val smallSampleSize: Array[Double] = Array(1, 2, 3, 4)
     val emptyStatResults: Option[AllRegressionStatTestResults] =
@@ -27,8 +24,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   /**
     * Regression should be detected by T-Test
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def regressionSpec(): Unit = {
     val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian * 3))
     val regressedNormalResponseTimes: Array[Double] = Array.fill(50)(54 + (Random.nextGaussian * 4))
@@ -45,8 +41,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   /**
     * No regression, also tests that one tailed test is working when new response times are less than the baseline
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def noRegressionSpec(): Unit = {
     val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian * 3))
     val improvedNormalResponseTimes: Array[Double] = Array.fill(50)(46 + (Random.nextGaussian * 4))
@@ -62,8 +57,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   /**
     * Regression detected by U-Test
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def uTestRegressionSpec(): Unit = {
     // Test U-Test used appropriately; total samples has to be less than 30 as well to not fulfill CLT
     // Adding an outlier group separate from the main group makes the normality test fail
@@ -85,8 +79,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   /**
     * No regression detected by U-Test
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def uTestNoRegressionSpec(): Unit = {
     val baselineNonNormalResponseTimes: Array[Double] =
       Array.fill(18)(50 + (Random.nextDouble * 3)) ++ Array.fill(8)(60 + (Random.nextDouble * 7))
@@ -106,8 +99,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   /**
     * Regression should be detected by two-sided T-Test
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def twoSidedRegressionSpec(): Unit = {
     val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian * 3))
     val regressedNormalResponseTimes: Array[Double] = Array.fill(50)(54 + (Random.nextGaussian * 4))
@@ -122,8 +114,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
     twoSided.regressionTest.pValue should be (2 * oneSided.regressionTest.pValue)
   }
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def allRegressionStatTestResultsSpec(): Unit = {
     import TwoSampleRegressionTestSpec._
 
@@ -140,7 +131,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   }
 
 
-  @Test
+  @UnitTest
   def equalVarianceTestProbability(): Unit = {
     import TwoSampleRegressionTestSpec._
 
@@ -151,7 +142,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   /**
     * Checks t-distribution parameters for both homoscedastic and non-homoscedastic
     */
-  @Test
+  @UnitTest
   def tDistributionParameters(): Unit = {
     val baselineVariance: Double = 6.86
     val baselineSize: Int = 50
@@ -186,7 +177,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   }
 
 
-  @Test
+  @UnitTest
   def tTestResults(): Unit = {
     val results: (Double, Double, TestType) = TwoSampleRegressionTest.tTestResults(
       TwoSampleRegressionTestSpec.baseline,
@@ -200,7 +191,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
     results._3 should be (StudentsTTest)
   }
 
-  @Test
+  @UnitTest
   def chooseAndConductTTest(): Unit = {
     val result: (Option[StatTestResult], GenericStatTestResult) = TwoSampleRegressionTest.chooseAndConductTTest(
       TwoSampleRegressionTestSpec.baseline,

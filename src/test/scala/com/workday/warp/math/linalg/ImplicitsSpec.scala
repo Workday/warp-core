@@ -1,11 +1,9 @@
 package com.workday.warp.math.linalg
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
+import com.workday.warp.junit.UnitTest
 import com.workday.warp.math.linalg.Implicits._
 import org.apache.commons.math3.linear.{MatrixUtils, RealMatrix}
-import org.junit.Test
-import org.junit.experimental.categories.Category
 
 /**
   * Created by tomas.mccandless on 6/11/18.
@@ -15,8 +13,7 @@ class ImplicitsSpec extends WarpJUnitSpec {
   /**
     * Checks our implicits for matrix ops.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def realMatrix(): Unit = {
     val r1: RealMatrix = MatrixUtils.createRealMatrix(Array(Array(1, 2), Array(3, 4)))
     val r2: RealMatrix = MatrixUtils.createRealMatrix(Array(Array(5, 6), Array(7, 8)))

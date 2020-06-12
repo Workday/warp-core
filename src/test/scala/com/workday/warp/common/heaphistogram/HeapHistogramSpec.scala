@@ -6,10 +6,9 @@ import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, ContinuousHeapHistogramCollector}
 import com.workday.warp.collectors.DefaultMeasurementCollectionController
 import com.workday.warp.common.CoreConstants
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
+import com.workday.warp.junit.UnitTest
 import org.junit.Test
-import org.junit.experimental.categories.Category
 
 /**
   * Tests for the Histogram-related methods
@@ -21,8 +20,7 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
   /**
     * Gets the heap histogram
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def getHeapHistogramSpec(): Unit = {
     case class Cat()
     List.fill(1000)(new Cat)
@@ -34,8 +32,7 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
   /**
     * Calls the PID method of the companion object explicitly
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def getPidSpec(): Unit = {
     val pid = HistogramIoLike.pid
 
@@ -45,8 +42,7 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
   /**
     * Calls the companion object's `vm` field explicitly
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def initCompanionObjectSpec(): Unit = {
     val inputStream: InputStream = HistogramIoLike.vm.heapHisto("-live")
     val heapHistogramString: String = scala.io.Source.fromInputStream(inputStream).mkString
@@ -58,7 +54,6 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
     * Tests the full process of registering a collector and calling begin/end for measurement collection
     */
   @Test
-  @Category(Array(classOf[UnitTest]))
   def lifecycleSpec(): Unit = {
     val measCollectionController: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
     val contHeapHistoCollector: AbstractMeasurementCollector = new ContinuousHeapHistogramCollector(CoreConstants.UNDEFINED_TEST_ID)

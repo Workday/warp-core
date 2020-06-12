@@ -11,6 +11,8 @@ import org.pmw.tinylog.Logger
 
 /**
   * Created by tomas.mccandless on 6/14/17.
+  *
+  * // TODO refactor BeforeOnce and AfterOnce
   */
 class MigrationSpec extends WarpJUnitSpec with Connection with CorePersistenceAware with MigrateSchemaLike {
 
@@ -35,6 +37,6 @@ class MigrationSpec extends WarpJUnitSpec with Connection with CorePersistenceAw
   @Schedule(invocations = 32, threads = 8)
   def concurrentMigration(): Unit = {
     if (this.maybeFlyway.isDefined) this.migrate()
-    else Logger.info(s"migrations are only supported for mysql. check the value of ${WARP_DATABASE_URL.propertyName}")
+    else Logger.debug(s"migrations are only supported for mysql. check the value of ${WARP_DATABASE_URL.propertyName}")
   }
 }

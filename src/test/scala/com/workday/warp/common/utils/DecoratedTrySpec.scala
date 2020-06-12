@@ -1,10 +1,8 @@
 package com.workday.warp.common.utils
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits.DecoratedTry
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 import scala.util.Try
 
@@ -14,8 +12,7 @@ import scala.util.Try
 class DecoratedTrySpec extends WarpJUnitSpec {
 
   /** Checks that we can clean up after a [[Try]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def lastly(): Unit = {
     var n: Int = 0
 
@@ -32,8 +29,7 @@ class DecoratedTrySpec extends WarpJUnitSpec {
 
 
   /** Checks that we can transform a [[Try]] to an [[Either]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def toEither(): Unit = {
     val aTry: Try[Int] = Try(1 + 1)
     aTry.toEither should be (Right(2))

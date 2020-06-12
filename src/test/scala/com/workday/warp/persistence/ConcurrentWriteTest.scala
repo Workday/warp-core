@@ -14,6 +14,8 @@ import org.junit.{BeforeClass, Test}
   *
   * The schema is dropped and recreated before this class is instantiated.
   *
+  * // TODO refactor schedule
+  *
   * Created by tomas.mccandless on 1/17/17.
   */
 class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {

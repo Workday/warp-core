@@ -1,9 +1,7 @@
 package com.workday.warp.utils
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 import scala.math.abs
 
@@ -12,8 +10,7 @@ import scala.math.abs
   */
 class DataUtilsSpec extends WarpJUnitSpec {
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def zeroStdDev(): Unit = {
     val standardized: Iterable[Double] = DataUtils.standardize(List(1, 2, 3, 4))
     val diffs: Iterable[Double] = standardized.zip(
