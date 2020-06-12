@@ -89,6 +89,9 @@ dependencies {
     api "org.flywaydb:flyway-core:${versions.flyway}"
     // used for custom rules and runners
     api "junit:junit:${versions.junit}"
+    api 'org.scalatestplus:scalatestplus-junit_%%:1.0.0-SNAP9'
+    api 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    api 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
     api "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
     // used for linear algebra implicits
     api "org.apache.commons:commons-math3:${versions.math3}"
@@ -192,9 +195,9 @@ task copyConfigTemplate(type: Copy) {
 }
 
 task unitTest(type: Test) {
-    useJUnit {
-        excludeCategories 'com.workday.warp.common.category.IntegrationTest'
-        includeCategories 'com.workday.warp.common.category.UnitTest'
+    useJUnitPlatform {
+        includeTags 'unitTest'
+        excludeTags 'integTest', 'ci'
     }
 }
 
