@@ -3,6 +3,7 @@ package com.workday.warp.persistence.influxdb
 import java.time.Instant
 import java.util.UUID
 
+import com.workday.telemetron.spec.HasRandomTestId
 import com.workday.warp.common.heaphistogram.{HeapHistogram, HeapHistogramEntry}
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.IntegTest
@@ -11,14 +12,13 @@ import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import org.influxdb.InfluxDB
 import org.influxdb.dto.Pong
-import org.junit.Test
 
 import scala.util.Try
 
 /**
   * Created by tomas.mccandless on 7/12/16.
   */
-class InfluxDBClientSpec extends WarpJUnitSpec with CorePersistenceAware with InfluxDBClient {
+class InfluxDBClientSpec extends WarpJUnitSpec with CorePersistenceAware with InfluxDBClient with HasRandomTestId {
 
 
   @IntegTest
@@ -53,10 +53,10 @@ class InfluxDBClientSpec extends WarpJUnitSpec with CorePersistenceAware with In
 
 
   /** Checks that we can persist response times and thresholds. */
-  @Test
+  @IntegTest
   def responseTimes(): Unit = {
     Connection.refresh()
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, Instant.now(), 1.0, 1.5)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.randomTestId(), Instant.now(), 1.0, 1.5)
     this.persistThreshold("testResponseTimes", "testResponseTimes", testExecution).get
     this.dropDatabase("testResponseTimes").get
   }

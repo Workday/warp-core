@@ -2,20 +2,20 @@ package com.workday.warp.common.heaphistogram
 
 import java.io.InputStream
 
+import com.workday.telemetron.spec.HasRandomTestId
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, ContinuousHeapHistogramCollector}
 import com.workday.warp.collectors.DefaultMeasurementCollectionController
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
-import org.junit.Test
 
 /**
   * Tests for the Histogram-related methods
   *
   * Created by vignesh.kalidas on 4/6/18.
   */
-class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
+class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike with HasRandomTestId {
 
   /**
     * Gets the heap histogram
@@ -53,13 +53,13 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
   /**
     * Tests the full process of registering a collector and calling begin/end for measurement collection
     */
-  @Test
+  @UnitTest
   def lifecycleSpec(): Unit = {
     val measCollectionController: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
     val contHeapHistoCollector: AbstractMeasurementCollector = new ContinuousHeapHistogramCollector(CoreConstants.UNDEFINED_TEST_ID)
 
     measCollectionController.registerCollector(contHeapHistoCollector)
-    measCollectionController.registerCollector(new HeapHistogramCollector(this.getTestId))
+    measCollectionController.registerCollector(new HeapHistogramCollector(this.randomTestId()))
 
     measCollectionController.beginMeasurementCollection()
     val histogram: Seq[HeapHistogramEntry] = getHeapHistogram

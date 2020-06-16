@@ -2,6 +2,7 @@ package com.workday.warp.dsl
 
 import com.workday.telemetron.RequirementViolationException
 import com.workday.telemetron.math.{DistributionLike, GaussianDistribution}
+import com.workday.telemetron.spec.HasRandomTestId
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, Defaults}
@@ -16,7 +17,6 @@ import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.UnitTest
-import org.junit.Test
 import org.scalatest.exceptions.TestFailedException
 
 import scala.util.Try
@@ -24,7 +24,7 @@ import scala.util.Try
 /**
   * Created by tomas.mccandless on 3/25/16.
   */
-class DslSpec extends WarpJUnitSpec {
+class DslSpec extends WarpJUnitSpec with HasRandomTestId {
 
   @UnitTest
   def dsl(): Unit = {
@@ -328,7 +328,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can set test id manually or read it from [[com.workday.telemetron.junit.TelemetronNameRule]]. */
-  @Test
+  @UnitTest
   def testId(): Unit = {
     // check that we can manually override the test id
     val someTestId: String = "com.workday.warp.dsl.test1"
@@ -339,7 +339,8 @@ class DslSpec extends WarpJUnitSpec {
     Researcher(using iterations 5 testId someTestId).collectionController().testId should be (someTestId)
 
     // check that we can read it from telemetron name rule
-    Researcher(using testId this.getTestId).collectionController().testId should be (this.getTestId)
+    val randomTestId: String = this.randomTestId()
+    Researcher(using testId randomTestId).collectionController().testId should be (randomTestId)
 
     // check that we handle empty string correctly
     Researcher(using testId "").collectionController().testId should be (Defaults.testId)
