@@ -88,10 +88,9 @@ dependencies {
     api "io.gatling:gatling-app:${versions.gatling}"
     api "org.flywaydb:flyway-core:${versions.flyway}"
     // used for custom rules and runners
-    api "junit:junit:${versions.junit}"
-    api 'org.scalatestplus:scalatestplus-junit_%%:1.0.0-SNAP9'
-    api 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    api 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    api "junit:junit:${versions.junit4}"
+    api "org.junit.jupiter:junit-jupiter-api:${versions.junit5}"
+    api "org.junit.jupiter:junit-jupiter-engine:${versions.junit5}"
 
     api "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
     // used for linear algebra implicits
@@ -101,7 +100,8 @@ dependencies {
     // used for custom matchers
     api "org.scalactic:scalactic_%%:${versions.scalactic}"
     api "org.scalatest:scalatest_%%:${versions.scalatest}"
-    api "org.scalatestplus:junit-4-12_%%:${versions.scalatestplus}"
+    api "org.scalatestplus:junit-4-12_%%:${versions.scalatestplusjunit4}"
+    api "org.scalatestplus:scalatestplus-junit_%%:${versions.scalatestplusjunit5}"
     // used for custom log writers
     api "org.tinylog:tinylog:${versions.tinylog}"
 
@@ -118,10 +118,10 @@ dependencies {
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
 
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine") {
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${versions.junit5}") {
         because 'allows JUnit 3 and JUnit 4 tests to run'
     }
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher") {
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:${versions.junit5PlatformLauncher}") {
         because 'allows tests to run from IDEs that bundle older version of launcher'
     }
 }

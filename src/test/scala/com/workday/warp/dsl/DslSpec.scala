@@ -477,14 +477,14 @@ class DslSpec extends WarpJUnitSpec {
   // some dummy arbiters and collectors to use in testing
   class SomeArbiter extends ArbiterLike with CorePersistenceAware {
     override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-      Logger.info("some arbiter voting")
+      Logger.debug("some arbiter voting")
       None
     }
   }
 
   class SomeOtherArbiter extends ArbiterLike with CorePersistenceAware {
     override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-      Logger.info("some other arbiter voting")
+      Logger.debug("some other arbiter voting")
       None
     }
   }
@@ -499,7 +499,7 @@ class DslSpec extends WarpJUnitSpec {
     /**
       * Called prior to starting an individual test invocation.
       */
-    override def startMeasurement(): Unit = Logger.info("starting measurement")
+    override def startMeasurement(): Unit = Logger.debug("starting measurement")
 
     /**
       * Called after finishing an individual test invocation.
@@ -508,7 +508,7 @@ class DslSpec extends WarpJUnitSpec {
       *                          not attempt to write out to the database.
       */
     override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-      Logger.info("stopping measurement")
+      Logger.debug("stopping measurement")
     }
   }
 
@@ -516,7 +516,7 @@ class DslSpec extends WarpJUnitSpec {
     /**
       * Called prior to starting an individual test invocation.
       */
-    override def startMeasurement(): Unit = Logger.info("starting measurement")
+    override def startMeasurement(): Unit = Logger.debug("starting measurement")
 
     /**
       * Called after finishing an individual test invocation.
@@ -525,7 +525,7 @@ class DslSpec extends WarpJUnitSpec {
       *                          not attempt to write out to the database.
       */
     override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-      Logger.info("stopping measurement")
+      Logger.debug("stopping measurement")
     }
   }
 }
