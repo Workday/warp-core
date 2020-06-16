@@ -92,6 +92,7 @@ dependencies {
     api 'org.scalatestplus:scalatestplus-junit_%%:1.0.0-SNAP9'
     api 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     api 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+
     api "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
     // used for linear algebra implicits
     api "org.apache.commons:commons-math3:${versions.math3}"
@@ -116,6 +117,13 @@ dependencies {
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
+
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine") {
+        because 'allows JUnit 3 and JUnit 4 tests to run'
+    }
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher") {
+        because 'allows tests to run from IDEs that bundle older version of launcher'
+    }
 }
 
 sourceSets {
@@ -209,6 +217,8 @@ test {
         events 'started', 'passed'
         showStandardStreams = true
     }
+
+    useJUnitPlatform()
 }
 
 task deleteSchema(type: JavaExec, dependsOn: compileTestScala) {
