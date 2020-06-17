@@ -13,7 +13,7 @@ project.ext.versions = [
     , coveralls: '2.8.2'
     , flyway: '5.2.1'
     , gatling: '3.2.1'
-    , gradleGit: '4.0.0-rc.1'
+    , gradleGit: '4.0.2'
     , gradleScoverage: '3.2.0'
     , guava: '27.0-jre'
     , guice: '4.2.2'
