@@ -5,14 +5,12 @@ import java.util.concurrent.TimeUnit
 
 import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.experimental.categories.Category
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.utils.Implicits.DecoratedLong
-import org.junit.Test
+import com.workday.warp.junit.UnitTest
 
 class DecoratedLongSpec extends WarpJUnitSpec {
-  @Test
-  @Category(Array(classOf[UnitTest]))
+
+  @UnitTest
   def decoratedLongSpec(): Unit = {
     val timeUnit: Long = 10000
 

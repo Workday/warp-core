@@ -1,9 +1,7 @@
 package com.workday.warp.logger
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 import org.pmw.tinylog.Level
 
 /**
@@ -11,8 +9,7 @@ import org.pmw.tinylog.Level
   */
 class WarpLogUtilsSpec extends WarpJUnitSpec {
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def parseLogLevel(): Unit = {
 
     WarpLogUtils.parseLevel("NOT_VALID_LEVEL", Option("DEBUG")) should be (Level.DEBUG)

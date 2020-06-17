@@ -1,10 +1,8 @@
 package com.workday.warp.utils
 
 import com.workday.telemetron.RequirementViolationException
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 /**
   * Created by tomas.mccandless on 1/27/16.
@@ -12,8 +10,7 @@ import org.junit.experimental.categories.Category
 class BallotSpec extends WarpJUnitSpec {
 
   /** Checks that passing votes do not fail the test */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def passed(): Unit = {
     val ballot: Ballot = new Ballot
 
@@ -26,8 +23,7 @@ class BallotSpec extends WarpJUnitSpec {
 
 
   /** Checks that the exception thrown when there are votes for failure contains messages from each distinct vote */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def failed(): Unit = {
     val failure1: String = "failed heap delta requirement"
     val failure2: String = "failed cumulative probability threshold requirement"

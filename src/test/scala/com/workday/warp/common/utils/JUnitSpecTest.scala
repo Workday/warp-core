@@ -7,6 +7,8 @@ import org.junit.experimental.categories.Category
 
 /**
   * Created by tomas.mccandless on 5/20/16.
+  *
+  * // TODO refactor getTestId
   */
 class JUnitSpecTest extends WarpJUnitSpec {
 

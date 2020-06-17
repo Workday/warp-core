@@ -7,16 +7,14 @@ import java.util.UUID
 
 import com.workday.telemetron.RequirementViolationException
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.common.CoreConstants
+import com.workday.warp.junit.UnitTest
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.utils.Ballot
-import org.junit.Test
-import org.junit.experimental.categories.Category
 import org.pmw.tinylog.Logger
 
 import scala.io.Source
@@ -30,8 +28,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   import SmartNumberArbiterSpec.{createDummyTestExecutions, persistDummyTestExecution}
 
   /** test behavior of smartNumber calculation, and also the effect of tolerance factor on the resultant threshold. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testSmartNumberBehavior(): Unit = {
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter
     // create 1000 gaussian numbers with mean 50
@@ -61,8 +58,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     * a test execution of around 1000 ms would be flagged as odd when including all the data, but then not be flagged when we
     * exclude the response times ~52ms.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def usesStartDateLowerBound(): Unit = {
     // We need a unique testID so that we don't generate more than 30 datapoints after the cutoff date
     // (if this test is run multiple times in a row without clearing the database)
@@ -108,8 +104,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     * Uses a sliding window size of 100, so the latest test execution with a
     * response time of 600ms should NOT be flagged as an anomaly
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def usesLongSlidingWindow(): Unit = {
     val testID: String = "f.g.h.i.j." + UUID.randomUUID().toString
     val allResponseTimes: Iterable[Double] =
@@ -133,8 +128,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     * Uses a sliding window size of 30, so the latest test execution with a
     * response time of 45ms should NOT be flagged as an anomaly
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def usesShortSlidingWindow(): Unit = {
     val testID: String = "k.l.m.n.o." + UUID.randomUUID().toString
     val allResponseTimes: Iterable[Double] =
@@ -158,8 +152,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     * Uses a sliding window size of 30, so the latest test execution with a
     * response time of 500ms should be flagged as an anomaly
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def usesShortSlidingWindowWithAnomaly(): Unit = {
     val testID: String = "p.q.r.s.t." + UUID.randomUUID().toString
     val allResponseTimes: Iterable[Double] =
@@ -181,8 +174,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   /**
     * Create 100 data points with 5 having anomalous response times
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def usesDoubleRpca(): Unit = {
     val testID: String = "u.v.w.x.y." + UUID.randomUUID().toString
     val allResponseTimes: Iterable[Double] = createDummyTestExecutions(testID, 75, 50) ++
@@ -199,19 +191,19 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   /**
    * Checks that the smart threshold is persisted
    */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def persistSmartThresholdMetaTag(): Unit = {
+    val testId: String = this.getClass.getCanonicalName + "." + UUID.randomUUID().toString
 
-    val ballot: Ballot = new Ballot(this.getTestId)
+    val ballot: Ballot = new Ballot(testId)
 
     // Create historical values to read
     for (_ <- 1 to WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt) {
-      this.persistenceUtils.createTestExecution(this.getTestId, Instant.now(), 50 + (Random.nextGaussian * 4), 10000.0)
+      this.persistenceUtils.createTestExecution(testId, Instant.now(), 50 + (Random.nextGaussian * 4), 10000.0)
     }
 
     // Create a test execution
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.getTestId, Instant.now(), 5.0, 6.0)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 5.0, 6.0)
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter
 
     // before the test is added to TestExecutionTag table
@@ -236,8 +228,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   /**
    * Checks that smartNumber returns -1 instead of throwing an exception when there is no historical data
    */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def smartNumberNoHistoricalData(): Unit = {
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter
     // No historical response times
@@ -252,8 +243,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   /**
     * Checks that our smart threshold tightly follows a decreasing trend, and loosely follows an increasing trend.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def correctBehavior(): Unit = {
 
     /**

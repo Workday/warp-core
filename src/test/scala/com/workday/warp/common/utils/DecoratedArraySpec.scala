@@ -2,9 +2,7 @@ package com.workday.warp.common.utils
 
 import com.workday.warp.common.utils.Implicits.DecoratedArray
 import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.common.category.UnitTest
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 /**
   * Spec for [[DecoratedArray]]
@@ -14,8 +12,7 @@ import org.junit.experimental.categories.Category
 class DecoratedArraySpec extends WarpJUnitSpec {
 
   /** Checks normal usage of mapWithImage. Provided anonymous function must have Tuple return type. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def mapWithImage(): Unit = {
     val m: Map[String, Int] = Array("a", "ab", "abc") mapWithImage { s: String => s -> s.length }
     m shouldBe Map("a" -> 1, "ab" -> 2, "abc" -> 3)
@@ -23,8 +20,7 @@ class DecoratedArraySpec extends WarpJUnitSpec {
 
 
   /** Checks that we can't compile when keyValuePair() does not have the correct return type. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def compileMapWithImage(): Unit = {
     "val m: Map[Int, Int] = Array(2, 3, 5, 7) mapWithImage { n: Int => n -> n }" should compile
     "val m: Map[Int, Int] = Array(2, 3, 5, 7) mapWithImage { n: Int => n }" shouldNot compile
@@ -32,8 +28,7 @@ class DecoratedArraySpec extends WarpJUnitSpec {
 
 
   /** Checks normal usage of mapWithImages. Provided anonymous functions must have the correct return types. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def mapWithImages(): Unit = {
     val m: Map[String, Int] = Array("a", "ab", "abc").mapWithImages { s: String => s + "b" } { s: String => s.length }
     m shouldBe Map("ab" -> 1, "abb" -> 2, "abcb" -> 3)
@@ -41,8 +36,7 @@ class DecoratedArraySpec extends WarpJUnitSpec {
 
 
   /** Checks that we can't compile when key() or value() does not have the correct return type. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def compileMapWithImages(): Unit = {
     "val m: Map[Int, Int] = Array(2, 3, 5, 7).mapWithImages { n: Int => n } { n: Int => n }" should compile
     // only key() function is provided

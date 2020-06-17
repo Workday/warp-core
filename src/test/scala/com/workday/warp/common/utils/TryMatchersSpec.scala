@@ -1,9 +1,7 @@
 package com.workday.warp.common.utils
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 import org.scalatest.exceptions.TestFailedException
 
 import scala.util.Try
@@ -14,8 +12,7 @@ import scala.util.Try
 class TryMatchersSpec extends WarpJUnitSpec {
 
   /** Checks usage of scalatest [[org.scalatest.matchers.Matcher]] for [[Try]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def tryMatchers(): Unit = {
     // check that we can verify success
     Try(1 + 1) should win

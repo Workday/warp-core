@@ -1,9 +1,7 @@
 package com.workday.warp.common.utils
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 /**
   * Created by tomas.mccandless on 6/11/18.
@@ -11,8 +9,7 @@ import org.junit.experimental.categories.Category
 class WarpStopwatchSpec extends WarpJUnitSpec {
 
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testAlreadyStopped(): Unit = {
     val stopwatch: WarpStopwatch = WarpStopwatch.start("abcd")
     stopwatch.stop()
@@ -22,8 +19,7 @@ class WarpStopwatchSpec extends WarpJUnitSpec {
   }
 
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testNormalTiming(): Unit = {
     val stopwatch = WarpStopwatch.start("")
     Thread.sleep(5)

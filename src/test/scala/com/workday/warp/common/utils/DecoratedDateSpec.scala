@@ -4,11 +4,9 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.sql
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.utils.Implicits.DecoratedDate
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.experimental.categories.Category
-import org.junit.Test
+import com.workday.warp.junit.UnitTest
 
 /**
   * Spec for [[DecoratedDate]]
@@ -20,8 +18,7 @@ class DecoratedDateSpec extends WarpJUnitSpec {
   /**
     * Test that dates match by instantiating two epochs, with a different time component
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def decoratedDateIsWithin24Hours(): Unit = {
     val dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM-dd-yyyy")
     val epoch: sql.Date = new sql.Date(dateFormatter.parse("01-01-1970").getTime)
@@ -33,8 +30,7 @@ class DecoratedDateSpec extends WarpJUnitSpec {
   /**
     * Test that dates don't match by instantiating the current date and the epoch
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def decoratedDateIsNotWithin24Hours(): Unit = {
     val dateFormatter: SimpleDateFormat = new SimpleDateFormat("MM-dd-yyyy")
     val epoch: sql.Date = new sql.Date(dateFormatter.parse("01-01-1970").getTime)

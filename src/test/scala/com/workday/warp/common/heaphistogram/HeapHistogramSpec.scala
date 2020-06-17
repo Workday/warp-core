@@ -2,27 +2,25 @@ package com.workday.warp.common.heaphistogram
 
 import java.io.InputStream
 
+import com.workday.telemetron.spec.HasRandomTestId
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, ContinuousHeapHistogramCollector}
 import com.workday.warp.collectors.DefaultMeasurementCollectionController
 import com.workday.warp.common.CoreConstants
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 /**
   * Tests for the Histogram-related methods
   *
   * Created by vignesh.kalidas on 4/6/18.
   */
-class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
+class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike with HasRandomTestId {
 
   /**
     * Gets the heap histogram
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def getHeapHistogramSpec(): Unit = {
     case class Cat()
     List.fill(1000)(new Cat)
@@ -34,8 +32,7 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
   /**
     * Calls the PID method of the companion object explicitly
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def getPidSpec(): Unit = {
     val pid = HistogramIoLike.pid
 
@@ -45,8 +42,7 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
   /**
     * Calls the companion object's `vm` field explicitly
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def initCompanionObjectSpec(): Unit = {
     val inputStream: InputStream = HistogramIoLike.vm.heapHisto("-live")
     val heapHistogramString: String = scala.io.Source.fromInputStream(inputStream).mkString
@@ -57,14 +53,13 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike {
   /**
     * Tests the full process of registering a collector and calling begin/end for measurement collection
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def lifecycleSpec(): Unit = {
     val measCollectionController: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
     val contHeapHistoCollector: AbstractMeasurementCollector = new ContinuousHeapHistogramCollector(CoreConstants.UNDEFINED_TEST_ID)
 
     measCollectionController.registerCollector(contHeapHistoCollector)
-    measCollectionController.registerCollector(new HeapHistogramCollector(this.getTestId))
+    measCollectionController.registerCollector(new HeapHistogramCollector(this.randomTestId()))
 
     measCollectionController.beginMeasurementCollection()
     val histogram: Seq[HeapHistogramEntry] = getHeapHistogram

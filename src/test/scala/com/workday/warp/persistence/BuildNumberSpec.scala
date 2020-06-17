@@ -1,9 +1,7 @@
 package com.workday.warp.persistence
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 import scala.util.Try
 
@@ -15,8 +13,7 @@ class BuildNumberSpec extends WarpJUnitSpec {
   private val build: String = "2016.5.304"
 
   /** Checks that we can deconstruct a fully qualified build identifier. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def buildNumber(): Unit = {
     val expected: BuildNumber = BuildNumber(major = 2016, minor = 5, patch = 304)
     BuildNumber(this.build) should be (expected)

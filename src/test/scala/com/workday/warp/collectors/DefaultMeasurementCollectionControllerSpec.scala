@@ -5,15 +5,14 @@ import java.time.Instant
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.SmartNumberArbiter
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits._
+import com.workday.warp.junit.UnitTest
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
-import org.junit.{Before, Test}
-import org.junit.experimental.categories.Category
 import slick.jdbc.MySQLProfile.api._
 import com.workday.warp.persistence.{TablesLike, Tag, _}
+import org.junit.jupiter.api.BeforeEach
 
 
 /**
@@ -21,7 +20,6 @@ import com.workday.warp.persistence.{TablesLike, Tag, _}
   *
   * Created by justin.teo on 12/14/17.
   */
-
 class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** run a query for an execution metatag using the rowID from the trial tag and key */
@@ -41,7 +39,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   }
 
   /** clear database before running all the persistenceUtil functions */
-  @Before
+  @BeforeEach
   def clearDatabase(): Unit = {
     CorePersistenceUtils.dropSchema()
     Connection.refresh()
@@ -53,8 +51,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
 
   // scalastyle:off method.length
   /** Test various insertion behavior of tags with and without metatags for both Execution and Definition type tags */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testRecordTags(): Unit = {
     val newTags: List[Tag] = List(
       // insert two execution metatags for an execution outer tag
@@ -155,8 +152,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   /**
     * Checks various ways of ending measurement.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def endMeasurement(): Unit = {
     val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
 
@@ -182,8 +178,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   /**
     * Checks disabling arbiters.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def disableArbiters(): Unit = {
     val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
     controller.registerArbiter(new SmartNumberArbiter())
@@ -194,8 +189,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   /**
     * Checks disabling intrusive collectors.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def disableIntrusiveCollectors(): Unit = {
     val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
 
@@ -216,8 +210,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   /**
     * Checks that we correctly handle exceptions thrown by collectors.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def exceptionsHandled(): Unit = {
     val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
 
@@ -250,8 +243,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   /**
     * Checks registering collectors and arbiters when a measurement is in progress.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def register(): Unit = {
     val controller : DefaultMeasurementCollectionController = new DefaultMeasurementCollectionController()
     controller.beginMeasurementCollection()

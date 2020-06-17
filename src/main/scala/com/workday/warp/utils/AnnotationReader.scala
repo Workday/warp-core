@@ -8,7 +8,6 @@ import com.workday.telemetron.annotation.{Required, Schedule}
 import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
 import com.workday.warp.common.utils.StackTraceFilter
-import com.workday.warp.junit.RoundRobinExecution
 
 import scala.util.Try
 
@@ -85,36 +84,6 @@ object AnnotationReader extends StackTraceFilter {
     this.getWarpTestMethodAnnotation(classOf[Required], testId)
       .map(req => Duration.ofNanos(TimeUtils.toNanos(req.maxResponseTime, req.timeUnit)))
       .getOrElse(Duration.ofMillis(-1))
-  }
-
-
-
-  /**
-   * Reads the @RoundRobinExecution annotation based on testId
-   *
-   * @param testId fully qualified name of the junit test method
-   * @return number of parent scenario class invocations. Default value = 1 if no @RoundRobinExecution
-   *         annotation set.
-   */
-  def getRoundRobinExecution(testId: String): Int = {
-    this.getWarpTestClassAnnotation(classOf[RoundRobinExecution], testId)
-      .map(_.invocations)
-      .getOrElse(RoundRobinExecution.DEFAULT_INVOCATIONS)
-  }
-
-
-
-  /**
-   * Reads the @RoundRobinExecution annotation on aClass.
-   *
-   * @param aClass Class to read the @RoundRobinExecution annotation from.
-   * @return number of parent scenario class invocations. Default value = 1 if no @RoundRobinExecution
-   *         annotation set.
-   */
-  def getRoundRobinExecution(aClass: Class[_]): Int = {
-    Try(aClass.getAnnotation(classOf[RoundRobinExecution]))
-      .map(_.invocations)
-      .getOrElse(RoundRobinExecution.DEFAULT_INVOCATIONS)
   }
 
 

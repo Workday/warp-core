@@ -1,10 +1,8 @@
 package com.workday.warp.common.utils
 
 import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -15,8 +13,7 @@ import scala.util.{Success, Try}
  */
 class FutureUtilsSpec extends WarpJUnitSpec {
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testParseThreadpoolSize(): Unit = {
     val defaultThreads: Int = WARP_NUM_COLLECTOR_THREADS.value.toInt
 
@@ -29,8 +26,7 @@ class FutureUtilsSpec extends WarpJUnitSpec {
 
 
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testExecute(): Unit = {
     // create a sequence of Future Ints
     val tasks: Seq[Future[Int]] = List( Future { 1 + 1 }, Future { 2 + 2 }, Future { 3 + 3 } )

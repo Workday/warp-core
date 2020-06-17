@@ -77,6 +77,7 @@ org.apache.commons:commons-lang3:3.8.1
 org.apache.commons:commons-math3:3.6.1
 org.apache.commons:commons-pool2:2.6.0
 org.apache.commons:commons-text:1.6
+org.apiguardian:apiguardian-api:1.1.0
 org.checkerframework:checker-qual:2.10.0
 org.codehaus.mojo:animal-sniffer-annotations:1.17
 org.flywaydb:flyway-core:5.2.1
@@ -86,7 +87,11 @@ org.influxdb:influxdb-java:2.15
 org.jodd:jodd-core:5.0.13
 org.jodd:jodd-lagarto:5.0.13
 org.jodd:jodd-log:5.0.13
+org.junit.jupiter:junit-jupiter-api:5.6.2
+org.junit.platform:junit-platform-commons:1.6.2
+org.junit:junit-bom:5.6.2
 org.msgpack:msgpack-core:0.8.16
+org.opentest4j:opentest4j:1.2.0
 org.reactivestreams:reactive-streams:1.0.0
 org.scala-lang.modules:scala-java8-compat_2.12:0.9.0
 org.scala-lang.modules:scala-parser-combinators_2.12:1.1.2
@@ -96,6 +101,7 @@ org.scala-lang:scala-reflect:2.12.11
 org.scalactic:scalactic_2.12:3.1.2
 org.scalatest:scalatest_2.12:3.1.2
 org.scalatestplus:junit-4-12_2.12:3.1.1.0
+org.scalatestplus:scalatestplus-junit_2.12:1.0.0-SNAP9
 org.simpleflatmapper:lightning-csv:7.0.3
 org.simpleflatmapper:sfm-util:7.0.3
 org.slf4j:slf4j-api:1.7.28

@@ -2,11 +2,9 @@ package com.workday.warp.common.utils
 
 import java.time.Duration
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits._
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
 
 /**
   * Created by tomas.mccandless on 7/22/16.
@@ -14,8 +12,7 @@ import org.junit.experimental.categories.Category
 class DecoratedIntSpec extends WarpJUnitSpec {
 
   /** Checks usage of `times` */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def timesTest(): Unit = {
     5 times { 1 + 1 } should be (List(2, 2, 2, 2, 2))
     50 times { 2 + 2 } should (have length 50 and contain only 4)
@@ -23,8 +20,7 @@ class DecoratedIntSpec extends WarpJUnitSpec {
 
 
   /** Checks usage of [[Duration]] conversions. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def durationTest(): Unit = {
     (1 nano) should be (Duration.ofNanos(1))
     (5 nanos) should be (Duration.ofNanos(5))

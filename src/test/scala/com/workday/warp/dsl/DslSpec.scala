@@ -2,22 +2,21 @@ package com.workday.warp.dsl
 
 import com.workday.telemetron.RequirementViolationException
 import com.workday.telemetron.math.{DistributionLike, GaussianDistribution}
+import com.workday.telemetron.spec.HasRandomTestId
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, Defaults}
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
 import com.workday.warp.utils.Ballot
-import org.junit.experimental.categories.Category
-import org.junit.Test
 import org.pmw.tinylog.Logger
 import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
+import com.workday.warp.junit.UnitTest
 import org.scalatest.exceptions.TestFailedException
 
 import scala.util.Try
@@ -25,10 +24,9 @@ import scala.util.Try
 /**
   * Created by tomas.mccandless on 3/25/16.
   */
-class DslSpec extends WarpJUnitSpec {
+class DslSpec extends WarpJUnitSpec with HasRandomTestId {
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dsl(): Unit = {
     using arbiters {
       new SomeArbiter
@@ -41,8 +39,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks usage of measuring multithreaded tests. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslThreads(): Unit = {
     val results: Seq[TrialResult[_]] = using no collectors threads 5 invocations 5 measure someExperiment()
     results should have length 5
@@ -52,8 +49,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we get back the right kind of exception for tests that fail. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslThreadsException(): Unit = {
     // make sure we get back the right kind of exception, it shouldnt be a generic ExecutionException
     intercept[IllegalStateException] {
@@ -78,8 +74,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we are only returned results for measured invocations. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslWarmups(): Unit = {
     val results: Seq[TrialResult[_]] = using no collectors threads 5 warmups 3 invocations 10 measure someExperiment()
     results should have length 10
@@ -88,8 +83,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that measurement modes work correctly. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslMode(): Unit = {
     // running in multi mode (which is the default) should measure each invocation
     using threads 8 invocations 8 mode multi measuring someExperiment() should have length 8
@@ -105,8 +99,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can schedule with a statistical delay between successive submitted invocations. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslDistribution(): Unit = {
     val normal: DistributionLike = GaussianDistribution(50, 10)
     using no collectors invocations 8 distribution normal measure { Logger.trace("i'm being measured") }
@@ -124,8 +117,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that a failure exception is thrown when we exceed threshold. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslFailure(): Unit = {
     intercept[TestFailedException] {
       using arbiters {
@@ -139,8 +131,7 @@ class DslSpec extends WarpJUnitSpec {
   }
 
 
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslOnlyArbiters(): Unit = {
     intercept[RequirementViolationException] {
       using no collectors onlyArbiters {
@@ -153,8 +144,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can configure collectors before arbiters. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslCollectorsFirst(): Unit = {
     using only these collectors {
       new SomeMeasurementCollector
@@ -167,8 +157,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can use a default [[ExecutionConfig]] */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def dslMeasuring(): Unit = {
     measuring {
       new TrialResult(499 millis)
@@ -177,8 +166,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can disable all arbiters. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def noArbiters(): Unit = {
     using no arbiters measuring {
       someExperiment()
@@ -194,8 +182,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can disable all collectors. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def noCollectors(): Unit = {
     using no collectors measuring {
       someExperiment()
@@ -211,8 +198,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can disable all arbiters and collectors. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def noCollectorsNoArbiters(): Unit = {
     using no collectors no arbiters measuring {
       someExperiment()
@@ -234,8 +220,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can use anomaly detection */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def anomalies(): Unit = {
     using iterations 5 measuring {
       someExperiment()
@@ -263,8 +248,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can match using the not keyword. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def matching(): Unit = {
     Seq(TrialResult(2 milliseconds)) should notExceedThreshold (10 milliseconds)
     Seq(TrialResult(2 milliseconds)) should notExceed (10 milliseconds)
@@ -306,8 +290,7 @@ class DslSpec extends WarpJUnitSpec {
   }
 
   /** Checks that we can match using different Seq subtypes */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def seqMatching(): Unit = {
     List(TrialResult(2 milliseconds)) should notExceedThreshold (10 milliseconds)
     List(TrialResult(2 milliseconds)) should notExceed (10 milliseconds)
@@ -322,8 +305,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can measure a function over multiple invocations. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def iterations(): Unit = {
     using iterations 5 measuring {
       someExperiment()
@@ -346,8 +328,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can set test id manually or read it from [[com.workday.telemetron.junit.TelemetronNameRule]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testId(): Unit = {
     // check that we can manually override the test id
     val someTestId: String = "com.workday.warp.dsl.test1"
@@ -358,7 +339,8 @@ class DslSpec extends WarpJUnitSpec {
     Researcher(using iterations 5 testId someTestId).collectionController().testId should be (someTestId)
 
     // check that we can read it from telemetron name rule
-    Researcher(using testId this.getTestId).collectionController().testId should be (this.getTestId)
+    val randomTestId: String = this.randomTestId()
+    Researcher(using testId randomTestId).collectionController().testId should be (randomTestId)
 
     // check that we handle empty string correctly
     Researcher(using testId "").collectionController().testId should be (Defaults.testId)
@@ -366,8 +348,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that custom collectors passed in through the dsl will have their test ids correctly set. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testIdInCollectors(): Unit = {
     val someTestId: String = "com.workday.warp.dsl.DslSpec.testIdInCollectors"
     val config: ExecutionConfig = using testId someTestId collectors {
@@ -380,8 +361,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks the usage of syntax like `using only these collectors` or `using only these arbiters` */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def onlyThese(): Unit = {
     val collector: AbstractMeasurementCollector = new SomeMeasurementCollector
     // the only arbiter we'll use is one that always votes on failure
@@ -424,8 +404,7 @@ class DslSpec extends WarpJUnitSpec {
   }
 
   /** Checks syntax usage and functionality of tags. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def testTags(): Unit = {
     // check tags implicits compile correctly
     "val tags: List[Tag] = List(DefinitionTag(\"some instance id\", \"some value\"))" should compile
@@ -448,8 +427,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can measure with a default configuration. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def onlyDefaults(): Unit = {
     using only defaults measuring someExperiment() should not exceed (5 seconds)
     using only defaults should be (new ExecutionConfig)
@@ -458,8 +436,7 @@ class DslSpec extends WarpJUnitSpec {
 
 
   /** Checks that we can measure tests with different return types. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   def correctType(): Unit = {
     // check measuring something that returns a TrialResult
     val someExperimentList: Seq[TrialResult[Int]] = using no collectors measuring someExperiment()
@@ -501,14 +478,14 @@ class DslSpec extends WarpJUnitSpec {
   // some dummy arbiters and collectors to use in testing
   class SomeArbiter extends ArbiterLike with CorePersistenceAware {
     override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-      Logger.info("some arbiter voting")
+      Logger.debug("some arbiter voting")
       None
     }
   }
 
   class SomeOtherArbiter extends ArbiterLike with CorePersistenceAware {
     override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-      Logger.info("some other arbiter voting")
+      Logger.debug("some other arbiter voting")
       None
     }
   }
@@ -523,7 +500,7 @@ class DslSpec extends WarpJUnitSpec {
     /**
       * Called prior to starting an individual test invocation.
       */
-    override def startMeasurement(): Unit = Logger.info("starting measurement")
+    override def startMeasurement(): Unit = Logger.debug("starting measurement")
 
     /**
       * Called after finishing an individual test invocation.
@@ -532,7 +509,7 @@ class DslSpec extends WarpJUnitSpec {
       *                          not attempt to write out to the database.
       */
     override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-      Logger.info("stopping measurement")
+      Logger.debug("stopping measurement")
     }
   }
 
@@ -540,7 +517,7 @@ class DslSpec extends WarpJUnitSpec {
     /**
       * Called prior to starting an individual test invocation.
       */
-    override def startMeasurement(): Unit = Logger.info("starting measurement")
+    override def startMeasurement(): Unit = Logger.debug("starting measurement")
 
     /**
       * Called after finishing an individual test invocation.
@@ -549,7 +526,7 @@ class DslSpec extends WarpJUnitSpec {
       *                          not attempt to write out to the database.
       */
     override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-      Logger.info("stopping measurement")
+      Logger.debug("stopping measurement")
     }
   }
 }
