@@ -64,7 +64,7 @@ object WarpGuicer {
     * @param tags // TODO should become a seq
     * @return
     */
-  def getController(testId: String, tags: List[Tag]): AbstractMeasurementCollectionController = {
+  def getController(testId: String, tags: List[Tag] = List.empty): AbstractMeasurementCollectionController = {
     val module: WarpModule = this.moduleConstructor.newInstance(testId, tags)
     this.getController(module)
   }
