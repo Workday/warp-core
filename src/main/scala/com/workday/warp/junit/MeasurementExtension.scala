@@ -13,7 +13,7 @@ import org.pmw.tinylog.Logger
   *
   * Created by tomas.mccandless on 6/17/20.
   */
-trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback with TestIdSupport {
+trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback {
   import MeasurementExtensionLike._
 
   /**
@@ -25,7 +25,7 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     // unique for this execution. repeated invocations of the same test will have different ids.
     val uniqueId: String = context.getUniqueId
     Logger.info(s"measuring junit: $uniqueId")
-    val testId: String = this.fromUniqueId(uniqueId)
+    val testId: String = TestId.fromUniqueId(uniqueId)
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId)
     this.getStore(context).put(controllerKey, controller)
     controller.beginMeasurementCollection()

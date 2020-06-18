@@ -51,4 +51,5 @@ trait TestIdSupport {
   }
 }
 
-object TestIdSupport extends TestIdSupport
+// can be imported or mixed in
+object TestId extends TestIdSupport
