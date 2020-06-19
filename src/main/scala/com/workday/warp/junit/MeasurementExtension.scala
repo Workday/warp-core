@@ -1,8 +1,10 @@
 package com.workday.warp.junit
 
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
+import com.workday.warp.common.CoreConstants
+import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
 import com.workday.warp.inject.WarpGuicer
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace
+import org.junit.jupiter.api.extension.ExtensionContext.{Namespace, Store}
 import org.junit.jupiter.api.extension.{AfterEachCallback, BeforeEachCallback, ExtensionContext}
 import org.pmw.tinylog.Logger
 
@@ -22,10 +24,9 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     * @param context
     */
   override def beforeEach(context: ExtensionContext): Unit = {
-    // unique for this execution. repeated invocations of the same test will have different ids.
-    val uniqueId: String = context.getUniqueId
-    Logger.info(s"measuring junit: $uniqueId")
-    val testId: String = TestId.fromUniqueId(uniqueId)
+    val testId: String = context.getTestId.getOrElse(CoreConstants.UNDEFINED_TEST_ID)
+    Logger.info(s"measuring junit: ${context.getUniqueId}")
+    Logger.info(s"test id: $testId")
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId)
     this.getStore(context).put(controllerKey, controller)
     controller.beginMeasurementCollection()
@@ -53,9 +54,7 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     * @param context
     * @return
     */
-  protected def getStore(context: ExtensionContext): ExtensionContext.Store = {
-    context.getStore(Namespace.create(context.getUniqueId))
-  }
+  protected def getStore(context: ExtensionContext): Store = context.getStore(Namespace.create(context.getUniqueId))
 }
 
 object MeasurementExtensionLike {
@@ -63,4 +62,3 @@ object MeasurementExtensionLike {
 }
 
 class MeasurementExtension extends MeasurementExtensionLike
-
