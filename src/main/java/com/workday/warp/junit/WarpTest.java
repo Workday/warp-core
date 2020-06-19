@@ -37,6 +37,8 @@ public @interface WarpTest {
      */
     String TOTAL_REPETITIONS_PLACEHOLDER = "{totalRepetitions}";
 
+    String OP_PLACEHOLDER = "{op}";
+
     /**
      * <em>Short</em> display name pattern for a repeated test: {@value}
      *
@@ -44,7 +46,7 @@ public @interface WarpTest {
      * @see #TOTAL_REPETITIONS_PLACEHOLDER
      * @see #LONG_DISPLAY_NAME
      */
-    String SHORT_DISPLAY_NAME = "[repetition " + CURRENT_REPETITION_PLACEHOLDER + " of " + TOTAL_REPETITIONS_PLACEHOLDER + "]";
+    String SHORT_DISPLAY_NAME = "[" + OP_PLACEHOLDER + " " + CURRENT_REPETITION_PLACEHOLDER + " of " + TOTAL_REPETITIONS_PLACEHOLDER + "]";
 
     /**
      * <em>Long</em> display name pattern for a repeated test: {@value}

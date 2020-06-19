@@ -20,29 +20,52 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     val testMethod: Method = context.getRequiredTestMethod
     val displayName: String = context.getDisplayName
     val repeatedTest: WarpTest = AnnotationUtils.findAnnotation(testMethod, classOf[WarpTest]).get
-    val totalRepetitions: Int = validateTotalRepetitions(repeatedTest, testMethod)
-    val formatter: WarpTestDisplayNameFormatterLike = displayNameFormatter(repeatedTest, testMethod, displayName)
+    val totalWarmups: Int = validateWarmups(repeatedTest, testMethod)
+    val totalRepetitions: Int = validateMeasuredReps(repeatedTest, testMethod)
+    val warmupFormatter: WarpTestDisplayNameFormatter = displayNameFormatter(repeatedTest, testMethod, displayName, "warmup")
 
-    IntStream
+    val warmups = IntStream
+      .rangeClosed(1, totalWarmups)
+      .mapToObj((repetition: Int) => WarpTestInvocationContext(repetition, totalWarmups, warmupFormatter))
+    // measured reps should have an additional measurement extension
+
+    val measuredRepFormatter: WarpTestDisplayNameFormatterLike = warmupFormatter.copy(op = "measured rep")
+    val measuredReps = IntStream
       .rangeClosed(1, totalRepetitions)
-      .mapToObj((repetition: Int) => WarpTestInvocationContext(repetition, totalRepetitions, formatter))
+      .mapToObj((repetition: Int) => WarpTestInvocationContext(
+        repetition,
+        totalRepetitions,
+        measuredRepFormatter,
+        Seq(new MeasurementExtension)
+      ))
+
+    Stream.concat(warmups, measuredReps)
   }
 
-  private def validateTotalRepetitions(warpTest: WarpTest, method: Method): Int = {
+  private def validateMeasuredReps(warpTest: WarpTest, method: Method): Int = {
     val repetitions: Int = warpTest.invocations
     Preconditions.condition(
       repetitions > 0,
-      () => String.format("Configuration error: @RepeatedTest on method [%s] must be declared with a positive 'value'.", method)
+      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a positive 'invocations'.", method)
     )
     repetitions
   }
 
-  private def displayNameFormatter(warpTest: WarpTest, method: Method, displayName: String): WarpTestDisplayNameFormatterLike = {
+  private def validateWarmups(warpTest: WarpTest, method: Method): Int = {
+    val repetitions: Int = warpTest.warmupInvocations
+    Preconditions.condition(
+      repetitions > 0,
+      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a positive 'warmupInvocations'.", method)
+    )
+    repetitions
+  }
+
+  private def displayNameFormatter(warpTest: WarpTest, method: Method, displayName: String, op: String): WarpTestDisplayNameFormatter = {
     val pattern: String = Preconditions.notBlank(
       warpTest.name.trim,
-      () => String.format("Configuration error: @RepeatedTest on method [%s] must be declared with a non-empty name.", method)
+      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a non-empty name.", method)
     )
-    WarpTestDisplayNameFormatter(pattern, displayName)
+    WarpTestDisplayNameFormatter(pattern, displayName, op)
   }
 }
 

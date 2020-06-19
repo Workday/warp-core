@@ -8,7 +8,7 @@ import org.pmw.tinylog.Logger
   */
 class TestIdSupportSpec extends WarpJUnitSpec with TestIdSupport {
 
-  @WarpTest(invocations = 5)
+  @WarpTest(invocations = 5, warmupInvocations = 2)
   def testIdFromUniqueId(): Unit = {
     Logger.info("running test!")
     // scalastyle:off
