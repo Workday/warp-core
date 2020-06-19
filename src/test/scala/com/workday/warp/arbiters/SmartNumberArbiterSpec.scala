@@ -35,7 +35,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     val random: Random = new Random(seed = 123456)
     val responseTimes: List[Double] = List.fill(1000)(50 + (random.nextGaussian * 4))
     val smartNumber: Double = arbiter.smartNumber(responseTimes)
-    Logger.info(s"detected smart number: $smartNumber")
+    Logger.debug(s"detected smart number: $smartNumber")
 
     arbiter.isAnomaly(responseTimes, smartNumber) should be (true)
     arbiter.isAnomaly(responseTimes, smartNumber * .95) should be (false)
@@ -44,7 +44,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     val arbiterWithHighToleranceFactor: SmartNumberArbiter = new SmartNumberArbiter(toleranceFactor = 4.0)
     val smartNumberWithHighTolerance: Double = arbiterWithHighToleranceFactor.smartNumber(responseTimes)
     val incomingResponseTime: Double = 65.0
-    Logger.info(s"smart number with high tolerance: $smartNumberWithHighTolerance")
+    Logger.debug(s"smart number with high tolerance: $smartNumberWithHighTolerance")
 
     arbiter.isAnomaly(responseTimes, incomingResponseTime) should be (true)
     arbiterWithHighToleranceFactor.isAnomaly(responseTimes, incomingResponseTime) should be (false)
@@ -115,9 +115,9 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     val windowSmartNumber: Double = slidingWindowArbiter.smartNumber(allResponseTimes takeRight slidingWindowArbiter.slidingWindowSize)
     val allResponseTimesSmartNumber: Double = slidingWindowArbiter.smartNumber(allResponseTimes)
 
-    Logger.info(s"detected sliding window size: ${slidingWindowArbiter.slidingWindowSize}")
-    Logger.info(s"sliding window smart number: $windowSmartNumber")
-    Logger.info(s"all response times smart number: $allResponseTimesSmartNumber")
+    Logger.debug(s"detected sliding window size: ${slidingWindowArbiter.slidingWindowSize}")
+    Logger.debug(s"sliding window smart number: $windowSmartNumber")
+    Logger.debug(s"all response times smart number: $allResponseTimesSmartNumber")
 
     // 600ms is not anomalous if considering all 100 data points
     slidingWindowArbiter.vote(new Ballot(testID), incomingTestExecution) should be (None)
@@ -163,9 +163,9 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     val windowSmartNumber: Double = slidingWindowArbiter.smartNumber(allResponseTimes takeRight slidingWindowArbiter.slidingWindowSize)
     val allResponseTimesSmartNumber: Double = slidingWindowArbiter.smartNumber(allResponseTimes)
 
-    Logger.info(s"detected sliding window size: ${slidingWindowArbiter.slidingWindowSize}")
-    Logger.info(s"sliding window smart number: $windowSmartNumber")
-    Logger.info(s"all response times smart number: $allResponseTimesSmartNumber")
+    Logger.debug(s"detected sliding window size: ${slidingWindowArbiter.slidingWindowSize}")
+    Logger.debug(s"sliding window smart number: $windowSmartNumber")
+    Logger.debug(s"all response times smart number: $allResponseTimesSmartNumber")
 
     // 500ms is anomalous if only considering last 30 data points
     slidingWindowArbiter.vote(new Ballot(testID), incomingTestExecution).get shouldBe a[RequirementViolationException]
