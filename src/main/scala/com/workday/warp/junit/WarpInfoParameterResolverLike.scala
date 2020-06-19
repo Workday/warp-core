@@ -14,9 +14,10 @@ trait WarpInfoParameterResolverLike extends ParameterResolver {
   }
 
   override def resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): WarpInfo = {
+    // TODO possibly store test id here? is warmup?
     DefaultWarpInfo(this.currentRepetition, this.totalRepetitions)
   }
 }
 
 
-class WarpInfoParameterResolver(val currentRepetition: Int, val totalRepetitions: Int) extends WarpInfoParameterResolverLike
+case class WarpInfoParameterResolver(currentRepetition: Int, totalRepetitions: Int) extends WarpInfoParameterResolverLike
