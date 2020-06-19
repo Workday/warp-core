@@ -3,7 +3,6 @@ package com.workday.warp.junit
 import java.lang.reflect.Method
 import java.util.stream.Stream
 
-import com.workday.warp.junit.WarpTestDisplayNameFormatterLike.displayNamePattern
 import org.junit.jupiter.api.extension.{ExtensionContext, TestTemplateInvocationContext, TestTemplateInvocationContextProvider}
 import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
@@ -45,16 +44,15 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     val warpTest: WarpTest = AnnotationUtils.findAnnotation(testMethod, classOf[WarpTest]).get
 
     val numWarmups: Int = validateWarmups(warpTest, testMethod)
-    val warmupFormatter: WarpTestDisplayNameFormatter = WarpTestDisplayNameFormatter(displayNamePattern, displayName, "warmup")
-    val warmups: Seq[WarpTestInvocationContext] = (1 to numWarmups).map(WarpTestInvocationContext(_, numWarmups, warmupFormatter))
+    val warmups: Seq[WarpTestInvocationContext] = (1 to numWarmups).map(WarpTestInvocationContext(displayName, "warmup", _, numWarmups))
 
     val numTrials: Int = validateMeasuredReps(warpTest, testMethod)
     // tweak our display name for warmups vs trials
-    val trialFormatter: WarpTestDisplayNameFormatterLike = warmupFormatter.copy(repetitionType = "trial")
     val trials: Seq[WarpTestInvocationContext] = (1 to numTrials).map(WarpTestInvocationContext(
+      displayName,
+      "trial",
       _,
       numTrials,
-      trialFormatter,
       // measured trial reps should have an additional measurement extension
       additionalExtensions = Seq(new MeasurementExtension)
     ))
