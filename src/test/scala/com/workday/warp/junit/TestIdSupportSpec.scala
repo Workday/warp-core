@@ -14,5 +14,8 @@ class TestIdSupportSpec extends WarpJUnitSpec with TestIdSupport {
     // repeated invocations will have [<invocation num>] appended
     fromUniqueId("[engine:junit-jupiter]/[class:com.workday.warp.junit.MeasurementCallbacksSpec]/[method:foo()][9]") should
       be (Some("com.workday.warp.junit.MeasurementCallbacksSpec.foo"))
+    // test methods can accept parameters
+    fromUniqueId("[engine:junit-jupiter]/[class:com.workday.warp.junit.MeasurementExtensionSpec]/[method:fooWithTestInfo(org.junit.jupiter.api.TestInfo)]") should
+      be (Some("com.workday.warp.junit.MeasurementExtensionSpec.fooWithTestInfo"))
   }
 }
