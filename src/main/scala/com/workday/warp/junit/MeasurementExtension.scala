@@ -1,7 +1,8 @@
 package com.workday.warp.junit
 
+import java.util.Optional
+
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
-import com.workday.warp.common.CoreConstants
 import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
 import com.workday.warp.inject.WarpGuicer
 import org.junit.jupiter.api.extension.ExtensionContext.{Namespace, Store}
@@ -24,7 +25,8 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     * @param context
     */
   override def beforeEach(context: ExtensionContext): Unit = {
-    val testId: String = context.getTestId.getOrElse(CoreConstants.UNDEFINED_TEST_ID)
+    // TODO trying to explore behavior here
+    val testId: String = context.getTestId.get
     Logger.info(s"measuring junit: ${context.getUniqueId}")
     Logger.info(s"test id: $testId")
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId)
@@ -39,9 +41,14 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     * @param context
     */
   override def afterEach(context: ExtensionContext): Unit = {
+    // TODO don't record failures
     val controller: AbstractMeasurementCollectionController = this.getStore(context)
       .get(controllerKey)
       .asInstanceOf[AbstractMeasurementCollectionController]
+
+//    val failed = context.publishReportEntry()
+//    val failed: Optional[Throwable] = context.getExecutionException
+    Logger.info(s"end measuring junit: ${context.getUniqueId}")
     controller.endMeasurementCollection()
   }
 

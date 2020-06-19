@@ -90,6 +90,7 @@ dependencies {
     // used for custom rules and runners
     api "junit:junit:${versions.junit4}"
     api "org.junit.jupiter:junit-jupiter-api:${versions.junit5}"
+    api "org.junit.jupiter:junit-jupiter-engine:${versions.junit5}"
 
     api "org.apache.commons:commons-configuration2:${versions.commonsConfiguration2}"
     // used for linear algebra implicits
@@ -117,7 +118,6 @@ dependencies {
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
 
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${versions.junit5}"
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${versions.junit5}") {
         because 'allows JUnit 3 and JUnit 4 tests to run'
     }

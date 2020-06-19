@@ -24,9 +24,9 @@ trait HasTestId {
     * @return Some fully qualified method name, or [[None]].
     */
   def getTestId: Option[String] = for {
-    clazz: String <- this.getTestClass.map(_.getCanonicalName)
+    className: String <- this.getTestClass.map(_.getCanonicalName)
     method: String <- this.getTestMethod.map(_.getName)
-  } yield s"$clazz.$method"
+  } yield s"$className.$method"
 }
 
 

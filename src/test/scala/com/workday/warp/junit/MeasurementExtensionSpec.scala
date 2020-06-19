@@ -2,13 +2,12 @@ package com.workday.warp.junit
 
 import com.workday.warp.common.spec.WarpJUnitSpec
 import org.junit.jupiter.api.TestInfo
-import org.junit.jupiter.api.extension.ExtendWith
 import org.pmw.tinylog.Logger
 
 /**
   * Created by tomas.mccandless on 6/17/20.
   */
-@ExtendWith(Array(classOf[MeasurementExtension]))
+@MeasuredTest
 class MeasurementExtensionSpec extends WarpJUnitSpec {
 
   @UnitTest

@@ -18,7 +18,7 @@ trait TestIdSupport {
     * @return
     */
   def fromUniqueId(uid: String): Option[String] = uid match {
-    case uidPattern(_, clazz, methodName, _) =>
+    case uidPattern(_, clazz, _, methodName, _) =>
       Option(clazz + "." + methodName)
     case _ =>
       Logger.debug(s"unable to parse testId from $uid")
@@ -28,7 +28,7 @@ trait TestIdSupport {
 
 object TestIdSupport {
   // use triple quotes to avoid escaping backslash
-  val uidPattern = """\[engine:(.*)\]/\[class:(.*)\]/\[method:(.*)\((.*)\)\].*""".r
+  val uidPattern = """\[engine:(.*)\]/\[class:(.*)\]/\[(method|test-template):(.*)\((.*)\)\].*""".r
 }
 
 // can be imported or mixed in
