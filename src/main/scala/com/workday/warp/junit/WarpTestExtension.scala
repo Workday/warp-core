@@ -3,7 +3,6 @@ package com.workday.warp.junit
 import java.lang.reflect.Method
 import java.util.stream.{IntStream, Stream}
 
-import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.extension.{ExtensionContext, TestTemplateInvocationContext, TestTemplateInvocationContextProvider}
 import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
@@ -39,7 +38,10 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
   }
 
   private def displayNameFormatter(warpTest: WarpTest, method: Method, displayName: String): WarpTestDisplayNameFormatterLike = {
-    val pattern = Preconditions.notBlank(warpTest.name.trim, () => String.format("Configuration error: @RepeatedTest on method [%s] must be declared with a non-empty name.", method))
+    val pattern: String = Preconditions.notBlank(
+      warpTest.name.trim,
+      () => String.format("Configuration error: @RepeatedTest on method [%s] must be declared with a non-empty name.", method)
+    )
     WarpTestDisplayNameFormatter(pattern, displayName)
   }
 }

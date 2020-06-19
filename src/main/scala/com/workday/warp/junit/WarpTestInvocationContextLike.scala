@@ -16,7 +16,13 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext {
 
   override def getDisplayName(invocationIndex: Int): String = this.formatter.format(this.currentRepetition, this.totalRepetitions)
 
-  override def getAdditionalExtensions: util.List[Extension] = seqAsJavaList(Seq(new WarpInfoParameterResolver(this.currentRepetition, this.totalRepetitions), new MeasurementExtension))
+  override def getAdditionalExtensions: util.List[Extension] = {
+    seqAsJavaList(Seq(new WarpInfoParameterResolver(this.currentRepetition, this.totalRepetitions), new MeasurementExtension))
+  }
 }
 
-case class WarpTestInvocationContext(currentRepetition: Int, totalRepetitions: Int, formatter: WarpTestDisplayNameFormatterLike) extends WarpTestInvocationContextLike
+case class WarpTestInvocationContext(
+                                      currentRepetition: Int,
+                                      totalRepetitions: Int,
+                                      formatter: WarpTestDisplayNameFormatterLike
+                                    ) extends WarpTestInvocationContextLike

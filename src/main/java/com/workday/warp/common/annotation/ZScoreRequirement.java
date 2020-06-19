@@ -18,7 +18,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Target({ METHOD, TYPE })
 @Retention(RUNTIME)
-@Deprecated
 public @interface ZScoreRequirement {
 
     double DEFAULT_PERCENTILE = Double.parseDouble(WARP_ZSCORE_PERCENTILE_THRESHOLD().value());

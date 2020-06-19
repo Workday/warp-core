@@ -17,7 +17,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Target({ METHOD, TYPE })
 @Retention(RUNTIME)
-@Deprecated
 public @interface PercentageDegradationRequirement {
 
     double DEFAULT_PERCENTAGE = Double.parseDouble(WARP_PERCENTAGE_DEGRADATION_THRESHOLD().value());

@@ -1,6 +1,5 @@
 package com.workday.warp.junit
 
-import java.util.Optional
 
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
