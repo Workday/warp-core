@@ -12,16 +12,22 @@ services:
         privileged: true
         # consider turning off general_log in production for performance
         command: ['mysqld', '--innodb-print-all-deadlocks=true', '--general_log=1', '--innodb_lock_wait_timeout=100', '--sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION']
+        networks:
+          - skylab-overlay
     warp-ci-build-influx:
         image: influxdb:${INFLUX_VERSION}
         ports:
             - "${WARP_CORE_INFLUX_PORT}:8086"
+        networks:
+          - skylab-overlay
     grafana:
         image: grafana/grafana:${GRAFANA_VERSION}
         ports:
             - "${WARP_CORE_GRAFANA_PORT}:3000"
         depends_on:
             - warp-ci-build-influx
+        networks:
+          - skylab-overlay
 
 networks:
   skylab-overlay:
