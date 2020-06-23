@@ -21,4 +21,4 @@ services:
         ports:
             - "${WARP_CORE_GRAFANA_PORT}:3000"
         depends_on:
-            - influx
+            - warp-ci-build-influx
