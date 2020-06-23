@@ -22,3 +22,7 @@ services:
             - "${WARP_CORE_GRAFANA_PORT}:3000"
         depends_on:
             - warp-ci-build-influx
+
+networks:
+  skylab-overlay:
+    external: True
