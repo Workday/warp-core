@@ -31,6 +31,7 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     val testId: String = context.getTestId.get
     Logger.info(s"measuring junit: ${context.getUniqueId}")
     Logger.debug(s"test id: $testId")
+    // TODO this adds some latency on the first run should be warmed up somehow
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId)
     this.getStore(context).put(controllerKey, controller)
     controller.beginMeasurementCollection()

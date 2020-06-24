@@ -88,9 +88,7 @@ org.jodd:jodd-core:5.0.13
 org.jodd:jodd-lagarto:5.0.13
 org.jodd:jodd-log:5.0.13
 org.junit.jupiter:junit-jupiter-api:5.6.2
-org.junit.jupiter:junit-jupiter-engine:5.6.2
 org.junit.platform:junit-platform-commons:1.6.2
-org.junit.platform:junit-platform-engine:1.6.2
 org.junit:junit-bom:5.6.2
 org.msgpack:msgpack-core:0.8.16
 org.opentest4j:opentest4j:1.2.0
