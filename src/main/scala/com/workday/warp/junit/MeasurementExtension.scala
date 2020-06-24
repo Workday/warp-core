@@ -1,12 +1,15 @@
 package com.workday.warp.junit
 
-
+import com.workday.warp.TrialResult
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
 import com.workday.warp.inject.WarpGuicer
 import org.junit.jupiter.api.extension.ExtensionContext.{Namespace, Store}
 import org.junit.jupiter.api.extension.{AfterEachCallback, BeforeEachCallback, ExtensionContext}
 import org.pmw.tinylog.Logger
+
+import scala.compat.java8.OptionConverters._
+import scala.util.{Failure, Success, Try}
 
 /**
   * JUnit callbacks for measurement.
@@ -24,10 +27,10 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     * @param context
     */
   override def beforeEach(context: ExtensionContext): Unit = {
-    // TODO trying to explore behavior here
+    // calling .get here is intentional
     val testId: String = context.getTestId.get
     Logger.info(s"measuring junit: ${context.getUniqueId}")
-    Logger.info(s"test id: $testId")
+    Logger.debug(s"test id: $testId")
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId)
     this.getStore(context).put(controllerKey, controller)
     controller.beginMeasurementCollection()
@@ -40,15 +43,16 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     * @param context
     */
   override def afterEach(context: ExtensionContext): Unit = {
-    // TODO don't record failures
     val controller: AbstractMeasurementCollectionController = this.getStore(context)
       .get(controllerKey)
       .asInstanceOf[AbstractMeasurementCollectionController]
 
-//    val failed = context.publishReportEntry()
-//    val failed: Optional[Throwable] = context.getExecutionException
+    val testResult: Try[TrialResult[Unit]] = context.getExecutionException.asScala match {
+      case Some(throwable) => Failure(throwable)
+      case None => Success(TrialResult.empty)
+    }
     Logger.info(s"end measuring junit: ${context.getUniqueId}")
-    controller.endMeasurementCollection()
+    controller.endMeasurementCollection(testResult)
   }
 
 

@@ -64,7 +64,7 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     val repetitions: Int = warpTest.trials
     Preconditions.condition(
       repetitions > 0,
-      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a positive 'invocations'.", method)
+      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a positive 'trials'.", method)
     )
     repetitions
   }
@@ -72,8 +72,8 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
   private def validateWarmups(warpTest: WarpTest, method: Method): Int = {
     val repetitions: Int = warpTest.warmups
     Preconditions.condition(
-      repetitions > 0,
-      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a positive 'warmupInvocations'.", method)
+      repetitions >= 0,
+      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a non-negative 'warmup'.", method)
     )
     repetitions
   }

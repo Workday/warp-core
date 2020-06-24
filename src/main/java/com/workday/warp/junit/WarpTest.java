@@ -9,7 +9,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
+/** Meta-annotation used to mark a test for measurement.
+ *
  * Created by tomas.mccandless on 6/18/20.
  */
 @Target({ ElementType.TYPE, ElementType.METHOD })
@@ -19,7 +20,7 @@ import java.lang.annotation.Target;
 public @interface WarpTest {
 
     /**
-     * The number of "warmup" runs to be invoked prior to the start of actual measurement.
+     * Number of "warmup" runs to be invoked prior to the start of actual measurement.
      *
      * Warmup runs will be treated differently than the runs specified in {@link #trials()}. Warmup invocations will not
      * have their response times recorded, nor can they fail because they have not met the response time requirement

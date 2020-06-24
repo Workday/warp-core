@@ -2,7 +2,8 @@ package com.workday.warp.junit
 
 import org.pmw.tinylog.Logger
 
-/**
+/** Utility methods for constructing test ids.
+  *
   * Created by tomas.mccandless on 6/17/20.
   */
 trait TestIdSupport {

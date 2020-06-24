@@ -12,7 +12,7 @@ import scala.collection.JavaConverters.seqAsJavaList
 trait WarpTestInvocationContextLike extends TestTemplateInvocationContext {
   import WarpTestInvocationContextLike._
 
-  // plain method display name
+  // plain vanilla method display name
   val plainDisplayName: String
   // "warmup" or "trial"
   val repetitionType: String
