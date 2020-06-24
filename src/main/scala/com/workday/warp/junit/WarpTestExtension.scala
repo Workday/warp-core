@@ -30,7 +30,7 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
 
 
   /**
-   * Provides a Stream of contextx corresponding to each warmup and measured trial.
+   * Provides a Stream of contexts corresponding to each warmup and measured trial.
    *
    * This is how we influence the JUnit execution schedule and insert our measurement extensions.
    *
@@ -64,7 +64,7 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     val repetitions: Int = warpTest.trials
     Preconditions.condition(
       repetitions > 0,
-      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a positive 'trials'.", method)
+      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with positive 'trials'.", method)
     )
     repetitions
   }
@@ -73,7 +73,7 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     val repetitions: Int = warpTest.warmups
     Preconditions.condition(
       repetitions >= 0,
-      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with a non-negative 'warmup'.", method)
+      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with non-negative 'warmups'.", method)
     )
     repetitions
   }
