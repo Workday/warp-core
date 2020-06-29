@@ -100,7 +100,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   }
 
   /**
-    * Create 100 data points. 70 with 500ms response time and 30 with 50ms
+    * Create 100 data points. 70 with 500ms response time and 30 with 100ms
     * Uses a sliding window size of 100, so the latest test execution with a
     * response time of 600ms should NOT be flagged as an anomaly
     */
@@ -108,7 +108,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   def usesLongSlidingWindow(): Unit = {
     val testID: String = "f.g.h.i.j." + UUID.randomUUID().toString
     val allResponseTimes: Iterable[Double] =
-      createDummyTestExecutions(testID, 70, 500) ++ createDummyTestExecutions(testID, 30, 50)
+      createDummyTestExecutions(testID, 70, 500) ++ createDummyTestExecutions(testID, 30, 100)
 
     val incomingTestExecution: TestExecutionRowLike = persistDummyTestExecution(testID, 600)
     val slidingWindowArbiter: SmartNumberArbiter = new SmartNumberArbiter(useSlidingWindow = true, slidingWindowSize = 100)

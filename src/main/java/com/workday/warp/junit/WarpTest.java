@@ -1,6 +1,5 @@
 package com.workday.warp.junit;
 
-import com.workday.telemetron.annotation.Required;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -22,10 +21,8 @@ public @interface WarpTest {
     /**
      * Number of "warmup" runs to be invoked prior to the start of actual measurement.
      *
-     * Warmup runs will be treated differently than the runs specified in {@link #trials()}. Warmup invocations will not
-     * have their response times recorded, nor can they fail because they have not met the response time requirement
-     * specified in the {@link Required} annotation.
-     * <p>
+     * Warmup runs will be treated differently than runs specified in {@link #trials()}. Warmup invocations will not
+     * be measured in any way, nor will they fail due to unsatisfied time requirement.
      *
      * @return number of unmeasured warmup invocations.
      */
