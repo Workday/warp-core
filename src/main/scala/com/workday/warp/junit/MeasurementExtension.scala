@@ -28,6 +28,7 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     */
   override def beforeEach(context: ExtensionContext): Unit = {
     // calling .get here is intentional
+    // we would rather throw an exception here than record meaningless info under a default or undefined testId
     val testId: String = context.getTestId.get
     Logger.info(s"measuring junit: ${context.getUniqueId}")
     Logger.debug(s"test id: $testId")
