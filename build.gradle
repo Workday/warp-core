@@ -118,7 +118,6 @@ dependencies {
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
 
-    // TODO not sure of the scope here. i suspect we might extend some jupiter classes
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${versions.junit5}"
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${versions.junit5}") {
         because 'allows JUnit 3 and JUnit 4 tests to run'

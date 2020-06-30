@@ -21,27 +21,26 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext {
   val additionalExtensions: Seq[Extension]
 
   /**
-   * Formats display name including current
+   * Formats display name including current repetition info.
    *
-   * @param invocationIndex
-   * @return
+   * @param invocationIndex unused.
+   * @return A test invocation display name including current repetition info.
    */
-  override def getDisplayName(invocationIndex: Int): String = this.formatDisplayName(this.currentRepetition, this.totalRepetitions)
-
-  /**
-   *
-   * @param currentRepetition
-   * @param totalRepetitions
-   * @return
-   */
-  def formatDisplayName(currentRepetition: Int, totalRepetitions: Int): String = {
+  override def getDisplayName(invocationIndex: Int): String = {
     displayNamePattern
       .replace(plainDisplayNameToken, this.plainDisplayName)
-      .replace(currentRepToken, String.valueOf(currentRepetition))
-      .replace(totalRepsToken, String.valueOf(totalRepetitions))
+      .replace(currentRepToken, String.valueOf(this.currentRepetition))
+      .replace(totalRepsToken, String.valueOf(this.totalRepetitions))
       .replace(repTypeToken, this.repetitionType)
   }
 
+  /**
+    * Gets additional JUnit extensions for this invocation.
+    *
+    * We always use a [[WarpInfoParameterResolver]], and we use a [[MeasurementExtension]] for measured trials only.
+    *
+    * @return additional JUnit extensions for this test invocation.
+    */
   override def getAdditionalExtensions: util.List[Extension] = {
     seqAsJavaList(WarpInfoParameterResolver(this.currentRepetition, this.totalRepetitions) :: additionalExtensions.toList)
   }

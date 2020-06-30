@@ -21,8 +21,8 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
   /**
    * We only support test templates that are annotated with [[WarpTest]].
    *
-   * @param context
-   * @return
+    * @param context [[ExtensionContext]] containing test method and display name.
+   * @return whether the test method is annotated with [[WarpTest]].
    */
   override def supportsTestTemplate(context: ExtensionContext): Boolean = {
     AnnotationUtils.isAnnotated(context.getTestMethod, classOf[WarpTest])
@@ -34,8 +34,8 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
    *
    * This is how we influence the JUnit execution schedule and insert our measurement extensions.
    *
-   * @param context
-   * @return
+   * @param context [[ExtensionContext]] containing test method and display name.
+   * @return a [[Stream]] of invocation contexts corresponding to warmups and measured trials.
    */
   override def provideTestTemplateInvocationContexts(context: ExtensionContext): Stream[TestTemplateInvocationContext] = {
     val testMethod: Method = context.getRequiredTestMethod
@@ -60,6 +60,15 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     Stream.concat(warmups.seqStream, trials.seqStream)
   }
 
+
+  /**
+    * Validates and returns number of measured trial reps, which must be positive.
+    *
+    * @param warpTest an annotation instance with `trials`.
+    * @param method annotated method. Used to construct error messages.
+    * @return number of measured trials.
+    */
+  @throws[RuntimeException]("when trials is non-positive")
   private def validateMeasuredReps(warpTest: WarpTest, method: Method): Int = {
     val repetitions: Int = warpTest.trials
     Preconditions.condition(
@@ -69,6 +78,15 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     repetitions
   }
 
+
+  /**
+    * Validates and returns number of warmup reps, which must be non-negative.
+    *
+    * @param warpTest an annotation instance with `warmups`.
+    * @param method annotated method. Used to construct error messages.
+    * @return number of warmups
+    */
+  @throws[RuntimeException]("when warmups is negative")
   private def validateWarmups(warpTest: WarpTest, method: Method): Int = {
     val repetitions: Int = warpTest.warmups
     Preconditions.condition(
