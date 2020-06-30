@@ -61,11 +61,11 @@ object WarpGuicer {
     * Uses the module class as defined by system property `wd.warp.inject.module`.
     *
     * @param testId
-    * @param tags // TODO should become a seq
+    * @param tags
     * @return
     */
-  def getController(testId: String, tags: List[Tag]): AbstractMeasurementCollectionController = {
-    val module: WarpModule = this.moduleConstructor.newInstance(testId, tags)
+  def getController(testId: String, tags: Iterable[Tag] = Seq.empty): AbstractMeasurementCollectionController = {
+    val module: WarpModule = this.moduleConstructor.newInstance(testId, tags.toList)
     this.getController(module)
   }
 

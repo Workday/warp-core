@@ -55,7 +55,7 @@ object WarpLogUtils {
     val consoleLevel: Level = this.parseLevel(consoleLogLevel, WARP_CONSOLE_LOG_LEVEL.defaultValue)
     val fileLevel: Level = this.parseLevel(fileLogLevel, WARP_FILE_LOG_LEVEL.defaultValue)
 
-    Logger.info(s"WarpLogUtils: setting log levels: console=$consoleLevel, file=$fileLevel")
+    Logger.debug(s"WarpLogUtils: setting log levels: console=$consoleLevel, file=$fileLevel")
 
     val buffer: Boolean = true
     val append: Boolean = true
