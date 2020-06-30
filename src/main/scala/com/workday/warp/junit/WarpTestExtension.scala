@@ -3,6 +3,7 @@ package com.workday.warp.junit
 import java.lang.reflect.Method
 import java.util.stream.Stream
 
+import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
 import org.junit.jupiter.api.extension.{ExtensionContext, TestTemplateInvocationContext, TestTemplateInvocationContextProvider}
 import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
@@ -16,14 +17,14 @@ import scala.compat.java8.StreamConverters._
  *
  * Created by tomas.mccandless on 6/18/20.
  */
-class WarpTestExtension extends TestTemplateInvocationContextProvider {
+class WarpTestExtension extends TestTemplateInvocationContextProvider with TestIdSupport {
 
   /**
-   * We only support test templates that are annotated with [[WarpTest]].
-   *
+    * We only support test templates that are annotated with [[WarpTest]].
+    *
     * @param context [[ExtensionContext]] containing test method and display name.
-   * @return whether the test method is annotated with [[WarpTest]].
-   */
+    * @return whether the test method is annotated with [[WarpTest]].
+    */
   override def supportsTestTemplate(context: ExtensionContext): Boolean = {
     AnnotationUtils.isAnnotated(context.getTestMethod, classOf[WarpTest])
   }
@@ -44,18 +45,23 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     val warpTest: WarpTest = AnnotationUtils.findAnnotation(testMethod, classOf[WarpTest]).get
 
     val numWarmups: Int = validateWarmups(warpTest, testMethod)
-    val warmups: Seq[WarpTestInvocationContext] = (1 to numWarmups).map(WarpTestInvocationContext(displayName, "warmup", _, numWarmups))
-
     val numTrials: Int = validateMeasuredReps(warpTest, testMethod)
+    // TODO decide behavior here. throw an exception? fall back on another method?
+    val testId: String = context.getTestId.get
+
+    val warmups: Seq[WarpTestInvocationContext] = (1 to numWarmups).map { w =>
+      val warmupInfo: WarpInfoLike = WarpInfo(testId, w, Warmup, numWarmups, numTrials)
+      WarpTestInvocationContext(displayName, warmupInfo)
+    }
     // tweak our display name for warmups vs trials
-    val trials: Seq[WarpTestInvocationContext] = (1 to numTrials).map(WarpTestInvocationContext(
+    val trials: Seq[WarpTestInvocationContext] = (1 to numTrials).map { t =>
+      val trialInfo: WarpInfoLike = WarpInfo(testId, t, Trial, numWarmups, numTrials)
+      WarpTestInvocationContext(
       displayName,
-      "trial",
-      _,
-      numTrials,
+      trialInfo,
       // measured trial reps should have an additional measurement extension
       additionalExtensions = Seq(new MeasurementExtension)
-    ))
+    )}
 
     Stream.concat(warmups.seqStream, trials.seqStream)
   }
@@ -96,4 +102,3 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider {
     repetitions
   }
 }
-

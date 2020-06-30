@@ -9,16 +9,13 @@ import scala.collection.JavaConverters.seqAsJavaList
 /**
   * Created by tomas.mccandless on 6/18/20.
   */
-trait WarpTestInvocationContextLike extends TestTemplateInvocationContext {
+trait WarpTestInvocationContextLike extends TestTemplateInvocationContext with HasWarpInfo {
   import WarpTestInvocationContextLike._
 
   // plain vanilla method display name
-  val plainDisplayName: String
-  // "warmup" or "trial"
-  val repetitionType: String
-  val currentRepetition: Int
-  val totalRepetitions: Int
-  val additionalExtensions: Seq[Extension]
+  def plainDisplayName: String
+  def additionalExtensions: Seq[Extension]
+
 
   /**
    * Formats display name including current repetition info.
@@ -29,9 +26,9 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext {
   override def getDisplayName(invocationIndex: Int): String = {
     displayNamePattern
       .replace(plainDisplayNameToken, this.plainDisplayName)
-      .replace(currentRepToken, String.valueOf(this.currentRepetition))
-      .replace(totalRepsToken, String.valueOf(this.totalRepetitions))
-      .replace(repTypeToken, this.repetitionType)
+      .replace(currentRepToken, String.valueOf(this.warpInfo.currentRepetition))
+      .replace(totalRepsToken, String.valueOf(this.warpInfo.totalRepetitions))
+      .replace(repTypeToken, this.warpInfo.repetitionType.name)
   }
 
   /**
@@ -42,7 +39,9 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext {
     * @return additional JUnit extensions for this test invocation.
     */
   override def getAdditionalExtensions: util.List[Extension] = {
-    seqAsJavaList(WarpInfoParameterResolver(this.currentRepetition, this.totalRepetitions) :: additionalExtensions.toList)
+    seqAsJavaList(WarpInfoParameterResolver(
+      this.warpInfo
+    ) :: additionalExtensions.toList)
   }
 }
 
@@ -64,7 +63,5 @@ object WarpTestInvocationContextLike {
 }
 
 case class WarpTestInvocationContext(plainDisplayName: String,
-                                     repetitionType: String,
-                                     currentRepetition: Int,
-                                     totalRepetitions: Int,
+                                     warpInfo: WarpInfoLike,
                                      additionalExtensions: Seq[Extension] = Seq.empty) extends WarpTestInvocationContextLike
