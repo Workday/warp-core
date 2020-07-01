@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.{Extension, TestTemplateInvocationContext
 import scala.collection.JavaConverters.seqAsJavaList
 
 /**
+  * JUnit invocation context for a single test invocation.
+  *
   * Created by tomas.mccandless on 6/18/20.
   */
 trait WarpTestInvocationContextLike extends TestTemplateInvocationContext with HasWarpInfo {
@@ -14,7 +16,7 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext with H
 
   // plain vanilla method display name
   def plainDisplayName: String
-  def additionalExtensions: Seq[Extension]
+  def additionalExtensions: List[Extension]
 
 
   /**
@@ -39,29 +41,27 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext with H
     * @return additional JUnit extensions for this test invocation.
     */
   override def getAdditionalExtensions: util.List[Extension] = {
-    seqAsJavaList(WarpInfoParameterResolver(
-      this.warpInfo
-    ) :: additionalExtensions.toList)
+    seqAsJavaList(WarpInfoParameterResolver(this.warpInfo) :: additionalExtensions)
   }
 }
 
 object WarpTestInvocationContextLike {
   /** Placeholder for the plain [[org.junit.jupiter.api.TestInfo]] display name of a [[WarpTest]] method. */
-  val plainDisplayNameToken = "{plainDisplayName}"
+  lazy val plainDisplayNameToken = "{plainDisplayName}"
 
   /** Placeholder for the current repetition count of a [[WarpTest]] method. */
-  val currentRepToken = "{currentRepetition}"
+  lazy val currentRepToken = "{currentRepetition}"
 
   /** Placeholder for the total number of repetitions of a [[WarpTest]] method. */
-  val totalRepsToken = "{totalRepetitions}"
+  lazy val totalRepsToken = "{totalRepetitions}"
 
   /** Placeholder for the type of run of a [[WarpTest]] method, eg "warmup" or "trial". */
-  val repTypeToken = "{repetitionType}"
+  lazy val repTypeToken = "{repetitionType}"
 
   /** Display name pattern for a [[WarpTest]]. */
-  val displayNamePattern: String = s"$plainDisplayNameToken [$repTypeToken $currentRepToken of $totalRepsToken]"
+  lazy val displayNamePattern: String = s"$plainDisplayNameToken [$repTypeToken $currentRepToken of $totalRepsToken]"
 }
 
 case class WarpTestInvocationContext(plainDisplayName: String,
                                      warpInfo: WarpInfoLike,
-                                     additionalExtensions: Seq[Extension] = Seq.empty) extends WarpTestInvocationContextLike
+                                     additionalExtensions: List[Extension] = List.empty) extends WarpTestInvocationContextLike

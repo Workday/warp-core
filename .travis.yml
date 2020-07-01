@@ -3,9 +3,6 @@ dist: bionic
 
 jdk:
   - openjdk8
-  - openjdk9
-  - openjdk10
-  - openjdk11
 
 services:
   - docker

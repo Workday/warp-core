@@ -10,14 +10,14 @@ import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 import scala.compat.java8.StreamConverters._
 
 /** TestTemplate for running WarpTests.
- *
- * We emit a stream of invocation contexts corresponding to warmups and measured trials based on [[WarpTest]] annotation.
- *
- * See [[org.junit.jupiter.api.RepeatedTest]].
- *
- * Created by tomas.mccandless on 6/18/20.
+  *
+  * We emit a stream of invocation contexts corresponding to warmups and measured trials based on [[WarpTest]] annotation.
+  *
+  * See [[org.junit.jupiter.api.RepeatedTest]].
+  *
+  * Created by tomas.mccandless on 6/18/20.
  */
-class WarpTestExtension extends TestTemplateInvocationContextProvider with TestIdSupport {
+trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider with TestIdSupport {
 
   /**
     * We only support test templates that are annotated with [[WarpTest]].
@@ -102,3 +102,5 @@ class WarpTestExtension extends TestTemplateInvocationContextProvider with TestI
     repetitions
   }
 }
+
+class WarpTestExtension extends WarpTestExtensionLike
