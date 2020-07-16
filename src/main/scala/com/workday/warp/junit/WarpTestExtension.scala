@@ -60,7 +60,7 @@ trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider with T
       displayName,
       trialInfo,
       // measured trial reps should have an additional measurement extension
-      additionalExtensions = Seq(new MeasurementExtension)
+      additionalExtensions = List(new MeasurementExtension)
     )}
 
     Stream.concat(warmups.seqStream, trials.seqStream)

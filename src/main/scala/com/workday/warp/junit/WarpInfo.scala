@@ -23,6 +23,12 @@ trait WarpInfoLike {
 
   /** Total number of repetitions of the corresponding [[WarpTest]] method. (warmups + trials) */
   def totalRepetitions: Int = numWarmups + numTrials
+
+  /** Repetition limit for the current repetition type. Number of warmups or measured trials. */
+  def currentRepLimit: Int = repetitionType match {
+    case Warmup => numWarmups
+    case Trial => numTrials
+  }
 }
 
 trait HasWarpInfo {

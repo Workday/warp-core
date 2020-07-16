@@ -28,8 +28,8 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext with H
   override def getDisplayName(invocationIndex: Int): String = {
     displayNamePattern
       .replace(plainDisplayNameToken, this.plainDisplayName)
-      .replace(currentRepToken, String.valueOf(this.warpInfo.currentRepetition))
-      .replace(totalRepsToken, String.valueOf(this.warpInfo.totalRepetitions))
+      .replace(currentRepToken, this.warpInfo.currentRepetition.toString)
+      .replace(totalRepsToken, this.warpInfo.currentRepLimit.toString)
       .replace(repTypeToken, this.warpInfo.repetitionType.name)
   }
 
