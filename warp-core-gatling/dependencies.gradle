@@ -1,0 +1,11 @@
+// keep in alphabetical order
+dependencies {
+    // Could not exclude concrete logger implementation due to it being directly used within gatling-app
+    api "io.gatling:gatling-app:${versions.gatling}"
+
+
+
+    testImplementation "io.gatling:gatling-commons:${versions.gatling}"
+
+
+}
