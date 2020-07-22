@@ -1,6 +1,9 @@
 package com.workday.warp.utils
 
+import java.util.concurrent.Executor
+
 import slick.util.AsyncExecutor
+
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor}
 
 /**
@@ -23,7 +26,11 @@ object SynchronousExecutor {
     *
     * This runs tasks in the calling thread, rather than requesting a new thread like its asynchronous counterpart
     */
-  val synchronousExecutionContext: ExecutionContextExecutor = ExecutionContext.fromExecutor(
-    (task: Runnable) => task.run()
-  )
+  lazy val synchronousExecutionContext: ExecutionContextExecutor = {
+    // seems Single Abstract Method only works in 2.12
+    val executor: Executor = new Executor {
+      override def execute(command: Runnable): Unit = command.run()
+    }
+    ExecutionContext.fromExecutor(executor)
+  }
 }

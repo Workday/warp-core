@@ -7,7 +7,7 @@ import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
 import org.junit.jupiter.api.extension.{ExtensionContext, TestTemplateInvocationContext, TestTemplateInvocationContextProvider}
 import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
-import scala.compat.java8.StreamConverters._
+import scala.collection.JavaConversions._
 
 /** TestTemplate for running WarpTests.
   *
@@ -63,7 +63,7 @@ trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider with T
       additionalExtensions = List(new MeasurementExtension)
     )}
 
-    Stream.concat(warmups.seqStream, trials.seqStream)
+    Stream.concat(warmups.stream(), trials.stream())
   }
 
 
@@ -79,7 +79,7 @@ trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider with T
     val repetitions: Int = warpTest.trials
     Preconditions.condition(
       repetitions > 0,
-      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with positive 'trials'.", method)
+      String.format("Configuration error: @WarpTest on method [%s] must be declared with positive 'trials'.", method)
     )
     repetitions
   }
@@ -97,7 +97,7 @@ trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider with T
     val repetitions: Int = warpTest.warmups
     Preconditions.condition(
       repetitions >= 0,
-      () => String.format("Configuration error: @WarpTest on method [%s] must be declared with non-negative 'warmups'.", method)
+      String.format("Configuration error: @WarpTest on method [%s] must be declared with non-negative 'warmups'.", method)
     )
     repetitions
   }

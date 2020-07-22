@@ -4,7 +4,7 @@ import java.util
 
 import org.junit.jupiter.api.extension.{Extension, TestTemplateInvocationContext}
 
-import scala.collection.JavaConverters.seqAsJavaList
+import scala.collection.JavaConversions._
 
 /**
   * JUnit invocation context for a single test invocation.
@@ -41,7 +41,7 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext with H
     * @return additional JUnit extensions for this test invocation.
     */
   override def getAdditionalExtensions: util.List[Extension] = {
-    seqAsJavaList(WarpInfoParameterResolver(this.warpInfo) :: additionalExtensions)
+    (WarpInfoParameterResolver(this.warpInfo) :: additionalExtensions)
   }
 }
 

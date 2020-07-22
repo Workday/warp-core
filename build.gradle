@@ -34,6 +34,7 @@ buildscript {
 
 allprojects {
     apply plugin: 'base'
+    apply plugin: 'java'
     apply plugin: 'java-library'
     apply plugin: 'checkstyle'
     apply plugin: 'scala'
@@ -113,6 +114,7 @@ task copyConfigTemplate(type: Copy) {
 
 // TODO see if this needs to be moved to root project
 import org.apache.tools.ant.filters.ReplaceTokens
+import io.github.cosmicsilence.scalafix.ScalafixTask
 
 /**
  * @return true iff we are building a maven snapshot or a devSnapshot.
@@ -121,12 +123,11 @@ static boolean isSnapshot(String inferredVersion) {
     inferredVersion.endsWith("-SNAPSHOT") || inferredVersion.contains("-dev.") || inferredVersion.contains(".dev.")
 }
 
+
 subprojects {
 
     apply from: file('dependencies.gradle')
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
 
     sourceSets {
 
@@ -184,6 +185,8 @@ subprojects {
     }
 
     tasks.withType(ScalaCompile) {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
         scalaCompileOptions.additionalParameters = [
                 // needed for "RemoveUnused" scalafix rule
                 '-Ywarn-unused'
@@ -288,6 +291,14 @@ subprojects {
 // see https://discuss.gradle.org/t/unable-to-publish-artifact-to-mavencentral/33727
     tasks.withType(GenerateModuleMetadata) {
         enabled = false
+    }
+
+    afterEvaluate {
+        if (project.scalaSuffix != "_2.12") {
+            tasks.withType(ScalafixTask) {
+                enabled = false
+            }
+        }
     }
 
     dependencyLocking {

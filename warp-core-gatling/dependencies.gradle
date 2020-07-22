@@ -1,11 +1,7 @@
 // keep in alphabetical order
 dependencies {
+    println("warp-core-gatling dependencies for: " + project.scalaVersion)
     // Could not exclude concrete logger implementation due to it being directly used within gatling-app
     api "io.gatling:gatling-app:${versions.gatling}"
-
-
-
     testImplementation "io.gatling:gatling-commons:${versions.gatling}"
-
-
 }
