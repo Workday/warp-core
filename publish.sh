@@ -41,15 +41,22 @@ fi
 
 if [[ $RELEASE_TYPE = 'final' || $RELEASE_TYPE = 'candidate' ]]
 then
-  # create the tag once, then cross-compile
+  # use our default scala version (2.12). compatible with all modules
   echo "creating repo tag for $RELEASE_TYPE release"
   ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE
+
+  # then publish our primary module with other scala versions
   echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release"
-  ./gradlew -Prelease.useLastTag=true $PUBLISH_TASK
+  ./gradlew -Prelease.useLastTag=true -PscalaVersions=2.11.11 :warp-core:$PUBLISH_TASK
+
 elif [[ $RELEASE_TYPE = 'devSnapshot' || $RELEASE_TYPE == 'snapshot' ]]
 then
   echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release. repo tag will not be created."
+  # publish all submodules for 2.12
   ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE $PUBLISH_TASK
+
+  # publish core module for other versions
+  ./gradlew -Prelease.scope=$RELEASE_SCOPE -Pscalaversions=2.11.11 clean $RELEASE_TYPE :warp-core:$PUBLISH_TASK
 else
   echo "$RELEASE_TYPE is not a valid release type"
   exit 1

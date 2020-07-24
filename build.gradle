@@ -34,11 +34,10 @@ buildscript {
 
 allprojects {
     apply plugin: 'base'
-    apply plugin: 'java'
     apply plugin: 'java-library'
     apply plugin: 'checkstyle'
     apply plugin: 'scala'
-    // apply multiversion to individual subprojects
+    // apply multiversion to individual projects
     apply plugin: 'com.adtran.scala-multiversion-plugin'
     apply plugin: 'scalaStyle'
     apply plugin: 'idea'
@@ -77,6 +76,8 @@ allprojects {
     }
 }
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 project(':warp-core') {
     dependencies {
@@ -185,15 +186,11 @@ subprojects {
     }
 
     tasks.withType(ScalaCompile) {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
         scalaCompileOptions.additionalParameters = [
                 // needed for "RemoveUnused" scalafix rule
                 '-Ywarn-unused'
         ]
     }
-
-
 
     task unitTest(type: Test) {
         useJUnitPlatform {
@@ -346,6 +343,16 @@ subprojects {
                             id = 'tomnis'
                             name = 'tomas mccandless'
                             email = 'tomas.mccandless@gmail.com'
+                        }
+                        developer {
+                            id = 'tsoppet'
+                            name = 'timothy soppet'
+                            email = 'tsoppet@gmail.com'
+                        }
+                        developer {
+                            id = 'rooeque'
+                            name = 'richie wang'
+                            email = 'wang.ruiqi.94@gmail.com'
                         }
                     }
                     scm {
