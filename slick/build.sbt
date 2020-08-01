@@ -1,4 +1,4 @@
-val slickVersion = "3.2.0"
+val slickVersion = "3.3.2"
 val mysqlConnectorVersion = "5.1.27"
 val slf4jVersion = "1.7.10"
 
