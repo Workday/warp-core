@@ -5,3 +5,12 @@ dependencies {
     api "io.gatling:gatling-app:${versions.gatling}"
     testImplementation "io.gatling:gatling-commons:${versions.gatling}"
 }
+
+afterEvaluate {
+    if (project.scalaSuffix != "_2.12") {
+        println("disabling all tasks for ${project.name} (scala ${project.scalaVersion})")
+        project.tasks.each {
+            it.enabled = false
+        }
+    }
+}
