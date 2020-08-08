@@ -41,7 +41,8 @@ fi
 
 if [[ $RELEASE_TYPE = 'final' || $RELEASE_TYPE = 'candidate' ]]
 then
-  # use our default scala version (2.12). compatible with all modules
+  # create our repo tag
+  # TODO despite being in `runOnceTasks`, it appears `candidate` is run multiple times with -PallScalaVersions, incorrectly creating multiple tags
   echo "creating repo tag for $RELEASE_TYPE release"
   ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE
 
