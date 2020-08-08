@@ -43,12 +43,11 @@ if [[ $RELEASE_TYPE = 'final' || $RELEASE_TYPE = 'candidate' ]]
 then
   # use our default scala version (2.12). compatible with all modules
   echo "creating repo tag for $RELEASE_TYPE release"
-  #./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE
+  ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE
 
   # then publish our primary module with other scala versions
   echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release"
-  #./gradlew -Prelease.useLastTag=true -PscalaVersions=2.11.11 :warp-core:$PUBLISH_TASK
-  ./gradlew -Prelease.scope=$RELEASE_SCOPE -PallScalaVersions clean $RELEASE_TYPE $PUBLISH_TASK
+  ./gradlew -Prelease.useLastTag=true -PallScalaVersions $PUBLISH_TASK
 
 elif [[ $RELEASE_TYPE = 'devSnapshot' || $RELEASE_TYPE == 'snapshot' ]]
 then
