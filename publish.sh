@@ -52,11 +52,7 @@ then
 elif [[ $RELEASE_TYPE = 'devSnapshot' || $RELEASE_TYPE == 'snapshot' ]]
 then
   echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release. repo tag will not be created."
-  # publish all submodules for 2.12
-  ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE $PUBLISH_TASK
-
-  # publish core module for other versions
-  ./gradlew -Prelease.scope=$RELEASE_SCOPE -Pscalaversions=2.11.11 clean $RELEASE_TYPE :warp-core:$PUBLISH_TASK
+  ./gradlew -Prelease.scope=$RELEASE_SCOPE -PallScalaVersions clean $RELEASE_TYPE $PUBLISH_TASK
 else
   echo "$RELEASE_TYPE is not a valid release type"
   exit 1
