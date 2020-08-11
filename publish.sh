@@ -41,15 +41,19 @@ fi
 
 if [[ $RELEASE_TYPE = 'final' || $RELEASE_TYPE = 'candidate' ]]
 then
-  # create the tag once, then cross-compile
+  # create our repo tag
+  # TODO despite being in `runOnceTasks`, it appears `candidate` is run multiple times with -PallScalaVersions, incorrectly creating multiple tags
   echo "creating repo tag for $RELEASE_TYPE release"
   ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE
+
+  # then publish our primary module with other scala versions
   echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release"
-  ./gradlew -Prelease.useLastTag=true $PUBLISH_TASK
+  ./gradlew -Prelease.useLastTag=true -PallScalaVersions $PUBLISH_TASK
+
 elif [[ $RELEASE_TYPE = 'devSnapshot' || $RELEASE_TYPE == 'snapshot' ]]
 then
   echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release. repo tag will not be created."
-  ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE $PUBLISH_TASK
+  ./gradlew -Prelease.scope=$RELEASE_SCOPE -PallScalaVersions clean $RELEASE_TYPE $PUBLISH_TASK
 else
   echo "$RELEASE_TYPE is not a valid release type"
   exit 1
