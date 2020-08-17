@@ -14,8 +14,8 @@
 // keep in alphabetical order
 dependencies {
     println("warp-core dependencies for: " + project.scalaVersion)
-    api "com.google.inject:guice:${versions.guice}"
     api "com.google.code.gson:gson:${versions.gson}"
+    api "com.google.inject:guice:${versions.guice}"
     api "com.typesafe.slick:slick_%%:${versions.slick}"
     api "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
 
