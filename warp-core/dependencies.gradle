@@ -15,6 +15,7 @@
 dependencies {
     println("warp-core dependencies for: " + project.scalaVersion)
     api "com.google.inject:guice:${versions.guice}"
+    api "com.google.code.gson:gson:${versions.gson}"
     api "com.typesafe.slick:slick_%%:${versions.slick}"
     api "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
 
@@ -36,7 +37,6 @@ dependencies {
     // used for custom log writers
     api "org.tinylog:tinylog:${versions.tinylog}"
 
-    implementation "com.google.code.gson:gson:${versions.gson}"
     implementation "com.google.guava:guava:${versions.guava}"
     implementation "com.typesafe:config:${versions.typesafeConfig}"
     implementation "commons-io:commons-io:${versions.commonsIo}"
@@ -48,6 +48,4 @@ dependencies {
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
-
-
 }

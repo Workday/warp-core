@@ -300,7 +300,9 @@ subprojects {
 
     dependencyLocking {
         lockAllConfigurations()
-        lockMode = LockMode.STRICT
+        if (project.scalaSuffix == "_2.12") {
+            lockMode = LockMode.STRICT
+        }
         lockFile = file("$projectDir/locking/${project.name}${scalaSuffix}.lockfile")
     }
 
