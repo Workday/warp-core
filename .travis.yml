@@ -2,8 +2,9 @@ language: java
 dist: bionic
 
 env:
-  - ORG_GRADLE_PROJECT_defaultScalaVersion=2.11.11
-  - ORG_GRADLE_PROJECT_defaultScalaVersion=2.12.10
+  # matrix expansion for scala versions. change in sync with gradle.properties
+  - ORG_GRADLE_PROJECT_scalaVersion=2.11.11
+  - ORG_GRADLE_PROJECT_scalaVersion=2.12.10
 
 jdk:
   - openjdk8
@@ -14,11 +15,7 @@ services:
 # skip the install step, we don't want to compile code again in this step
 # the default is gradle assemble task. ideally we probably want to just download
 # all dependencies in this step
-install:
-  - pwd
-  - cd ..
-  - cp -R warp-core warp-core-root
-  - cd warp-core-root
+install: true
 
 # see https://docs.travis-ci.com/user/languages/java/#caching
 before_cache:
