@@ -17,7 +17,7 @@ More detailed documentation can be found [here.](https://workday.github.io/warp-
 
 ### Important and Subtle:
 In order for `-PallScalaVersions` to work as expected, you must clone this into a non-default directory, ie a directory that is not equal to the repository name.
-When this is not done, running with `-PallScalaVersions` leads to a GradleBuild error like: "included build has same name as a subproject"
+When this is not done, running with `-PallScalaVersions` leads to a GradleBuild error like: "included build '/home/$USER/warp-core' has same name as a subproject"
 
 While we are not directly using included (composite) builds, dynamically creating a GradleBuild is implemented similarly.
 Scala multiversion plugin uses a dynamic GradleBuild to recurse over the entire task graph with a different scala version.
@@ -27,6 +27,8 @@ by setting rootProject.name does not take effect for the recursed task graph, on
 See the following for more background:
 https://github.com/gradle/gradle/issues/12872
 https://github.com/gradle/gradle/issues/3828
+
+### Starting local services
 
 You can start up the required services (note that the included docker-compose file is not intended to be used in production) to run tests with
 ```
