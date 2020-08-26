@@ -11,6 +11,8 @@ services:
 # the default is gradle assemble task. ideally we probably want to just download
 # all dependencies in this step
 install:
+  - pwd
+  - cd ..
   - cp -R warp-core warp-core-root
   - cd warp-core-root
 
