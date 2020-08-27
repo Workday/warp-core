@@ -1,6 +1,11 @@
 language: java
 dist: bionic
 
+env:
+  # matrix expansion for scala versions. change in sync with gradle.properties
+  - ORG_GRADLE_PROJECT_scalaVersion=2.11.11
+  - ORG_GRADLE_PROJECT_scalaVersion=2.12.10
+
 jdk:
   - openjdk8
 
@@ -24,7 +29,7 @@ cache:
 
 script:
   - docker-compose up -d
-  - ./gradlew -PallScalaVersions copyConfigTemplate reportScoverage checkScoverage checkScalafix --stacktrace
+  - ./gradlew copyConfigTemplate clean test reportScoverage checkScoverage checkScalafix --stacktrace
 
 after_success:
   - ./gradlew coveralls
