@@ -62,7 +62,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
       runner.robustPca(dummyData)
     }
 
-    result should not exceed (30 seconds)
+    result should not exceed (45 seconds)
     Logger.debug(s"processed $dataSize in ${result.head.maybeResponseTime.get.humanReadable}")
   }
 }
