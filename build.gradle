@@ -63,9 +63,6 @@ allprojects {
         api ("org.scala-lang:scala-library:%scala-version%") {
             force = true
         }
-        api ("org.scala-lang:scala-compiler:%scala-version%") {
-            force = true
-        }
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${versions.junit5}"
         testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${versions.junit5}") {
             because 'allows JUnit 3 and JUnit 4 tests to run'
