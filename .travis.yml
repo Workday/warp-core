@@ -4,7 +4,7 @@ dist: bionic
 env:
   # matrix expansion for scala versions. change in sync with gradle.properties
   - ORG_GRADLE_PROJECT_scalaVersion=2.11.11
-  - ORG_GRADLE_PROJECT_scalaVersion=2.12.10
+  - ORG_GRADLE_PROJECT_scalaVersion=2.12.12
 
 jdk:
   - openjdk8
