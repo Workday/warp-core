@@ -9,13 +9,13 @@ import org.junit.jupiter.api.extension.{ExtensionContext, ParameterContext, Para
 trait WarpInfoParameterResolverLike extends ParameterResolver with HasWarpInfo {
 
   override def supportsParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): Boolean = {
-    parameterContext.getParameter.getType == classOf[WarpInfoLike]
+    parameterContext.getParameter.getType == classOf[WarpInfo]
   }
 
-  override def resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): WarpInfoLike = {
+  override def resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext): WarpInfo = {
     this.warpInfo
   }
 }
 
 
-case class WarpInfoParameterResolver(warpInfo: WarpInfoLike) extends WarpInfoParameterResolverLike
+case class WarpInfoParameterResolver(warpInfo: WarpInfo) extends WarpInfoParameterResolverLike

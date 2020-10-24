@@ -9,7 +9,7 @@ import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
 import scala.collection.JavaConversions._
 
-/** TestTemplate for running WarpTests.
+/** TestTemplate for running and measuring WarpTests.
   *
   * We emit a stream of invocation contexts corresponding to warmups and measured trials based on [[WarpTest]] annotation.
   *
@@ -50,12 +50,12 @@ trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider with T
     val testId: String = context.getTestId.get
 
     val warmups: Seq[WarpTestInvocationContext] = (1 to numWarmups).map { w =>
-      val warmupInfo: WarpInfoLike = WarpInfo(testId, w, Warmup, numWarmups, numTrials)
+      val warmupInfo: WarpInfo = WarpInfo(testId, w, Warmup, numWarmups, numTrials)
       WarpTestInvocationContext(displayName, warmupInfo)
     }
     // tweak our display name for warmups vs trials
     val trials: Seq[WarpTestInvocationContext] = (1 to numTrials).map { t =>
-      val trialInfo: WarpInfoLike = WarpInfo(testId, t, Trial, numWarmups, numTrials)
+      val trialInfo: WarpInfo = WarpInfo(testId, t, Trial, numWarmups, numTrials)
       WarpTestInvocationContext(
       displayName,
       trialInfo,
