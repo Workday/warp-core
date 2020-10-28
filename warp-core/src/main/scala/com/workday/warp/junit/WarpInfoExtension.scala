@@ -18,7 +18,7 @@ import org.junit.platform.commons.util.AnnotationUtils
   *
   * Created by tomas.mccandless on 10/23/20.
   */
-trait WarpInfoExtensionLike extends TestTemplateInvocationContextProvider with TestIdSupport {
+trait WarpInfoExtensionLike extends TestTemplateInvocationContextProvider {
 
   /**
     * We only support test templates that are annotated with [[WarpInfoProvided]].
@@ -40,8 +40,8 @@ trait WarpInfoExtensionLike extends TestTemplateInvocationContextProvider with T
     * @return a singleton [[Stream]] of invocation context.
     */
   override def provideTestTemplateInvocationContexts(context: ExtensionContext): Stream[TestTemplateInvocationContext] = {
-    val testId: String = context.getTestId.get
-    val info: WarpInfo = WarpInfo(testId, 1, Warmup, 1, 0)
+    // TODO finalize behavior here. throw an exception? fall back on another testId?
+    val info: WarpInfo = WarpInfo(context.getTestId.get)
     Stream.of(Seq(WarpInfoInvocationContext(context.getDisplayName, info)): _*)
   }
 }

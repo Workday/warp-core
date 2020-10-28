@@ -2,6 +2,8 @@ package com.workday.warp.junit
 
 import java.lang.reflect.Method
 
+import scala.util.Try
+
 /** Logic for constructing a testId given a testClass and testMethod.
   *
   * Multiple Junit interfaces [[org.junit.jupiter.api.extension.ExtensionContext]] and [[org.junit.jupiter.api.TestInfo]],
@@ -14,9 +16,9 @@ import java.lang.reflect.Method
   */
 trait HasTestId {
 
-  def getTestClass: Option[Class[_]]
+  def getTestClass: Try[Class[_]]
 
-  def getTestMethod: Option[Method]
+  def getTestMethod: Try[Method]
 
   /**
     * Attempts to construct a fully qualified method name.
@@ -25,7 +27,7 @@ trait HasTestId {
     *
     * @return Some fully qualified method name, or [[None]].
     */
-  def getTestId: Option[String] = for {
+  def getTestId: Try[String] = for {
     className: String <- this.getTestClass.map(_.getCanonicalName)
     method: String <- this.getTestMethod.map(_.getName)
   } yield s"$className.$method"

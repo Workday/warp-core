@@ -35,7 +35,7 @@ public class ExampleTest {
 
 
     /** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */
-    @WarpTest()
+    @WarpTest
     public void measuredWithInfo(final WarpInfo info) {
         Assert.assertTrue(info.testId().equals("com.workday.warp.examples.ExampleTest.measuredWithInfo"));
     }

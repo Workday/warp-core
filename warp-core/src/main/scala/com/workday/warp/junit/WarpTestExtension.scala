@@ -17,7 +17,7 @@ import scala.collection.JavaConversions._
   *
   * Created by tomas.mccandless on 6/18/20.
  */
-trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider with TestIdSupport {
+trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider {
 
   /**
     * We only support test templates that are annotated with [[WarpTest]].
@@ -50,12 +50,12 @@ trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider with T
     val testId: String = context.getTestId.get
 
     val warmups: Seq[WarpTestInvocationContext] = (1 to numWarmups).map { w =>
-      val warmupInfo: WarpInfo = WarpInfo(testId, w, Warmup, numWarmups, numTrials)
+      val warmupInfo: WarpInfo = WarpInfo(testId, Option(WarpMeasurementInfo(w, Warmup, numWarmups, numTrials)))
       WarpTestInvocationContext(displayName, warmupInfo)
     }
     // tweak our display name for warmups vs trials
     val trials: Seq[WarpTestInvocationContext] = (1 to numTrials).map { t =>
-      val trialInfo: WarpInfo = WarpInfo(testId, t, Trial, numWarmups, numTrials)
+      val trialInfo: WarpInfo = WarpInfo(testId, Option(WarpMeasurementInfo(t, Trial, numWarmups, numTrials)))
       WarpTestInvocationContext(
       displayName,
       trialInfo,

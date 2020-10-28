@@ -2,10 +2,12 @@ package com.workday.warp.junit
 
 import java.lang.reflect.Method
 
+import com.workday.warp.common.utils.Implicits.DecoratedOption
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtensionContext
 
 import scala.compat.java8.OptionConverters._
+import scala.util.Try
 
 /**
   * Ad-hoc polymorphism for constructing [[HasTestId]].
@@ -15,13 +17,13 @@ import scala.compat.java8.OptionConverters._
 object TestIdConverters {
 
   implicit def testInfoHasTestId(info: TestInfo): HasTestId = new HasTestId {
-    override def getTestClass: Option[Class[_]] = info.getTestClass.asScala
-    override def getTestMethod: Option[Method] = info.getTestMethod.asScala
+    override def getTestClass: Try[Class[_]] = info.getTestClass.asScala.toTry
+    override def getTestMethod: Try[Method] = info.getTestMethod.asScala.toTry
   }
 
 
   implicit def extensionContextHasTestId(context: ExtensionContext): HasTestId = new HasTestId {
-    override def getTestClass: Option[Class[_]] = context.getTestClass.asScala
-    override def getTestMethod: Option[Method] = context.getTestMethod.asScala
+    override def getTestClass: Try[Class[_]] = context.getTestClass.asScala.toTry
+    override def getTestMethod: Try[Method] = context.getTestMethod.asScala.toTry
   }
 }

@@ -300,4 +300,11 @@ object Implicits {
       case Failure(err) => Left(err)
     }
   }
+
+
+
+  implicit class DecoratedOption[T](val maybeT: Option[T]) {
+
+    def toTry: Try[T] = Try(maybeT.get)
+  }
 }

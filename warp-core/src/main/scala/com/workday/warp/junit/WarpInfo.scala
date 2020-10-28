@@ -10,8 +10,16 @@ package com.workday.warp.junit
   *
   * Created by tomas.mccandless on 6/18/20.
   */
-case class WarpInfo(testId: String, currentRepetition: Int, repetitionType: RepetitionType, numWarmups: Int, numTrials: Int) {
+case class WarpInfo(testId: String, maybeMeasurementInfo: Option[WarpMeasurementInfo] = None) {
 
+  /** Total number of repetitions of the corresponding [[WarpTest]] method. (warmups + trials) */
+  def totalRepetitions: Int = maybeMeasurementInfo.map(_.totalRepetitions).getOrElse(1)
+
+  /** Repetition limit for the current repetition type. Number of warmups or measured trials. */
+  def currentRepLimit: Int = maybeMeasurementInfo.map(_.currentRepLimit).getOrElse(1)
+}
+
+case class WarpMeasurementInfo(currentRepetition: Int, repetitionType: RepetitionType, numWarmups: Int, numTrials: Int) {
   /** Total number of repetitions of the corresponding [[WarpTest]] method. (warmups + trials) */
   def totalRepetitions: Int = numWarmups + numTrials
 
