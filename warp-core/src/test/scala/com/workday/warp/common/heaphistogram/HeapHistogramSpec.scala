@@ -34,9 +34,8 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike with HasRando
     */
   @UnitTest
   def getPidSpec(): Unit = {
-    val pid = HistogramIoLike.pid
-
-    pid should not be 0
+    val pid: String = HistogramIoLike.pid
+    pid should not be "0"
   }
 
   /**

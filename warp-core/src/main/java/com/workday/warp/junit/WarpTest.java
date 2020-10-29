@@ -10,6 +10,8 @@ import java.lang.annotation.Target;
 
 /** Meta-annotation used to mark a test for measurement.
  *
+ * Note that we apply TestTemplate annotation here, which is required for our parameter resolvers to be correctly detected.
+ *
  * Created by tomas.mccandless on 6/18/20.
  */
 @Target({ ElementType.TYPE, ElementType.METHOD })
