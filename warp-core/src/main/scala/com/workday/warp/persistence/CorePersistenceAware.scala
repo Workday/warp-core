@@ -207,8 +207,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * Behavior:
       *   If a tag with the given name and value exists in the database:
       *     Log a warning, but is a success.
-      *   If a tag with the given name but different value exists in the database:
-      *     Throw an error. This is a failure.
       *   If no tag with given name and idTestDefinition exists in the database:
       *     Success.
       *
@@ -269,8 +267,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * Behavior:
       *   If a tag with the given name and value exists in the database:
       *     Log a warning, but is a success.
-      *   If a tag with the given name but different value exists in the database:
-      *     Throw an error. This is a failure.
       *   If no tag with given name and idTestDefinition exists in the database:
       *     Success.
       *
@@ -311,8 +307,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * Behavior:
       *   If a tag with the given name and value exists in the database:
       *     Log a warning, but is a success.
-      *   If a tag with the given name but different value exists in the database:
-      *     Throw an error. This is a failure.
       *   If no tag with given name and idTestDefinitionTag exists in the database:
       *     Success.
       *
@@ -350,8 +344,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * Behavior:
       *   If a tag with the given name and value exists in the database:
       *     Log a warning, but is a success.
-      *   If a tag with the given name but different value exists in the database:
-      *     Throw an error. This is a failure.
       *   If no tag with given name and idTestDefinitionTag exists in the database:
       *     Success.
       *
