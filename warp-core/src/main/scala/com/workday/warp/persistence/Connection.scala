@@ -78,7 +78,7 @@ trait Connection {
     this.trySynchronously(action.transactionally.withTransactionIsolation(TransactionIsolation.Serializable)) match {
       case Success(row) => row
         // TODO consider matching on just a rollback exception
-      case Failure(exception: PreExistingTagException) => throw exception
+      case Failure(exception: WarpFieldPersistenceException) => throw exception
       case Failure(exception) =>
         if (retries < 0) throw exception
         else {

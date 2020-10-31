@@ -12,6 +12,7 @@ import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.Tables.profile.api._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.IdentifierSyntax._
+import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import org.pmw.tinylog.Logger
 import slick.jdbc.TransactionIsolation
 
@@ -217,7 +218,7 @@ trait CorePersistenceAware extends PersistenceAware {
       * @return a [[TestExecutionTagRowLike]] with the given parameters.
       */
     @throws[scala.RuntimeException]
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     override def recordTestExecutionTag(idTestExecution: Int,
                                    name: String,
                                    value: String,
@@ -230,15 +231,12 @@ trait CorePersistenceAware extends PersistenceAware {
         action <- tags.toList match {
           case Nil =>
             this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
+          case (oldKey, oldValue) :: Nil =>
             Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, oldValue))
 
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new PreExistingTagException(s"Tag exists with same name but different value: ($oldKey, $oldValue)"))
-
           case _ =>
-            DBIO.failed(new PreExistingTagException("bad database state recording TestExecution tag"))
+            DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestExecution tag"))
         }
       } yield action
 
@@ -281,7 +279,7 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param value value of the tag.
       * @return a [[TestDefinitionTagRowLike]] with the given parameters.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     override def recordTestDefinitionTag(idTestDefinition: Int,
                                        name: String,
                                        value: String,
@@ -293,15 +291,11 @@ trait CorePersistenceAware extends PersistenceAware {
         action <- tags.toList match {
           case Nil =>
             this.writeTestDefinitionTagQuery(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value))
-          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
+          case (oldKey, oldValue) :: Nil =>
             Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, oldValue))
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new PreExistingTagException(s"Tag exists with same name but different value: ($oldKey, $oldValue)" +
-              s" new key, new value = (${nameRow.name}, $value)"))
-
           case _ =>
-            DBIO.failed(new PreExistingTagException("bad database state recording TestDefinition tag"))
+            DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestDefinition tag"))
         }
       } yield action
 
@@ -326,7 +320,7 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param name name to use for this tag.
       * @param value value of the tag.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     override def recordTestDefinitionMetaTag(idTestDefinitionTag: Int,
                                              name: String,
                                              value: String,
@@ -337,17 +331,11 @@ trait CorePersistenceAware extends PersistenceAware {
         _ <- tags.toList match {
           case Nil =>
             Tables.TestDefinitionMetaTag += TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
-
-          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
+          case (oldKey, oldValue) :: Nil =>
             Logger.debug(s"Attempting to log an definition metatag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful((oldKey, oldValue))
-
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new PreExistingTagException(s"DefinitionMetaTag exists with same name but different value: " +
-              s"($oldKey, $oldValue)"))
-
           case _ =>
-            DBIO.failed(new PreExistingTagException("bad database state recording DefinitionMetaTag"))
+            DBIO.failed(new WarpFieldPersistenceException("bad database state recording DefinitionMetaTag"))
         }
       } yield tags
 
@@ -371,7 +359,7 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param name name to use for this tag.
       * @param value value of the tag.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     override def recordTestExecutionMetaTag(idTestExecutionTag: Int,
                                             name: String,
                                             value: String,
@@ -386,17 +374,13 @@ trait CorePersistenceAware extends PersistenceAware {
             Logger.debug(s"$idTestExecutionTag $nameRow Nil")
             Tables.TestExecutionMetaTag += TestExecutionMetaTagRow(idTestExecutionTag, nameRow.idTagName, value)
 
-          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
+          case (oldKey, oldValue) :: Nil =>
             Logger.debug(s"tags: $tags")
             Logger.debug(s"Attempting to log an execution metatag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful((oldKey, oldValue))
 
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new PreExistingTagException(s"ExecutionMetaTag exists with same name " +
-              s"but different value: ($oldKey, $oldValue)"))
-
           case _ =>
-            DBIO.failed(new PreExistingTagException("bad database state recording ExecutionMetaTag"))
+            DBIO.failed(new WarpFieldPersistenceException("bad database state recording ExecutionMetaTag"))
         }
       } yield tags
 

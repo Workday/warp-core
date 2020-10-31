@@ -78,9 +78,9 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
       // execution tag with no meta tags
       ExecutionTag("key3", "val3"),
 
-      // Ignored duplicate/erroneous execution and definition tags
+      // Not ignoring duplicate execution and definition tags
       ExecutionTag("key3", "val3"),
-      // these meta tags should fail to insert
+      // these meta tags should no longer fail to insert
       ExecutionTag("key3", "val31", List(
         ExecutionMetaTag("metaKey31", "metaVal31"),
         ExecutionMetaTag("metaKey32", "metaVal32")
@@ -101,13 +101,13 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     val testDefinitionMetaTagLength: Int = this.persistenceUtils.synchronously(TestDefinitionMetaTag.length.result)
     val tagDescriptionLength: Int = this.persistenceUtils.synchronously(TagName.length.result)
 
-    // test adding a total of 2 TestExecutionTags, 2 TestExecutionMetaTags, 1 DefinitionTag, 1 TestDefinitionMetaTag, 6 Tag Descriptions.
-    // erroneous/redundant MetaTags and OuterTags should be ignored
+    // test adding a total of 2 TestExecutionTags, 2 TestExecutionMetaTags, 1 DefinitionTag, 1 TestDefinitionMetaTag, 8 Tag Descriptions.
+    // erroneous/redundant MetaTags and OuterTags are no longer ignored, and instead overwritten/updated
     outerTestExecutionTagLength should be (2)
     testExecutionMetaTagLength should be (2)
     outerTestDefinitionTagLength should be (1)
     testDefinitionMetaTagLength should be (1)
-    tagDescriptionLength should be (6)
+    tagDescriptionLength should be (8)
 
 
     // test that using the rowID for the OuterTag to search for the MetaTag produces the correct key/value result
@@ -131,10 +131,8 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     queryTestDefinitionMetaTagWithRowId(definitionTag1RowId, "metaKey21").head.value should be (("metaKey21", "metaVal21"))
 
 
-    // test that erroneous description/key tag insertion throws exception
-    // erroneous Tags
-    tryRecordTags(4).tryTag._1.isFailure should be (true)
-    tryRecordTags(6).tryTag._1.isFailure should be (true)
+    // test that erroneous description/key tag insertion no longer throws exception
+    tryRecordTags(4).tryTag._1.isFailure should be (false)
 
     // ExecutionMetaTag
     tryRecordTags.head.tryTag._2(2).tryMetaTag.isSuccess should be (true)
@@ -142,7 +140,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
 
     // DefinitionMetaTag
     tryRecordTags(1).tryTag._2(1).tryMetaTag.isSuccess should be (true)
-    tryRecordTags(1).tryTag._2(2).tryMetaTag.isFailure should be (true)
+    tryRecordTags(1).tryTag._2(2).tryMetaTag.isSuccess should be (true)
 
     // erroneous Tag preventing MetaTag insertion
     tryRecordTags(4).tryTag._2.head.tryMetaTag.isFailure should be (true)
