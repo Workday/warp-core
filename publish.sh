@@ -41,14 +41,20 @@ fi
 
 if [[ $RELEASE_TYPE = 'final' || $RELEASE_TYPE = 'candidate' ]]
 then
-  # create our repo tag
-  # TODO despite being in `runOnceTasks`, it appears `candidate` is run multiple times with -PallScalaVersions, incorrectly creating multiple tags
-  echo "creating repo tag for $RELEASE_TYPE release"
-  ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE
+  if git remote show origin | grep "Fetch URL: git@github.com:Workday/warp-core.git"; then
+    echo "we are on main fork, proceeding with $RELEASE_TYPE release"
+    # create our repo tag
+    # TODO despite being in `runOnceTasks`, it appears `candidate` is run multiple times with -PallScalaVersions, incorrectly creating multiple tags
+    echo "creating repo tag for $RELEASE_TYPE release"
+    ./gradlew -Prelease.scope=$RELEASE_SCOPE clean $RELEASE_TYPE
 
-  # then publish our primary module with other scala versions
-  echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release"
-  ./gradlew -Prelease.useLastTag=true -PallScalaVersions $PUBLISH_TASK
+    # then publish our primary module with other scala versions
+    echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release"
+    ./gradlew -Prelease.useLastTag=true -PallScalaVersions $PUBLISH_TASK
+  else
+    echo "we are on a personal fork, must release from main (Workday) fork. aborting $RELEASE_TYPE release"
+    exit 1
+  fi
 
 elif [[ $RELEASE_TYPE = 'devSnapshot' || $RELEASE_TYPE == 'snapshot' ]]
 then
