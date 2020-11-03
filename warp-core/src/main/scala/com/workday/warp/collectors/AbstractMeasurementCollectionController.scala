@@ -9,6 +9,8 @@ import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.FutureUtils
 import com.workday.warp.common.utils.Implicits._
+import com.workday.warp.junit.HasTestId
+import com.workday.warp.junit.TestIdConverters._
 import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
 import com.workday.warp.persistence._
 import com.workday.warp.persistence.TablesLike._
@@ -16,6 +18,7 @@ import com.workday.warp.persistence.Tables.{TestDefinitionMetaTag => _, TestExec
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tag
 import com.workday.warp.utils.{AnnotationReader, Ballot}
+import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 
 import scala.concurrent.Future
@@ -37,6 +40,13 @@ import scala.util.{Failure, Success, Try}
   */
 abstract class AbstractMeasurementCollectionController(val testId: String = Defaults.testId,
                                                        val tags: List[Tag] = Defaults.tags) extends PersistenceAware {
+
+
+  // boilerplate for java interop
+  def this(info: TestInfo, tags: List[Tag]) = this(info.testId, tags)
+  def this(info: TestInfo) = this(info.testId)
+  def this(hasTestId: HasTestId, tags: List[Tag]) = this(hasTestId.testId, tags)
+  def this(hasTestId: HasTestId) = this(hasTestId.testId)
 
   // scalastyle:off var.field
   /** collectors that will be wrapped around this test. */
@@ -476,5 +486,5 @@ object Defaults {
   val testId: String = CoreConstants.UNDEFINED_TEST_ID
 
   /** default empty list of [[Tag]]. */
-  val tags: List[Tag] = List.empty
+  val tags: List[Tag] = Nil
 }
