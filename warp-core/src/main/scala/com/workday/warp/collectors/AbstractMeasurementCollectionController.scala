@@ -245,13 +245,8 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
       // verify measurement is non-negative value greater than zero, else default to 1 millisecond
       1.milli
     )
-
-    // if there isn't a threshold set on the trial result already, use what is set on the required or junit5 timeout annotation
-    val threshold: Duration = List(
-      trial.maybeThreshold.getOrElse(Duration.ofMillis(-1)),
-      AnnotationReader.getRequiredMaxValue(this.testId),
-      AnnotationReader.getTimeoutValue(this.testId)
-    ).find(_.isPositive).getOrElse(Duration.ofMillis(-1))
+    // if there isn't a threshold set on the trial result already, use what is set on the required annotation
+    val threshold: Duration = trial.maybeThreshold.getOrElse(AnnotationReader.getRequiredMaxValue(this.testId))
 
     val maybeTestExecution: Option[TestExecutionRowLike] = Option(
       this.persistenceUtils.createTestExecution(

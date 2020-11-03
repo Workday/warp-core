@@ -11,6 +11,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * You may specify a requirement that your test must meet with this annotation.
  *
  * @author michael.ottati
+ * @deprecated use junit5 @Timeout instead
  * @since 0.1
  */
 @Retention(RUNTIME)
