@@ -1,7 +1,7 @@
 package com.workday.warp.utils
 
 import java.lang.annotation.Annotation
-import java.lang.reflect.{AnnotatedElement, Method}
+import java.lang.reflect.Method
 import java.time.Duration
 
 import com.workday.telemetron.annotation.{Required, Schedule}
