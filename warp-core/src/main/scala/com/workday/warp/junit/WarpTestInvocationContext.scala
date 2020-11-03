@@ -25,10 +25,7 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext with H
    * @return A test invocation display name including current repetition info.
    */
   override def getDisplayName(invocationIndex: Int): String = {
-    val repInfo: String = warpInfo.maybeMeasurementInfo
-      .map(info => s" [${info.repetitionType.name} ${info.currentRepetition} of ${info.currentRepLimit}]")
-      .getOrElse("")
-    s"$plainDisplayName$repInfo"
+    s"$plainDisplayName [${warpInfo.repetitionType.name} ${warpInfo.currentRepetition} of ${warpInfo.currentRepLimit}]"
   }
 
   /**

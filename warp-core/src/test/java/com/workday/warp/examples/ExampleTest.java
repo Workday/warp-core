@@ -1,11 +1,14 @@
 package com.workday.warp.examples;
 
+import com.workday.warp.junit.Measure;
 import com.workday.warp.junit.WarpInfo;
-import com.workday.warp.junit.WarpInfoProvided;
 import com.workday.warp.junit.WarpTest;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.pmw.tinylog.Logger;
+
+import static com.workday.warp.junit.TestIdConverters.testInfoHasTestId;
 
 /**
  * Created by tomas.mccandless on 10/23/20.
@@ -19,11 +22,17 @@ public class ExampleTest {
     }
 
 
-    /** An example of using WarpInfoExtension only for the purpose of getting access to a testId. */
-    @WarpInfoProvided
-    public void run(final WarpInfo info) {
-        Logger.trace("we are only being executed");
-        Assert.assertTrue(info.testId().equals("com.workday.warp.examples.ExampleTest.run"));
+    @Test
+    public void testId(final TestInfo info) {
+        final String id = testInfoHasTestId(info).getTestId().get();
+        Assert.assertTrue("com.workday.warp.examples.ExampleTest.testId".equals(id));
+    }
+
+
+    @Test
+    @Measure
+    public void measuredonly() {
+        Logger.trace("we are being measured but not repeated");
     }
 
 

@@ -8,8 +8,8 @@ import scala.util.matching.Regex
   *
   * Created by tomas.mccandless on 6/17/20.
   */
-trait TestIdSupport {
-  import TestIdSupport._
+trait ParsesTestId {
+  import ParsesTestId._
 
   /**
     * Parses a Junit unique id to obtain a test id.
@@ -27,10 +27,10 @@ trait TestIdSupport {
   }
 }
 
-object TestIdSupport {
+object ParsesTestId {
   // use triple quotes to avoid escaping backslash
   val uidPattern: Regex = """\[engine:(.*)\]/\[class:(.*)\]/\[(method|test-template):(.*)\((.*)\)\].*""".r
 }
 
 // can be imported or mixed in
-object TestId extends TestIdSupport
+object TestId extends ParsesTestId
