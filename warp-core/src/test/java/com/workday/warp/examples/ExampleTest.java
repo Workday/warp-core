@@ -24,7 +24,7 @@ public class ExampleTest {
 
     @Test
     public void testId(final TestInfo info) {
-        final String id = testInfoHasTestId(info).getTestId().get();
+        final String id = testInfoHasTestId(info).maybeTestId().get();
         Assert.assertTrue("com.workday.warp.examples.ExampleTest.testId".equals(id));
     }
 

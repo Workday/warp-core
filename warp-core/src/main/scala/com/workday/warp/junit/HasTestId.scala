@@ -16,9 +16,9 @@ import scala.util.Try
   */
 trait HasTestId {
 
-  def getTestClass: Try[Class[_]]
+  def maybeTestClass: Try[Class[_]]
 
-  def getTestMethod: Try[Method]
+  def maybeTestMethod: Try[Method]
 
   /**
     * Attempts to construct a fully qualified method name.
@@ -27,10 +27,17 @@ trait HasTestId {
     *
     * @return Some fully qualified method name, or [[None]].
     */
-  def getTestId: Try[String] = for {
-    className: String <- this.getTestClass.map(_.getCanonicalName)
-    method: String <- this.getTestMethod.map(_.getName)
+  def maybeTestId: Try[String] = for {
+    className: String <- this.maybeTestClass.map(_.getCanonicalName)
+    method: String <- this.maybeTestMethod.map(_.getName)
   } yield s"$className.$method"
+
+  /**
+    * Unsafe variant of `maybeTestId`
+    *
+    * @throws
+    * @return some fully qualified method name.
+    */
+  @throws[Throwable]
+  final def testId: String = this.maybeTestId.get
 }
-
-

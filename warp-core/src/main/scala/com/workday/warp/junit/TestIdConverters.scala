@@ -17,13 +17,13 @@ import scala.util.Try
 object TestIdConverters {
 
   implicit def testInfoHasTestId(info: TestInfo): HasTestId = new HasTestId {
-    override def getTestClass: Try[Class[_]] = info.getTestClass.asScala.toTry
-    override def getTestMethod: Try[Method] = info.getTestMethod.asScala.toTry
+    override def maybeTestClass: Try[Class[_]] = info.getTestClass.asScala.toTry
+    override def maybeTestMethod: Try[Method] = info.getTestMethod.asScala.toTry
   }
 
 
   implicit def extensionContextHasTestId(context: ExtensionContext): HasTestId = new HasTestId {
-    override def getTestClass: Try[Class[_]] = context.getTestClass.asScala.toTry
-    override def getTestMethod: Try[Method] = context.getTestMethod.asScala.toTry
+    override def maybeTestClass: Try[Class[_]] = context.getTestClass.asScala.toTry
+    override def maybeTestMethod: Try[Method] = context.getTestMethod.asScala.toTry
   }
 }
