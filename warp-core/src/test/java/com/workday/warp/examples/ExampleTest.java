@@ -31,7 +31,7 @@ public class ExampleTest {
 
     @Test
     @Measure
-    public void measuredOnly() {
+    public void measuredonly() {
         Logger.trace("we are being measured but not repeated");
     }
 
