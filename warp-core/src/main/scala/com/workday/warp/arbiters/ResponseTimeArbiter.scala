@@ -23,6 +23,9 @@ class ResponseTimeArbiter extends ArbiterLike with CorePersistenceAware {
     * Checks that the measured test passed its performance requirement. If the requirement is failed, constructs an
     * error with a useful message wrapped in an Option.
     *
+    * Assumes that the threshold has already been set on the corresponding test execution, we don't directly consult
+    * any annotations here.
+    *
     * @param ballot   box used to register vote result.
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.

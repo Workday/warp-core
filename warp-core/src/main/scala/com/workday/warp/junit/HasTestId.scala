@@ -27,7 +27,7 @@ trait HasTestId {
     *
     * @return Some fully qualified method name, or [[None]].
     */
-  def maybeTestId: Try[String] = for {
+  lazy val maybeTestId: Try[String] = for {
     className: String <- this.maybeTestClass.map(_.getCanonicalName)
     method: String <- this.maybeTestMethod.map(_.getName)
   } yield s"$className.$method"

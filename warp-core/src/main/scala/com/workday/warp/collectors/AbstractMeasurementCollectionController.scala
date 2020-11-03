@@ -237,6 +237,7 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
       1.milli
     )
     // if there isn't a threshold set on the trial result already, use what is set on the required annotation
+    // TODO also consult junit5 Timeout here
     val threshold: Duration = trial.maybeThreshold.getOrElse(AnnotationReader.getRequiredMaxValue(this.testId))
 
     val maybeTestExecution: Option[TestExecutionRowLike] = Option(

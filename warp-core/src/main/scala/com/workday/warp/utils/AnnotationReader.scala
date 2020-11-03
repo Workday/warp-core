@@ -8,6 +8,7 @@ import com.workday.telemetron.annotation.{Required, Schedule}
 import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
 import com.workday.warp.common.utils.StackTraceFilter
+import org.junit.jupiter.api.Timeout
 import org.junit.platform.commons.util.AnnotationUtils
 
 import scala.util.Try
@@ -83,11 +84,20 @@ object AnnotationReader extends StackTraceFilter {
    * @param testId fully qualified name of the junit test method
    * @return max response time as a [[Duration]] for the test we are about to invoke
    */
+  @deprecated("use getTimeoutValue(testId) instead", "4.3.0")
   def getRequiredMaxValue(testId: String): Duration = {
     this.getWarpTestMethodAnnotation(classOf[Required], testId)
       .map(req => Duration.ofNanos(TimeUtils.toNanos(req.maxResponseTime, req.timeUnit)))
       .getOrElse(Duration.ofMillis(-1))
   }
+
+
+  def getTimeoutValue(testId: String): Duration = {
+    this.getWarpTestMethodAnnotation(classOf[Timeout], testId)
+      .map(timeout => Duration.ofNanos(TimeUtils.toNanos(timeout.value, timeout.unit)))
+      .getOrElse(Duration.ofMillis(-1))
+  }
+
 
 
 
