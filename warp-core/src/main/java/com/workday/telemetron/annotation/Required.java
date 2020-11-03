@@ -11,13 +11,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * You may specify a requirement that your test must meet with this annotation.
  *
  * @author michael.ottati
- * @deprecated use junit5 @Timeout instead
  * @since 0.1
  */
 @Retention(RUNTIME)
 @Target(METHOD)
-@Deprecated
-// TODO deprecated, but should not delete
+// TODO consider whether this should be deprecated
+// TODO consider moving this to com.workday.warp.annotation
 public @interface Required {
 
     /**
