@@ -38,6 +38,6 @@ trait HasTestId {
     * @throws
     * @return some fully qualified method name.
     */
-  @throws[Throwable]
+  @throws[RuntimeException]
   final def testId: String = this.maybeTestId.get
 }

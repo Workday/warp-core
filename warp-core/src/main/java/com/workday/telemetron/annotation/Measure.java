@@ -11,6 +11,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * measurements should be persisted.
  *
  * Created by leslie.lam 1/18/2018.
+ *
+ * @deprecated use junit5
  */
 @Retention(RUNTIME)
 @Target(METHOD)

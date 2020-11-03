@@ -16,6 +16,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * cycle for the entire configured test schedule.
  *
  * Created by vignesh.kalidas on 2/2/17.
+ *
+ * @deprecated use junit5
  */
 @Retention(RUNTIME)
 @Target(METHOD)

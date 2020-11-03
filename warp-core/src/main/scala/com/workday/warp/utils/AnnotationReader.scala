@@ -1,7 +1,7 @@
 package com.workday.warp.utils
 
 import java.lang.annotation.Annotation
-import java.lang.reflect.{AnnotatedElement, Method}
+import java.lang.reflect.Method
 import java.time.Duration
 
 import com.workday.telemetron.annotation.{Required, Schedule}
@@ -9,7 +9,6 @@ import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
 import com.workday.warp.common.utils.StackTraceFilter
 import org.junit.jupiter.api.Timeout
-import org.junit.platform.commons.util.AnnotationUtils
 
 import scala.util.Try
 
@@ -43,9 +42,7 @@ object AnnotationReader extends StackTraceFilter {
     // multiple methods with the same name and we cant disambiguate at the level of method name
   protected def getWarpTestMethod(testId: String): Option[Method] = {
     val methodName: String = testId drop testId.lastIndexOf('.') + 1
-    this.getWarpTestClass(testId) flatMap { clazz =>
-      clazz.getMethods.find(_.getName == methodName)
-    }
+    this.getWarpTestClass(testId).flatMap(_.getMethods.find(_.getName == methodName))
   }
 
 
