@@ -15,7 +15,10 @@ import scala.util.{Failure, Success, Try}
   * Control structure for creating [[SurroundOnceStatement]].
   *
   * Created by vignesh.kalidas on 2/9/17.
+  *
+  * @deprecated use junit5
   */
+@deprecated
 class SurroundOnceRule extends TestRule {
 
   /**

@@ -14,7 +14,10 @@ import scala.collection.mutable
   *
   * Created by leslie.lam on 12/14/17
   * Based on java class created by michael.ottati.
+  *
+  * @deprecated use junit5
   */
+@deprecated
 class ReportingRule(val resultReporter: ResultReporter) extends TestRule {
 
   override def apply(base: Statement, description: Description): Statement =

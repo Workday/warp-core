@@ -16,7 +16,10 @@ import scala.collection.mutable
   *
   * Created by leslie.lam on 12/13/17.
   * Based on a java interface created by michael.ottati.
+  *
+  * @deprecated use junit5
   */
+@deprecated
 trait TestResult {
 
   /**

@@ -23,7 +23,10 @@ import scala.collection.JavaConverters._
   *
   * Created by leslie.lam on 12/18/17.
   * Based on java class created by michael.ottati.
+  *
+  * @deprecated use junit5
   */
+@deprecated
 class ScheduledStatement(statement: Statement,
                          description: Description,
                          resultReporter: ResultReporter,

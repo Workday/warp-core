@@ -10,7 +10,10 @@ import org.junit.runners.model.Statement
 /**
   * Created by leslie.lam on 12/14/17
   * Based on java class created by michael.ottati on 3/29/16.
+  *
+  * @deprecated use junit5
   */
+@deprecated
 class TelemetronRule(context: TelemetronContext,
                      reportingRules: List[TestRule],
                      measurementCollectorRules: List[TestRule]) extends TestRule {
