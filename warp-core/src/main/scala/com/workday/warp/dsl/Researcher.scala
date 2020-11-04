@@ -146,7 +146,12 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
     completedWarmups map { _.get }
 
     // create outer controller for intrusive measurements -- we dont want to include warmups in this
-    val maybeController: Option[AbstractMeasurementCollectionController] = if (threaded) Option(this.collectionController()) else None
+    val maybeController: Option[AbstractMeasurementCollectionController] = if (threaded && shouldMeasure) {
+      Option(this.collectionController())
+    }
+    else {
+      None
+    }
     maybeController foreach { _.beginMeasurementCollection() }
 
     // schedule the measured trials and wait for them to complete
