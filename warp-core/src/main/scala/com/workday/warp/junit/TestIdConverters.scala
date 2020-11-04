@@ -26,4 +26,11 @@ object TestIdConverters {
     override def maybeTestClass: Try[Class[_]] = context.getTestClass.asScala.toTry
     override def maybeTestMethod: Try[Method] = context.getTestMethod.asScala.toTry
   }
+
+
+  implicit def stringIsTestId(methodSignature: String): HasTestId = new HasTestId {
+    override def maybeTestClass: Try[Class[_]] = ???
+
+    override def maybeTestMethod: Try[Method] = ???
+  }
 }
