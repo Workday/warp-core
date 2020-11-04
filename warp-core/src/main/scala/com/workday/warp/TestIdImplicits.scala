@@ -1,4 +1,4 @@
-package com.workday.warp.junit
+package com.workday.warp
 
 import java.lang.reflect.Method
 
@@ -9,19 +9,32 @@ import org.junit.jupiter.api.extension.ExtensionContext
 import scala.util.Try
 
 /**
-  * Ad-hoc polymorphism for constructing [[HasTestId]].
+  * Ad-hoc polymorphism for constructing [[TestId]].
   *
   * Created by tomas.mccandless on 6/18/20.
   */
-object TestIdConverters {
+object TestIdImplicits {
 
-  implicit def testInfoHasTestId(info: TestInfo): HasTestId = new HasTestId {
+
+  /**
+    * Constructs a [[TestId]] from a [[TestInfo]].
+    *
+    * @param info
+    * @return
+    */
+  implicit def testInfoIsTestId(info: TestInfo): TestId = new TestId {
     override def maybeTestClass: Try[Class[_]] = info.getTestClass.toTry
     override def maybeTestMethod: Try[Method] = info.getTestMethod.toTry
   }
 
 
-  implicit def extensionContextHasTestId(context: ExtensionContext): HasTestId = new HasTestId {
+  /**
+    * Constructs a [[TestId]] from a [[TestInfo]].
+    *
+    * @param context
+    * @return
+    */
+  implicit def extensionContextIsTestId(context: ExtensionContext): TestId = new TestId {
     override def maybeTestClass: Try[Class[_]] = context.getTestClass.toTry
     override def maybeTestMethod: Try[Method] = context.getTestMethod.toTry
   }

@@ -6,7 +6,7 @@ import com.workday.telemetron.annotation.{Required, Schedule}
 import com.workday.warp.common.annotation.ZScoreRequirement
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.junit.TestIdConverters._
+import com.workday.warp.TestIdImplicits._
 import com.workday.warp.junit.UnitTest
 import org.junit.jupiter.api.{TestInfo, Timeout}
 

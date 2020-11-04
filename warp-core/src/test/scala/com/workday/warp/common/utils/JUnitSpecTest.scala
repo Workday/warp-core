@@ -1,8 +1,9 @@
 package com.workday.warp.common.utils
 
+import com.workday.warp.TestIdImplicits
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
-import com.workday.warp.junit.TestIdConverters._
+import com.workday.warp.TestIdImplicits._
 import org.junit.jupiter.api.TestInfo
 
 /**
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.TestInfo
   */
 class JUnitSpecTest extends WarpJUnitSpec {
 
-  /** Checks that we can read test id from [[com.workday.warp.junit.TestIdConverters]]. */
+  /** Checks that we can read test id from [[TestIdImplicits]]. */
   @UnitTest
   def nameTest(info: TestInfo): Unit = {
     info.testId should be ("com.workday.warp.common.utils.JUnitSpecTest.nameTest")

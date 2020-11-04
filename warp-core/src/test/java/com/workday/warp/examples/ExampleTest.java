@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.pmw.tinylog.Logger;
 
-import static com.workday.warp.junit.TestIdConverters.testInfoHasTestId;
+import static com.workday.warp.TestIdImplicits.testInfoIsTestId;
 
 /**
  * Created by tomas.mccandless on 10/23/20.
@@ -24,7 +24,7 @@ public class ExampleTest {
 
     @Test
     public void testId(final TestInfo info) {
-        final String id = testInfoHasTestId(info).maybeTestId().get();
+        final String id = testInfoIsTestId(info).maybeTestId().get();
         Assert.assertTrue("com.workday.warp.examples.ExampleTest.testId".equals(id));
     }
 

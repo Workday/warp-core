@@ -1,4 +1,4 @@
-package com.workday.warp.junit
+package com.workday.warp
 
 import java.lang.reflect.Method
 
@@ -6,15 +6,17 @@ import scala.util.Try
 
 /** Logic for constructing a testId given a testClass and testMethod.
   *
+  * This is our central point for test identification.
+  *
   * Multiple Junit interfaces [[org.junit.jupiter.api.extension.ExtensionContext]] and [[org.junit.jupiter.api.TestInfo]],
   * for example, declare methods `getTestClass` and `getTestMethod`, but share no common supertype.
   *
-  * We use ad-hoc polymorphism to declare [[HasTestId]] instances for [[org.junit.jupiter.api.TestInfo]] and
+  * We use ad-hoc polymorphism to declare [[TestId]] instances for [[org.junit.jupiter.api.TestInfo]] and
   * [[org.junit.jupiter.api.extension.ExtensionContext]].
   *
   * Created by tomas.mccandless on 6/18/20.
   */
-trait HasTestId {
+trait TestId {
 
   def maybeTestClass: Try[Class[_]]
 

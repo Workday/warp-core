@@ -2,7 +2,7 @@ package com.workday.warp.junit
 
 import com.workday.warp.TrialResult
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
-import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
+import com.workday.warp.TestIdImplicits.extensionContextIsTestId
 import com.workday.warp.inject.WarpGuicer
 import org.junit.jupiter.api.extension.ExtensionContext.{Namespace, Store}
 import org.junit.jupiter.api.extension.{AfterEachCallback, BeforeEachCallback, ExtensionContext}

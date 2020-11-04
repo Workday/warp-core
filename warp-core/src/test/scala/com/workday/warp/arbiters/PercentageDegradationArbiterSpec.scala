@@ -8,7 +8,7 @@ import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.common.annotation.PercentageDegradationRequirement
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
-import com.workday.warp.junit.TestIdConverters._
+import com.workday.warp.TestIdImplicits._
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._

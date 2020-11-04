@@ -3,14 +3,13 @@ package com.workday.warp.collectors
 import java.time.{Duration, Instant}
 
 import com.workday.telemetron.utils.TimeUtils
-import com.workday.warp.TrialResult
+import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.FutureUtils
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.junit.HasTestId
-import com.workday.warp.junit.TestIdConverters._
+import com.workday.warp.TestIdImplicits._
 import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
 import com.workday.warp.persistence._
 import com.workday.warp.persistence.TablesLike._
@@ -45,8 +44,8 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
   // boilerplate for java interop
   def this(info: TestInfo, tags: List[Tag]) = this(info.testId, tags)
   def this(info: TestInfo) = this(info.testId)
-  def this(hasTestId: HasTestId, tags: List[Tag]) = this(hasTestId.testId, tags)
-  def this(hasTestId: HasTestId) = this(hasTestId.testId)
+  def this(hasTestId: TestId, tags: List[Tag]) = this(hasTestId.testId, tags)
+  def this(hasTestId: TestId) = this(hasTestId.testId)
 
   // scalastyle:off var.field
   /** collectors that will be wrapped around this test. */

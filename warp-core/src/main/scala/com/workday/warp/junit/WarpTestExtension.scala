@@ -3,7 +3,7 @@ package com.workday.warp.junit
 import java.lang.reflect.Method
 import java.util.stream.Stream
 
-import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
+import com.workday.warp.TestIdImplicits.extensionContextIsTestId
 import org.junit.jupiter.api.extension.{ExtensionContext, TestTemplateInvocationContext, TestTemplateInvocationContextProvider}
 import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
