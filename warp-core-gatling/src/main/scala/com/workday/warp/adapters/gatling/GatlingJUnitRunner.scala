@@ -37,6 +37,7 @@ import scala.util.{Failure, Success, Try}
   * Copied from https://github.com/Pravoru/gatling-junitrunner. We couldn't use his artifact directly since it is not cross-compiled.
   * @param simulationClass
   */
+@deprecated("use junit5", since = "4.4.0")
 final class GatlingJUnitRunner(simulationClass: Class[_ <: Simulation]) extends Runner {
 
   /**
