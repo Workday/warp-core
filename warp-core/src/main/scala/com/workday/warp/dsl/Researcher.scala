@@ -166,6 +166,7 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
     // return either the single outer result, or a list of all the measured trials
     // throw exception from a completed trial here
     val individualResults: List[TrialResult[TrialType]] = completedTrials map { _.get }
+    pool.shutdown()
     if (threaded && this.config.mode == single) List(maybeOuterResult.get)
     else individualResults
   }

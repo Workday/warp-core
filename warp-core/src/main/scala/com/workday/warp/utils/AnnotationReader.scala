@@ -81,7 +81,7 @@ object AnnotationReader extends StackTraceFilter {
    * @param testId fully qualified name of the junit test method
    * @return max response time as a [[Duration]] for the test we are about to invoke
    */
-  @deprecated("use getTimeoutValue(testId) instead", "4.3.0")
+  // @deprecated("use getTimeoutValue(testId) instead", "4.3.0")
   def getRequiredMaxValue(testId: String): Duration = {
     this.getWarpTestMethodAnnotation(classOf[Required], testId)
       .map(req => Duration.ofNanos(TimeUtils.toNanos(req.maxResponseTime, req.timeUnit)))

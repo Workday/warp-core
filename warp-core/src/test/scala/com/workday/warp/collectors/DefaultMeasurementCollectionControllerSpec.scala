@@ -12,6 +12,7 @@ import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import slick.jdbc.MySQLProfile.api._
 import com.workday.warp.persistence.{TablesLike, Tag, _}
+import org.junit.jupiter.api.parallel.Isolated
 import org.junit.jupiter.api.{BeforeEach, TestInfo}
 
 
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.{BeforeEach, TestInfo}
   *
   * Created by justin.teo on 12/14/17.
   */
+@Isolated
 class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** run a query for an execution metatag using the rowID from the trial tag and key */

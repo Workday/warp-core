@@ -9,10 +9,12 @@ import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import com.workday.warp.persistence.mysql.WarpSlickSingleColumnExtensionsSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.parallel.Isolated
 
 /**
   * Created by ruiqi.wang
   */
+@Isolated
 class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Truncates the schema. */

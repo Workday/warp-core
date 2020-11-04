@@ -15,6 +15,7 @@ import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.utils.Ballot
+import org.junit.jupiter.api.parallel.Isolated
 import org.pmw.tinylog.Logger
 
 import scala.io.Source
@@ -23,6 +24,7 @@ import scala.util.Random
 /**
   * Created by tomas.mccandless on 9/13/16.
   */
+@Isolated
 class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   import SmartNumberArbiterSpec.{createDummyTestExecutions, persistDummyTestExecution}

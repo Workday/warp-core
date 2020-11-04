@@ -231,10 +231,7 @@ subprojects {
     }
 
     tasks.withType(JavaExec).each { task ->
-        System.properties.each { key, val ->
-            // TODO see if we need to filter the forwarded properties here
-            task.systemProperty key, val
-        }
+        task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"
     }
 
@@ -246,11 +243,13 @@ subprojects {
         task.finalizedBy(checkstyleMain)
         task.finalizedBy(checkstyleTest)
 
-        System.properties.each { key, val ->
-            // TODO see if we need to filter the forwarded properties here
-            task.systemProperty key, val
-        }
+        task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"
+
+        // junit5 configuration
+        task.systemProperty "junit.jupiter.execution.parallel.enabled", "true"
+        task.systemProperty "junit.jupiter.execution.parallel.mode.default", "concurrent"
+        task.systemProperty "junit.jupiter.execution.parallel.mode.classes.default", "concurrent"
     }
 
     coveralls {
