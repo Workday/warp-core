@@ -9,6 +9,7 @@ import org.junit.Test
 /**
   * Created by vignesh.kalidas on 2/8/17.
   */
+@deprecated("use junit5", since = "4.4.0")
 class SurroundOnceSpec extends TelemetronJUnitSpec {
 
   /**

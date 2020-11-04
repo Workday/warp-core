@@ -12,7 +12,7 @@ import scala.collection.mutable
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 class SurroundOnceStatement(val next: Statement, val beforeMethods: Array[FrameworkMethod],
                             val afterMethods: Array[FrameworkMethod], val target: Any) extends Statement {
   /**

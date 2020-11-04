@@ -1,12 +1,14 @@
 package com.workday.warp.utils
 
+import java.util.concurrent.TimeUnit
+
 import com.workday.telemetron.annotation.{Required, Schedule}
 import com.workday.warp.common.annotation.ZScoreRequirement
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits._
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.TestIdConverters._
+import com.workday.warp.junit.UnitTest
+import org.junit.jupiter.api.{TestInfo, Timeout}
 
 /**
   * Created by tomas.mccandless on 6/8/18.
@@ -18,36 +20,41 @@ class AnnotationReaderSpec extends WarpJUnitSpec {
   /**
     * Checks that we read the right defaults when there are no annotations present.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
-  def noAnnotations(): Unit = {
+  @UnitTest
+  def noAnnotations(info: TestInfo): Unit = {
     AnnotationReader.getWarpTestMethodAnnotation(classOf[Required], "this.method.does.not.exist") should be (empty)
     AnnotationReader.getWarpTestMethodAnnotation(classOf[Required], this.getClass.getCanonicalName + ".foo") should be (empty)
     AnnotationReader.getWarpTestClassAnnotation(classOf[Required], "this.class.does.not.exist") should be (empty)
-    AnnotationReader.getRequiredMaxValue(this.getTestId) should be (-1 millis)
-    AnnotationReader.getScheduleInvocations(this.getTestId) should be (1)
-    AnnotationReader.getZScoreRequirement(this.getTestId) should be (ZScoreRequirement.DEFAULT_PERCENTILE)
+    AnnotationReader.getRequiredMaxValue(info.testId) should be (-1 millis)
+    AnnotationReader.getScheduleInvocations(info.testId) should be (1)
+    AnnotationReader.getZScoreRequirement(info.testId) should be (ZScoreRequirement.DEFAULT_PERCENTILE)
   }
 
 
   /**
     * Checks that we can read the right telemetron thresholds.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   @Required(maxResponseTime = 10)
-  def required(): Unit = {
-    AnnotationReader.getRequiredMaxValue(this.getTestId) should be (10 seconds)
+  def required(info: TestInfo): Unit = {
+    AnnotationReader.getRequiredMaxValue(info.testId) should be (10 seconds)
+  }
+
+
+  /** Checks that we can read the right junit thresholds. */
+  @UnitTest
+  @Timeout(value = 10, unit = TimeUnit.SECONDS)
+  def timeout(info: TestInfo): Unit = {
+    AnnotationReader.getTimeoutValue(info.testId) should be (10 seconds)
   }
 
 
   /**
     * Checks that we can read the right telemetron schedule.
     */
-  @Test
-  @Category(Array(classOf[UnitTest]))
+  @UnitTest
   @Schedule(invocations = 5)
-  def schedule(): Unit = {
-    AnnotationReader.getScheduleInvocations(this.getTestId) should be (5)
+  def schedule(info: TestInfo): Unit = {
+    AnnotationReader.getScheduleInvocations(info.testId) should be (5)
   }
 }

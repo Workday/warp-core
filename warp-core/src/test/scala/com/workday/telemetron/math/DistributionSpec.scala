@@ -17,6 +17,7 @@ class DistributionSpec extends TelemetronJUnitSpec {
   @Schedule(invocations = 10,
             // use a normal distribution with mean 50 and std dev 4
             distribution = new Distribution(clazz = classOf[GaussianDistribution], parameters = Array(50.0, 4.0)))
+  @deprecated("use junit5", since = "4.4.0")
   def gaussian(): Unit = {}
 
   @Test
@@ -24,6 +25,7 @@ class DistributionSpec extends TelemetronJUnitSpec {
   @Schedule(invocations = 10,
             // use an exponential distribution with mean 50
             distribution = new Distribution(clazz = classOf[ExponentialDistribution], parameters = Array(50.0)))
+  @deprecated("use junit5", since = "4.4.0")
   def exponential(): Unit = {}
 
   @Test
@@ -31,6 +33,7 @@ class DistributionSpec extends TelemetronJUnitSpec {
   @Schedule(invocations = 10,
             // use a weibull distribution with shape 1.0 and scale 1.0
             distribution = new Distribution(clazz = classOf[WeibullDistribution], parameters = Array(1.0, 1.0)))
+  @deprecated("use junit5", since = "4.4.0")
   def weibull(): Unit = {}
 
   /**

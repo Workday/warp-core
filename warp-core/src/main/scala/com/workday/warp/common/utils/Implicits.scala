@@ -2,6 +2,7 @@ package com.workday.warp.common.utils
 
 import java.math.BigInteger
 import java.time.Duration
+import java.util.Optional
 import java.util.concurrent.TimeUnit
 
 import com.google.gson._
@@ -304,7 +305,13 @@ object Implicits {
 
 
   implicit class DecoratedOption[T](val maybeT: Option[T]) {
-
     def toTry: Try[T] = Try(maybeT.get)
+  }
+
+
+  implicit class DecoratedOptional[T](val maybeT: Optional[T]) {
+    def toOption: Option[T] = if (maybeT.isPresent) Option(maybeT.get) else None
+
+    def toTry: Try[T] = toOption.toTry
   }
 }

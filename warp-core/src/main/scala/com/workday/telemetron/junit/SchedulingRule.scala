@@ -13,7 +13,7 @@ import org.junit.runners.model.Statement
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 class SchedulingRule(resultReporter: ResultReporter, context: TelemetronContext) extends TestRule {
   override def apply(statement: Statement, description: Description): ScheduledStatement =
     ScheduledStatement(statement, description, this.resultReporter, this.context)

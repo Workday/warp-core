@@ -15,6 +15,7 @@ import org.scalatest.matchers.should.Matchers
   *
   * Checks that Measured Statements persist response times.
   */
+@deprecated("use junit5", since = "4.4.0")
 class MeasuredStatementSpec extends TelemetronJUnitSpec {
 
   /**

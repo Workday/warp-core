@@ -12,6 +12,7 @@ import org.scalatest.matchers.should.Matchers
   * Created by leslie.lam on 12/12/17
   * Based on java class created by michael.ottati on 8/22/15.
   */
+@deprecated("use junit5", since = "4.4.0")
 class RepeatSpec extends Matchers {
   private[this] val _schedulingRule: SchedulingRule = new SchedulingRule(new ResultReporter, new TelemetronContext)
 

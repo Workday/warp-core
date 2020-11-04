@@ -8,5 +8,5 @@ package com.workday.telemetron.junit
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 case class TelemetronContext(verifyResponseTime: Boolean = true)

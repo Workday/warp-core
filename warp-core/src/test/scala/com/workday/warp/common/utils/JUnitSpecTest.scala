@@ -1,9 +1,9 @@
 package com.workday.warp.common.utils
 
-import com.workday.warp.common.category.UnitTest
 import com.workday.warp.common.spec.WarpJUnitSpec
-import org.junit.Test
-import org.junit.experimental.categories.Category
+import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.TestIdConverters._
+import org.junit.jupiter.api.TestInfo
 
 /**
   * Created by tomas.mccandless on 5/20/16.
@@ -12,10 +12,9 @@ import org.junit.experimental.categories.Category
   */
 class JUnitSpecTest extends WarpJUnitSpec {
 
-  /** Checks that we can read test id from [[com.workday.telemetron.junit.TelemetronNameRule]]. */
-  @Test
-  @Category(Array(classOf[UnitTest]))
-  def nameTest(): Unit = {
-    this.getTestId should be ("com.workday.warp.common.utils.JUnitSpecTest.nameTest")
+  /** Checks that we can read test id from [[com.workday.warp.junit.TestIdConverters]]. */
+  @UnitTest
+  def nameTest(info: TestInfo): Unit = {
+    info.testId should be ("com.workday.warp.common.utils.JUnitSpecTest.nameTest")
   }
 }

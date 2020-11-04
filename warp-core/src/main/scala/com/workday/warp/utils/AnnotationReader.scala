@@ -38,10 +38,10 @@ object AnnotationReader extends StackTraceFilter {
    * @param testId fully qualified name of the junit test method
    * @return an Option containing the Method referred to by testId
    */
-    // TODO not sure if this will work correctly wrt method overloading, its possible that we will have
-    // multiple methods with the same name and we cant disambiguate at the level of method name
   protected def getWarpTestMethod(testId: String): Option[Method] = {
     val methodName: String = testId drop testId.lastIndexOf('.') + 1
+    // TODO using find won't work correctly wrt method overloading, its possible that we will have
+    // multiple junit test methods with the same name and we can't disambiguate
     this.getWarpTestClass(testId).flatMap(_.getMethods.find(_.getName == methodName))
   }
 
@@ -81,7 +81,6 @@ object AnnotationReader extends StackTraceFilter {
    * @param testId fully qualified name of the junit test method
    * @return max response time as a [[Duration]] for the test we are about to invoke
    */
-  // @deprecated("use getTimeoutValue(testId) instead", "4.3.0")
   def getRequiredMaxValue(testId: String): Duration = {
     this.getWarpTestMethodAnnotation(classOf[Required], testId)
       .map(req => Duration.ofNanos(TimeUtils.toNanos(req.maxResponseTime, req.timeUnit)))
@@ -89,13 +88,17 @@ object AnnotationReader extends StackTraceFilter {
   }
 
 
+  /**
+    * Reads the max response time from the junit [[Timeout]] annotation.
+    *
+    * @param testId fully qualified name of the junit test method
+    * @return max response time as a [[Duration]] for the test we are about to invoke
+    */
   def getTimeoutValue(testId: String): Duration = {
     this.getWarpTestMethodAnnotation(classOf[Timeout], testId)
       .map(timeout => Duration.ofNanos(TimeUtils.toNanos(timeout.value, timeout.unit)))
       .getOrElse(Duration.ofMillis(-1))
   }
-
-
 
 
   /**

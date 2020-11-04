@@ -31,6 +31,3 @@ object ParsesTestId {
   // use triple quotes to avoid escaping backslash
   val uidPattern: Regex = """\[engine:(.*)\]/\[class:(.*)\]/\[(method|test-template):(.*)\((.*)\)\].*""".r
 }
-
-// can be imported or mixed in
-object TestId extends ParsesTestId

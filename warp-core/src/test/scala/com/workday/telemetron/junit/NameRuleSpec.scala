@@ -9,6 +9,7 @@ import org.junit.experimental.categories.Category
   * Created by leslie.lam on 12/12/17
   * Based on java class created by tomas.mccandless on 5/19/16.
   */
+@deprecated("use junit5", since = "4.4.0")
 class NameRuleSpec extends WarpJUnitSpec {
   // create a second name rule that isn't applied
   private val unappliedNameRule = new TelemetronNameRule

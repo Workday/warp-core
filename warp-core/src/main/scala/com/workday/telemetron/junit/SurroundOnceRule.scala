@@ -18,7 +18,7 @@ import scala.util.{Failure, Success, Try}
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 class SurroundOnceRule extends TestRule {
 
   /**
