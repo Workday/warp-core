@@ -245,11 +245,6 @@ subprojects {
 
         task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"
-
-        // junit5 configuration
-        task.systemProperty "junit.jupiter.execution.parallel.enabled", "true"
-        task.systemProperty "junit.jupiter.execution.parallel.mode.default", "concurrent"
-        task.systemProperty "junit.jupiter.execution.parallel.mode.classes.default", "concurrent"
     }
 
     coveralls {
