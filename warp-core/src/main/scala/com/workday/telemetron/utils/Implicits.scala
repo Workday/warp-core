@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit
 
 import com.workday.telemetron.RequirementViolationException
 import com.workday.telemetron.annotation.Required
-import com.workday.telemetron.junit.TelemetronContext
 import com.workday.telemetron.utils.TimeUtils.toNanos
 import com.workday.warp.common.utils.Implicits._
 
@@ -29,15 +28,15 @@ object Implicits {
       * Checks if the time requirement has been violated
       *
       * @param responseTime A [[Duration]] containing the response time of the test.
-      * @param context [[TelemetronContext]] of the test
       * @return Option containing a Throwable if the time requirement is violated.
       */
-    def failedTimeRequirement(responseTime: Duration)(implicit context: TelemetronContext): Option[Throwable] = {
+      // TODO do we need some other context?
+    def failedTimeRequirement(responseTime: Duration, verifyResponseTime: Boolean = true): Option[Throwable] = {
       val threshold: Double = this.requirement.maxResponseTime
       val timeUnit: TimeUnit = this.requirement.timeUnit
       val maxResponseTime: Duration = Duration.ofNanos(toNanos(threshold, timeUnit))
 
-      if (context.verifyResponseTime && maxResponseTime.isPositive && responseTime > maxResponseTime) {
+      if (verifyResponseTime && maxResponseTime.isPositive && responseTime > maxResponseTime) {
         val error: String = s"Response time requirement exceeded, " +
           s"specified: ${maxResponseTime.humanReadable} (${maxResponseTime.toMillis} ms) " +
           s"observed: ${responseTime.humanReadable} (${responseTime.toMillis} ms)"
