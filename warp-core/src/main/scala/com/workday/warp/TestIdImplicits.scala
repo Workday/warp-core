@@ -5,8 +5,10 @@ import java.lang.reflect.Method
 import com.workday.warp.common.utils.Implicits.DecoratedOptional
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtensionContext
+import com.workday.warp.common.utils.Implicits.DecoratedOption
+import org.pmw.tinylog.Logger
 
-import scala.util.Try
+import scala.util.{Success, Try}
 
 /**
   * Ad-hoc polymorphism for constructing [[TestId]].
@@ -44,5 +46,34 @@ object TestIdImplicits {
   implicit def extensionContextIsTestId(context: ExtensionContext): TestId = new TestId {
     override def maybeTestClass: Try[Class[_]] = context.getTestClass.toTry
     override def maybeTestMethod: Try[Method] = context.getTestMethod.toTry
+  }
+
+
+  /**
+    * Constructs a [[TestId]] from a fully qualified method signature.
+    *
+    * Included mainly for java interop and backwards compatibility, however,
+    * note that there may be overloaded ambiguous methods. Prefer using `testInfoIsTestId` over this.
+    *
+    * @param signature
+    * @return
+    */
+  implicit def methodSignatureIsTestId(signature: String): TestId = new TestId {
+    private lazy val className: String = signature take signature.lastIndexOf('.')
+    private lazy val methodName: String = testId drop testId.lastIndexOf('.') + 1
+    // return None if we can't locate the class
+    // we have this double monadic nesting to avoid returning a Success(null)
+    override def maybeTestClass: Try[Class[_]] = Try(Option(Class.forName(className)).toTry).flatten
+
+    override def maybeTestMethod: Try[Method] = for {
+      cls <- maybeTestClass
+      methods: Array[Method] = cls.getMethods.filter(_.getName == methodName)
+      _ = if (methods.length > 1) {
+        Logger.warn(s"detected overloaded methods for signature $testId, annotation processing may not work as expected.")
+      }
+      method <- methods.headOption.toTry
+    } yield method
+
+    override lazy val maybeTestId: Try[String] = Success(signature)
   }
 }

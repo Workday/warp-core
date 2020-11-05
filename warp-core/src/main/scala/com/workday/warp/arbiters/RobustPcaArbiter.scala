@@ -34,7 +34,7 @@ class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     // incorrect.
     // we need to ensure the response time for this test execution is the final entry in this list.
     val rawResponseTimes: Iterable[Double] = this.responseTimes(
-      ballot.testId,
+      ballot.testId.testId,
       testExecution.idTestExecution
     ) ++ List(testExecution.responseTime)
 

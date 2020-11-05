@@ -9,6 +9,7 @@ import com.workday.telemetron.math.{DistributionLike, NullDistribution}
   */
 trait CoreConstants {
 
+  @deprecated
   val UNDEFINED_TEST_ID = "com.workday.warp.Undefined.undefined"
   val DISABLE_WARP_USAGE_STRING = "DisableWarpUsage"
   val SMART_THRESHOLD_BASELINE_DATE_STRING = "SmartThresholdBaselineDate"
