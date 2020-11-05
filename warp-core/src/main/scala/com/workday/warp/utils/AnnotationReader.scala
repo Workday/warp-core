@@ -8,6 +8,8 @@ import com.workday.telemetron.annotation.{Required, Schedule}
 import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
 import com.workday.warp.common.utils.StackTraceFilter
+import com.workday.warp.TestId
+import com.workday.warp.common.utils.Implicits._
 import org.junit.jupiter.api.Timeout
 import org.pmw.tinylog.Logger
 import org.junit.platform.commons.util.AnnotationUtils
@@ -110,7 +112,7 @@ object AnnotationReader extends StackTraceFilter {
     * @param testId fully qualified name of the junit test method
     * @return max response time as a [[Duration]] for the test we are about to invoke
     */
-  def getRequiredMaxValue(testId: HasTestId): Option[Duration] = {
+  def getRequiredMaxValue(testId: TestId): Option[Duration] = {
     for {
       m <- testId.maybeTestMethod.toOption
       a <- AnnotationUtils.findAnnotation(m, classOf[Required]).toOption
@@ -163,7 +165,7 @@ object AnnotationReader extends StackTraceFilter {
     * @param testId
     * @return
     */
-  def getZScoreRequirement(testId: HasTestId): Option[Double] = {
+  def getZScoreRequirement(testId: TestId): Option[Double] = {
     for {
       m <- testId.maybeTestMethod.toOption
       a <- AnnotationUtils.findAnnotation(m, classOf[ZScoreRequirement]).toOption
@@ -201,7 +203,7 @@ object AnnotationReader extends StackTraceFilter {
   }
 
 
-  def getPercentageDegradationRequirement(testId: HasTestId): Option[Double] = {
+  def getPercentageDegradationRequirement(testId: TestId): Option[Double] = {
     for {
       m <- testId.maybeTestMethod.toOption
       a <- AnnotationUtils.findAnnotation(m, classOf[PercentageDegradationRequirement]).toOption
