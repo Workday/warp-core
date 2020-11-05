@@ -70,5 +70,6 @@ trait ArbiterLike extends PersistenceAware {
     * @param testId id of the measured test.
     * @return a generic failure message. Implementing arbiters should append further detail about the failure.
     */
+    // TODO should we accept a TestId here instead?
   def failureMessage(testId: String): String = s"$testId failed requirement imposed by ${this.getClass.getName}. "
 }

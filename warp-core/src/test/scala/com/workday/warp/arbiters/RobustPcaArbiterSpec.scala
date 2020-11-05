@@ -4,6 +4,7 @@ import java.util.UUID
 
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.utils.Ballot

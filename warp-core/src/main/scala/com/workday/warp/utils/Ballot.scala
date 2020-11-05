@@ -1,7 +1,7 @@
 package com.workday.warp.utils
 
 import com.workday.telemetron.RequirementViolationException
-import com.workday.warp.common.CoreConstants
+import com.workday.warp.TestId
 import com.workday.warp.common.utils.StackTraceFilter
 
 import scala.collection.mutable
@@ -10,9 +10,8 @@ import scala.collection.mutable
   *
   * Created by tomas.mccandless on 1/27/16.
   */
-class Ballot(val testId: String) extends StackTraceFilter {
-
-  def this() = this(CoreConstants.UNDEFINED_TEST_ID)
+// TODO consider the need for a default arg here
+class Ballot(val testId: TestId = TestId.empty) extends StackTraceFilter {
 
   /** holds any throwables created by arbiters */
   private val errors: mutable.ListBuffer[Throwable] = mutable.ListBuffer[Throwable]()

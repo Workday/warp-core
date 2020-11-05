@@ -30,6 +30,7 @@ trait CanReadHistory extends CorePersistenceAware {
     * @param slidingWindowSize include only data spanning the previous n executions.
     * @return training data to be used for voting algorithm.
     */
+    // TODO we don't need to include testId here, excludeIdTestExecution is sufficient to read the data we are interested in
   def responseTimes(testId: String, excludeIdTestExecution: Int,
                     startDateLowerBound: LocalDate = CanReadHistory.DEFAULT_EPOCH_DAY,
                     useSlidingWindow: Boolean = WARP_ARBITER_SLIDING_WINDOW.value.toBoolean,

@@ -27,7 +27,7 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     val minimumHistoricalData: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt
-    this.vote(this.responseTimes(ballot.testId, testExecution.idTestExecution), ballot, testExecution, minimumHistoricalData)
+    this.vote(this.responseTimes(ballot.testId.testId, testExecution.idTestExecution), ballot, testExecution, minimumHistoricalData)
   }
 
 
@@ -59,14 +59,16 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
       // compute the percentage amount that measured response time is above the mean
       val percentage: Double = (measuredResponseTime / mean - 1) * 100.0
 
-      val percentageRequirement: Double = AnnotationReader.getPercentageDegradationRequirement(ballot.testId)
+      val maybePercentageRequirement: Option[Double] = AnnotationReader.getPercentageDegradationRequirement(ballot.testId)
 
-      if (percentage <= percentageRequirement) None
-      else Option(new RequirementViolationException(
-        this.failureMessage(ballot.testId) +
-          s"response time ($measuredResponseTime sec) was $percentage% greater than historical average. " +
-          s"should have been <= $percentageRequirement%")
-      )
+      maybePercentageRequirement.flatMap { percentageRequirement =>
+        if (percentage <= percentageRequirement) None
+        else Option(new RequirementViolationException(
+          this.failureMessage(ballot.testId.testId) +
+            s"response time ($measuredResponseTime sec) was $percentage% greater than historical average. " +
+            s"should have been <= $percentageRequirement%")
+        )
+      }
     }
   }
 }

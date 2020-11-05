@@ -2,7 +2,9 @@ package com.workday.warp
 
 import java.lang.reflect.Method
 
-import scala.util.Try
+import com.workday.warp.common.CoreConstants
+
+import scala.util.{Failure, Success, Try}
 
 /** Logic for constructing a testId given a testClass and testMethod.
   *
@@ -41,5 +43,18 @@ trait TestId {
     * @return some fully qualified method name.
     */
   @throws[RuntimeException]
+  // TODO consider renaming this to methodSignature
   final def testId: String = this.maybeTestId.get
+}
+
+
+object TestId {
+
+  def empty: TestId = new TestId {
+    override def maybeTestClass: Try[Class[_]] = Failure(new ClassNotFoundException)
+
+    override def maybeTestMethod: Try[Method] = Failure(new NoSuchMethodException)
+
+    override lazy val maybeTestId: Try[String] = Success(CoreConstants.UNDEFINED_TEST_ID)
+  }
 }
