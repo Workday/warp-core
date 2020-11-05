@@ -26,7 +26,7 @@ import scala.collection.JavaConverters._
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 class ScheduledStatement(statement: Statement,
                          description: Description,
                          resultReporter: ResultReporter,

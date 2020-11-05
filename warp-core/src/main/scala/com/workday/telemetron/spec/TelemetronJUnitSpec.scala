@@ -8,7 +8,7 @@ import org.scalatest.matchers.should.Matchers
   * Created by leslie.lam on 12/19/17.
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 abstract class TelemetronJUnitSpec(override val shouldVerifyResponseTime: Boolean) extends HasTelemetron with Matchers {
 
   // Required default constructor for super classes extended in Java

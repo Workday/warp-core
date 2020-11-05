@@ -12,7 +12,7 @@ import org.junit.runners.model.Statement
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 class TelemetronNameRule extends TestRule {
 
   private val testName: TestName = new TestName

@@ -13,7 +13,7 @@ import org.junit.runners.model.Statement
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 class TelemetronRule(context: TelemetronContext,
                      reportingRules: List[TestRule],
                      measurementCollectorRules: List[TestRule]) extends TestRule {

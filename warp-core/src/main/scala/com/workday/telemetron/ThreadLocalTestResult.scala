@@ -12,7 +12,7 @@ import org.junit.runner.Description
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 object ThreadLocalTestResult {
   private val initialResult = new TestResult {
 

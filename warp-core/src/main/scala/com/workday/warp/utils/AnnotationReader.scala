@@ -9,9 +9,10 @@ import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
 import com.workday.warp.common.utils.StackTraceFilter
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.junit.HasTestId
+import com.workday.warp.TestId
 import org.junit.jupiter.api.Timeout
 import org.junit.platform.commons.util.AnnotationUtils
+import org.pmw.tinylog.Logger
 
 import scala.util.Try
 
@@ -48,7 +49,15 @@ object AnnotationReader extends StackTraceFilter {
   @deprecated
   protected def getWarpTestMethod(testId: String): Option[Method] = {
     val methodName: String = testId drop testId.lastIndexOf('.') + 1
-    this.getWarpTestClass(testId).flatMap(_.getMethods.find(_.getName == methodName))
+    // TODO won't work correctly wrt method overloading, its possible that we will have
+    // multiple junit test methods with the same name and we can't disambiguate
+    this.getWarpTestClass(testId).flatMap { cls =>
+      val methods: Seq[Method] = cls.getMethods.filter(_.getName == methodName)
+      if (methods.length > 1) {
+        Logger.warn(s"detected overloaded methods for signature $testId, annotation processing may not work as expected.")
+      }
+      methods.headOption
+    }
   }
 
 
@@ -97,7 +106,7 @@ object AnnotationReader extends StackTraceFilter {
   }
 
 
-  def getRequiredMaxValue(testId: HasTestId): Option[Duration] = {
+  def getRequiredMaxValue(testId: TestId): Option[Duration] = {
     for {
       m <- testId.maybeTestMethod.toOption
       a <- AnnotationUtils.findAnnotation(m, classOf[Required]).toOption
@@ -106,13 +115,17 @@ object AnnotationReader extends StackTraceFilter {
 
 
 
+  /**
+    * Reads the max response time from the junit [[Timeout]] annotation.
+    *
+    * @param testId fully qualified name of the junit test method
+    * @return max response time as a [[Duration]] for the test we are about to invoke
+    */
   def getTimeoutValue(testId: String): Duration = {
     this.getWarpTestMethodAnnotation(classOf[Timeout], testId)
       .map(timeout => Duration.ofNanos(TimeUtils.toNanos(timeout.value, timeout.unit)))
       .getOrElse(Duration.ofMillis(-1))
   }
-
-
 
 
   /**
@@ -152,7 +165,7 @@ object AnnotationReader extends StackTraceFilter {
     * @param testId
     * @return
     */
-  def getZScoreRequirement(testId: HasTestId): Option[Double] = {
+  def getZScoreRequirement(testId: TestId): Option[Double] = {
     for {
       m <- testId.maybeTestMethod.toOption
       a <- AnnotationUtils.findAnnotation(m, classOf[ZScoreRequirement]).toOption
@@ -190,7 +203,7 @@ object AnnotationReader extends StackTraceFilter {
   }
 
 
-  def getPercentageDegradationRequirement(testId: HasTestId): Option[Double] = {
+  def getPercentageDegradationRequirement(testId: TestId): Option[Double] = {
     for {
       m <- testId.maybeTestMethod.toOption
       a <- AnnotationUtils.findAnnotation(m, classOf[PercentageDegradationRequirement]).toOption

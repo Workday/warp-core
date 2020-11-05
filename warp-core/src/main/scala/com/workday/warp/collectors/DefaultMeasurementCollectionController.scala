@@ -1,7 +1,7 @@
 package com.workday.warp.collectors
 
-import com.workday.warp.junit.HasTestId
-import com.workday.warp.junit.TestIdConverters._
+import com.workday.warp.TestId
+import com.workday.warp.TestIdImplicits._
 import com.workday.warp.persistence.{CorePersistenceAware, Tag}
 import org.junit.jupiter.api.TestInfo
 
@@ -20,8 +20,8 @@ class DefaultMeasurementCollectionController(override val testId: String = Defau
   // boilerplate for java interop
   def this(info: TestInfo, tags: List[Tag]) = this(info.testId, tags)
   def this(info: TestInfo) = this(info.testId)
-  def this(hasTestId: HasTestId, tags: List[Tag]) = this(hasTestId.testId, tags)
-  def this(hasTestId: HasTestId) = this(hasTestId.testId)
+  def this(hasTestId: TestId, tags: List[Tag]) = this(hasTestId.testId, tags)
+  def this(hasTestId: TestId) = this(hasTestId.testId)
 
   this._collectors = List(new WallClockTimeCollector(this.testId), new HeapUsageCollector(this.testId))
 }

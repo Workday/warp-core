@@ -14,6 +14,7 @@ import scala.concurrent.duration.FiniteDuration
   * Created by tomas.mccandless on 7/1/20.
   */
 @RunWith(classOf[GatlingJUnitRunner])
+@deprecated("use junit5", since = "4.4.0")
 class GatlingTestSpec extends WarpSimulation {
 
   // note that a test must implement its own assertions.

@@ -13,6 +13,7 @@ import org.junit.runners.model.Statement
 /**
   * Created by tomas.mccandless on 6/11/18.
   */
+@deprecated("use junit5", since = "4.4.0")
 class ScheduledStatementSpec extends WarpJUnitSpec {
 
   @Schedule(invocations = -1, warmupInvocations = -2, threads = -3)

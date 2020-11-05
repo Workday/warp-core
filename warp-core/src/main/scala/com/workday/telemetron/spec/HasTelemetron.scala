@@ -11,7 +11,7 @@ import org.junit.Rule
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 trait HasTelemetron {
   def shouldVerifyResponseTime: Boolean = true
   private[this] val _telemetron: TelemetronRule = TelemetronRule(context = TelemetronContext(this.shouldVerifyResponseTime))

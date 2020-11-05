@@ -17,7 +17,7 @@ import scala.collection.mutable
   *
   * @deprecated use junit5
   */
-@deprecated
+@deprecated("use junit5", since = "4.4.0")
 class ReportingRule(val resultReporter: ResultReporter) extends TestRule {
 
   override def apply(base: Statement, description: Description): Statement =

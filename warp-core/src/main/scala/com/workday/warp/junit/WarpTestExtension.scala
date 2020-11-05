@@ -3,7 +3,7 @@ package com.workday.warp.junit
 import java.lang.reflect.Method
 import java.util.stream.Stream
 
-import com.workday.warp.junit.TestIdConverters.extensionContextHasTestId
+import com.workday.warp.TestIdImplicits.extensionContextIsTestId
 import org.junit.jupiter.api.extension.{ExtensionContext, TestTemplateInvocationContext, TestTemplateInvocationContextProvider}
 import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
@@ -46,8 +46,7 @@ trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider {
 
     val numWarmups: Int = validateWarmups(warpTest, testMethod)
     val numTrials: Int = validateMeasuredReps(warpTest, testMethod)
-    // TODO decide behavior here. throw an exception? fall back on another method?
-    val testId: String = context.maybeTestId.get
+    val testId: String = context.testId
 
     val warmups: Seq[WarpTestInvocationContext] = (1 to numWarmups).map { w =>
       val warmupInfo: WarpInfo = WarpInfo(testId, w, Warmup, numWarmups, numTrials)

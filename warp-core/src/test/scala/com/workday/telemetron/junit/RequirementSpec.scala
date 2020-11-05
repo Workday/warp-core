@@ -17,6 +17,7 @@ import org.junit.Test
   * Created by leslie.lam on 12/12/17
   * Based on java class created by michael.ottati on 9/11/15.
   */
+@deprecated("use junit5", since = "4.4.0")
 class RequirementSpec extends TelemetronJUnitSpec {
 
   @Test
