@@ -1,6 +1,5 @@
 package com.workday.warp.common.spec
 
-import com.workday.telemetron.spec.HasTelemetron
 import com.workday.warp.common.utils.TryMatchers
 import org.scalatest.{Inside, Inspectors, OptionValues}
 import org.scalatest.matchers.should.Matchers
@@ -9,16 +8,17 @@ import org.scalatestplus.junit.{AssertionsForJUnit, JUnitSuite}
 /**
   * Base class for WARP framework tests written in scalatest.
   *
+  * An opinionated starting place for writing performance tests in scalatest.
+  *
   * see http://scalatest.org/user_guide/defining_base_classes
   *
   * Created by tomas.mccandless on 6/10/15.
   */
-trait WarpJUnitSpec extends JUnitSuite with HasTelemetron
-                                       with Matchers
+trait WarpJUnitSpec extends JUnitSuite with Matchers
                                        with TryMatchers
                                        with OptionValues
                                        with Inside
                                        with Inspectors
                                        with AssertionsForJUnit {
-  override val shouldVerifyResponseTime: Boolean = false
+  val shouldVerifyResponseTime: Boolean = false
 }
