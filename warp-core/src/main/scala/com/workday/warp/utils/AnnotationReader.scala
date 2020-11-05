@@ -9,6 +9,7 @@ import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
 import com.workday.warp.common.utils.StackTraceFilter
 import org.junit.jupiter.api.Timeout
+import org.pmw.tinylog.Logger
 
 import scala.util.Try
 
@@ -40,9 +41,15 @@ object AnnotationReader extends StackTraceFilter {
    */
   protected def getWarpTestMethod(testId: String): Option[Method] = {
     val methodName: String = testId drop testId.lastIndexOf('.') + 1
-    // TODO using find won't work correctly wrt method overloading, its possible that we will have
+    // TODO won't work correctly wrt method overloading, its possible that we will have
     // multiple junit test methods with the same name and we can't disambiguate
-    this.getWarpTestClass(testId).flatMap(_.getMethods.find(_.getName == methodName))
+    this.getWarpTestClass(testId).flatMap { cls =>
+      val methods: Seq[Method] = cls.getMethods.filter(_.getName == methodName)
+      if (methods.length > 1) {
+        Logger.warn(s"detected overloaded methods for signature $testId, annotation processing may not work as expected.")
+      }
+      methods.headOption
+    }
   }
 
 
