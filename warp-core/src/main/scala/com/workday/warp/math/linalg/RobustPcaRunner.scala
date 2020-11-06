@@ -1,8 +1,7 @@
 package com.workday.warp.math.linalg
 
 import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.utils.WarpStopwatch
-import com.workday.warp.utils.{Ballot, DataUtils}
+import com.workday.warp.utils.{Ballot, DataUtils, WarpStopwatch}
 import org.pmw.tinylog.Logger
 
 import scala.collection.mutable

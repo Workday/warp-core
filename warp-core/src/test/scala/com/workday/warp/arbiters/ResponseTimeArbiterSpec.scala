@@ -4,9 +4,8 @@ import java.util.concurrent.TimeUnit
 import java.time.Instant
 
 import com.workday.warp.Required
-import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.TestIdImplicits._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._

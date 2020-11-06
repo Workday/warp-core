@@ -1,6 +1,6 @@
 package com.workday.warp.utils
 
-import com.workday.warp.common.utils.Implicits.DecoratedDuration
+import Implicits.DecoratedDuration
 
 import java.time.{Duration, Instant}
 import java.util.concurrent.TimeUnit

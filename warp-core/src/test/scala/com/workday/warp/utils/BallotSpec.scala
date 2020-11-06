@@ -1,8 +1,7 @@
 package com.workday.warp.utils
 
 import com.workday.warp.RequirementViolationException
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 /**
   * Created by tomas.mccandless on 1/27/16.

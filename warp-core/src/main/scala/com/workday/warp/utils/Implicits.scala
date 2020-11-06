@@ -1,16 +1,14 @@
-package com.workday.warp.common.utils
+package com.workday.warp.utils
 
 import java.math.BigInteger
-import java.time.{Duration, Instant}
 import java.time.temporal.Temporal
+import java.time.{Duration, Instant}
 import java.util.Optional
 import java.util.concurrent.TimeUnit
 
 import com.google.gson._
-import com.workday.warp.{Required, RequirementViolationException}
-import com.workday.warp.common.utils.TypeAliases._
-import com.workday.warp.utils.TimeUtils
 import com.workday.warp.utils.TimeUtils.toNanos
+import com.workday.warp.{Required, RequirementViolationException}
 
 import scala.util.{Failure, Success, Try}
 
@@ -19,7 +17,6 @@ import scala.util.{Failure, Success, Try}
   *
   * Created by tomas.mccandless on 5/5/16.
   */
-// TODO move to com.workday.warp.utils
 object Implicits {
 
   /**
@@ -195,21 +192,21 @@ object Implicits {
       */
     private[this] def getAsT[T](json: JsonElement, myType: Class[T]): T = {
       val result: Any = myType match {
-        case t if t == classOf[BigDecimal] || t == classOf[JavaBigDecimal] => json.getAsBigDecimal
+        case t if t == classOf[BigDecimal] || t == classOf[java.math.BigDecimal] => json.getAsBigDecimal
         case t if t == classOf[BigInteger] => json.getAsBigInteger
-        case t if t == classOf[Boolean] || t == classOf[JavaBoolean] => json.getAsBoolean
-        case t if t == classOf[Byte] || t == classOf[JavaByte] => json.getAsByte
-        case t if t == classOf[Character] || t == classOf[JavaCharacter] => json.getAsCharacter
-        case t if t == classOf[Double] || t == classOf[JavaDouble] => json.getAsDouble
-        case t if t == classOf[Float] || t == classOf[JavaFloat] => json.getAsFloat
-        case t if t == classOf[Int] || t == classOf[JavaInt] => json.getAsInt
+        case t if t == classOf[Boolean] || t == classOf[java.lang.Boolean] => json.getAsBoolean
+        case t if t == classOf[Byte] || t == classOf[java.lang.Byte] => json.getAsByte
+        case t if t == classOf[Character] || t == classOf[java.lang.Character] => json.getAsCharacter
+        case t if t == classOf[Double] || t == classOf[java.lang.Double] => json.getAsDouble
+        case t if t == classOf[Float] || t == classOf[java.lang.Float] => json.getAsFloat
+        case t if t == classOf[Int] || t == classOf[java.lang.Integer] => json.getAsInt
         case t if t == classOf[JsonArray] => json.getAsJsonArray
         case t if t == classOf[JsonNull] => json.getAsJsonNull
         case t if t == classOf[JsonObject] => json.getAsJsonObject
         case t if t == classOf[JsonPrimitive] => json.getAsJsonPrimitive
-        case t if t == classOf[Long] || t == classOf[JavaLong] => json.getAsLong
+        case t if t == classOf[Long] || t == classOf[java.lang.Long] => json.getAsLong
         case t if t == classOf[Number]=> json.getAsNumber
-        case t if t == classOf[Short] || t == classOf[JavaShort] => json.getAsShort
+        case t if t == classOf[Short] || t == classOf[java.lang.Short] => json.getAsShort
         case t if t == classOf[String] => json.getAsString
       }
 

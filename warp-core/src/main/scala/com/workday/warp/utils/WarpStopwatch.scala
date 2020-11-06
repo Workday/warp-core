@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.utils
 
 import java.util.concurrent.TimeUnit
 
@@ -59,5 +59,5 @@ object WarpStopwatch {
     * @return a new WarpStopwatch. Client should call stop() on the returned object
     *         to print out the timing information.
     */
-  def start: WarpStopwatch = start("")
+  def start(): WarpStopwatch = start("")
 }

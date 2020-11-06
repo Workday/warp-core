@@ -1,9 +1,8 @@
 package com.workday.warp.persistence
 
 import com.workday.warp.common.CoreWarpProperty.WARP_DATABASE_URL
-import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.dsl._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.flywaydb.core.Flyway
 import org.junit.jupiter.api.{AfterAll, BeforeAll}
 import org.junit.jupiter.api.parallel.Isolated

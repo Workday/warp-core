@@ -1,7 +1,6 @@
 package com.workday.warp.common
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.junit.jupiter.api.Disabled
 import org.pmw.tinylog.Logger
 

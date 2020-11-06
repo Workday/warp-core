@@ -4,8 +4,7 @@ import com.workday.telemetron.spec.HasRandomTestId
 import com.workday.warp.arbiters.ArbiterLike
 import com.workday.warp.{RequirementViolationException, TrialResult}
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, AbstractMeasurementCollector, Defaults}
-import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.common.spec.WarpJUnitSpec
+import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
 import com.workday.warp.utils.Ballot
@@ -13,7 +12,7 @@ import org.pmw.tinylog.Logger
 import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.{DistributionLike, GaussianDistribution}
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException

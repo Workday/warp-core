@@ -1,4 +1,4 @@
-package com.workday.warp.common.heaphistogram
+package com.workday.warp.heaphistogram
 
 import java.io.InputStream
 import java.lang.management.ManagementFactory

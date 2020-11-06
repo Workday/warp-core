@@ -3,10 +3,9 @@ package com.workday.warp.arbiters
 import java.time.Instant
 import java.util.UUID
 
-import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.{RequirementViolationException, ZScoreRequirement}
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._

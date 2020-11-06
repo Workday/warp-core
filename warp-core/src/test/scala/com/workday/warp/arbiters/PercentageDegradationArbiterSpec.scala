@@ -5,8 +5,7 @@ import java.util.UUID
 
 import com.workday.warp.{PercentageDegradationRequirement, RequirementViolationException}
 import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike

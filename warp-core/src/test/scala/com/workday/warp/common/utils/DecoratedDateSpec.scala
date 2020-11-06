@@ -4,9 +4,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.sql
 
-import com.workday.warp.common.utils.Implicits.DecoratedDate
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.utils.Implicits.DecoratedDate
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 /**
   * Spec for [[DecoratedDate]]

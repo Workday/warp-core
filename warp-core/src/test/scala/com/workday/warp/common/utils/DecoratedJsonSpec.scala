@@ -1,9 +1,8 @@
 package com.workday.warp.common.utils
 
 import com.google.gson.JsonObject
-import com.workday.warp.common.utils.Implicits.DecoratedJsonObject
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.utils.Implicits.DecoratedJsonObject
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 class DecoratedJsonSpec extends WarpJUnitSpec {
 

@@ -3,8 +3,7 @@ package com.workday.warp.persistence
 import java.time.{Instant, LocalDate}
 
 import slick.jdbc.MySQLProfile.api._
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._

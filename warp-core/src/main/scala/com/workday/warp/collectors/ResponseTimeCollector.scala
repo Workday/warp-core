@@ -4,13 +4,13 @@ import java.time.Duration
 
 import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.TrialResult
-import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.common.utils.StackTraceFilter
+import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.influxdb.InfluxDBClient
+import com.workday.warp.utils.StackTraceFilter
 
 /**
   * Writes test response time thresholds to influxdb, and updates them in MySql.

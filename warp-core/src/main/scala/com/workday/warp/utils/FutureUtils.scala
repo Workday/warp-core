@@ -1,13 +1,13 @@
-package com.workday.warp.common.utils
+package com.workday.warp.utils
 
 import java.util.concurrent.Executors
 
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.common.CoreWarpProperty.WARP_NUM_COLLECTOR_THREADS
 import org.pmw.tinylog.Logger
 
-import scala.concurrent.{Await, Future, ExecutionContext}
-import scala.concurrent.duration._
-import scala.util.{Try, Failure, Success}
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.util.{Failure, Success, Try}
 
 /**
  * Utility functions for dealing with Futures.

@@ -1,7 +1,6 @@
 package com.workday.warp.common.utils
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits._
 import org.junit.jupiter.api.TestInfo
 

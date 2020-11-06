@@ -3,8 +3,7 @@ package com.workday.warp.adapters
 import java.time.Duration
 
 import com.workday.warp.TrialResult
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.{ExecutionTag, Tag}
 
 import scala.util.Try

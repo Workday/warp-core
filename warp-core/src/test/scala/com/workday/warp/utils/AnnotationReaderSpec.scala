@@ -3,10 +3,9 @@ package com.workday.warp.utils
 import java.util.concurrent.TimeUnit
 
 import com.workday.warp.{Required, ZScoreRequirement}
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.common.utils.Implicits._
+import Implicits._
 import com.workday.warp.TestIdImplicits._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.junit.jupiter.api.{TestInfo, Timeout}
 
 /**

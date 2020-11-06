@@ -1,4 +1,4 @@
-package com.workday.warp.common.heaphistogram
+package com.workday.warp.heaphistogram
 
 import org.pmw.tinylog.Logger
 

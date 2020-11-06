@@ -1,8 +1,7 @@
 package com.workday.warp.common.utils
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.common.utils.Implicits.DecoratedTry
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.utils.Implicits.DecoratedTry
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 import scala.util.Try
 
