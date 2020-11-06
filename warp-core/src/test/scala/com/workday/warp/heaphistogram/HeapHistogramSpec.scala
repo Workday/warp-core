@@ -2,7 +2,7 @@ package com.workday.warp.heaphistogram
 
 import java.io.InputStream
 
-import com.workday.warp.HasRandomTestId
+import com.workday.warp.{HasRandomTestId, TestId}
 import com.workday.warp.collectors._
 import com.workday.warp.config.CoreConstants
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
@@ -54,7 +54,7 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike with HasRando
   @UnitTest
   def lifecycleSpec(): Unit = {
     val measCollectionController: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
-    val contHeapHistoCollector: AbstractMeasurementCollector = new ContinuousHeapHistogramCollector(CoreConstants.UNDEFINED_TEST_ID)
+    val contHeapHistoCollector: AbstractMeasurementCollector = new ContinuousHeapHistogramCollector(TestId.empty)
 
     measCollectionController.registerCollector(contHeapHistoCollector)
     measCollectionController.registerCollector(new HeapHistogramCollector(this.randomTestId()))

@@ -9,6 +9,7 @@ import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.CoreIdentifierType._
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.parallel.Isolated
 

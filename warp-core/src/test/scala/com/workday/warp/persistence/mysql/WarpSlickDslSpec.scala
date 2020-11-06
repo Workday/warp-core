@@ -11,6 +11,7 @@ import java.util.{Calendar, TimeZone, Date => JUDate}
 
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import WarpSlickDslSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
 import slick.lifted.Query

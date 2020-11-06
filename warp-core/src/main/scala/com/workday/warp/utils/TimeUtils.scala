@@ -73,6 +73,15 @@ object TimeUtils {
   def toNanos(time: Double, timeUnit: TimeUnit): Long = (time * timeUnit.toNanos(1)).toLong
 
   /**
+    * Converts a double in the specified time unit to a [[Duration]].
+    *
+    * @param time     time duration to convert
+    * @param timeUnit time unit to interpret time under
+    * @return time converted to a [[Duration]].
+    */
+  def durationOf(time: Double, timeUnit: TimeUnit): Duration = Duration.ofNanos(this.toNanos(time, timeUnit))
+
+  /**
     * @param since [[Instant]] to compare with the current time.
     * @return a [[Duration]] representing the amount of time between now and `since`.
     */

@@ -5,6 +5,7 @@ import java.time.Instant
 import com.workday.warp.dsl._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import org.junit.jupiter.api.BeforeAll
 
 /**

@@ -9,6 +9,7 @@ import com.workday.warp.junit.{IntegTest, WarpJUnitSpec}
 import com.workday.warp.persistence.{Connection, CorePersistenceAware}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import org.influxdb.InfluxDB
 import org.influxdb.dto.Pong
 

@@ -3,7 +3,7 @@ package com.workday.warp.inject
 import java.lang.reflect.Constructor
 
 import com.google.inject.{AbstractModule, Guice, Injector}
-import com.workday.warp.TestId
+import com.workday.warp.{TestId, TestIdImplicits}
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.config.{PropertyEntry, WarpPropertyLike}
 import com.workday.warp.TestIdImplicits._
@@ -47,10 +47,10 @@ object WarpGuicer {
   }
 
   private val moduleConstructor: Constructor[WarpModule] = this.moduleClass.getConstructor(
-    classOf[String], classOf[List[Tag]]
+    classOf[TestId], classOf[List[Tag]]
   )
 
-  val baseModule: WarpModule = this.moduleConstructor.newInstance("", List.empty[Tag])
+  val baseModule: WarpModule = this.moduleConstructor.newInstance(TestId.empty, Nil)
 
   // won't be used for creating any controllers
   val baseInjector: Injector = Guice.createInjector(this.baseModule)
@@ -67,9 +67,9 @@ object WarpGuicer {
     * @param tags tags to use for this test.
     * @return a measurement controller.
     */
+    @deprecated
   def getController(testId: String, tags: Iterable[Tag] = Seq.empty): AbstractMeasurementCollectionController = {
-    val module: WarpModule = this.moduleConstructor.newInstance(testId, tags.toList)
-    this.getController(module)
+      this.getController(TestIdImplicits.methodSignatureIsTestId(testId), tags)
   }
 
 
@@ -81,7 +81,7 @@ object WarpGuicer {
     * @return a measurement controller.
     */
   def getController(info: TestInfo, tags: Iterable[Tag]): AbstractMeasurementCollectionController = {
-    this.getController(info.testId, tags)
+    this.getController(testInfoIsTestId(info), tags)
   }
   def getController(info: TestInfo): AbstractMeasurementCollectionController = this.getController(info, Nil)
 
@@ -89,14 +89,15 @@ object WarpGuicer {
   /**
     * Convenience method for obtaining a controller instance.
     *
-    * @param hasTestId a testId container.
+    * @param testId a testId container.
     * @param tags tags to use for this test.
     * @return a measurement controller.
     */
-  def getController(hasTestId: TestId, tags: Iterable[Tag]): AbstractMeasurementCollectionController = {
-    this.getController(hasTestId.testId, tags)
+  def getController(testId: TestId, tags: Iterable[Tag]): AbstractMeasurementCollectionController = {
+    val module: WarpModule = this.moduleConstructor.newInstance(testId, tags.toList)
+    this.getController(module)
   }
-  def getController(hasTestId: TestId): AbstractMeasurementCollectionController = this.getController(hasTestId, Nil)
+  def getController(testId: TestId): AbstractMeasurementCollectionController = this.getController(testId, Nil)
 
 
   /**

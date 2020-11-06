@@ -4,9 +4,10 @@ import java.io.InputStream
 import java.lang.management.ManagementFactory
 
 import com.sun.tools.attach.VirtualMachine
+import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.influxdb.InfluxDBClient
-import sun.tools.attach.HotSpotVirtualMachine // scalastyle:ignore
+import sun.tools.attach.HotSpotVirtualMachine
 
 import scala.util.matching.Regex
 
@@ -62,7 +63,7 @@ trait HistogramIoLike extends InfluxDBClient {
     *
     * @param testId the name of the WARP test
     */
-  protected def collectAndStoreHistogram(testId: String): Unit = {
+  protected def collectAndStoreHistogram(testId: TestId): Unit = {
     val histo: HeapHistogramFilter = HeapHistogramFilter(this.getHeapHistogram)
     val dbName: String = WARP_INFLUXDB_HEAPHISTO_DB.value
     val persistSeriesName: String = WARP_INFLUXDB_HEAPHISTO_SERIES.value

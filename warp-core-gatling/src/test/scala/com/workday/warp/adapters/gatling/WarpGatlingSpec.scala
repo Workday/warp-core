@@ -1,6 +1,8 @@
 package com.workday.warp.adapters.gatling
 
+import com.workday.warp.TestId
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 
 /**
   * Created by ruiqi.wang
@@ -63,7 +65,7 @@ object WarpGatlingSpec {
   class CustomFunSpec extends WarpFunSpec("MyCustomFunSpec") {val baseUrl: String = ""}
 
   // Child Spec that overrides CustomFunSpec
-  class ChildCustomFunSpec(override val testId: String = "DAMNITJIM") extends CustomFunSpec
+  class ChildCustomFunSpec(override val testId: TestId = "DAMNITJIM") extends CustomFunSpec
   // Child Spec that overrides ChildCustomFunSpec
   class BabyCustomFunSpec extends ChildCustomFunSpec("BABYCOMEBACK")
 

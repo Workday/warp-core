@@ -2,6 +2,7 @@ package com.workday.warp.persistence
 
 import java.time.{Instant, LocalDate}
 
+import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty.WARP_DATABASE_URL
 import com.workday.warp.persistence.exception.PreExistingTagException
 import com.workday.warp.persistence.TablesLike._
@@ -114,7 +115,7 @@ trait PersistenceAware {
       * @param maybeDocs optional documentation for the [[TestExecutionRowLike]].
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
-    def createTestExecution(testId: String,
+    def createTestExecution(testId: TestId,
                             timeStarted: Instant,
                             responseTime: Double,
                             maxResponseTime: Double,

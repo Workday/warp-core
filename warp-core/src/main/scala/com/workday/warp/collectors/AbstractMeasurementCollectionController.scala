@@ -35,15 +35,12 @@ import scala.util.{Failure, Success, Try}
   * @param tags [[List]] of [[Tag]] that should be persisted during endMeasurementCollection.
   */
 // TODO consider renaming to AbstractMeasurementController
-abstract class AbstractMeasurementCollectionController(val testId: String = Defaults.testId,
-                                                       val tags: List[Tag] = Defaults.tags) extends PersistenceAware {
+abstract class AbstractMeasurementCollectionController(val testId: TestId, val tags: List[Tag]) extends PersistenceAware {
 
 
   // boilerplate for java interop
   def this(info: TestInfo, tags: List[Tag]) = this(info.testId, tags)
-  def this(info: TestInfo) = this(info.testId)
-  def this(hasTestId: TestId, tags: List[Tag]) = this(hasTestId.testId, tags)
-  def this(hasTestId: TestId) = this(hasTestId.testId)
+  def this(info: TestInfo) = this(info.testId, Nil)
 
   // scalastyle:off var.field
   /** collectors that will be wrapped around this test. */
@@ -246,10 +243,10 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
 
     // if there isn't a threshold set on the trial result already, use what is set on the required or junit5 timeout annotation
     val threshold: Duration = List(
-      trial.maybeThreshold.getOrElse(Duration.ofMillis(-1)),
+      trial.maybeThreshold,
       AnnotationReader.getRequiredMaxValue(this.testId),
       AnnotationReader.getTimeoutValue(this.testId)
-    ).find(_.isPositive).getOrElse(Duration.ofMillis(-1))
+    ).flatten.find(_.isPositive).getOrElse(Duration.ofMillis(-1))
 
     val maybeTestExecution: Option[TestExecutionRowLike] = Option(
       this.persistenceUtils.createTestExecution(
