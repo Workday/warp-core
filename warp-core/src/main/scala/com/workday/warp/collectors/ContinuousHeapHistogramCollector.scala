@@ -1,6 +1,6 @@
 package com.workday.warp.collectors
 
-import com.workday.warp.common.heaphistogram.HeapHistogramCollector
+import com.workday.warp.heaphistogram.HeapHistogramCollector
 
 /**
   * Continuously collects the heap histogram. Mixes in ContinuousMeasurement so it's invoked periodically

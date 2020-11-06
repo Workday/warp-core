@@ -4,9 +4,8 @@ import com.workday.warp.TrialResult
 import com.workday.warp.dsl._
 import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.common.utils.Implicits.{DecoratedDuration, DecoratedInt}
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.utils.Implicits.{DecoratedDuration, DecoratedInt}
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.utils.Ballot
 import org.pmw.tinylog.Logger
 

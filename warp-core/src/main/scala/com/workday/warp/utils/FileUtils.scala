@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.utils
 
 import java.io.{File, InputStream}
 import java.util.zip.{ZipEntry, ZipFile}

@@ -4,8 +4,7 @@ import java.lang.annotation.Annotation
 import java.lang.reflect.Method
 import java.time.Duration
 
-import com.workday.warp.common.utils.StackTraceFilter
-import com.workday.warp.common.utils.Implicits._
+import Implicits._
 import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}
 import org.junit.jupiter.api.Timeout
 import org.pmw.tinylog.Logger

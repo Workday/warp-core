@@ -3,9 +3,8 @@ package com.workday.warp.common.utils
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.common.utils.Implicits.DecoratedLong
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.utils.Implicits.DecoratedLong
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.utils.TimeUtils
 
 class DecoratedLongSpec extends WarpJUnitSpec {

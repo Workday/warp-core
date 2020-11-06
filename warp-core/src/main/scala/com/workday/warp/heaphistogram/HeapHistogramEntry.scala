@@ -1,4 +1,4 @@
-package com.workday.warp.common.heaphistogram
+package com.workday.warp.heaphistogram
 
 /**
  * Small container class for class usage in a heap histogram.

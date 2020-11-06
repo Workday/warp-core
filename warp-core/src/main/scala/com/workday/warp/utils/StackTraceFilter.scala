@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.utils
 
 /**
   * Utility functions for filtering out unneeded stack frames from exceptions.

@@ -4,8 +4,7 @@ import java.time.{Duration, Instant}
 
 import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.common.CoreConstants
-import com.workday.warp.common.utils.FutureUtils
-import com.workday.warp.common.utils.Implicits._
+import com.workday.warp.utils.Implicits._
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.arbiters.ArbiterLike
 import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
@@ -14,7 +13,7 @@ import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables.{TestDefinitionMetaTag => _, TestExecutionMetaTag => _, _}
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tag
-import com.workday.warp.utils.{AnnotationReader, Ballot, TimeUtils}
+import com.workday.warp.utils.{AnnotationReader, Ballot, FutureUtils, TimeUtils}
 import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 
@@ -26,7 +25,7 @@ import scala.util.{Failure, Success, Try}
   * Orchestrates the starting and stopping of MeasurementCollectors configured for this test.
   *
   * The most basic way to use this API is to instantiate [[DefaultMeasurementCollectionController]] directly,
-  * however we encourage using either the [[com.workday.telemetron.annotation.Measure]] annotation, or the Scala DSL in
+  * however we encourage using either the [[com.workday.warp.junit.Measure]] annotation, or the Scala DSL in
   * [[com.workday.warp.dsl.ExecutionConfig]].
   *
   * Created by tomas.mccandless on 8/18/15.

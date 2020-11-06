@@ -1,7 +1,6 @@
 package com.workday.warp.adapters.gatling
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 /**
   * Created by ruiqi.wang

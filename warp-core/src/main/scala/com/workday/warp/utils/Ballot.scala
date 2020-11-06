@@ -1,7 +1,6 @@
 package com.workday.warp.utils
 
 import com.workday.warp.{RequirementViolationException, TestId}
-import com.workday.warp.common.utils.StackTraceFilter
 
 import scala.collection.mutable
 
@@ -10,6 +9,7 @@ import scala.collection.mutable
   * Created by tomas.mccandless on 1/27/16.
   */
 // TODO consider the need for a default arg here
+// TODO consider moving to arbiters package
 class Ballot(val testId: TestId = TestId.empty) extends StackTraceFilter {
 
   /** holds any throwables created by arbiters */

@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.utils
 
 import org.apache.commons.io.FileUtils.byteCountToDisplaySize
 

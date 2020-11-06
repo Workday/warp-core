@@ -1,7 +1,5 @@
 package com.workday.warp.junit
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-
 /**
   * Created by tomas.mccandless on 6/24/20.
   */

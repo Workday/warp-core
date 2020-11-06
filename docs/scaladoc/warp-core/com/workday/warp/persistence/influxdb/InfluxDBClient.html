@@ -47,17 +47,17 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">InfluxDBClient</span><span class="result"> extends <a href="../../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.common.utils.StackTraceFilter">StackTraceFilter</a> with <a href="../CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></span>
+        <span class="name">InfluxDBClient</span><span class="result"> extends <a href="../../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.utils.StackTraceFilter">StackTraceFilter</a> with <a href="../CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>InfluxDB client that handles persistence of heap histograms.</p><p>Created by tomas.mccandless on 9/21/15.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="../CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a>, <a href="../PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a>, <a href="../../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.common.utils.StackTraceFilter">StackTraceFilter</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="../CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a>, <a href="../PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a>, <a href="../../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.utils.StackTraceFilter">StackTraceFilter</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div><div class="toggleContainer block">
             <span class="toggle">Known Subclasses</span>
-            <div class="subClasses hiddenContent"><a href="../../collectors/ContinuousHeapHistogramCollector.html" class="extype" name="com.workday.warp.collectors.ContinuousHeapHistogramCollector">ContinuousHeapHistogramCollector</a>, <a href="../../common/heaphistogram/HeapHistogramCollector.html" class="extype" name="com.workday.warp.common.heaphistogram.HeapHistogramCollector">HeapHistogramCollector</a>, <a href="../../common/heaphistogram/HistogramIoLike.html" class="extype" name="com.workday.warp.common.heaphistogram.HistogramIoLike">HistogramIoLike</a>, <a href="../../collectors/ResponseTimeCollector$.html" class="extype" name="com.workday.warp.collectors.ResponseTimeCollector">ResponseTimeCollector</a></div>
+            <div class="subClasses hiddenContent"><a href="../../collectors/ContinuousHeapHistogramCollector.html" class="extype" name="com.workday.warp.collectors.ContinuousHeapHistogramCollector">ContinuousHeapHistogramCollector</a>, <a href="../../common/heaphistogram/HeapHistogramCollector.html" class="extype" name="com.workday.warp.heaphistogram.HeapHistogramCollector">HeapHistogramCollector</a>, <a href="../../common/heaphistogram/HistogramIoLike.html" class="extype" name="com.workday.warp.heaphistogram.HistogramIoLike">HistogramIoLike</a>, <a href="../../collectors/ResponseTimeCollector$.html" class="extype" name="com.workday.warp.collectors.ResponseTimeCollector">ResponseTimeCollector</a></div>
           </div></div>
         
 
@@ -75,7 +75,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="com.workday.warp.persistence.influxdb.InfluxDBClient"><span>InfluxDBClient</span></li><li class="in" name="com.workday.warp.persistence.CorePersistenceAware"><span>CorePersistenceAware</span></li><li class="in" name="com.workday.warp.persistence.PersistenceAware"><span>PersistenceAware</span></li><li class="in" name="com.workday.warp.common.utils.StackTraceFilter"><span>StackTraceFilter</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="com.workday.warp.persistence.influxdb.InfluxDBClient"><span>InfluxDBClient</span></li><li class="in" name="com.workday.warp.persistence.CorePersistenceAware"><span>CorePersistenceAware</span></li><li class="in" name="com.workday.warp.persistence.PersistenceAware"><span>PersistenceAware</span></li><li class="in" name="com.workday.warp.utils.StackTraceFilter"><span>StackTraceFilter</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -320,7 +320,7 @@ This is a protected trait within <a href="../PersistenceAware.html" class="extyp
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.workday.warp.common.utils.StackTraceFilter#filter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.workday.warp.utils.StackTraceFilter#filter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="filter[ThrownType&lt;:Throwable](exception:ThrownType):ThrownType"></a>
       <a id="filter[ThrownType&lt;:Throwable](ThrownType):ThrownType"></a>
       <h4 class="signature">
@@ -329,7 +329,7 @@ This is a protected trait within <a href="../PersistenceAware.html" class="extyp
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">filter</span><span class="tparams">[<span name="ThrownType">ThrownType &lt;: <span class="extype" name="scala.Throwable">Throwable</span></span>]</span><span class="params">(<span name="exception">exception: <span class="extype" name="com.workday.warp.common.utils.StackTraceFilter.filter.ThrownType">ThrownType</span></span>)</span><span class="result">: <span class="extype" name="com.workday.warp.common.utils.StackTraceFilter.filter.ThrownType">ThrownType</span></span>
+        <span class="name">filter</span><span class="tparams">[<span name="ThrownType">ThrownType &lt;: <span class="extype" name="scala.Throwable">Throwable</span></span>]</span><span class="params">(<span name="exception">exception: <span class="extype" name="com.workday.warp.utils.StackTraceFilter.filter.ThrownType">ThrownType</span></span>)</span><span class="result">: <span class="extype" name="com.workday.warp.utils.StackTraceFilter.filter.ThrownType">ThrownType</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../../index.html#com.workday.warp.persistence.influxdb.InfluxDBClient@filter[ThrownType&lt;:Throwable](exception:ThrownType):ThrownType" title="Permalink" target="_top">
@@ -337,7 +337,7 @@ This is a protected trait within <a href="../PersistenceAware.html" class="extyp
       </a>
     </span>
       <p class="shortcomment cmt">Calls <code>filter</code> with a predicate of matching the class name of the calling instance.</p><div class="fullcomment"><div class="comment cmt"><p>Calls <code>filter</code> with a predicate of matching the class name of the calling instance.
-</p></div><dl class="paramcmts block"><dt class="param">exception</dt><dd class="cmt"><p><span class="extype" name="Throwable">Throwable</span> whose stacktrace will be modified.</p></dd><dt>returns</dt><dd class="cmt"><p>modified <code>exception</code> with filtered stack trace.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.common.utils.StackTraceFilter">StackTraceFilter</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">exception</dt><dd class="cmt"><p><span class="extype" name="Throwable">Throwable</span> whose stacktrace will be modified.</p></dd><dt>returns</dt><dd class="cmt"><p>modified <code>exception</code> with filtered stack trace.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.utils.StackTraceFilter">StackTraceFilter</a></dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -483,7 +483,7 @@ This ensures that a database with the correct schema is initialized.
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li name="com.workday.warp.persistence.influxdb.InfluxDBClient#persistHeapHistogram" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="persistHeapHistogram(histo:com.workday.warp.common.heaphistogram.HeapHistogram,dbName:String,seriesName:String,warpTestName:String):scala.util.Try[Unit]"></a>
+      <a id="persistHeapHistogram(histo:com.workday.warp.heaphistogram.HeapHistogram,dbName:String,seriesName:String,warpTestName:String):scala.util.Try[Unit]"></a>
       <a id="persistHeapHistogram(HeapHistogram,String,String,String):Try[Unit]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -491,10 +491,10 @@ This ensures that a database with the correct schema is initialized.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">persistHeapHistogram</span><span class="params">(<span name="histo">histo: <a href="../../common/heaphistogram/HeapHistogram.html" class="extype" name="com.workday.warp.common.heaphistogram.HeapHistogram">HeapHistogram</a></span>, <span name="dbName">dbName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="seriesName">seriesName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="warpTestName">warpTestName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="scala.Unit">Unit</span>]</span>
+        <span class="name">persistHeapHistogram</span><span class="params">(<span name="histo">histo: <a href="../../common/heaphistogram/HeapHistogram.html" class="extype" name="com.workday.warp.heaphistogram.HeapHistogram">HeapHistogram</a></span>, <span name="dbName">dbName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="seriesName">seriesName: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="warpTestName">warpTestName: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result">: <span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="scala.Unit">Unit</span>]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../../index.html#com.workday.warp.persistence.influxdb.InfluxDBClient@persistHeapHistogram(histo:com.workday.warp.common.heaphistogram.HeapHistogram,dbName:String,seriesName:String,warpTestName:String):scala.util.Try[Unit]" title="Permalink" target="_top">
+      <a href="../../../../../index.html#com.workday.warp.persistence.influxdb.InfluxDBClient@persistHeapHistogram(histo:com.workday.warp.heaphistogram.HeapHistogram,dbName:String,seriesName:String,warpTestName:String):scala.util.Try[Unit]" title="Permalink" target="_top">
         <img src="../../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -688,8 +688,8 @@ This ensures that a database with the correct schema is initialized.
               <h3>Inherited from <a href="../CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></h3>
             </div><div class="parent" name="com.workday.warp.persistence.PersistenceAware">
               <h3>Inherited from <a href="../PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></h3>
-            </div><div class="parent" name="com.workday.warp.common.utils.StackTraceFilter">
-              <h3>Inherited from <a href="../../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.common.utils.StackTraceFilter">StackTraceFilter</a></h3>
+            </div><div class="parent" name="com.workday.warp.utils.StackTraceFilter">
+              <h3>Inherited from <a href="../../common/utils/StackTraceFilter.html" class="extype" name="com.workday.warp.utils.StackTraceFilter">StackTraceFilter</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">

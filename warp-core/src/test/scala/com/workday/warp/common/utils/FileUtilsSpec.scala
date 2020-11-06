@@ -4,8 +4,8 @@ import java.io.InputStream
 import java.nio.charset.Charset
 import java.util.zip.ZipException
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.utils.FileUtils
 import org.apache.commons.io.IOUtils
 
 /**

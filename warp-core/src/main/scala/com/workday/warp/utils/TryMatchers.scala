@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.utils
 
 import org.scalatest.matchers.{MatchResult, Matcher}
 
@@ -9,6 +9,7 @@ import scala.util.Try
   *
   * Created by tomas.mccandless on 7/18/16.
   */
+// TODO move to a new scalatest package
 trait TryMatchers {
 
   /**

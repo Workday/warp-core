@@ -4,9 +4,8 @@ import java.time.Instant
 import java.util.UUID
 
 import com.workday.telemetron.spec.HasRandomTestId
-import com.workday.warp.common.heaphistogram.{HeapHistogram, HeapHistogramEntry}
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.IntegTest
+import com.workday.warp.heaphistogram.{HeapHistogram, HeapHistogramEntry}
+import com.workday.warp.junit.{IntegTest, WarpJUnitSpec}
 import com.workday.warp.persistence.{Connection, CorePersistenceAware}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._

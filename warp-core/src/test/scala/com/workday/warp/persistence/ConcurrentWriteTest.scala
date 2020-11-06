@@ -2,9 +2,8 @@ package com.workday.warp.persistence
 
 import java.time.Instant
 
-import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.dsl._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import org.junit.jupiter.api.BeforeAll
 

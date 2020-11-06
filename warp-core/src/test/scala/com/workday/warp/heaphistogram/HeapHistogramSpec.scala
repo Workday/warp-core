@@ -1,12 +1,11 @@
-package com.workday.warp.common.heaphistogram
+package com.workday.warp.heaphistogram
 
 import java.io.InputStream
 
 import com.workday.telemetron.spec.HasRandomTestId
 import com.workday.warp.collectors._
 import com.workday.warp.common.CoreConstants
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.junit.jupiter.api.parallel.Isolated
 
 /**

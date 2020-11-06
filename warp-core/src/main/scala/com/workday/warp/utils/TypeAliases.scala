@@ -1,8 +1,9 @@
-package com.workday.warp.common.utils
+package com.workday.warp.utils
 
 /**
  * Created by tomas.mccandless on 10/15/15.
  */
+@deprecated
 object TypeAliases {
   type JavaBigDecimal = java.math.BigDecimal
   type JavaBoolean = java.lang.Boolean

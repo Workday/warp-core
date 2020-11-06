@@ -4,7 +4,7 @@ import java.time.Duration
 
 import com.workday.warp.TrialResult
 import com.workday.warp.collectors.ResponseTimeCollector
-import com.workday.warp.common.utils.Implicits.DecoratedDuration
+import com.workday.warp.utils.Implicits.DecoratedDuration
 import com.workday.warp.math.linalg.RobustPcaRunner
 import org.scalatest.Assertion
 import org.scalatest.matchers.{BeMatcher, MatchResult, Matcher}

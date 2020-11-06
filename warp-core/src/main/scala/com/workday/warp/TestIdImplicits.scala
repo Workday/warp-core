@@ -2,10 +2,10 @@ package com.workday.warp
 
 import java.lang.reflect.Method
 
-import com.workday.warp.common.utils.Implicits.DecoratedOptional
+import com.workday.warp.utils.Implicits.DecoratedOptional
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtensionContext
-import com.workday.warp.common.utils.Implicits.DecoratedOption
+import com.workday.warp.utils.Implicits.DecoratedOption
 import org.pmw.tinylog.Logger
 
 import scala.util.{Success, Try}

@@ -1,14 +1,14 @@
-package com.workday.warp.common.spec
+package com.workday.warp.junit
 
-import com.workday.warp.common.utils.TryMatchers
-import org.scalatest.{Inside, Inspectors, OptionValues}
+import com.workday.warp.utils.TryMatchers
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.{Inside, Inspectors, OptionValues}
 import org.scalatestplus.junit.{AssertionsForJUnit, JUnitSuite}
 
 /**
-  * Base class for WARP framework tests written in scalatest.
+  * Base class for WARP framework tests written in JUnit + scalatest.
   *
-  * An opinionated starting place for writing performance tests in scalatest.
+  * An opinionated starting place.
   *
   * see http://scalatest.org/user_guide/defining_base_classes
   *
