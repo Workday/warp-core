@@ -16,4 +16,4 @@ classes
 out
 public
 gh-pages-src/static/scaladoc/warp-core
-config
+/config/
