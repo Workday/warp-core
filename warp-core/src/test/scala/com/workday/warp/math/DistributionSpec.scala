@@ -1,7 +1,6 @@
 package com.workday.warp.math
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import com.workday.warp.math._
 
 /**
   * Created by leslie.lam on 12/12/17

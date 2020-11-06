@@ -4,7 +4,6 @@ import java.io.InputStream
 
 import com.workday.warp.{HasRandomTestId, TestId}
 import com.workday.warp.collectors._
-import com.workday.warp.config.CoreConstants
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.junit.jupiter.api.parallel.Isolated
 
