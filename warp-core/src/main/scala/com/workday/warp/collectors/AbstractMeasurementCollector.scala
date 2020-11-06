@@ -1,9 +1,9 @@
-package com.workday.warp.collectors.abstracts
+package com.workday.warp.collectors
 
 import com.workday.warp.common.CoreConstants
-import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
-import com.workday.warp.common.utils.{MeasurementUtils, WarpStopwatch}
 import com.workday.warp.common.CoreWarpProperty.WARP_LOG_MC_STACKTRACES
+import com.workday.warp.common.utils.{MeasurementUtils, WarpStopwatch}
+import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import org.apache.commons.io.FileUtils.byteCountToDisplaySize
 import org.pmw.tinylog.Logger
 

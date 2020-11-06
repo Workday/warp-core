@@ -1,4 +1,4 @@
-package com.workday.warp.common.exception
+package com.workday.warp.exception
 
 /**
   * Represents an error related to configuration. For example, a missing required parameter.

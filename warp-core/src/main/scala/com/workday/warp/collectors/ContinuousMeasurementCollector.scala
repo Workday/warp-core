@@ -1,6 +1,4 @@
-package com.workday.warp.collectors.abstracts
-
-import com.workday.warp.collectors.traits.ContinuousMeasurement
+package com.workday.warp.collectors
 
 /**
   * Spawns a new thread that continuously invokes the measure() method at a configurable interval.

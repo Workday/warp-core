@@ -3,9 +3,7 @@ package com.workday.warp.common.heaphistogram
 import java.io.InputStream
 
 import com.workday.telemetron.spec.HasRandomTestId
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
-import com.workday.warp.collectors.{AbstractMeasurementCollectionController, ContinuousHeapHistogramCollector}
-import com.workday.warp.collectors.DefaultMeasurementCollectionController
+import com.workday.warp.collectors._
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest

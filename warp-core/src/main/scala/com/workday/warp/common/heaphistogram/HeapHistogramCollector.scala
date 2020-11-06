@@ -1,6 +1,6 @@
 package com.workday.warp.common.heaphistogram
 
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
+import com.workday.warp.collectors.AbstractMeasurementCollector
 import com.workday.warp.persistence.{PersistenceAware, TablesLike}
 
 /**

@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.Implicits._
 import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.exception.WarpConfigurationException
+import com.workday.warp.exception.WarpConfigurationException
 import com.workday.warp.common.heaphistogram.{HeapHistogram, HeapHistogramEntry}
 import com.workday.warp.common.utils.StackTraceFilter
 import com.workday.warp.persistence.CorePersistenceAware

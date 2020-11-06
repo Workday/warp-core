@@ -1,7 +1,7 @@
 package com.workday.warp.dsl
 
-import com.workday.warp.arbiters.traits.ArbiterLike
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
+import com.workday.warp.arbiters.ArbiterLike
+import com.workday.warp.collectors.AbstractMeasurementCollector
 
 /**
   * Enables syntax like `using no arbiters`. See [[ExecutionConfig.no]].

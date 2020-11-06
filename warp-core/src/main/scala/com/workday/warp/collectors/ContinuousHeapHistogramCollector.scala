@@ -1,6 +1,5 @@
 package com.workday.warp.collectors
 
-import com.workday.warp.collectors.traits.ContinuousMeasurement
 import com.workday.warp.common.heaphistogram.HeapHistogramCollector
 
 /**

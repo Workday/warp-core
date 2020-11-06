@@ -1,10 +1,9 @@
 package com.workday.warp.dsl
 
 import com.workday.telemetron.spec.HasRandomTestId
+import com.workday.warp.arbiters.ArbiterLike
 import com.workday.warp.{RequirementViolationException, TrialResult}
-import com.workday.warp.arbiters.traits.ArbiterLike
-import com.workday.warp.collectors.{AbstractMeasurementCollectionController, Defaults}
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
+import com.workday.warp.collectors.{AbstractMeasurementCollectionController, AbstractMeasurementCollector, Defaults}
 import com.workday.warp.common.utils.Implicits._
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.persistence.TablesLike._

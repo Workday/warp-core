@@ -1,13 +1,11 @@
-package com.workday.warp.collectors.traits
+package com.workday.warp.collectors
 
 import java.util.concurrent.atomic.AtomicBoolean
 
-import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
-import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
+import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.common.CoreWarpProperty.WARP_CONTINUOUS_MEASUREMENT_INTERVAL
 
 import scala.annotation.tailrec
-
 
 /**
   * Represents the capability for continuous measurement collection.

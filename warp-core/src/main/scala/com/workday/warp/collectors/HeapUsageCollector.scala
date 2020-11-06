@@ -1,6 +1,5 @@
 package com.workday.warp.collectors
 
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
