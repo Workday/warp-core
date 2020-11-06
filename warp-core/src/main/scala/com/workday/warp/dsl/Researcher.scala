@@ -2,7 +2,7 @@ package com.workday.warp.dsl
 
 import java.util.concurrent.{Callable, Executors, ScheduledExecutorService, ScheduledFuture, TimeUnit}
 
-import com.workday.warp.TrialResult
+import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, Defaults}
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.inject.WarpGuicer
@@ -128,7 +128,7 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
   @throws[RuntimeException]("when a warmup or measured trial fails.")
   private[dsl] def runExperiment(measuredFunction: => ResultType, shouldMeasure: Boolean = true): List[TrialResult[TrialType]] = {
     // make the configuration available if its needed
-    ConfigStore.put(this.config.testId, this.config)
+    ConfigStore.put(this.config.testId.testId, this.config)
     val pool: ScheduledExecutorService = Executors.newScheduledThreadPool(this.config.threads)
     // if we are multithreaded, and have more than 1 invocation, we'll handle things a bit differently.
     val threaded: Boolean = this.config.isThreaded
@@ -230,7 +230,7 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
 
   /** @return a configured [[AbstractMeasurementCollectionController]] ready to instrument a measured function. */
   def collectionController(): AbstractMeasurementCollectionController = {
-    val testId: String = if (this.config.testId.nonEmpty) this.config.testId else Defaults.testId
+    val testId: TestId = if (this.config.testId.testId.nonEmpty) this.config.testId else TestId.empty
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId, this.config.additionalTags)
 
     // configure measurement collectors
