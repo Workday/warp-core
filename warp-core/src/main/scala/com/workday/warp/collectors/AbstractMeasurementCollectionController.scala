@@ -6,14 +6,14 @@ import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.config.CoreConstants
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.TestIdImplicits._
-import com.workday.warp.arbiters.ArbiterLike
+import com.workday.warp.arbiters.{ArbiterLike, Ballot}
 import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
 import com.workday.warp.persistence._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables.{TestDefinitionMetaTag => _, TestExecutionMetaTag => _, _}
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tag
-import com.workday.warp.utils.{AnnotationReader, Ballot, FutureUtils, TimeUtils}
+import com.workday.warp.utils.{AnnotationReader, FutureUtils, TimeUtils}
 import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 

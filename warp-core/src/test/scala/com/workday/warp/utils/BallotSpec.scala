@@ -1,6 +1,7 @@
 package com.workday.warp.utils
 
 import com.workday.warp.RequirementViolationException
+import com.workday.warp.arbiters.Ballot
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 /**

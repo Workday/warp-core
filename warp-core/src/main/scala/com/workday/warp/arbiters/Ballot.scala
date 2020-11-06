@@ -1,5 +1,6 @@
-package com.workday.warp.utils
+package com.workday.warp.arbiters
 
+import com.workday.warp.utils.StackTraceFilter
 import com.workday.warp.{RequirementViolationException, TestId}
 
 import scala.collection.mutable

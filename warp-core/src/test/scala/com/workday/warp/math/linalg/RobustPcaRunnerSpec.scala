@@ -4,9 +4,9 @@ import com.workday.warp.TrialResult
 import com.workday.warp.dsl._
 import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
+import com.workday.warp.arbiters.Ballot
 import com.workday.warp.utils.Implicits.{DecoratedDuration, DecoratedInt}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import com.workday.warp.utils.Ballot
 import org.pmw.tinylog.Logger
 
 import scala.util.Random
@@ -54,7 +54,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
   def testDoubleRobustPca(): Unit = {
     val runner: RobustPcaRunner = RobustPcaRunner(useDoubleRpca = true)
 
-    val dataSize: Int = 1000
+    val dataSize: Int = 200
     // create some dummy data, we don't care about the actual values, just the size
     val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
 
