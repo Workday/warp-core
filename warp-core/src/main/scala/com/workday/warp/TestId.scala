@@ -50,7 +50,7 @@ trait TestId {
 
 object TestId {
 
-  def empty: TestId = new TestId {
+  lazy val empty: TestId = new TestId {
     override def maybeTestClass: Try[Class[_]] = Failure(new ClassNotFoundException)
 
     override def maybeTestMethod: Try[Method] = Failure(new NoSuchMethodException)

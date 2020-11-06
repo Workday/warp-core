@@ -12,6 +12,7 @@ import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.{DistributionLike, GaussianDistribution}
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
 
