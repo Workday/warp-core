@@ -1,4 +1,4 @@
-package com.workday.telemetron.math
+package com.workday.warp.math
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math._

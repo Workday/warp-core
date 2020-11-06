@@ -1,17 +1,16 @@
-package com.workday.warp.config.utils
+package com.workday.warp.utils
 
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-import com.workday.warp.utils.Implicits.DecoratedDouble
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import com.workday.warp.utils.TimeUtils
+import com.workday.warp.utils.Implicits.DecoratedLong
 
-class DecoratedDoubleSpec extends WarpJUnitSpec {
+class DecoratedLongSpec extends WarpJUnitSpec {
 
   @UnitTest
-  def decoratedDoubleSpec(): Unit = {
-    val timeUnit: Double = 10000.0
+  def decoratedLongSpec(): Unit = {
+    val timeUnit: Long = 10000
 
     val expectedNanoDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnit, TimeUnit.NANOSECONDS)
     timeUnit.nanoseconds should be (expectedNanoDuration)
