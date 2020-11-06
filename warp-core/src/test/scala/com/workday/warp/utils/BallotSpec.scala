@@ -1,6 +1,6 @@
 package com.workday.warp.utils
 
-import com.workday.telemetron.RequirementViolationException
+import com.workday.warp.RequirementViolationException
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
 

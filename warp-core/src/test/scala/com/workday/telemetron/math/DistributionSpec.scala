@@ -2,6 +2,7 @@ package com.workday.telemetron.math
 
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
+import com.workday.warp.math._
 
 /**
   * Created by leslie.lam on 12/12/17

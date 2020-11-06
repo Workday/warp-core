@@ -1,6 +1,6 @@
 package com.workday.warp.common
 
-import com.workday.telemetron.math.{DistributionLike, NullDistribution}
+import com.workday.warp.math.{DistributionLike, NullDistribution}
 
 /**
   * Some commonly used constants.

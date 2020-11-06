@@ -3,10 +3,10 @@ package com.workday.warp.common.utils
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits.DecoratedDouble
 import com.workday.warp.junit.UnitTest
+import com.workday.warp.utils.TimeUtils
 
 class DecoratedDoubleSpec extends WarpJUnitSpec {
 

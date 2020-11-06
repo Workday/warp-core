@@ -2,7 +2,6 @@ package com.workday.warp.collectors
 
 import java.time.{Duration, Instant}
 
-import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
@@ -16,7 +15,7 @@ import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables.{TestDefinitionMetaTag => _, TestExecutionMetaTag => _, _}
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tag
-import com.workday.warp.utils.{AnnotationReader, Ballot}
+import com.workday.warp.utils.{AnnotationReader, Ballot, TimeUtils}
 import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 

@@ -3,8 +3,7 @@ package com.workday.warp.arbiters
 import java.time.Instant
 import java.util.UUID
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.warp.PercentageDegradationRequirement
+import com.workday.warp.{PercentageDegradationRequirement, RequirementViolationException}
 import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest

@@ -1,6 +1,6 @@
 package com.workday.warp.arbiters
 
-import com.workday.telemetron.RequirementViolationException
+import com.workday.warp.RequirementViolationException
 import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.arbiters.traits.{ArbiterLike, CanReadHistory}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType

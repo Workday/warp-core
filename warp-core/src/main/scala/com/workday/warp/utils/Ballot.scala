@@ -1,7 +1,6 @@
 package com.workday.warp.utils
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.warp.TestId
+import com.workday.warp.{RequirementViolationException, TestId}
 import com.workday.warp.common.utils.StackTraceFilter
 
 import scala.collection.mutable

@@ -5,7 +5,7 @@ import java.sql.Timestamp
 import java.time.{Instant, LocalDate}
 import java.util.UUID
 
-import com.workday.telemetron.RequirementViolationException
+import com.workday.warp.RequirementViolationException
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.CoreWarpProperty._

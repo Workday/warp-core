@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit
 
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
+import com.workday.warp.utils.TimeUtils
 
 /**
   * A simple test to verify time formatting.
