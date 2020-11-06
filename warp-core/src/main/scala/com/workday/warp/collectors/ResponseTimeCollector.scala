@@ -4,7 +4,6 @@ import java.time.Duration
 
 import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.TrialResult
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.common.utils.Implicits._
 import com.workday.warp.common.utils.StackTraceFilter
 import com.workday.warp.persistence.TablesLike._

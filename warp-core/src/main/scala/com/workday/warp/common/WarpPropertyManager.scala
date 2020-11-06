@@ -3,7 +3,7 @@ package com.workday.warp.common
 import java.io.File
 import java.util.Properties
 
-import com.workday.warp.common.exception.WarpConfigurationException
+import com.workday.warp.exception.WarpConfigurationException
 import com.workday.warp.inject.WarpGuicer
 import com.workday.warp.logger.WarpLogUtils
 import org.apache.commons.configuration2.PropertiesConfiguration

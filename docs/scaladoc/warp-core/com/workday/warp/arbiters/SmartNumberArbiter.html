@@ -47,14 +47,14 @@
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">SmartNumberArbiter</span><span class="result"> extends <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a> with <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></span>
+        <span class="name">SmartNumberArbiter</span><span class="result"> extends <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.CanReadHistory">CanReadHistory</a> with <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Uses bisection method with <span class="extype" name="RobustPca">RobustPca</span> to automatically determine a static threshold.</p><p>Created by tomas.mccandless on 9/13/16.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a>, <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a>, <a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a>, <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a>, <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.CanReadHistory">CanReadHistory</a>, <a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a>, <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -72,7 +72,7 @@
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="com.workday.warp.arbiters.SmartNumberArbiter"><span>SmartNumberArbiter</span></li><li class="in" name="com.workday.warp.arbiters.traits.ArbiterLike"><span>ArbiterLike</span></li><li class="in" name="com.workday.warp.arbiters.traits.CanReadHistory"><span>CanReadHistory</span></li><li class="in" name="com.workday.warp.persistence.CorePersistenceAware"><span>CorePersistenceAware</span></li><li class="in" name="com.workday.warp.persistence.PersistenceAware"><span>PersistenceAware</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="com.workday.warp.arbiters.SmartNumberArbiter"><span>SmartNumberArbiter</span></li><li class="in" name="com.workday.warp.arbiters.ArbiterLike"><span>ArbiterLike</span></li><li class="in" name="com.workday.warp.arbiters.CanReadHistory"><span>CanReadHistory</span></li><li class="in" name="com.workday.warp.persistence.CorePersistenceAware"><span>CorePersistenceAware</span></li><li class="in" name="com.workday.warp.persistence.PersistenceAware"><span>PersistenceAware</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -207,7 +207,7 @@ This is a protected trait within <a href="../persistence/PersistenceAware.html" 
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.workday.warp.arbiters.traits.CanReadHistory#allResponseTimes" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.workday.warp.arbiters.CanReadHistory#allResponseTimes" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="allResponseTimes(testId:String,excludeIdTestExecution:Int,startDateLowerBound:java.time.LocalDate):Iterable[Double]"></a>
       <a id="allResponseTimes(String,Int,LocalDate):Iterable[Double]"></a>
       <h4 class="signature">
@@ -224,7 +224,7 @@ This is a protected trait within <a href="../persistence/PersistenceAware.html" 
       </a>
     </span>
       <p class="shortcomment cmt">Reads historical training data.</p><div class="fullcomment"><div class="comment cmt"><p>Reads historical training data. Returns all historical measurements except for <code>excludeIdTestExecution</code>.
-</p></div><dl class="paramcmts block"><dt class="param">testId</dt><dd class="cmt"><p>fully qualified method name of the test to read data for.</p></dd><dt class="param">excludeIdTestExecution</dt><dd class="cmt"><p>id of the <a href="../persistence/model/Tables$TestExecution.html" class="extype" name="com.workday.warp.persistence.model.Tables.TestExecution">com.workday.warp.persistence.Tables.TestExecution</a> to exclude from the results.</p></dd><dt>returns</dt><dd class="cmt"><p>training data to be used for voting algorithm.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">testId</dt><dd class="cmt"><p>fully qualified method name of the test to read data for.</p></dd><dt class="param">excludeIdTestExecution</dt><dd class="cmt"><p>id of the <a href="../persistence/model/Tables$TestExecution.html" class="extype" name="com.workday.warp.persistence.model.Tables.TestExecution">com.workday.warp.persistence.Tables.TestExecution</a> to exclude from the results.</p></dd><dt>returns</dt><dd class="cmt"><p>training data to be used for voting algorithm.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.CanReadHistory">CanReadHistory</a></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <a id="asInstanceOf[T0]:T0"></a>
@@ -265,7 +265,7 @@ This is a protected trait within <a href="../persistence/PersistenceAware.html" 
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="com.workday.warp.arbiters.traits.ArbiterLike#collectVote" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.workday.warp.arbiters.ArbiterLike#collectVote" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="collectVote[T](ballot:com.workday.warp.utils.Ballot,testExecution:T)(implicitevidence$3:com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType[T]):Unit"></a>
       <a id="collectVote[T](Ballot,T)(persistence.TablesLike.TestExecutionRowLikeType[T]):Unit"></a>
       <h4 class="signature">
@@ -274,7 +274,7 @@ This is a protected trait within <a href="../persistence/PersistenceAware.html" 
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">collectVote</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="ballot">ballot: <a href="../utils/Ballot.html" class="extype" name="com.workday.warp.utils.Ballot">Ballot</a></span>, <span name="testExecution">testExecution: <span class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike.collectVote.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../persistence/TablesLike$.html#TestExecutionRowLikeType[T]extendsAnyRef" class="extmbr" name="com.workday.warp.persistence.model.TablesLike.TestExecutionRowLikeType">persistence.TablesLike.TestExecutionRowLikeType</a>[<span class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike.collectVote.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">collectVote</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="ballot">ballot: <a href="../utils/Ballot.html" class="extype" name="com.workday.warp.utils.Ballot">Ballot</a></span>, <span name="testExecution">testExecution: <span class="extype" name="com.workday.warp.arbiters.ArbiterLike.collectVote.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../persistence/TablesLike$.html#TestExecutionRowLikeType[T]extendsAnyRef" class="extmbr" name="com.workday.warp.persistence.model.TablesLike.TestExecutionRowLikeType">persistence.TablesLike.TestExecutionRowLikeType</a>[<span class="extype" name="com.workday.warp.arbiters.ArbiterLike.collectVote.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.workday.warp.arbiters.SmartNumberArbiter@collectVote[T](ballot:com.workday.warp.utils.Ballot,testExecution:T)(implicitevidence$3:com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType[T]):Unit" title="Permalink" target="_top">
@@ -282,7 +282,7 @@ This is a protected trait within <a href="../persistence/PersistenceAware.html" 
       </a>
     </span>
       <p class="shortcomment cmt">Registers the vote with <code>ballot</code> so it can be later analyzed and possibly thrown as an Exception.</p><div class="fullcomment"><div class="comment cmt"><p>Registers the vote with <code>ballot</code> so it can be later analyzed and possibly thrown as an Exception.
-</p></div><dl class="paramcmts block"><dt class="param">ballot</dt><dd class="cmt"><p>box used to register vote result.</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p><span class="extype" name="TestExecutionRowLikeType">TestExecutionRowLikeType</span> we are voting on.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">ballot</dt><dd class="cmt"><p>box used to register vote result.</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p><span class="extype" name="TestExecutionRowLikeType">TestExecutionRowLikeType</span> we are voting on.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a>
       <a id="eq(AnyRef):Boolean"></a>
@@ -317,7 +317,7 @@ This is a protected trait within <a href="../persistence/PersistenceAware.html" 
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li name="com.workday.warp.arbiters.traits.ArbiterLike#failureMessage" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.workday.warp.arbiters.ArbiterLike#failureMessage" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="failureMessage(testId:String):String"></a>
       <a id="failureMessage(String):String"></a>
       <h4 class="signature">
@@ -334,7 +334,7 @@ This is a protected trait within <a href="../persistence/PersistenceAware.html" 
       </a>
     </span>
       <p class="shortcomment cmt">Base failure message.</p><div class="fullcomment"><div class="comment cmt"><p>Base failure message. Classes mixing in this trait should append further details.
-</p></div><dl class="paramcmts block"><dt class="param">testId</dt><dd class="cmt"><p>id of the measured test.</p></dd><dt>returns</dt><dd class="cmt"><p>a generic failure message. Implementing arbiters should append futher detail about the failure.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">testId</dt><dd class="cmt"><p>id of the measured test.</p></dd><dt>returns</dt><dd class="cmt"><p>a generic failure message. Implementing arbiters should append futher detail about the failure.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <a id="finalize():Unit"></a>
@@ -411,7 +411,7 @@ This is a protected trait within <a href="../persistence/PersistenceAware.html" 
       <p class="shortcomment cmt">Override this to initialize the correct PersistenceUtils companion object.</p><div class="fullcomment"><div class="comment cmt"><p>Override this to initialize the correct PersistenceUtils companion object.
 This ensures that a database with the correct schema is initialized.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a> → <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></dd></dl></div>
-    </li><li name="com.workday.warp.arbiters.traits.ArbiterLike#isEnabled" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.workday.warp.arbiters.ArbiterLike#isEnabled" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isEnabled:Boolean"></a>
       <a id="isEnabled:Boolean"></a>
       <h4 class="signature">
@@ -427,7 +427,7 @@ This ensures that a database with the correct schema is initialized.
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Whether this arbiter is enabled.</p><div class="fullcomment"><div class="comment cmt"><p>Whether this arbiter is enabled.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></dd></dl></div>
+      <p class="shortcomment cmt">Whether this arbiter is enabled.</p><div class="fullcomment"><div class="comment cmt"><p>Whether this arbiter is enabled.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></dd></dl></div>
     </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <a id="isInstanceOf[T0]:Boolean"></a>
@@ -462,7 +462,7 @@ This ensures that a database with the correct schema is initialized.
       </a>
     </span>
       
-    </li><li name="com.workday.warp.arbiters.traits.ArbiterLike#maybeThrow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.workday.warp.arbiters.ArbiterLike#maybeThrow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="maybeThrow(maybeError:Option[Throwable]):Unit"></a>
       <a id="maybeThrow(Option[Throwable]):Unit"></a>
       <h4 class="signature">
@@ -478,7 +478,7 @@ This ensures that a database with the correct schema is initialized.
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
-      <p class="shortcomment cmt">Throws an exception iff the measured test did not pass its requirement.</p><div class="fullcomment"><div class="comment cmt"><p>Throws an exception iff the measured test did not pass its requirement.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></dd></dl></div>
+      <p class="shortcomment cmt">Throws an exception iff the measured test did not pass its requirement.</p><div class="fullcomment"><div class="comment cmt"><p>Throws an exception iff the measured test did not pass its requirement.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ne(x$1:AnyRef):Boolean"></a>
       <a id="ne(AnyRef):Boolean"></a>
@@ -530,7 +530,7 @@ This ensures that a database with the correct schema is initialized.
       </a>
     </span>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li name="com.workday.warp.arbiters.traits.ArbiterLike#passed" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.workday.warp.arbiters.ArbiterLike#passed" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="passed[T](ballot:com.workday.warp.utils.Ballot,testExecution:T)(implicitevidence$2:com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType[T]):Boolean"></a>
       <a id="passed[T](Ballot,T)(persistence.TablesLike.TestExecutionRowLikeType[T]):Boolean"></a>
       <h4 class="signature">
@@ -539,7 +539,7 @@ This ensures that a database with the correct schema is initialized.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">passed</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="ballot">ballot: <a href="../utils/Ballot.html" class="extype" name="com.workday.warp.utils.Ballot">Ballot</a></span>, <span name="testExecution">testExecution: <span class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike.passed.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../persistence/TablesLike$.html#TestExecutionRowLikeType[T]extendsAnyRef" class="extmbr" name="com.workday.warp.persistence.model.TablesLike.TestExecutionRowLikeType">persistence.TablesLike.TestExecutionRowLikeType</a>[<span class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike.passed.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
+        <span class="name">passed</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="ballot">ballot: <a href="../utils/Ballot.html" class="extype" name="com.workday.warp.utils.Ballot">Ballot</a></span>, <span name="testExecution">testExecution: <span class="extype" name="com.workday.warp.arbiters.ArbiterLike.passed.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../persistence/TablesLike$.html#TestExecutionRowLikeType[T]extendsAnyRef" class="extmbr" name="com.workday.warp.persistence.model.TablesLike.TestExecutionRowLikeType">persistence.TablesLike.TestExecutionRowLikeType</a>[<span class="extype" name="com.workday.warp.arbiters.ArbiterLike.passed.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.workday.warp.arbiters.SmartNumberArbiter@passed[T](ballot:com.workday.warp.utils.Ballot,testExecution:T)(implicitevidence$2:com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType[T]):Boolean" title="Permalink" target="_top">
@@ -547,7 +547,7 @@ This ensures that a database with the correct schema is initialized.
       </a>
     </span>
       <p class="shortcomment cmt">Whether or not <code>testExecution</code> passed its requirement.</p><div class="fullcomment"><div class="comment cmt"><p>Whether or not <code>testExecution</code> passed its requirement.
-</p></div><dl class="paramcmts block"><dt class="param">ballot</dt><dd class="cmt"><p>box used to register vote result.</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p><span class="extype" name="TestExecutionRowLikeType">TestExecutionRowLikeType</span> we are voting on.</p></dd><dt>returns</dt><dd class="cmt"><p>true iff the test passed.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">ballot</dt><dd class="cmt"><p>box used to register vote result.</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p><span class="extype" name="TestExecutionRowLikeType">TestExecutionRowLikeType</span> we are voting on.</p></dd><dt>returns</dt><dd class="cmt"><p>true iff the test passed.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></dd></dl></div>
     </li><li name="com.workday.warp.persistence.CorePersistenceAware#persistenceUtils" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="persistenceUtils:CorePersistenceAware.this.CorePersistenceUtils"></a>
       <a id="persistenceUtils:CorePersistenceUtils"></a>
@@ -565,7 +565,7 @@ This ensures that a database with the correct schema is initialized.
       </a>
     </span>
       <p class="shortcomment cmt"><a href="../persistence/CorePersistenceAware$CorePersistenceUtils.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware.CorePersistenceUtils">CorePersistenceUtils</a> to allow for db interaction</p><div class="fullcomment"><div class="comment cmt"><p><a href="../persistence/CorePersistenceAware$CorePersistenceUtils.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware.CorePersistenceUtils">CorePersistenceUtils</a> to allow for db interaction</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a> → <a href="../persistence/PersistenceAware.html" class="extype" name="com.workday.warp.persistence.PersistenceAware">PersistenceAware</a></dd></dl></div>
-    </li><li name="com.workday.warp.arbiters.traits.CanReadHistory#responseTimes" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="com.workday.warp.arbiters.CanReadHistory#responseTimes" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="responseTimes(testId:String,excludeIdTestExecution:Int,startDateLowerBound:java.time.LocalDate,useSlidingWindow:Boolean,slidingWindowSize:Int):Iterable[Double]"></a>
       <a id="responseTimes(String,Int,LocalDate,Boolean,Int):Iterable[Double]"></a>
       <h4 class="signature">
@@ -585,7 +585,7 @@ This ensures that a database with the correct schema is initialized.
 measurements if <span class="extype" name="WARP_ARBITER_SLIDING_WINDOW">WARP_ARBITER_SLIDING_WINDOW</span> is enabled.
 </p></div><dl class="paramcmts block"><dt class="param">testId</dt><dd class="cmt"><p>fully qualified method name of the test to read data for.</p></dd><dt class="param">excludeIdTestExecution</dt><dd class="cmt"><p>id of the <a href="../persistence/model/Tables$TestExecution.html" class="extype" name="com.workday.warp.persistence.model.Tables.TestExecution">com.workday.warp.persistence.Tables.TestExecution</a> to exclude from the results.</p></dd><dt class="param">startDateLowerBound</dt><dd class="cmt"><p>optionally only include data that start after/on this date. If omitted, defaults
                            to day of epoch, effectively including all training data.</p></dd><dt class="param">useSlidingWindow</dt><dd class="cmt"><p>optionally enables the use of a sliding window from which to aggregate data. if omitted,
-                        defaults to false and no window will be used.</p></dd><dt class="param">slidingWindowSize</dt><dd class="cmt"><p>include only data spanning the previous n executions.</p></dd><dt>returns</dt><dd class="cmt"><p>training data to be used for voting algorithm.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a></dd></dl></div>
+                        defaults to false and no window will be used.</p></dd><dt class="param">slidingWindowSize</dt><dd class="cmt"><p>include only data spanning the previous n executions.</p></dd><dt>returns</dt><dd class="cmt"><p>training data to be used for voting algorithm.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.CanReadHistory">CanReadHistory</a></dd></dl></div>
     </li><li name="com.workday.warp.arbiters.SmartNumberArbiter#sPenaltyNumerator" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="sPenaltyNumerator:Double"></a>
       <a id="sPenaltyNumerator:Double"></a>
@@ -777,8 +777,8 @@ the minimum response time that would be flagged as an anomaly.
     </span>
       <p class="shortcomment cmt">Checks that the measured test passed its performance requirement.</p><div class="fullcomment"><div class="comment cmt"><p>Checks that the measured test passed its performance requirement. If the requirement is failed, constructs an
 error with a useful message wrapped in an Option.
-</p></div><dl class="paramcmts block"><dt class="param">ballot</dt><dd class="cmt"><p>box used to register vote result.</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p><span class="extype" name="TestExecutionRowLikeType">TestExecutionRowLikeType</span> we are voting on.</p></dd><dt>returns</dt><dd class="cmt"><p>a wrapped error with a useful message, or None if the measured test passed its requirement.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.workday.warp.arbiters.SmartNumberArbiter">SmartNumberArbiter</a> → <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></dd></dl></div>
-    </li><li name="com.workday.warp.arbiters.traits.ArbiterLike#voteAndThrow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+</p></div><dl class="paramcmts block"><dt class="param">ballot</dt><dd class="cmt"><p>box used to register vote result.</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p><span class="extype" name="TestExecutionRowLikeType">TestExecutionRowLikeType</span> we are voting on.</p></dd><dt>returns</dt><dd class="cmt"><p>a wrapped error with a useful message, or None if the measured test passed its requirement.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="com.workday.warp.arbiters.SmartNumberArbiter">SmartNumberArbiter</a> → <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></dd></dl></div>
+    </li><li name="com.workday.warp.arbiters.ArbiterLike#voteAndThrow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="voteAndThrow[T](ballot:com.workday.warp.utils.Ballot,testExecution:T)(implicitevidence$4:com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType[T]):Unit"></a>
       <a id="voteAndThrow[T](Ballot,T)(persistence.TablesLike.TestExecutionRowLikeType[T]):Unit"></a>
       <h4 class="signature">
@@ -787,7 +787,7 @@ error with a useful message wrapped in an Option.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">voteAndThrow</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="ballot">ballot: <a href="../utils/Ballot.html" class="extype" name="com.workday.warp.utils.Ballot">Ballot</a></span>, <span name="testExecution">testExecution: <span class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike.voteAndThrow.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../persistence/TablesLike$.html#TestExecutionRowLikeType[T]extendsAnyRef" class="extmbr" name="com.workday.warp.persistence.model.TablesLike.TestExecutionRowLikeType">persistence.TablesLike.TestExecutionRowLikeType</a>[<span class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike.voteAndThrow.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
+        <span class="name">voteAndThrow</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="ballot">ballot: <a href="../utils/Ballot.html" class="extype" name="com.workday.warp.utils.Ballot">Ballot</a></span>, <span name="testExecution">testExecution: <span class="extype" name="com.workday.warp.arbiters.ArbiterLike.voteAndThrow.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="../persistence/TablesLike$.html#TestExecutionRowLikeType[T]extendsAnyRef" class="extmbr" name="com.workday.warp.persistence.model.TablesLike.TestExecutionRowLikeType">persistence.TablesLike.TestExecutionRowLikeType</a>[<span class="extype" name="com.workday.warp.arbiters.ArbiterLike.voteAndThrow.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.workday.warp.arbiters.SmartNumberArbiter@voteAndThrow[T](ballot:com.workday.warp.utils.Ballot,testExecution:T)(implicitevidence$4:com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType[T]):Unit" title="Permalink" target="_top">
@@ -795,7 +795,7 @@ error with a useful message wrapped in an Option.
       </a>
     </span>
       <p class="shortcomment cmt">Throws an exception iff the measured test did not pass its requirement.</p><div class="fullcomment"><div class="comment cmt"><p>Throws an exception iff the measured test did not pass its requirement.
-</p></div><dl class="paramcmts block"><dt class="param">ballot</dt><dd class="cmt"><p>box used to register vote result.</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p><span class="extype" name="TestExecutionRowLikeType">TestExecutionRowLikeType</span> we are voting on.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">ballot</dt><dd class="cmt"><p>box used to register vote result.</p></dd><dt class="param">testExecution</dt><dd class="cmt"><p><span class="extype" name="TestExecutionRowLikeType">TestExecutionRowLikeType</span> we are voting on.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <a id="wait():Unit"></a>
@@ -874,10 +874,10 @@ error with a useful message wrapped in an Option.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="com.workday.warp.arbiters.traits.ArbiterLike">
-              <h3>Inherited from <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.traits.ArbiterLike">ArbiterLike</a></h3>
-            </div><div class="parent" name="com.workday.warp.arbiters.traits.CanReadHistory">
-              <h3>Inherited from <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.traits.CanReadHistory">CanReadHistory</a></h3>
+        <div class="parent" name="com.workday.warp.arbiters.ArbiterLike">
+              <h3>Inherited from <a href="traits/ArbiterLike.html" class="extype" name="com.workday.warp.arbiters.ArbiterLike">ArbiterLike</a></h3>
+            </div><div class="parent" name="com.workday.warp.arbiters.CanReadHistory">
+              <h3>Inherited from <a href="traits/CanReadHistory.html" class="extype" name="com.workday.warp.arbiters.CanReadHistory">CanReadHistory</a></h3>
             </div><div class="parent" name="com.workday.warp.persistence.CorePersistenceAware">
               <h3>Inherited from <a href="../persistence/CorePersistenceAware.html" class="extype" name="com.workday.warp.persistence.CorePersistenceAware">CorePersistenceAware</a></h3>
             </div><div class="parent" name="com.workday.warp.persistence.PersistenceAware">

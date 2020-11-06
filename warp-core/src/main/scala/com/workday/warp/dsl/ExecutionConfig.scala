@@ -1,8 +1,8 @@
 package com.workday.warp.dsl
 
 import com.workday.warp.TrialResult
-import com.workday.warp.arbiters.traits.ArbiterLike
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
+import com.workday.warp.arbiters.ArbiterLike
+import com.workday.warp.collectors.AbstractMeasurementCollector
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.math.DistributionLike
 import com.workday.warp.persistence.Tag

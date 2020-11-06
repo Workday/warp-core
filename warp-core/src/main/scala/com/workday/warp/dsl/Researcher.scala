@@ -176,7 +176,7 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
     * Runs a single experimental trial.
     *
     * Creates a [[AbstractMeasurementCollectionController]], invokes `measuredFunction` and collects measurements. If multiple
-    * invocations are being scheduled in a threadpool, all intrusive [[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]]
+    * invocations are being scheduled in a threadpool, all intrusive [[AbstractMeasurementCollector]]
     * will be disabled.
     *
     * @param measuredFunction

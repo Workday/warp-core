@@ -3,12 +3,11 @@ package com.workday.warp.collectors
 import java.time.{Duration, Instant}
 
 import com.workday.warp.{TestId, TrialResult}
-import com.workday.warp.arbiters.traits.ArbiterLike
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.FutureUtils
 import com.workday.warp.common.utils.Implicits._
 import com.workday.warp.TestIdImplicits._
+import com.workday.warp.arbiters.ArbiterLike
 import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
 import com.workday.warp.persistence._
 import com.workday.warp.persistence.TablesLike._
@@ -36,6 +35,7 @@ import scala.util.{Failure, Success, Try}
   * @param testId fully qualified name of the method being measured.
   * @param tags [[List]] of [[Tag]] that should be persisted during endMeasurementCollection.
   */
+// TODO consider renaming to AbstractMeasurementController
 abstract class AbstractMeasurementCollectionController(val testId: String = Defaults.testId,
                                                        val tags: List[Tag] = Defaults.tags) extends PersistenceAware {
 

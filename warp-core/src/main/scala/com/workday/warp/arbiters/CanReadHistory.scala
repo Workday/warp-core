@@ -1,11 +1,10 @@
-package com.workday.warp.arbiters.traits
+package com.workday.warp.arbiters
 
 import java.time.LocalDate
 
 import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.persistence.CorePersistenceAware
-import com.workday.warp.persistence.CoreIdentifier
 import com.workday.warp.persistence.CoreIdentifierType._
+import com.workday.warp.persistence.{CoreIdentifier, CorePersistenceAware}
 
 
 /**
@@ -15,6 +14,7 @@ import com.workday.warp.persistence.CoreIdentifierType._
   *
   * Created by tomas.mccandless on 3/9/16.
   */
+// TODO consider moving to utils or persistence
 trait CanReadHistory extends CorePersistenceAware {
 
   /**

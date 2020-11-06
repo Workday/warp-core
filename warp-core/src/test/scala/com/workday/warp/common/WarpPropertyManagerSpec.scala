@@ -1,6 +1,6 @@
 package com.workday.warp.common
 
-import com.workday.warp.common.exception.WarpConfigurationException
+import com.workday.warp.exception.WarpConfigurationException
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
 

@@ -1,4 +1,4 @@
-package com.workday.warp.arbiters.traits
+package com.workday.warp.arbiters
 
 import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
