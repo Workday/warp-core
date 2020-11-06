@@ -4,7 +4,6 @@ import java.lang.annotation.Annotation
 import java.lang.reflect.Method
 import java.time.Duration
 
-import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.utils.StackTraceFilter
 import com.workday.warp.common.utils.Implicits._
 import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}

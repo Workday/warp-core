@@ -3,8 +3,7 @@ package com.workday.warp.arbiters
 import java.time.{Duration, LocalDate}
 import java.util.concurrent.TimeUnit
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.telemetron.utils.TimeUtils
+import com.workday.warp.RequirementViolationException
 import com.workday.warp.common.CoreWarpProperty._
 import com.workday.warp.arbiters.traits.{ArbiterLike, CanReadHistory}
 import com.workday.warp.common.CoreConstants
@@ -13,7 +12,7 @@ import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
-import com.workday.warp.utils.Ballot
+import com.workday.warp.utils.{Ballot, TimeUtils}
 import org.pmw.tinylog.Logger
 
 import scala.annotation.tailrec

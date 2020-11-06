@@ -1,13 +1,16 @@
 package com.workday.warp.common.utils
 
 import java.math.BigInteger
-import java.time.Duration
+import java.time.{Duration, Instant}
+import java.time.temporal.Temporal
 import java.util.Optional
 import java.util.concurrent.TimeUnit
 
 import com.google.gson._
-import com.workday.telemetron.utils.TimeUtils
+import com.workday.warp.{Required, RequirementViolationException}
 import com.workday.warp.common.utils.TypeAliases._
+import com.workday.warp.utils.TimeUtils
+import com.workday.warp.utils.TimeUtils.toNanos
 
 import scala.util.{Failure, Success, Try}
 
@@ -55,6 +58,47 @@ object Implicits {
   }
 
 
+  /**
+    * Decorates [[Required]] with nice failure functions.
+    *
+    * @param requirement
+    */
+  implicit class DecoratedRequired(requirement: Required) {
+
+    /**
+      * Checks if the time requirement has been violated
+      *
+      * @param responseTime A [[Duration]] containing the response time of the test.
+      * @return Option containing a Throwable if the time requirement is violated.
+      */
+    // TODO do we need some other context?
+    def failedTimeRequirement(responseTime: Duration, verifyResponseTime: Boolean = true): Option[Throwable] = {
+      val threshold: Double = this.requirement.maxResponseTime
+      val timeUnit: TimeUnit = this.requirement.timeUnit
+      val maxResponseTime: Duration = Duration.ofNanos(toNanos(threshold, timeUnit))
+
+      if (verifyResponseTime && maxResponseTime.isPositive && responseTime > maxResponseTime) {
+        val error: String = s"Response time requirement exceeded, " +
+          s"specified: ${maxResponseTime.humanReadable} (${maxResponseTime.toMillis} ms) " +
+          s"observed: ${responseTime.humanReadable} (${responseTime.toMillis} ms)"
+        Some(new RequirementViolationException(error))
+      }
+      else {
+        None
+      }
+    }
+  }
+
+  implicit class DecoratedInstant(instant: Instant) {
+
+    /**
+      * Subtracts `other` from this [[Instant]].
+      *
+      * @param other
+      * @return
+      */
+    def -(other: Temporal): Duration = Duration.between(other, this.instant)
+  }
 
 
   /**

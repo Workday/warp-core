@@ -3,10 +3,9 @@ package com.workday.warp.arbiters
 import java.time.Instant
 import java.util.UUID
 
-import com.workday.telemetron.RequirementViolationException
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.TestIdImplicits._
-import com.workday.warp.ZScoreRequirement
+import com.workday.warp.{RequirementViolationException, ZScoreRequirement}
 import com.workday.warp.junit.UnitTest
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
@@ -55,7 +54,7 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Checks behavior when there are not enough datapoints. */
   @UnitTest
-  def notEnoughData(info: TestInfo): Unit = {
+  def notEnoughData(): Unit = {
     val testId: String = s"com.workday.warp.ZScore.${UUID.randomUUID().toString}"
     val ballot: Ballot = new Ballot(testId)
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 4.0, 3.0)

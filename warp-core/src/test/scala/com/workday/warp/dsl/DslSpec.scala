@@ -1,9 +1,7 @@
 package com.workday.warp.dsl
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.telemetron.math.{DistributionLike, GaussianDistribution}
 import com.workday.telemetron.spec.HasRandomTestId
-import com.workday.warp.TrialResult
+import com.workday.warp.{RequirementViolationException, TrialResult}
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, Defaults}
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
@@ -17,6 +15,7 @@ import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.UnitTest
+import com.workday.warp.math.{DistributionLike, GaussianDistribution}
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
 
@@ -329,7 +328,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   }
 
 
-  /** Checks that we can set test id manually or read it from [[com.workday.telemetron.junit.TelemetronNameRule]]. */
+  /** Checks that we can set test id manually. */
   @UnitTest
   def testId(): Unit = {
     // check that we can manually override the test id

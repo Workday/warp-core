@@ -3,14 +3,13 @@ package com.workday.warp.arbiters
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.telemetron.utils.TimeUtils
+import com.workday.warp.RequirementViolationException
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.common.utils.Implicits._
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
-import com.workday.warp.utils.Ballot
+import com.workday.warp.utils.{Ballot, TimeUtils}
 
 /**
   * Simple arbiter based on a provided static threshold.
