@@ -3,6 +3,7 @@ package com.workday.warp.persistence
 import java.sql.Timestamp
 import java.time.Instant
 
+import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.WarpPropertyManager
 import com.workday.warp.persistence.exception.PreExistingTagException
@@ -135,7 +136,7 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param maybeDocs containing documentation for the [[TestExecutionRow]]
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
-    override def createTestExecution(testId: String,
+    override def createTestExecution(testId: TestId,
                                      timeStarted: Instant,
                                      responseTime: Double,
                                      maxResponseTime: Double,
@@ -147,7 +148,7 @@ trait CorePersistenceAware extends PersistenceAware {
       val build: BuildNumber = BuildNumber(SILVER_BUILD_NUMBER.value)
       val buildInfo: BuildRowLike = this.findOrCreateBuild(build.major, build.minor, build.patch)
       // TODO update build info with last tested
-      val testDefinition: TestDefinitionRowLike = this.findOrCreateTestDefinition(testId, maybeDocs)
+      val testDefinition: TestDefinitionRowLike = this.findOrCreateTestDefinition(testId.testId, maybeDocs)
       val testExecution: TestExecutionRow = TestExecutionRow(
         Tables.nullId,
         idTestDefinition = testDefinition.idTestDefinition,

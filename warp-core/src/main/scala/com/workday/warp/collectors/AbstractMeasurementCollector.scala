@@ -1,5 +1,6 @@
 package com.workday.warp.collectors
 
+import com.workday.warp.TestId
 import com.workday.warp.config.CoreConstants
 import com.workday.warp.config.CoreWarpProperty.WARP_LOG_MC_STACKTRACES
 import com.workday.warp.utils.WarpStopwatch
@@ -25,7 +26,8 @@ import scala.util.Try
   * @param _testId id of the test being measured. mutable, but the setter is only accessible within the collectors
   *                package.
   */
-abstract class AbstractMeasurementCollector(protected[collectors] var _testId: String = CoreConstants.UNDEFINED_TEST_ID) {
+// TODO we probably don't need a constructor arg since we can look up anything via our test execution id
+abstract class AbstractMeasurementCollector(protected[collectors] var _testId: TestId = TestId.empty) {
 
   // TODO consider adding a separate persist method, so measurements can be obtained and then persisted separately
 
@@ -59,13 +61,8 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: S
   }
 
   /** Public accessor for testId. */
-  def testId: String = this._testId
+  def testId: TestId = this._testId
 
-  /**
-    * Auxiliary constructor with a default test id.
-    * Make sure to call the primary constructor if your collector requires access to test id.
-    */
-  def this() = this(CoreConstants.UNDEFINED_TEST_ID)
 
   /**
    * Called prior to starting an individual test invocation.

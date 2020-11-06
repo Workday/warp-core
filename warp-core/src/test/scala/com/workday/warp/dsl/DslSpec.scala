@@ -1,7 +1,7 @@
 package com.workday.warp.dsl
 
 import com.workday.warp.arbiters.{ArbiterLike, Ballot}
-import com.workday.warp.{HasRandomTestId, RequirementViolationException, TrialResult}
+import com.workday.warp.{HasRandomTestId, RequirementViolationException, TestId, TrialResult}
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, AbstractMeasurementCollector, Defaults}
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
@@ -331,17 +331,17 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     // check that we can manually override the test id
     val someTestId: String = "com.workday.warp.dsl.test1"
     val config: ExecutionConfig = using testId someTestId
-    Researcher(config).collectionController().testId should be (someTestId)
+    Researcher(config).collectionController().testId.testId should be (someTestId)
     config measure { 1 + 1 }
     ConfigStore.get(someTestId) should be (Some(config))
-    Researcher(using iterations 5 testId someTestId).collectionController().testId should be (someTestId)
+    Researcher(using iterations 5 testId someTestId).collectionController().testId.testId should be (someTestId)
 
     // check that we can read it from telemetron name rule
-    val randomTestId: String = this.randomTestId()
+    val randomTestId: TestId = this.randomTestId()
     Researcher(using testId randomTestId).collectionController().testId should be (randomTestId)
 
     // check that we handle empty string correctly
-    Researcher(using testId "").collectionController().testId should be (Defaults.testId)
+    Researcher(using testId "").collectionController().testId.testId should be (Defaults.testId)
   }
 
 
@@ -354,7 +354,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     }
 
     // get a list of all the collectors test ids, make sure it contains only the one we specified
-    Researcher(config).collectionController().collectors map { _.testId } should contain only (someTestId)
+    Researcher(config).collectionController().collectors map { _.testId.testId } should contain only (someTestId)
   }
 
 

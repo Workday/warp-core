@@ -1,6 +1,7 @@
 package com.workday.warp.inject.modules
 
 import com.google.inject.{AbstractModule, Provides}
+import com.workday.warp.TestId
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
 import com.workday.warp.config.{CoreWarpProperty, WarpPropertyLike}
 import com.workday.warp.logger.WriterConfig
@@ -15,7 +16,7 @@ import com.workday.warp.persistence.Tag
   * @param testId will be passed to [[DefaultMeasurementCollectionController]] constructor.
   * @param tags will be passed to [[DefaultMeasurementCollectionController]] constructor.
   */
-class DefaultWarpModule(override val testId: String,
+class DefaultWarpModule(override val testId: TestId,
                         override val tags: List[Tag]) extends AbstractModule with HasWarpBindings {
 
   override def configure(): Unit = { }

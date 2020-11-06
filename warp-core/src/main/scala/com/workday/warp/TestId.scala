@@ -18,6 +18,7 @@ import scala.util.{Failure, Success, Try}
   *
   * Created by tomas.mccandless on 6/18/20.
   */
+// TODO make this a case class
 trait TestId {
 
   def maybeTestClass: Try[Class[_]]

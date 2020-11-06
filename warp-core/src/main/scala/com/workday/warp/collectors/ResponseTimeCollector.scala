@@ -3,7 +3,7 @@ package com.workday.warp.collectors
 import java.time.Duration
 
 import com.workday.warp.config.CoreWarpProperty._
-import com.workday.warp.TrialResult
+import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
@@ -22,7 +22,7 @@ import com.workday.warp.utils.StackTraceFilter
   *
   * @param testId fully qualified name of the method being measured.
   */
-class ResponseTimeCollector(testId: String) extends AbstractMeasurementCollector(testId) {
+class ResponseTimeCollector(testId: TestId) extends AbstractMeasurementCollector(testId) {
   /**
     * Called prior to starting an individual test invocation.
     */

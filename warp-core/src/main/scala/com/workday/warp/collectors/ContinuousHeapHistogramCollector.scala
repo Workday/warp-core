@@ -1,5 +1,6 @@
 package com.workday.warp.collectors
 
+import com.workday.warp.TestId
 import com.workday.warp.heaphistogram.HeapHistogramCollector
 
 /**
@@ -8,7 +9,7 @@ import com.workday.warp.heaphistogram.HeapHistogramCollector
   *
   * Created by vignesh.kalidas on 4/6/18.
   */
-class ContinuousHeapHistogramCollector(testId: String)
+class ContinuousHeapHistogramCollector(testId: TestId)
     extends HeapHistogramCollector(testId) with ContinuousMeasurement {
   /**
     * Collects a single sample of measurement. Invoked periodically throughout the duration of a warp test.

@@ -117,12 +117,31 @@ object AnnotationReader extends StackTraceFilter {
 
 
 
+  /**
+    * Reads the max response time from the junit [[Timeout]] annotation.
+    *
+    * @param testId fully qualified name of the junit test method
+    * @return max response time as a [[Duration]] for the test we are about to invoke
+    */
+    @deprecated
   def getTimeoutValue(testId: String): Duration = {
     this.getWarpTestMethodAnnotation(classOf[Timeout], testId)
       .map(timeout => Duration.ofNanos(TimeUtils.toNanos(timeout.value, timeout.unit)))
       .getOrElse(Duration.ofMillis(-1))
   }
 
+  /**
+    * Reads the max response time from the junit [[Timeout]] annotation.
+    *
+    * @param testId [[TestId]] for test method.
+    * @return max response time as a [[Duration]] for the test we are about to invoke
+    */
+  def getTimeoutValue(testId: TestId): Option[Duration] = {
+    for {
+      m <- testId.maybeTestMethod.toOption
+      a <- AnnotationUtils.findAnnotation(m, classOf[Timeout]).toOption
+    } yield TimeUtils.durationOf(a.value, a.unit)
+  }
 
   /**
     * Reads the percentile (z-score) threshold requirement from the [[ZScoreRequirement]] annotation for this test.

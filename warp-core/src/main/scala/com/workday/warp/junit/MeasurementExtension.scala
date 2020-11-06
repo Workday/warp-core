@@ -1,6 +1,6 @@
 package com.workday.warp.junit
 
-import com.workday.warp.TrialResult
+import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.TestIdImplicits.extensionContextIsTestId
 import com.workday.warp.inject.WarpGuicer
@@ -28,7 +28,7 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
     */
   override def beforeEach(context: ExtensionContext): Unit = {
     // we would rather throw an exception here than record meaningless info under a default or undefined testId
-    val testId: String = context.testId
+    val testId: TestId = context
     Logger.info(s"measuring junit: ${context.getUniqueId}")
     Logger.debug(s"test id: $testId")
     // TODO this adds some latency on the first run should be warmed up somehow

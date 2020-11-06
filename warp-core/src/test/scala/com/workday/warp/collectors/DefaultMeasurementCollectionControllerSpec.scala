@@ -8,6 +8,7 @@ import com.workday.warp.utils.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import slick.jdbc.MySQLProfile.api._
 import com.workday.warp.persistence.{TablesLike, Tag, _}
 import org.junit.jupiter.api.parallel.Isolated
@@ -177,7 +178,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   @UnitTest
   def testInfo(info: TestInfo): Unit = {
     val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
-    controller.testId should be ("com.workday.warp.collectors.DefaultMeasurementCollectionControllerSpec.testInfo")
+    controller.testId.testId should be ("com.workday.warp.collectors.DefaultMeasurementCollectionControllerSpec.testInfo")
   }
 
   /**

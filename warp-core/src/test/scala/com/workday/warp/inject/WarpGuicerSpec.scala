@@ -1,9 +1,11 @@
 package com.workday.warp.inject
 
 import com.google.inject.{AbstractModule, Guice, Injector}
+import com.workday.warp.TestId
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
 import com.workday.warp.config.{CoreWarpProperty, WarpPropertyLike}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 
 /**
   *
@@ -31,7 +33,8 @@ class WarpGuicerSpec extends WarpJUnitSpec {
   /** Checks that we bind the correct runtime implementation for collection controller. */
   @UnitTest
   def injectMeasurementCollectionController(): Unit = {
-    val controller: AbstractMeasurementCollectionController = WarpGuicer.getController("com.workday.warp.some.test.id", List.empty)
+    val testId: TestId = "com.workday.warp.some.test.id"
+    val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId, List.empty)
     controller.getClass should be (classOf[DefaultMeasurementCollectionController])
   }
 
