@@ -4,8 +4,8 @@ import java.time.{Duration, LocalDate}
 import java.util.concurrent.TimeUnit
 
 import com.workday.warp.RequirementViolationException
-import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.CoreConstants
+import com.workday.warp.config.CoreWarpProperty._
+import com.workday.warp.config.CoreConstants
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType

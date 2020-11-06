@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.config.utils
 
 import com.google.gson.JsonObject
 import com.workday.warp.utils.Implicits.DecoratedJsonObject

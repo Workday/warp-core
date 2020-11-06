@@ -1,6 +1,6 @@
 package com.workday.warp.math.linalg
 
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import org.apache.commons.math3.linear.{MatrixUtils, RealMatrix, SingularValueDecomposition}
 import com.workday.warp.math.linalg.Implicits._
 

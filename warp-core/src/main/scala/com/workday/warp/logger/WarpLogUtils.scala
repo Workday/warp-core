@@ -1,6 +1,6 @@
 package com.workday.warp.logger
 
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.inject.WarpGuicer
 import org.pmw.tinylog.writers.{ConsoleWriter, FileWriter}
 import org.pmw.tinylog.{Configurator, Level, Logger}

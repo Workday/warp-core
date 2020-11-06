@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.config.utils
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits._
@@ -14,6 +14,6 @@ class JUnitSpecTest extends WarpJUnitSpec {
   /** Checks that we can read test id from [[TestIdImplicits]]. */
   @UnitTest
   def nameTest(info: TestInfo): Unit = {
-    info.testId should be ("com.workday.warp.common.utils.JUnitSpecTest.nameTest")
+    info.testId should be ("com.workday.warp.config.utils.JUnitSpecTest.nameTest")
   }
 }

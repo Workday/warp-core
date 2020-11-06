@@ -3,8 +3,8 @@ package com.workday.warp.persistence
 import java.sql.Timestamp
 import java.time.Instant
 
-import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.WarpPropertyManager
+import com.workday.warp.config.CoreWarpProperty._
+import com.workday.warp.config.WarpPropertyManager
 import com.workday.warp.persistence.exception.PreExistingTagException
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.RowTypeClasses._

@@ -1,6 +1,6 @@
 package com.workday.warp.heaphistogram
 
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import org.pmw.tinylog.Logger
 
 import scala.collection.mutable

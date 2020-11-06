@@ -3,7 +3,7 @@ package com.workday.warp.collectors
 import java.time.{Duration, Instant}
 
 import com.workday.warp.{TestId, TrialResult}
-import com.workday.warp.common.CoreConstants
+import com.workday.warp.config.CoreConstants
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.arbiters.ArbiterLike

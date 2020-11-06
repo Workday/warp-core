@@ -1,4 +1,4 @@
-package com.workday.warp.common
+package com.workday.warp.config
 
 /**
   * Trait containing some properties that are common to all experiments.

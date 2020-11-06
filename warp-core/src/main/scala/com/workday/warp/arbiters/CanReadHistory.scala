@@ -2,7 +2,7 @@ package com.workday.warp.arbiters
 
 import java.time.LocalDate
 
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.CoreIdentifierType._
 import com.workday.warp.persistence.{CoreIdentifier, CorePersistenceAware}
 

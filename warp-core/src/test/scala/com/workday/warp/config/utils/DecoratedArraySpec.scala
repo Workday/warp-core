@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.config.utils
 
 import com.workday.warp.utils.Implicits.DecoratedArray
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}

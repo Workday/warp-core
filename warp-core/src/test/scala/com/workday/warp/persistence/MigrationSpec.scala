@@ -1,6 +1,6 @@
 package com.workday.warp.persistence
 
-import com.workday.warp.common.CoreWarpProperty.WARP_DATABASE_URL
+import com.workday.warp.config.CoreWarpProperty.WARP_DATABASE_URL
 import com.workday.warp.dsl._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.flywaydb.core.Flyway

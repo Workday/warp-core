@@ -2,7 +2,7 @@ package com.workday.warp
 
 import java.lang.reflect.Method
 
-import com.workday.warp.common.CoreConstants
+import com.workday.warp.config.CoreConstants
 
 import scala.util.{Failure, Success, Try}
 

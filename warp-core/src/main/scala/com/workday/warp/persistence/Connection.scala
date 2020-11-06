@@ -2,7 +2,7 @@ package com.workday.warp.persistence
 
 import java.net.URI
 
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.exception.WarpConfigurationException
 import com.workday.warp.persistence.exception.PreExistingTagException
 import Tables.profile.api._

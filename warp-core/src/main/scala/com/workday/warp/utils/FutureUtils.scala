@@ -2,7 +2,7 @@ package com.workday.warp.utils
 
 import java.util.concurrent.Executors
 
-import com.workday.warp.common.CoreWarpProperty.WARP_NUM_COLLECTOR_THREADS
+import com.workday.warp.config.CoreWarpProperty.WARP_NUM_COLLECTOR_THREADS
 import org.pmw.tinylog.Logger
 
 import scala.concurrent.duration.Duration

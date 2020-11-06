@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor
 import com.google.inject.{AbstractModule, Guice, Injector}
 import com.workday.warp.TestId
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
-import com.workday.warp.common.{PropertyEntry, WarpPropertyLike}
+import com.workday.warp.config.{PropertyEntry, WarpPropertyLike}
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.inject.modules.{DefaultWarpModule, HasWarpBindings}
 import com.workday.warp.persistence.Tag
@@ -114,6 +114,6 @@ object WarpGuicer {
   }
 
 
-  /** @return object with warp configuration [[com.workday.warp.common.PropertyEntry]]. */
+  /** @return object with warp configuration [[com.workday.warp.config.PropertyEntry]]. */
   def getProperty: WarpPropertyLike = this.baseInjector.getInstance(classOf[WarpPropertyLike])
 }

@@ -2,7 +2,7 @@ package com.workday.warp.inject.modules
 
 import com.google.inject.Provides
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
-import com.workday.warp.common.WarpPropertyLike
+import com.workday.warp.config.WarpPropertyLike
 import com.workday.warp.logger.WriterConfig
 import com.workday.warp.persistence.Tag
 

@@ -2,7 +2,7 @@ package com.workday.warp.adapters.gatling
 
 import com.workday.warp.adapters.gatling.traits.{HasDefaultTestName, HasWarpHooks}
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
-import com.workday.warp.common.CoreConstants.{UNDEFINED_TEST_ID => DEFAULT_TEST_ID}
+import com.workday.warp.config.CoreConstants.{UNDEFINED_TEST_ID => DEFAULT_TEST_ID}
 import com.workday.warp.inject.WarpGuicer
 import io.gatling.core.Predef.Simulation
 
