@@ -4,12 +4,10 @@ import java.lang.annotation.Annotation
 import java.lang.reflect.Method
 import java.time.Duration
 
-import com.workday.telemetron.annotation.{Required, Schedule}
 import com.workday.telemetron.utils.TimeUtils
-import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
 import com.workday.warp.common.utils.StackTraceFilter
 import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.TestId
+import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}
 import org.junit.jupiter.api.Timeout
 import org.junit.platform.commons.util.AnnotationUtils
 import org.pmw.tinylog.Logger
@@ -126,21 +124,6 @@ object AnnotationReader extends StackTraceFilter {
       .map(timeout => Duration.ofNanos(TimeUtils.toNanos(timeout.value, timeout.unit)))
       .getOrElse(Duration.ofMillis(-1))
   }
-
-
-  /**
-   * Reads the invocations value from the [[Schedule]] annotation.
-   *
-   * @param testId fully qualified name of the junit test method
-   * @return number of invocations set by the [[Schedule]] annotation.
-   */
-  @deprecated("use TestId and junit5", "4.4.0")
-  def getScheduleInvocations(testId: String): Int = {
-    this.getWarpTestMethodAnnotation(classOf[Schedule], testId)
-      .map(_.invocations)
-      .getOrElse(Schedule.INVOCATIONS_DEFAULT)
-  }
-
 
 
   /**

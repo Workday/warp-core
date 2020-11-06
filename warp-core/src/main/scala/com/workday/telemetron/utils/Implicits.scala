@@ -5,8 +5,8 @@ import java.time.{Duration, Instant}
 import java.util.concurrent.TimeUnit
 
 import com.workday.telemetron.RequirementViolationException
-import com.workday.telemetron.annotation.Required
 import com.workday.telemetron.utils.TimeUtils.toNanos
+import com.workday.warp.Required
 import com.workday.warp.common.utils.Implicits._
 
 /**

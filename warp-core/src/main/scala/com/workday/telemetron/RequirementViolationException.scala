@@ -6,10 +6,8 @@ package com.workday.telemetron
   * Created by leslie.lam on 12/14/17.
   * Based on java class created by michael.ottati on 9/18/15.
   */
-// scalastyle:off null
-class RequirementViolationException(message: String = null,
-                                    cause: Throwable = null,
+class RequirementViolationException(message: String = None.orNull,
+                                    cause: Throwable = None.orNull,
                                     enableSuppression: Boolean = false,
                                     writableStackTrace: Boolean = false)
   extends RuntimeException(message, cause, enableSuppression, writableStackTrace)
-// scalastyle:on null

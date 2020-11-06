@@ -1,4 +1,4 @@
-package com.workday.warp.common.annotation;
+package com.workday.warp;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
