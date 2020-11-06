@@ -1,4 +1,4 @@
-package com.workday.warp.common.category;
+package com.workday.warp.junit4;
 
 /**
  * Used with <code>Category</code> to specify that a test is part of the unit test suite.

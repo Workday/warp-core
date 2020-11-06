@@ -4,9 +4,9 @@ import java.time.Instant
 import java.util.UUID
 
 import com.workday.telemetron.RequirementViolationException
-import com.workday.warp.common.annotation.ZScoreRequirement
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.TestIdImplicits._
+import com.workday.warp.ZScoreRequirement
 import com.workday.warp.junit.UnitTest
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike

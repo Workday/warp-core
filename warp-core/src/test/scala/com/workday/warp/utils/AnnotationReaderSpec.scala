@@ -2,8 +2,7 @@ package com.workday.warp.utils
 
 import java.util.concurrent.TimeUnit
 
-import com.workday.telemetron.annotation.{Required, Schedule}
-import com.workday.warp.common.annotation.ZScoreRequirement
+import com.workday.warp.{Required, ZScoreRequirement}
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.common.utils.Implicits._
 import com.workday.warp.TestIdImplicits._
@@ -26,7 +25,6 @@ class AnnotationReaderSpec extends WarpJUnitSpec {
     AnnotationReader.getWarpTestMethodAnnotation(classOf[Required], this.getClass.getCanonicalName + ".foo") should be (empty)
     AnnotationReader.getWarpTestClassAnnotation(classOf[Required], "this.class.does.not.exist") should be (empty)
     AnnotationReader.getRequiredMaxValue(info.testId) should be (-1 millis)
-    AnnotationReader.getScheduleInvocations(info.testId) should be (1)
     AnnotationReader.getZScoreRequirement(info.testId) should be (ZScoreRequirement.DEFAULT_PERCENTILE)
   }
 
@@ -46,15 +44,5 @@ class AnnotationReaderSpec extends WarpJUnitSpec {
   @Timeout(value = 10, unit = TimeUnit.SECONDS)
   def timeout(info: TestInfo): Unit = {
     AnnotationReader.getTimeoutValue(info.testId) should be (10 seconds)
-  }
-
-
-  /**
-    * Checks that we can read the right telemetron schedule.
-    */
-  @UnitTest
-  @Schedule(invocations = 5)
-  def schedule(info: TestInfo): Unit = {
-    AnnotationReader.getScheduleInvocations(info.testId) should be (5)
   }
 }

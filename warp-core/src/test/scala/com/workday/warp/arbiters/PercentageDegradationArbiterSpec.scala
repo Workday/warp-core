@@ -4,8 +4,8 @@ import java.time.Instant
 import java.util.UUID
 
 import com.workday.telemetron.RequirementViolationException
+import com.workday.warp.PercentageDegradationRequirement
 import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.annotation.PercentageDegradationRequirement
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
 import com.workday.warp.TestIdImplicits._
