@@ -1,6 +1,6 @@
 package com.workday.warp.adapters.gatling.traits
 
-import com.workday.warp.common.CoreConstants.{UNDEFINED_TEST_ID => DEFAULT_TEST_ID}
+import com.workday.warp.config.CoreConstants.{UNDEFINED_TEST_ID => DEFAULT_TEST_ID}
 
 /**
   * Created by ruiqi.wang

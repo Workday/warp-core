@@ -3,7 +3,7 @@ package com.workday.warp;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static com.workday.warp.common.CoreWarpProperty.WARP_ZSCORE_PERCENTILE_THRESHOLD;
+import static com.workday.warp.config.CoreWarpProperty.WARP_ZSCORE_PERCENTILE_THRESHOLD;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;

@@ -1,4 +1,4 @@
-package com.workday.warp.common
+package com.workday.warp.config
 
 /**
   * Properties for runtime configuration.

@@ -7,8 +7,8 @@ import java.util.UUID
 
 import com.workday.warp.RequirementViolationException
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
-import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.CoreConstants
+import com.workday.warp.config.CoreWarpProperty._
+import com.workday.warp.config.CoreConstants
 import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.CorePersistenceAware

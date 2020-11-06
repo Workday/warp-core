@@ -4,7 +4,7 @@ import java.io.InputStream
 import java.lang.management.ManagementFactory
 
 import com.sun.tools.attach.VirtualMachine
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.influxdb.InfluxDBClient
 import sun.tools.attach.HotSpotVirtualMachine // scalastyle:ignore
 

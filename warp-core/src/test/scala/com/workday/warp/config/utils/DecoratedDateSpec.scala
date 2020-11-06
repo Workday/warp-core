@@ -1,4 +1,4 @@
-package com.workday.warp.common.utils
+package com.workday.warp.config.utils
 
 import java.text.SimpleDateFormat
 import java.util.Calendar

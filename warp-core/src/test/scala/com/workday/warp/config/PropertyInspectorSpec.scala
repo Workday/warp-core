@@ -1,4 +1,4 @@
-package com.workday.warp.common
+package com.workday.warp.config
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.junit.jupiter.api.Disabled
@@ -27,7 +27,7 @@ class PropertyInspectorSpec extends WarpJUnitSpec {
     }
   }
 
-  /** Checks that only public accessor methods with [[com.workday.warp.common.PropertyEntry]] return type are included. */
+  /** Checks that only public accessor methods with [[com.workday.warp.config.PropertyEntry]] return type are included. */
   @UnitTest
   def filteredReturnType(): Unit = {
     TestProperty.values should be (TestCoreWarpProperty.values)

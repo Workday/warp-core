@@ -1,6 +1,6 @@
 package com.workday.warp.math.linalg
 
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.utils.{Ballot, DataUtils, WarpStopwatch}
 import org.pmw.tinylog.Logger
 

@@ -1,4 +1,4 @@
-package com.workday.warp.common
+package com.workday.warp.config
 
 import com.workday.warp.exception.WarpConfigurationException
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}

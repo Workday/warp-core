@@ -2,7 +2,7 @@ package com.workday.warp.inject
 
 import com.google.inject.{AbstractModule, Guice, Injector}
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
-import com.workday.warp.common.{CoreWarpProperty, WarpPropertyLike}
+import com.workday.warp.config.{CoreWarpProperty, WarpPropertyLike}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 /**

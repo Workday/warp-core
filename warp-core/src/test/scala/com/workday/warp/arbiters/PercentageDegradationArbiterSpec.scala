@@ -4,7 +4,7 @@ import java.time.Instant
 import java.util.UUID
 
 import com.workday.warp.{PercentageDegradationRequirement, RequirementViolationException}
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.persistence.CorePersistenceAware

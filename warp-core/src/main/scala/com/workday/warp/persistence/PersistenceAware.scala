@@ -2,7 +2,7 @@ package com.workday.warp.persistence
 
 import java.time.{Instant, LocalDate}
 
-import com.workday.warp.common.CoreWarpProperty.WARP_DATABASE_URL
+import com.workday.warp.config.CoreWarpProperty.WARP_DATABASE_URL
 import com.workday.warp.persistence.exception.PreExistingTagException
 import com.workday.warp.persistence.TablesLike._
 import org.pmw.tinylog.Logger
