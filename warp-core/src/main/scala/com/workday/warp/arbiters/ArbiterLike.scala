@@ -2,7 +2,6 @@ package com.workday.warp.arbiters
 
 import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
-import com.workday.warp.utils.Ballot
 
 /**
   * Represents a requirement imposed on a measured test.

@@ -11,7 +11,7 @@ import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
-import com.workday.warp.utils.{Ballot, TimeUtils}
+import com.workday.warp.utils.TimeUtils
 import org.pmw.tinylog.Logger
 
 import scala.annotation.tailrec

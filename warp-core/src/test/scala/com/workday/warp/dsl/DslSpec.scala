@@ -1,12 +1,11 @@
 package com.workday.warp.dsl
 
-import com.workday.warp.arbiters.ArbiterLike
+import com.workday.warp.arbiters.{ArbiterLike, Ballot}
 import com.workday.warp.{HasRandomTestId, RequirementViolationException, TrialResult}
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, AbstractMeasurementCollector, Defaults}
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
-import com.workday.warp.utils.Ballot
 import org.pmw.tinylog.Logger
 import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.dsl.using._

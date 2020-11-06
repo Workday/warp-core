@@ -6,7 +6,6 @@ import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
-import com.workday.warp.utils.Ballot
 import org.junit.jupiter.api.BeforeAll
 
 /**

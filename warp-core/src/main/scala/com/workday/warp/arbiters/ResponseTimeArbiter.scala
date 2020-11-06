@@ -8,7 +8,7 @@ import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
-import com.workday.warp.utils.{Ballot, TimeUtils}
+import com.workday.warp.utils.TimeUtils
 
 /**
   * Simple arbiter based on a provided static threshold.

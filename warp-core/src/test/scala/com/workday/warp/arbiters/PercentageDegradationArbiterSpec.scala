@@ -10,7 +10,7 @@ import com.workday.warp.TestIdImplicits._
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
-import com.workday.warp.utils.{AnnotationReader, Ballot}
+import com.workday.warp.utils.AnnotationReader
 import org.junit.jupiter.api.TestInfo
 
 /**
