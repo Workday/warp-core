@@ -1,7 +1,6 @@
-package com.workday.warp.config.utils
+package com.workday.warp.utils
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import com.workday.warp.utils.StackTraceFilter
 
 /**
   * Created by tomas.mccandless on 5/13/16.

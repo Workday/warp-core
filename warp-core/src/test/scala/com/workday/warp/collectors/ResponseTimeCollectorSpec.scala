@@ -1,6 +1,6 @@
 package com.workday.warp.collectors
 
-import com.workday.telemetron.spec.HasRandomTestId
+import com.workday.warp.HasRandomTestId
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.Tables.RowTypeClasses.TestExecutionRowTypeClassObject
 

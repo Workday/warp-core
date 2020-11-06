@@ -1,10 +1,9 @@
-package com.workday.telemetron.utils
+package com.workday.warp.utils
 
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import com.workday.warp.utils.TimeUtils
 
 /**
   * A simple test to verify time formatting.

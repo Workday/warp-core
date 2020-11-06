@@ -1,9 +1,9 @@
-package com.workday.warp.config.utils
+package com.workday.warp.utils
 
 import java.time.Duration
 
-import com.workday.warp.utils.Implicits.DecoratedDuration
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.utils.Implicits.DecoratedDuration
 
 /**
   * Created by tomas.mccandless on 5/4/16.

@@ -2,7 +2,7 @@ package com.workday.warp.heaphistogram
 
 import java.io.InputStream
 
-import com.workday.telemetron.spec.HasRandomTestId
+import com.workday.warp.HasRandomTestId
 import com.workday.warp.collectors._
 import com.workday.warp.config.CoreConstants
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}

@@ -1,8 +1,7 @@
-package com.workday.warp.config.utils
+package com.workday.warp.utils
 
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import com.workday.warp.utils.FutureUtils
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

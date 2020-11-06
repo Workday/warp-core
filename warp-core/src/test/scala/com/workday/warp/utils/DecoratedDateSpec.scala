@@ -1,11 +1,11 @@
-package com.workday.warp.config.utils
+package com.workday.warp.utils
 
+import java.sql
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.sql
 
-import com.workday.warp.utils.Implicits.DecoratedDate
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.utils.Implicits.DecoratedDate
 
 /**
   * Spec for [[DecoratedDate]]

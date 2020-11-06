@@ -1,9 +1,9 @@
-package com.workday.warp.config.utils
+package com.workday.warp.utils
 
 import java.time.Duration
 
-import com.workday.warp.utils.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.utils.Implicits._
 
 /**
   * Created by tomas.mccandless on 7/22/16.

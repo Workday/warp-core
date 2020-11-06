@@ -3,7 +3,7 @@ package com.workday.warp.persistence.influxdb
 import java.time.Instant
 import java.util.UUID
 
-import com.workday.telemetron.spec.HasRandomTestId
+import com.workday.warp.HasRandomTestId
 import com.workday.warp.heaphistogram.{HeapHistogram, HeapHistogramEntry}
 import com.workday.warp.junit.{IntegTest, WarpJUnitSpec}
 import com.workday.warp.persistence.{Connection, CorePersistenceAware}

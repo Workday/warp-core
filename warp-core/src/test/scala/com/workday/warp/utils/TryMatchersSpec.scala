@@ -1,4 +1,4 @@
-package com.workday.warp.config.utils
+package com.workday.warp.utils
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.scalatest.exceptions.TestFailedException
