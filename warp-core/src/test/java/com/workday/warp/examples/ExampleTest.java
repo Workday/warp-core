@@ -1,5 +1,6 @@
 package com.workday.warp.examples;
 
+import com.workday.warp.TestId;
 import com.workday.warp.junit.Measure;
 import com.workday.warp.junit.WarpInfo;
 import com.workday.warp.junit.WarpTest;
@@ -7,8 +8,6 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.pmw.tinylog.Logger;
-
-import static com.workday.warp.TestIdImplicits.testInfoIsTestId;
 
 /**
  * Created by tomas.mccandless on 10/23/20.
@@ -24,7 +23,7 @@ public class ExampleTest {
 
     @Test
     public void testId(final TestInfo info) {
-        final String id = testInfoIsTestId(info).maybeTestId().get();
+        final String id = TestId.fromTestInfo(info).testId();
         Assert.assertTrue("com.workday.warp.examples.ExampleTest.testId".equals(id));
     }
 
