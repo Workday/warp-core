@@ -1,4 +1,4 @@
-package com.workday.warp.exception
+package com.workday.warp.utils
 
 import org.pmw.tinylog.Logger
 
@@ -11,12 +11,7 @@ import org.pmw.tinylog.Logger
   */
 class WarpRuntimeException(val message: String, val cause: Throwable) extends RuntimeException(message, cause) {
 
-  WarpRuntimeException.logMessage(this.message)
+  Logger.error(this.message)
 
   def this(message: String) = this(message, None.orNull)
-}
-
-object WarpRuntimeException {
-
-  private def logMessage(message: String): Unit = Logger.error(message)
 }

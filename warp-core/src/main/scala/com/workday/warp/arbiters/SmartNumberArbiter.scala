@@ -3,7 +3,6 @@ package com.workday.warp.arbiters
 import java.time.{Duration, LocalDate}
 import java.util.concurrent.TimeUnit
 
-import com.workday.warp.RequirementViolationException
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.CoreConstants
 import com.workday.warp.utils.Implicits._

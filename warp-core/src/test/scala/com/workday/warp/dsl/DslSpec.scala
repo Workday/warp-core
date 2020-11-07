@@ -1,7 +1,7 @@
 package com.workday.warp.dsl
 
-import com.workday.warp.arbiters.{ArbiterLike, Ballot}
-import com.workday.warp.{HasRandomTestId, RequirementViolationException, TestId, TrialResult}
+import com.workday.warp.arbiters.{ArbiterLike, Ballot, RequirementViolationException}
+import com.workday.warp.{HasRandomTestId, TestId, TrialResult}
 import com.workday.warp.collectors.{AbstractMeasurementCollectionController, AbstractMeasurementCollector, Defaults}
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._

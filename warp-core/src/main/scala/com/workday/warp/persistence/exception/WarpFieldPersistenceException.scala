@@ -1,6 +1,6 @@
 package com.workday.warp.persistence.exception
 
-import com.workday.warp.exception.WarpRuntimeException
+import com.workday.warp.utils.WarpRuntimeException
 
 /**
   * Created by justin.teo on 12/19/17.
