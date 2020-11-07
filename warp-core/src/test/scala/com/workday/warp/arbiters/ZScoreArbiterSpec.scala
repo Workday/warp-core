@@ -4,7 +4,7 @@ import java.time.Instant
 import java.util.UUID
 
 import com.workday.warp.TestIdImplicits._
-import com.workday.warp.{RequirementViolationException, ZScoreRequirement}
+import com.workday.warp.ZScoreRequirement
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike

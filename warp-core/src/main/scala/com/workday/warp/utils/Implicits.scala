@@ -8,7 +8,8 @@ import java.util.concurrent.TimeUnit
 
 import com.google.gson._
 import com.workday.warp.utils.TimeUtils.toNanos
-import com.workday.warp.{Required, RequirementViolationException}
+import com.workday.warp.Required
+import com.workday.warp.arbiters.RequirementViolationException
 
 import scala.util.{Failure, Success, Try}
 

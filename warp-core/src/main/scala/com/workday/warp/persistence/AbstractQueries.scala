@@ -7,7 +7,7 @@ import slick.lifted.{Query, Rep}
 import TablesLike._
 
 /**
-  * Defines function definitions for creating read and write [[Query]]. These queries can be composed, converted to [[DBIO]],
+  * Defines functions for creating read and write [[Query]]. These queries can be composed, converted to [[DBIO]],
   * and executed using a [[Connection]] to produce results.
   *
   * In the case where the return value contains some "RowLike", the return type will be [[DBIO]]. This is to allow
@@ -36,7 +36,7 @@ trait AbstractQueries {
     */
   def readBuildQuery(major: Int,
                      minor: Int,
-                     patch: Int): DBIO[Seq[BuildRowLike]]
+                     patch: Int): DBIO[Option[BuildRowLike]]
 
 
   /**
@@ -45,16 +45,16 @@ trait AbstractQueries {
     * @param methodSignature method signature of [[TestDefinitionRowLike]] (usually fully-qualified method name).
     * @return a [[DBIO]] for selecting the [[TestDefinitionRowLike]] with the specified method signature.
     */
-  def readTestDefinitionQuery(methodSignature: String): DBIO[Seq[TestDefinitionRowLike]]
+  def readTestDefinitionQuery(methodSignature: String): DBIO[Option[TestDefinitionRowLike]]
 
 
   /**
     * Creates a [[Query]] for selecting the method signature of `testExecution`.
     *
     * @param testExecution [[TestExecutionRowLike]] to read the method signature of.
-    * @return a [[Query]] for selecting the method signature of `testExecution`
+    * @return a [[DBIO]] for selecting the method signature of `testExecution`
     */
-  def readTestExecutionSignatureQuery[T: TestExecutionRowLikeType](testExecution: T): Query[Rep[String], String, Seq]
+  def readTestExecutionSignatureQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[String]]
 
 
   /**
@@ -76,7 +76,7 @@ trait AbstractQueries {
     * @param name name to look up in [[MeasurementNameLike]] table.
     * @return a [[DBIO]] for reading the [[MeasurementNameRowLike]] with the given name.
     */
-  def readMeasurementNameQuery(name: String): DBIO[Seq[MeasurementNameRowLike]]
+  def readMeasurementNameQuery(name: String): DBIO[Option[MeasurementNameRowLike]]
 
 
   /**
@@ -85,7 +85,7 @@ trait AbstractQueries {
     * @param name name to look up in [[TagNameLike]] table.
     * @return a [[DBIO]] for reading the [[TagNameRowLike]] with the given name.
     */
-  def readTagNameQuery(name: String): DBIO[Seq[TagNameRowLike]]
+  def readTagNameQuery(name: String): DBIO[Option[TagNameRowLike]]
 
 
   /**
@@ -102,6 +102,7 @@ trait AbstractQueries {
     * @param identifier [[IdentifierType]] containing the identifying parameters of the [[TestExecutionLike]]
     * @return a [[DBIO]] for reading historical response times.
     */
+  // TODO we can probably get rid of many of these overloadings
   def responseTimesQuery[I: IdentifierType](identifier: I): DBIO[Seq[Double]]
 
 
@@ -145,9 +146,9 @@ trait AbstractQueries {
     *
     * @param idTestExecution id of the [[TestExecutionRowLike]] to look up tags for.
     * @param idTagName id of the [[TagNameRowLike]] to look up.
-    * @return a [[Query]] for looking up a specified tag.
+    * @return a [[DBIO]] for looking up a specified tag.
     */
-  def testExecutionTagsQuery(idTestExecution: Int, idTagName: Int): Query[(Rep[String], Rep[String]), (String, String), Seq]
+  def testExecutionTagsQuery(idTestExecution: Int, idTagName: Int): DBIO[Option[(String, String)]]
 
 
   /**
@@ -158,7 +159,7 @@ trait AbstractQueries {
     * @param idTagName id of the [[TagNameRowLike]] to look up.
     * @return a [[DBIO]] for looking up the whole row for a specified tag.
     */
-  def testExecutionTagsRowQuery(idTestExecution: Int, idTagName: Int) : DBIO[Seq[TestExecutionTagRowLike]]
+  def testExecutionTagsRowQuery(idTestExecution: Int, idTagName: Int) : DBIO[Option[TestExecutionTagRowLike]]
 
   /**
     * Creates a [[Query]] for reading the tags set on the [[TestExecutionRowLike]] with id `idTestExecution`.

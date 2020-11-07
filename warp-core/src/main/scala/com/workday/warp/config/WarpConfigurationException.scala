@@ -1,4 +1,6 @@
-package com.workday.warp.exception
+package com.workday.warp.config
+
+import com.workday.warp.utils.WarpRuntimeException
 
 /**
   * Represents an error related to configuration. For example, a missing required parameter.

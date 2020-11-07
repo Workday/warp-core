@@ -3,11 +3,11 @@ package com.workday.warp.persistence
 import java.net.URI
 
 import com.workday.warp.config.CoreWarpProperty._
-import com.workday.warp.exception.WarpConfigurationException
 import com.workday.warp.persistence.exception.PreExistingTagException
 import Tables.profile.api._
 import Tables.profile.backend.DatabaseDef
 import com.typesafe.config.ConfigFactory
+import com.workday.warp.config.WarpConfigurationException
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration

@@ -3,7 +3,6 @@ package com.workday.warp.arbiters
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-import com.workday.warp.RequirementViolationException
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType

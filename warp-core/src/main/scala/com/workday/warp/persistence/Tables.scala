@@ -1,7 +1,7 @@
 package com.workday.warp.persistence
 
 import com.workday.warp.config.CoreWarpProperty.WARP_DATABASE_DRIVER
-import com.workday.warp.exception.WarpConfigurationException
+import com.workday.warp.config.WarpConfigurationException
 import slick.jdbc.JdbcProfile
 
 /**

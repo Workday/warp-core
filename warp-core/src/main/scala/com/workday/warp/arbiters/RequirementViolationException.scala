@@ -1,4 +1,4 @@
-package com.workday.warp
+package com.workday.warp.arbiters
 
 /**
   * An exception thrown to indicate that a requirement is not satisfied.
