@@ -3,10 +3,13 @@ package com.workday.warp.inject
 import java.lang.reflect.Constructor
 
 import com.google.inject.{AbstractModule, Guice, Injector}
+import com.workday.warp.TestId
 import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.common.{PropertyEntry, WarpPropertyLike}
+import com.workday.warp.TestIdImplicits._
 import com.workday.warp.inject.modules.{DefaultWarpModule, HasWarpBindings}
 import com.workday.warp.persistence.Tag
+import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 
 /**
@@ -60,14 +63,40 @@ object WarpGuicer {
     *
     * Uses the module class as defined by system property `wd.warp.inject.module`.
     *
-    * @param testId
-    * @param tags
-    * @return
+    * @param testId test identifier, typically fully qualified method signature.
+    * @param tags tags to use for this test.
+    * @return a measurement controller.
     */
   def getController(testId: String, tags: Iterable[Tag] = Seq.empty): AbstractMeasurementCollectionController = {
     val module: WarpModule = this.moduleConstructor.newInstance(testId, tags.toList)
     this.getController(module)
   }
+
+
+  /**
+    * Convenience method for obtaining a controller instance.
+    *
+    * @param info junit [[TestInfo]], typically obtained through a default [[org.junit.jupiter.api.extension.ParameterResolver]]
+    * @param tags tags to use for this test.
+    * @return a measurement controller.
+    */
+  def getController(info: TestInfo, tags: Iterable[Tag]): AbstractMeasurementCollectionController = {
+    this.getController(info.testId, tags)
+  }
+  def getController(info: TestInfo): AbstractMeasurementCollectionController = this.getController(info, Nil)
+
+
+  /**
+    * Convenience method for obtaining a controller instance.
+    *
+    * @param hasTestId a testId container.
+    * @param tags tags to use for this test.
+    * @return a measurement controller.
+    */
+  def getController(hasTestId: TestId, tags: Iterable[Tag]): AbstractMeasurementCollectionController = {
+    this.getController(hasTestId.testId, tags)
+  }
+  def getController(hasTestId: TestId): AbstractMeasurementCollectionController = this.getController(hasTestId, Nil)
 
 
   /**

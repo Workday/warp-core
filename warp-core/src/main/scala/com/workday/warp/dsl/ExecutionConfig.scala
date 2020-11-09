@@ -229,6 +229,17 @@ case class ExecutionConfig(invocations: Int = 1,
   def measure[ResultType: TypeTag, TrialType](measuredFunction: => ResultType): Seq[TrialResult[TrialType]] =
     this.measuring[ResultType, TrialType](measuredFunction)
 
+  /**
+    * Part of the dsl. Invoked `func` according to the specified execution schedule, but does not perform any measurement.
+    *
+    * Useful for dry-runs or writing concurrent tests.
+    *
+    * @param func function to invoke with no measurement.
+    * @return a [[List]] of type [[TrialResult]] containing the measured response time.
+    */
+  @DslApi
+  def invoke[ResultType: TypeTag, TrialType](func: => ResultType): Seq[TrialResult[TrialType]] =
+    Researcher(this).runExperiment(func, shouldMeasure = false)
 
   /**
     * Part of the dsl. Measures `measuredFunction`, bracketed by a [[AbstractMeasurementCollectionController]]. Equivalent to

@@ -10,6 +10,7 @@ import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
   * Created by timothy.soppet on 6/17/16.
   * Based on WarpTestResult created by tomas.mccandless on 3/28/16.
   */
+// TODO get rid of some aux constructors
 case class TrialResult[+TrialType](maybeResponseTime: Option[Duration] = None,
                                    maybeThreshold: Option[Duration] = None,
                                    maybeTestExecution: Option[TestExecutionRowLike] = None,

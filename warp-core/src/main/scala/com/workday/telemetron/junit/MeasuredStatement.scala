@@ -22,7 +22,10 @@ import scala.collection.JavaConverters._
   *
   * Created by leslie.lam on 12/13/17.
   * Based on java class written by michael.ottati.
+  *
+  * @deprecated use junit5
   */
+@deprecated("use junit5", since = "4.4.0")
 class MeasuredStatement(base: Statement,
                         _description: Description,
                         resultReporter: ResultReporter,

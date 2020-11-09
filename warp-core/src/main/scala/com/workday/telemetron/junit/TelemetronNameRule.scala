@@ -9,7 +9,10 @@ import org.junit.runners.model.Statement
   *
   * Created by leslie.lam on 12/15/17.
   * Based on java class created by tomas.mccandless on 5/19/16.
+  *
+  * @deprecated use junit5
   */
+@deprecated("use junit5", since = "4.4.0")
 class TelemetronNameRule extends TestRule {
 
   private val testName: TestName = new TestName

@@ -3,12 +3,13 @@ package com.workday.warp.collectors
 import java.time.{Duration, Instant}
 
 import com.workday.telemetron.utils.TimeUtils
-import com.workday.warp.TrialResult
+import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.arbiters.traits.ArbiterLike
 import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.utils.FutureUtils
 import com.workday.warp.common.utils.Implicits._
+import com.workday.warp.TestIdImplicits._
 import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
 import com.workday.warp.persistence._
 import com.workday.warp.persistence.TablesLike._
@@ -16,6 +17,7 @@ import com.workday.warp.persistence.Tables.{TestDefinitionMetaTag => _, TestExec
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tag
 import com.workday.warp.utils.{AnnotationReader, Ballot}
+import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 
 import scala.concurrent.Future
@@ -37,6 +39,13 @@ import scala.util.{Failure, Success, Try}
   */
 abstract class AbstractMeasurementCollectionController(val testId: String = Defaults.testId,
                                                        val tags: List[Tag] = Defaults.tags) extends PersistenceAware {
+
+
+  // boilerplate for java interop
+  def this(info: TestInfo, tags: List[Tag]) = this(info.testId, tags)
+  def this(info: TestInfo) = this(info.testId)
+  def this(hasTestId: TestId, tags: List[Tag]) = this(hasTestId.testId, tags)
+  def this(hasTestId: TestId) = this(hasTestId.testId)
 
   // scalastyle:off var.field
   /** collectors that will be wrapped around this test. */
@@ -236,8 +245,13 @@ abstract class AbstractMeasurementCollectionController(val testId: String = Defa
       // verify measurement is non-negative value greater than zero, else default to 1 millisecond
       1.milli
     )
-    // if there isn't a threshold set on the trial result already, use what is set on the required annotation
-    val threshold: Duration = trial.maybeThreshold.getOrElse(AnnotationReader.getRequiredMaxValue(this.testId))
+
+    // if there isn't a threshold set on the trial result already, use what is set on the required or junit5 timeout annotation
+    val threshold: Duration = List(
+      trial.maybeThreshold.getOrElse(Duration.ofMillis(-1)),
+      AnnotationReader.getRequiredMaxValue(this.testId),
+      AnnotationReader.getTimeoutValue(this.testId)
+    ).find(_.isPositive).getOrElse(Duration.ofMillis(-1))
 
     val maybeTestExecution: Option[TestExecutionRowLike] = Option(
       this.persistenceUtils.createTestExecution(
@@ -471,5 +485,5 @@ object Defaults {
   val testId: String = CoreConstants.UNDEFINED_TEST_ID
 
   /** default empty list of [[Tag]]. */
-  val tags: List[Tag] = List.empty
+  val tags: List[Tag] = Nil
 }

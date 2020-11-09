@@ -15,9 +15,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Can be used for creating load tests.
  *
  * @author tomas.mccandless
+ *
+ * @deprecated use junit5
  */
 @Retention(RUNTIME)
 @Target(METHOD)
+@Deprecated
 public @interface Distribution {
 
     /**

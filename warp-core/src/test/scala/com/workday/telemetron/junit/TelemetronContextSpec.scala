@@ -14,6 +14,7 @@ import org.junit.experimental.categories.Category
   * Created by leslie.lam on 12/12/17
   * Based on java class created by tomas.mccandless on 7/11/16.
   */
+@deprecated("use junit5", since = "4.4.0")
 class TelemetronContextSpec extends TelemetronJUnitSpec(shouldVerifyResponseTime = false) {
 
   /**

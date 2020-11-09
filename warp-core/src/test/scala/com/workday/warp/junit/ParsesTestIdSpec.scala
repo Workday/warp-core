@@ -6,7 +6,7 @@ import org.pmw.tinylog.Logger
 /**
   * Created by tomas.mccandless on 6/17/20.
   */
-class TestIdSupportSpec extends WarpJUnitSpec with TestIdSupport {
+class ParsesTestIdSpec extends WarpJUnitSpec with ParsesTestId {
 
   @WarpTest(warmups = 2, trials = 5)
   def testIdFromUniqueId(): Unit = {

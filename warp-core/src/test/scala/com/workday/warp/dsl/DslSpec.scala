@@ -17,6 +17,7 @@ import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.UnitTest
+import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
 
 import scala.util.Try
@@ -24,6 +25,7 @@ import scala.util.Try
 /**
   * Created by tomas.mccandless on 3/25/16.
   */
+@Isolated
 class DslSpec extends WarpJUnitSpec with HasRandomTestId {
 
   @UnitTest

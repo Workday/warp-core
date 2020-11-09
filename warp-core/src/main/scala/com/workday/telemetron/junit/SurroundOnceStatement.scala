@@ -9,7 +9,10 @@ import scala.collection.mutable
   * These additional methods are invoked only once even if multiple test class instances are created using a [[ScheduledStatement]].
   *
   * Created by vignesh.kalidas on 2/9/17.
+  *
+  * @deprecated use junit5
   */
+@deprecated("use junit5", since = "4.4.0")
 class SurroundOnceStatement(val next: Statement, val beforeMethods: Array[FrameworkMethod],
                             val afterMethods: Array[FrameworkMethod], val target: Any) extends Statement {
   /**

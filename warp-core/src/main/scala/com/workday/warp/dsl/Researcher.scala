@@ -121,10 +121,12 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
     * results from measuring the individual invocations.
     *
     * @param measuredFunction a function to measure.
+    * @param shouldMeasure whether measured trials should be measured. we can explicitly disable measurement for the purpose of running
+    *                      concurrent unmeasured tests.
     * @return a [[List]] containing measurement results.
     */
   @throws[RuntimeException]("when a warmup or measured trial fails.")
-  private[dsl] def runExperiment(measuredFunction: => ResultType): List[TrialResult[TrialType]] = {
+  private[dsl] def runExperiment(measuredFunction: => ResultType, shouldMeasure: Boolean = true): List[TrialResult[TrialType]] = {
     // make the configuration available if its needed
     ConfigStore.put(this.config.testId, this.config)
     val pool: ScheduledExecutorService = Executors.newScheduledThreadPool(this.config.threads)
@@ -134,7 +136,9 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
     // we'll schedule these Callables for warmups or measured trials
     val warmup: Callable[TrialResult[TrialType]] = this.warmup(measuredFunction)
     // don't measure individual trials if we are running in "single" mode
-    val trial: Callable[TrialResult[TrialType]] = if (threaded && this.config.mode == single) warmup else this.trial(measuredFunction)
+    // or, if we are explicitly opting out of measurement (invoke)
+    val trial: Callable[TrialResult[TrialType]] = if ((threaded && this.config.mode == single) || !shouldMeasure) warmup
+      else this.trial(measuredFunction)
 
     // schedule the warmups and wait for them to complete
     val completedWarmups: List[Try[TrialResult[TrialType]]] = this.scheduleAndWait(pool, warmup, this.config.warmups)
@@ -142,7 +146,12 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
     completedWarmups map { _.get }
 
     // create outer controller for intrusive measurements -- we dont want to include warmups in this
-    val maybeController: Option[AbstractMeasurementCollectionController] = if (threaded) Option(this.collectionController()) else None
+    val maybeController: Option[AbstractMeasurementCollectionController] = if (threaded && shouldMeasure) {
+      Option(this.collectionController())
+    }
+    else {
+      None
+    }
     maybeController foreach { _.beginMeasurementCollection() }
 
     // schedule the measured trials and wait for them to complete
@@ -157,6 +166,7 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
     // return either the single outer result, or a list of all the measured trials
     // throw exception from a completed trial here
     val individualResults: List[TrialResult[TrialType]] = completedTrials map { _.get }
+    pool.shutdown()
     if (threaded && this.config.mode == single) List(maybeOuterResult.get)
     else individualResults
   }

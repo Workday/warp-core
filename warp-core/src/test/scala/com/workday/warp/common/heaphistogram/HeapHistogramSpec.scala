@@ -9,12 +9,14 @@ import com.workday.warp.collectors.DefaultMeasurementCollectionController
 import com.workday.warp.common.CoreConstants
 import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.junit.UnitTest
+import org.junit.jupiter.api.parallel.Isolated
 
 /**
   * Tests for the Histogram-related methods
   *
   * Created by vignesh.kalidas on 4/6/18.
   */
+@Isolated
 class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike with HasRandomTestId {
 
   /**

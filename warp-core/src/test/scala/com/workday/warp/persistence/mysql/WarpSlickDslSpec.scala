@@ -17,10 +17,12 @@ import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersi
 import slick.lifted.Query
 import TablesLike.{TestDefinitionRowLike, TestExecutionRowLike}
 import com.workday.warp.junit.UnitTest
+import org.junit.jupiter.api.parallel.Isolated
 
 /**
   * Created by ruiqi.wang
   */
+@Isolated
 class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   TimeZone.setDefault(TimeZone.getTimeZone("UTC"))

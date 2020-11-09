@@ -2,6 +2,7 @@ package com.workday.warp.common.utils
 
 import java.math.BigInteger
 import java.time.Duration
+import java.util.Optional
 import java.util.concurrent.TimeUnit
 
 import com.google.gson._
@@ -15,6 +16,7 @@ import scala.util.{Failure, Success, Try}
   *
   * Created by tomas.mccandless on 5/5/16.
   */
+// TODO move to com.workday.warp.utils
 object Implicits {
 
   /**
@@ -302,9 +304,28 @@ object Implicits {
   }
 
 
-
+  /**
+    * Decorates [[Option]] with some additional operations.
+    *
+    * @param maybeT decorated [[Option]].
+    */
   implicit class DecoratedOption[T](val maybeT: Option[T]) {
 
+    /** Transforms this [[Option]] to a [[Try]]. */
     def toTry: Try[T] = Try(maybeT.get)
+  }
+
+
+  /**
+    * Decorates [[Optional]] with some additional operations.
+    *
+    * @param maybeT decorated [[Optional]].
+    */
+  implicit class DecoratedOptional[T](val maybeT: Optional[T]) {
+    /** Transforms this [[Optional]] to an [[Option]]. */
+    def toOption: Option[T] = if (maybeT.isPresent) Option(maybeT.get) else None
+
+    /** Transforms this [[Optional]] to a [[Try]]. */
+    def toTry: Try[T] = toOption.toTry
   }
 }

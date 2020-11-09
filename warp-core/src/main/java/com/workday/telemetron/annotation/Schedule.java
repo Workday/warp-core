@@ -70,9 +70,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * @author michael.ottati
  * @since 0.1
+ *
+ * @deprecated use junit5
  */
 @Retention(RUNTIME)
 @Target(METHOD)
+@Deprecated
 public @interface Schedule {
 
     /**

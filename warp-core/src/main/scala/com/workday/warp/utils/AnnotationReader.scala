@@ -8,6 +8,8 @@ import com.workday.telemetron.annotation.{Required, Schedule}
 import com.workday.telemetron.utils.TimeUtils
 import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
 import com.workday.warp.common.utils.StackTraceFilter
+import org.junit.jupiter.api.Timeout
+import org.pmw.tinylog.Logger
 
 import scala.util.Try
 
@@ -39,9 +41,15 @@ object AnnotationReader extends StackTraceFilter {
    */
   protected def getWarpTestMethod(testId: String): Option[Method] = {
     val methodName: String = testId drop testId.lastIndexOf('.') + 1
-    // we expect the reflected method to have 0 parameters
-    val parameterTypes: Array[Class[_]] = Array.empty
-    this.getWarpTestClass(testId) flatMap { clazz => Try(Option(clazz.getMethod(methodName, parameterTypes: _*))).toOption.flatten }
+    // TODO won't work correctly wrt method overloading, its possible that we will have
+    // multiple junit test methods with the same name and we can't disambiguate
+    this.getWarpTestClass(testId).flatMap { cls =>
+      val methods: Seq[Method] = cls.getMethods.filter(_.getName == methodName)
+      if (methods.length > 1) {
+        Logger.warn(s"detected overloaded methods for signature $testId, annotation processing may not work as expected.")
+      }
+      methods.headOption
+    }
   }
 
 
@@ -86,6 +94,18 @@ object AnnotationReader extends StackTraceFilter {
       .getOrElse(Duration.ofMillis(-1))
   }
 
+
+  /**
+    * Reads the max response time from the junit [[Timeout]] annotation.
+    *
+    * @param testId fully qualified name of the junit test method
+    * @return max response time as a [[Duration]] for the test we are about to invoke
+    */
+  def getTimeoutValue(testId: String): Duration = {
+    this.getWarpTestMethodAnnotation(classOf[Timeout], testId)
+      .map(timeout => Duration.ofNanos(TimeUtils.toNanos(timeout.value, timeout.unit)))
+      .getOrElse(Duration.ofMillis(-1))
+  }
 
 
   /**

@@ -8,7 +8,10 @@ import org.junit.Rule
   * Extend this trait to use annotations such as [[com.workday.telemetron.annotation.Schedule]].
   *
   * Created by leslie.lam on 12/19/17.
+  *
+  * @deprecated use junit5
   */
+@deprecated("use junit5", since = "4.4.0")
 trait HasTelemetron {
   def shouldVerifyResponseTime: Boolean = true
   private[this] val _telemetron: TelemetronRule = TelemetronRule(context = TelemetronContext(this.shouldVerifyResponseTime))

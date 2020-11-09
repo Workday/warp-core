@@ -11,11 +11,13 @@ import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.CoreIdentifierType._
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.parallel.Isolated
 
 
 /**
   * Created by tomas.mccandless on 10/5/16.
   */
+@Isolated
 class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   private val methodSignature: String = "com.workday.warp.product.subproduct.Class.method"
