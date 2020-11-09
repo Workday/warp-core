@@ -67,7 +67,7 @@ object WarpGuicer {
     * @param tags tags to use for this test.
     * @return a measurement controller.
     */
-    @deprecated
+  @deprecated("use getController(TestId, Iterable[Tag]) instead", since = "5.0.0")
   def getController(testId: String, tags: Iterable[Tag] = Seq.empty): AbstractMeasurementCollectionController = {
       this.getController(TestIdImplicits.methodSignatureIsTestId(testId), tags)
   }

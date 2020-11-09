@@ -472,13 +472,3 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
     collectors map this.registerCollector
   }
 }
-
-/** Holds default constructor arguments referenced by both auxiliary constructors and named primary constructor args. */
-object Defaults {
-
-  /** default testId obtained from [[CoreConstants]]. */
-  val testId: String = CoreConstants.UNDEFINED_TEST_ID
-
-  /** default empty list of [[Tag]]. */
-  val tags: List[Tag] = Nil
-}
