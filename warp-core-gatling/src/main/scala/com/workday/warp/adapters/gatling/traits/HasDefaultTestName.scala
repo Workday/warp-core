@@ -3,6 +3,8 @@ package com.workday.warp.adapters.gatling.traits
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreConstants.{UNDEFINED_TEST_ID => DEFAULT_TEST_ID}
 
+import scala.util.{Success, Try}
+
 /**
   * Created by ruiqi.wang
   */
@@ -14,10 +16,10 @@ trait HasDefaultTestName extends HasBasePackageName {
   /**
     * Gets the fully qualified test name.
    */
-  def canonicalName: String = {
-    testId.testId match {
-      case DEFAULT_TEST_ID => defaultName
-      case s => s"$packageName.$s"
+  def canonicalName: TestId = {
+    if (testId.testId == DEFAULT_TEST_ID) new TestId(testId.maybeTestClass, testId.maybeTestMethod) {
+      override lazy val maybeTestId: Try[String] = Success(defaultName)
     }
+    else testId
   }
 }
