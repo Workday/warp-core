@@ -3,8 +3,7 @@ package com.workday.warp.arbiters
 import java.time.Instant
 import java.util.UUID
 
-import com.workday.warp.PercentageDegradationRequirement
-import com.workday.warp.config.CoreWarpProperty._
+import com.workday.warp.{PercentageDegradationRequirement, TestId}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.persistence.CorePersistenceAware
@@ -24,9 +23,8 @@ class PercentageDegradationArbiterSpec extends WarpJUnitSpec with CorePersistenc
   /** Checks that we can detect there isn't a [[PercentageDegradationRequirement]], and read the default percentage. */
   @UnitTest
   def noPercentageRequirement(info: TestInfo): Unit = {
-    val testId: String = info.testId
-    AnnotationReader.hasPercentageDegradationRequirement(testId) should be (false)
-    AnnotationReader.getPercentageDegradationRequirement(testId) should be (WARP_PERCENTAGE_DEGRADATION_THRESHOLD.value.toDouble)
+    val testId: TestId = TestId.fromTestInfo(info)
+    AnnotationReader.getPercentageDegradationRequirement(testId) should be (None)
   }
 
 
@@ -34,9 +32,8 @@ class PercentageDegradationArbiterSpec extends WarpJUnitSpec with CorePersistenc
   @UnitTest
   @PercentageDegradationRequirement(percentage = 50)
   def hasPercentageRequirement(info: TestInfo): Unit = {
-    val testId: String = info.testId
-    AnnotationReader.hasPercentageDegradationRequirement(testId) should be (true)
-    AnnotationReader.getPercentageDegradationRequirement(testId) should be (50.0)
+    val testId: TestId = TestId.fromTestInfo(info)
+    AnnotationReader.getPercentageDegradationRequirement(testId) should be (Some(50.0))
   }
 
 

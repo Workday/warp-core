@@ -20,26 +20,12 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   // minimum number of measurements necessary for percentile processing to continue.
   private[this] val minimumHistoricalData: Int = 3
 
-  /** Checks that we can set a custom threshold. */
-  @UnitTest
-  @ZScoreRequirement(percentile = 99.9)
-  def hasPercentileThreshold(info: TestInfo): Unit = {
-    val testId: String = info.testId
-    AnnotationReader.getZScoreRequirement(testId) shouldBe 99.9
-    AnnotationReader.hasZScoreRequirement(testId) shouldBe true
-  }
-
-  /** Checks that we can detect there is no percentile requirement set */
-  @UnitTest
-  def noPercentileThreshold(info: TestInfo): Unit = {
-    AnnotationReader.hasZScoreRequirement(info.testId) shouldBe false
-  }
 
   /** Checks that the provided percentile threshold is truncated to 100.0. */
   @UnitTest
   @ZScoreRequirement(percentile = 100.2345)
   def percentileThreshold(info: TestInfo): Unit = {
-    AnnotationReader.getZScoreRequirement(info.testId) shouldBe 100.0
+    AnnotationReader.getZScoreRequirement(info) shouldBe Some(100.0)
   }
 
 
@@ -47,7 +33,7 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   @ZScoreRequirement(percentile = -1.2345)
   def percentileThresholdNegative(info: TestInfo): Unit = {
-    AnnotationReader.getZScoreRequirement(info.testId) shouldBe 0.0
+    AnnotationReader.getZScoreRequirement(info) shouldBe Some(0.0)
   }
 
 
