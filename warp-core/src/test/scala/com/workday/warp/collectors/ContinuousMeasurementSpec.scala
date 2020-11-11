@@ -1,6 +1,5 @@
-package com.workday.warp.collectors.traits
+package com.workday.warp.collectors
 
-import com.workday.warp.collectors.ContinuousMeasurement
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.Tables.RowTypeClasses.TestExecutionRowTypeClassObject
 

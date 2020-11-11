@@ -1,10 +1,12 @@
 package com.workday.warp.dsl
 
+import com.workday.warp.controllers.AbstractMeasurementCollectionController
+
 /**
   * Specifies a mode for measurement collection.
   *
   * Only applies to tests running under an [[ExecutionConfig]] with `threads > 1`. A multithreaded test running in
-  * `single` mode will have an outer [[com.workday.warp.collectors.AbstractMeasurementCollectionController]] to collect measurements,
+  * `single` mode will have an outer [[AbstractMeasurementCollectionController]] to collect measurements,
   * but all invocations running on separate threads will not be measured.
   *
   * A multithreaded test running in `multi` mode will similarly have an outer controller, but each individual invocation

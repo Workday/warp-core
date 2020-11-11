@@ -19,10 +19,8 @@ import com.workday.warp.utils.StackTraceFilter
   * have been written. This class patches up the existing rows once we know the threshold.
   *
   * Created by tomas.mccandless on 7/12/16.
-  *
-  * @param testId fully qualified name of the method being measured.
   */
-class ResponseTimeCollector(testId: TestId) extends AbstractMeasurementCollector(testId) {
+class ResponseTimeCollector extends AbstractMeasurementCollector {
   /**
     * Called prior to starting an individual test invocation.
     */

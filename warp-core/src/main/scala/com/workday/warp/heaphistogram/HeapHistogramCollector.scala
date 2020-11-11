@@ -10,7 +10,7 @@ import com.workday.warp.persistence.{PersistenceAware, TablesLike}
   *
   * Created by vignesh.kalidas on 4/6/18.
   */
-class HeapHistogramCollector(testId: TestId) extends AbstractMeasurementCollector(testId) with HistogramIoLike with PersistenceAware {
+class HeapHistogramCollector(testId: TestId) extends AbstractMeasurementCollector with HistogramIoLike with PersistenceAware {
   /**
     * Called prior to starting an individual test invocation.
     */

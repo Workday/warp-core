@@ -4,7 +4,9 @@ import java.io.InputStream
 
 import com.workday.warp.{HasRandomTestId, TestId}
 import com.workday.warp.collectors._
+import com.workday.warp.controllers.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.parallel.Isolated
 
 /**
@@ -51,8 +53,8 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike with HasRando
     * Tests the full process of registering a collector and calling begin/end for measurement collection
     */
   @UnitTest
-  def lifecycleSpec(): Unit = {
-    val measCollectionController: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
+  def lifecycleSpec(info: TestInfo): Unit = {
+    val measCollectionController: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
     val contHeapHistoCollector: AbstractMeasurementCollector = new ContinuousHeapHistogramCollector(TestId.empty)
 
     measCollectionController.registerCollector(contHeapHistoCollector)

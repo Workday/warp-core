@@ -15,8 +15,8 @@ class WarpGatlingSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def defaultTestName(): Unit = {
-    defaultSimulation.canonicalName should equal (s"$packageName.DefaultSimulation")
-    defaultFunSpec.canonicalName should equal (s"$packageName.DefaultFunSpec")
+    defaultSimulation.canonicalName.testId should equal (s"$packageName.DefaultSimulation")
+    defaultFunSpec.canonicalName.testId should equal (s"$packageName.DefaultFunSpec")
   }
 
   /**
@@ -24,8 +24,8 @@ class WarpGatlingSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def customTestName(): Unit = {
-    customSimulation.canonicalName should equal (s"$packageName.MyCustomSimulationTest")
-    customFunSpec.canonicalName should equal (s"$packageName.MyCustomFunSpec")
+    customSimulation.canonicalName.testId should equal (s"$packageName.MyCustomSimulationTest")
+    customFunSpec.canonicalName.testId should equal (s"$packageName.MyCustomFunSpec")
   }
 
   // TODO: Add integration tests for our own custom hooks.
@@ -35,8 +35,8 @@ class WarpGatlingSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def inheritedSimulation(): Unit = {
-    childSpec.canonicalName should equal (s"$packageName.DAMNITJIM")
-    babySpec.canonicalName should equal (s"$packageName.BABYCOMEBACK")
+    childSpec.canonicalName.testId should equal (s"$packageName.DAMNITJIM")
+    babySpec.canonicalName.testId should equal (s"$packageName.BABYCOMEBACK")
   }
 
   /**

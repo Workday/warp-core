@@ -1,18 +1,19 @@
-package com.workday.warp.collectors
+package com.workday.warp.controllers
 
 import java.time.Instant
 
+import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.SmartNumberArbiter
-import com.workday.warp.utils.Implicits._
+import com.workday.warp.collectors.{AbstractMeasurementCollector, ResponseTimeCollector}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
-import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
-import slick.jdbc.MySQLProfile.api._
 import com.workday.warp.persistence.{TablesLike, Tag, _}
+import com.workday.warp.utils.Implicits._
 import org.junit.jupiter.api.parallel.Isolated
 import org.junit.jupiter.api.{BeforeEach, TestInfo}
+import slick.jdbc.MySQLProfile.api._
 
 
 /**
@@ -53,7 +54,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   // scalastyle:off method.length
   /** Test various insertion behavior of tags with and without metatags for both Execution and Definition type tags */
   @UnitTest
-  def testRecordTags(): Unit = {
+  def testRecordTags(info: TestInfo): Unit = {
     val newTags: List[Tag] = List(
       // insert two execution metatags for an execution outer tag
       ExecutionTag("key1", "val1", List(
@@ -88,7 +89,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
       DefinitionTag("key2", "val21")
     )
 
-    val controller: DefaultMeasurementCollectionController = new DefaultMeasurementCollectionController(tags = newTags)
+    val controller: DefaultMeasurementCollectionController = new DefaultMeasurementCollectionController(info, tags = newTags)
     controller.isIntrusive should be (false)
     controller.measurementInProgress should be (false)
     val tryRecordTags: List[PersistTagResult] =
@@ -136,15 +137,15 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     tryRecordTags(6).tryTag._1.isFailure should be (true)
 
     // ExecutionMetaTag
-    tryRecordTags(0).tryTag._2(2).tryMetaTag.isSuccess should be (true)
-    tryRecordTags(0).tryTag._2(3).tryMetaTag.isFailure should be (true)
+    tryRecordTags.head.tryTag._2(2).tryMetaTag.isSuccess should be (true)
+    tryRecordTags.head.tryTag._2(3).tryMetaTag.isFailure should be (true)
 
     // DefinitionMetaTag
     tryRecordTags(1).tryTag._2(1).tryMetaTag.isSuccess should be (true)
     tryRecordTags(1).tryTag._2(2).tryMetaTag.isFailure should be (true)
 
     // erroneous Tag preventing MetaTag insertion
-    tryRecordTags(4).tryTag._2(0).tryMetaTag.isFailure should be (true)
+    tryRecordTags(4).tryTag._2.head.tryMetaTag.isFailure should be (true)
     tryRecordTags(4).tryTag._2(1).tryMetaTag.isFailure should be (true)
   }
   // scalastyle:on
@@ -154,8 +155,8 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     * Checks various ways of ending measurement.
     */
   @UnitTest
-  def endMeasurement(): Unit = {
-    val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
+  def endMeasurement(info: TestInfo): Unit = {
+    val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
 
     // shouldn't get any results if measurement is not already in progress
     controller.endMeasurementCollection() should be (TrialResult.empty)
@@ -178,15 +179,15 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   @UnitTest
   def testInfo(info: TestInfo): Unit = {
     val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
-    controller.testId.testId should be ("com.workday.warp.collectors.DefaultMeasurementCollectionControllerSpec.testInfo")
+    controller.testId.testId should be ("com.workday.warp.controllers.DefaultMeasurementCollectionControllerSpec.testInfo")
   }
 
   /**
     * Checks disabling arbiters.
     */
   @UnitTest
-  def disableArbiters(): Unit = {
-    val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
+  def disableArbiters(info: TestInfo): Unit = {
+    val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
     controller.registerArbiter(new SmartNumberArbiter())
     controller.disableArbiters()
     controller.arbiters.foreach { arbiter => arbiter.isEnabled should be (false) }
@@ -196,8 +197,8 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     * Checks disabling intrusive collectors.
     */
   @UnitTest
-  def disableIntrusiveCollectors(): Unit = {
-    val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
+  def disableIntrusiveCollectors(info: TestInfo): Unit = {
+    val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
 
     controller.registerCollector(new AbstractMeasurementCollector {
       override val isIntrusive: Boolean = true
@@ -217,8 +218,8 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     * Checks that we correctly handle exceptions thrown by collectors.
     */
   @UnitTest
-  def exceptionsHandled(): Unit = {
-    val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController()
+  def exceptionsHandled(info: TestInfo): Unit = {
+    val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
 
     // use a collector that throws an exception during start
     controller.registerCollector(new AbstractMeasurementCollector {
@@ -250,12 +251,12 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     * Checks registering collectors and arbiters when a measurement is in progress.
     */
   @UnitTest
-  def register(): Unit = {
-    val controller : DefaultMeasurementCollectionController = new DefaultMeasurementCollectionController()
+  def register(info: TestInfo): Unit = {
+    val controller : DefaultMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
     controller.beginMeasurementCollection()
 
     // registration calls should not be successful when there is already a measurement in progress.
-    controller.registerCollector(new ResponseTimeCollector(controller.testId)) should be (false)
+    controller.registerCollector(new ResponseTimeCollector) should be (false)
     controller.registerArbiter(new SmartNumberArbiter) should be (false)
 
     controller.endMeasurementCollection()

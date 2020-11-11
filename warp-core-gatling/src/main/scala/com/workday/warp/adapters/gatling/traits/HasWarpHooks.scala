@@ -1,6 +1,6 @@
 package com.workday.warp.adapters.gatling.traits
 
-import com.workday.warp.collectors.AbstractMeasurementCollectionController
+import com.workday.warp.controllers.AbstractMeasurementCollectionController
 
 /**
   * Created by ruiqi.wang

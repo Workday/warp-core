@@ -2,7 +2,7 @@ package com.workday.warp.dsl
 
 import com.workday.warp.arbiters.{ArbiterLike, Ballot, RequirementViolationException}
 import com.workday.warp.{HasRandomTestId, TestId, TrialResult}
-import com.workday.warp.collectors.{AbstractMeasurementCollectionController, AbstractMeasurementCollector}
+import com.workday.warp.collectors.AbstractMeasurementCollector
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
@@ -13,6 +13,7 @@ import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.{DistributionLike, GaussianDistribution}
 import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
+import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
 
@@ -344,18 +345,6 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     Researcher(using testId "").collectionController().testId should be (TestId.empty)
   }
 
-
-  /** Checks that custom collectors passed in through the dsl will have their test ids correctly set. */
-  @UnitTest
-  def testIdInCollectors(): Unit = {
-    val someTestId: String = "com.workday.warp.dsl.DslSpec.testIdInCollectors"
-    val config: ExecutionConfig = using testId someTestId collectors {
-      new SomeMeasurementCollector :: new SomeOtherMeasurementCollector
-    }
-
-    // get a list of all the collectors test ids, make sure it contains only the one we specified
-    Researcher(config).collectionController().collectors map { _.testId.testId } should contain only (someTestId)
-  }
 
 
   /** Checks the usage of syntax like `using only these collectors` or `using only these arbiters` */
