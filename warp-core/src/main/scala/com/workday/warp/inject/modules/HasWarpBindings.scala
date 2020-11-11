@@ -2,14 +2,14 @@ package com.workday.warp.inject.modules
 
 import com.google.inject.Provides
 import com.workday.warp.TestId
-import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.config.WarpPropertyLike
+import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.logger.WriterConfig
 import com.workday.warp.persistence.Tag
 
 /**
   * This trait should be mixed in and overridden with values that can be passed to create instances of
-  * [[com.workday.warp.collectors.AbstractMeasurementCollectionController]]
+  * [[AbstractMeasurementCollectionController]]
   *
   * Additional bindings should be provided for [[WarpPropertyLike]].
   *

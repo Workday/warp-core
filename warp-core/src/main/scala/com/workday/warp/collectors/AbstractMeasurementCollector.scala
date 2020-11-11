@@ -1,8 +1,6 @@
 package com.workday.warp.collectors
 
-import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty.WARP_LOG_MC_STACKTRACES
-import com.workday.warp.utils.WarpStopwatch
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.utils.{MeasurementUtils, WarpStopwatch}
 import org.apache.commons.io.FileUtils.byteCountToDisplaySize
@@ -22,11 +20,8 @@ import scala.util.Try
   * Based on a java interface created by michael.ottati on 8/20/13.
   *
   * @constructor create a new measurement collector with a test id.
-  * @param _testId id of the test being measured. mutable, but the setter is only accessible within the collectors
-  *                package.
   */
-// TODO we probably don't need a constructor arg since we can look up anything via our test execution id
-abstract class AbstractMeasurementCollector(protected[collectors] var _testId: TestId = TestId.empty) {
+abstract class AbstractMeasurementCollector {
 
   // TODO consider adding a separate persist method, so measurements can be obtained and then persisted separately
 
@@ -58,10 +53,6 @@ abstract class AbstractMeasurementCollector(protected[collectors] var _testId: T
   def filterStackTrace(exception: Exception): Exception = {
     exception
   }
-
-  /** Public accessor for testId. */
-  def testId: TestId = this._testId
-
 
   /**
    * Called prior to starting an individual test invocation.

@@ -8,7 +8,7 @@ import scala.util.{Success, Try}
 /**
   * Created by ruiqi.wang
   */
-trait HasDefaultTestName extends HasBasePackageName {
+trait HasDefaultTestName extends HasBasePackageName { self =>
 
   val testId: TestId
   private val defaultName = s"$packageName.${this.getClass.getSimpleName}"
@@ -17,9 +17,13 @@ trait HasDefaultTestName extends HasBasePackageName {
     * Gets the fully qualified test name.
    */
   def canonicalName: TestId = {
-    if (testId.testId == DEFAULT_TEST_ID) new TestId(testId.maybeTestClass, testId.maybeTestMethod) {
+    val currentTestId: String = this.testId.testId
+    if (currentTestId == DEFAULT_TEST_ID) new TestId(testId.maybeTestClass, testId.maybeTestMethod) {
       override lazy val maybeTestId: Try[String] = Success(defaultName)
     }
-    else testId
+    else if (currentTestId.startsWith(packageName)) testId
+    else new TestId(testId.maybeTestClass, testId.maybeTestMethod) {
+      override lazy val maybeTestId: Try[String] = Success(s"$packageName.$currentTestId")
+    }
   }
 }

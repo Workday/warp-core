@@ -2,8 +2,8 @@ package com.workday.warp.inject.modules
 
 import com.google.inject.{AbstractModule, Provides}
 import com.workday.warp.TestId
-import com.workday.warp.collectors.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
 import com.workday.warp.config.{CoreWarpProperty, WarpPropertyLike}
+import com.workday.warp.controllers.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
 import com.workday.warp.logger.WriterConfig
 import com.workday.warp.persistence.Tag
 

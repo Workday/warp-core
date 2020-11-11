@@ -2,8 +2,8 @@ package com.workday.warp.dsl
 
 import java.util.concurrent.{Callable, Executors, ScheduledExecutorService, ScheduledFuture, TimeUnit}
 
+import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.{TestId, TrialResult}
-import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.inject.WarpGuicer
 

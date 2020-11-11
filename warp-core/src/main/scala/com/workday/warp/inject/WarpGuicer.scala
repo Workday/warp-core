@@ -4,9 +4,9 @@ import java.lang.reflect.Constructor
 
 import com.google.inject.{AbstractModule, Guice, Injector}
 import com.workday.warp.{TestId, TestIdImplicits}
-import com.workday.warp.collectors.AbstractMeasurementCollectionController
 import com.workday.warp.config.{PropertyEntry, WarpPropertyLike}
 import com.workday.warp.TestIdImplicits._
+import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.inject.modules.{DefaultWarpModule, HasWarpBindings}
 import com.workday.warp.persistence.Tag
 import org.junit.jupiter.api.TestInfo

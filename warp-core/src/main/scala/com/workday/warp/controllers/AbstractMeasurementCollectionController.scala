@@ -1,23 +1,23 @@
-package com.workday.warp.collectors
+package com.workday.warp.controllers
 
 import java.time.{Duration, Instant}
 
-import com.workday.warp.{TestId, TrialResult}
-import com.workday.warp.utils.Implicits._
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.arbiters.{ArbiterLike, Ballot}
-import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
-import com.workday.warp.persistence._
-import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.collectors.AbstractMeasurementCollector
 import com.workday.warp.persistence.Tables.{TestDefinitionMetaTag => _, TestExecutionMetaTag => _, _}
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
-import com.workday.warp.persistence.Tag
+import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.persistence.{Tag, _}
+import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
+import com.workday.warp.utils.Implicits._
 import com.workday.warp.utils.{AnnotationReader, FutureUtils, TimeUtils}
+import com.workday.warp.{TestId, TrialResult}
 import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -450,7 +450,6 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
       false
     }
     else {
-      collector._testId = this.testId
       Try(this._collectors = collector :: this._collectors).isSuccess
     }
   }
