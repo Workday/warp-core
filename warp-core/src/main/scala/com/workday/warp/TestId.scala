@@ -45,6 +45,13 @@ case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
   @throws[RuntimeException]
   // TODO consider renaming this to methodSignature
   final def testId: String = this.maybeTestId.get
+
+  override def hashCode(): Int = this.testId.hashCode
+
+  // TODO this only looks at testId
+  override def equals(obj: Any): Boolean = {
+    obj != None.orNull && obj.isInstanceOf[TestId] && obj.asInstanceOf[TestId].testId == this.testId
+  }
 }
 
 

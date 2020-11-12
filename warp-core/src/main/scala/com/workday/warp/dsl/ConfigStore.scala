@@ -1,5 +1,7 @@
 package com.workday.warp.dsl
 
+import com.workday.warp.TestId
+
 import scala.collection.concurrent.TrieMap
 
 /**
@@ -11,7 +13,7 @@ import scala.collection.concurrent.TrieMap
   */
 object ConfigStore {
 
-  private[this] val configs: TrieMap[String, ExecutionConfig] = TrieMap()
+  private[this] val configs: TrieMap[TestId, ExecutionConfig] = TrieMap()
 
 
   /**
@@ -20,7 +22,7 @@ object ConfigStore {
     * @param testId fully qualified method signature of the measured test.
     * @return the [[ExecutionConfig]] that is configured for `testId`.
     */
-  def get(testId: String): Option[ExecutionConfig] = this.configs.get(testId)
+  def get(testId: TestId): Option[ExecutionConfig] = this.configs.get(testId)
 
 
   /**
@@ -29,5 +31,5 @@ object ConfigStore {
     * @param testId fully qualified method signature of the measured test.
     * @param config [[ExecutionConfig]] that is configured for `testId`.
     */
-  def put(testId: String, config: ExecutionConfig): Unit = this.configs.put(testId, config)
+  def put(testId: TestId, config: ExecutionConfig): Unit = this.configs.put(testId, config)
 }
