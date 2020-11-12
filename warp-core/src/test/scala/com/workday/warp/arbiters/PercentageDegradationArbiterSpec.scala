@@ -6,6 +6,7 @@ import java.util.UUID
 import com.workday.warp.{PercentageDegradationRequirement, TestId}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits._
+import com.workday.warp.config.CoreWarpProperty.WARP_PERCENTAGE_DEGRADATION_THRESHOLD
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
@@ -24,7 +25,7 @@ class PercentageDegradationArbiterSpec extends WarpJUnitSpec with CorePersistenc
   @UnitTest
   def noPercentageRequirement(info: TestInfo): Unit = {
     val testId: TestId = TestId.fromTestInfo(info)
-    AnnotationReader.getPercentageDegradationRequirement(testId) should be (None)
+    AnnotationReader.getPercentageDegradationRequirement(testId) should be (Some(WARP_PERCENTAGE_DEGRADATION_THRESHOLD.value.toDouble))
   }
 
 
