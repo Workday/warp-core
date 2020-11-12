@@ -25,7 +25,7 @@ class PercentageDegradationArbiterSpec extends WarpJUnitSpec with CorePersistenc
   @UnitTest
   def noPercentageRequirement(info: TestInfo): Unit = {
     val testId: TestId = TestId.fromTestInfo(info)
-    AnnotationReader.getPercentageDegradationRequirement(testId) should be (Some(WARP_PERCENTAGE_DEGRADATION_THRESHOLD.value.toDouble))
+    AnnotationReader.getPercentageDegradationRequirement(testId) should be (None)
   }
 
 

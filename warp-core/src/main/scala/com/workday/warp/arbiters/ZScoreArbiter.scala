@@ -3,6 +3,7 @@ package com.workday.warp.arbiters
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
+import com.workday.warp.math.truncatePercent
 import com.workday.warp.utils.AnnotationReader
 import org.apache.commons.math3.distribution.NormalDistribution
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation
@@ -62,16 +63,7 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike {
       // convert cdf value to a percentile
       val percentile: Double = 100 * new NormalDistribution(mean, stdDev).cumulativeProbability(measuredResponseTime)
 
-      val maybePercentileRequirement: Option[Double] = AnnotationReader.getZScoreRequirement(ballot.testId)
-
-//      maybePercentileRequirement.flatMap { percentileRequirement =>
-//        // check that the percentile according to cumulative distribution function is less than the requirement
-//        if (percentile <= percentileRequirement) None
-//        else Option(new RequirementViolationException(
-//          s"${ballot.testId} failed requirement imposed by ${this.getClass.getName}. expected response time (measured " +
-//            s"$measuredResponseTime sec) percentile <= $percentileRequirement, but was $percentile")
-//        )
-//      }
+      val maybePercentileRequirement: Option[Double] = AnnotationReader.getZScoreRequirement(ballot.testId).map(truncatePercent)
 
       for {
         percentileRequirement <- maybePercentileRequirement

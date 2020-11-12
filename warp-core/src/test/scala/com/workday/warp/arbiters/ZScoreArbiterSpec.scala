@@ -21,19 +21,19 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   private[this] val minimumHistoricalData: Int = 3
 
 
-  /** Checks that the provided percentile threshold is truncated to 100.0. */
+  /** Checks that the provided percentile threshold is not truncated during reading. */
   @UnitTest
   @ZScoreRequirement(percentile = 100.2345)
   def percentileThreshold(info: TestInfo): Unit = {
-    AnnotationReader.getZScoreRequirement(info) shouldBe Some(100.0)
+    AnnotationReader.getZScoreRequirement(info) shouldBe Some(100.2345)
   }
 
 
-  /** Checks that the provided percentile threshold is truncated to 0.0. */
+  /** Checks that the provided percentile threshold is not truncated during reading. */
   @UnitTest
   @ZScoreRequirement(percentile = -1.2345)
   def percentileThresholdNegative(info: TestInfo): Unit = {
-    AnnotationReader.getZScoreRequirement(info) shouldBe Some(0.0)
+    AnnotationReader.getZScoreRequirement(info) shouldBe Some(-1.2345)
   }
 
 

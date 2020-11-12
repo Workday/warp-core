@@ -13,14 +13,13 @@ import org.junit.jupiter.api.{TestInfo, Timeout}
   */
 class AnnotationReaderSpec extends WarpJUnitSpec {
 
-  /**
-    * Checks that we read the right defaults when there are no annotations present.
-    */
+  /** Checks behavior when annotations are not present. */
   @UnitTest
   def noAnnotations(info: TestInfo): Unit = {
     AnnotationReader.getRequiredMaxValue(TestId.fromMethodSignature("this.class.does.not.exist")) should be (empty)
     AnnotationReader.getRequiredMaxValue(info) should be (None)
-    AnnotationReader.getZScoreRequirement(info) should be (Some(ZScoreRequirement.DEFAULT_PERCENTILE))
+    AnnotationReader.getZScoreRequirement(info) should be (None)
+    AnnotationReader.getPercentageDegradationRequirement(info) should be (None)
   }
 
 
