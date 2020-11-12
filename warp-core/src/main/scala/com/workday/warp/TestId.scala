@@ -20,6 +20,8 @@ import scala.util.{Failure, Success, Try}
   * We use ad-hoc polymorphism to declare [[TestId]] instances for [[org.junit.jupiter.api.TestInfo]] and
   * [[org.junit.jupiter.api.extension.ExtensionContext]].
   *
+  * TODO consider whether we are doing the right thing with hashcode() and equals()
+  *
   * Created by tomas.mccandless on 6/18/20.
   */
 case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {

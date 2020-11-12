@@ -19,6 +19,4 @@ trait WarpJUnitSpec extends JUnitSuite with Matchers
                                        with OptionValues
                                        with Inside
                                        with Inspectors
-                                       with AssertionsForJUnit {
-  val shouldVerifyResponseTime: Boolean = false
-}
+                                       with AssertionsForJUnit
