@@ -67,25 +67,17 @@ object AnnotationReader extends StackTraceFilter {
     * @return
     */
   def getZScoreRequirement(testId: TestId): Option[Double] = {
-    getWarpTestAnnotation(classOf[ZScoreRequirement], testId)
-      .map(_.percentile())
-      .orElse(Option(ZScoreRequirement.DEFAULT_PERCENTILE))
-      .map(p => math.max(0.0, math.min(100.0, p)))
+    getWarpTestAnnotation(classOf[ZScoreRequirement], testId).map(_.percentile)
   }
 
 
   /**
     * Reads the percentage threshold requirement from the [[PercentageDegradationRequirement]] annotation for this test.
     *
-    * Truncates the value to be within 0.0 and 100.0.
-    *
     * @param testId fully qualified name of the junit test method.
     * @return percentage threshold requirement.
     */
   def getPercentageDegradationRequirement(testId: TestId): Option[Double] = {
-    getWarpTestAnnotation(classOf[PercentageDegradationRequirement], testId)
-      .map(_.percentage)
-      .orElse(Option(WARP_PERCENTAGE_DEGRADATION_THRESHOLD.value.toDouble))
-      .map(p => math.max(0.0, math.min(100.0, p)))
+    getWarpTestAnnotation(classOf[PercentageDegradationRequirement], testId).map(_.percentage)
   }
 }

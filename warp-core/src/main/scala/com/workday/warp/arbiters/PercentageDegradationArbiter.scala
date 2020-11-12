@@ -3,6 +3,7 @@ package com.workday.warp.arbiters
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
+import com.workday.warp.math.truncatePercent
 import com.workday.warp.utils.AnnotationReader
 import org.pmw.tinylog.Logger
 
@@ -58,6 +59,7 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
       val percentage: Double = (measuredResponseTime / mean - 1) * 100.0
 
       val maybePercentageRequirement: Option[Double] = AnnotationReader.getPercentageDegradationRequirement(ballot.testId)
+        .map(truncatePercent)
 
       maybePercentageRequirement.flatMap { percentageRequirement =>
         if (percentage <= percentageRequirement) None
