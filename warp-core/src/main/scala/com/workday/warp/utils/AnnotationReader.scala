@@ -7,6 +7,7 @@ import Implicits._
 import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}
 import org.junit.jupiter.api.Timeout
 import org.junit.platform.commons.util.AnnotationUtils
+import com.workday.warp.config.CoreWarpProperty.WARP_PERCENTAGE_DEGRADATION_THRESHOLD
 
 
 /**
@@ -79,8 +80,9 @@ object AnnotationReader extends StackTraceFilter {
     * @return percentage threshold requirement.
     */
   def getPercentageDegradationRequirement(testId: TestId): Option[Double] = {
-    getWarpTestAnnotation(classOf[PercentageDegradationRequirement], testId).map {a =>
-      math.max(0.0, math.min(100.0, a.percentage))
-    }
+    getWarpTestAnnotation(classOf[PercentageDegradationRequirement], testId)
+      .map(_.percentage)
+      .orElse(Option(WARP_PERCENTAGE_DEGRADATION_THRESHOLD.value.toDouble))
+      .map(p => math.max(0.0, math.min(100.0, p)))
   }
 }
