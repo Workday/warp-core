@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeAll
   * Created by tomas.mccandless on 1/17/17.
   */
 class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
-  override val shouldVerifyResponseTime: Boolean = true
 
   private val methodSignature: String = "com.workday.warp.product.subproduct.Class.method"
 
