@@ -6,7 +6,6 @@ import java.util.UUID
 import com.workday.warp.{PercentageDegradationRequirement, TestId}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits._
-import com.workday.warp.config.CoreWarpProperty.WARP_PERCENTAGE_DEGRADATION_THRESHOLD
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._

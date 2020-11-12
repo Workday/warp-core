@@ -1,6 +1,5 @@
 package com.workday.warp.dsl
 
-import com.workday.warp.controllers.AbstractMeasurementCollectionController
 
 /**
   * Specifies a mode for measurement collection.

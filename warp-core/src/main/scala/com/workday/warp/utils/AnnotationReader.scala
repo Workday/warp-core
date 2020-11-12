@@ -8,7 +8,6 @@ import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZSc
 import org.junit.jupiter.api.Timeout
 import org.pmw.tinylog.Logger
 import org.junit.platform.commons.util.AnnotationUtils
-import com.workday.warp.config.CoreWarpProperty.WARP_PERCENTAGE_DEGRADATION_THRESHOLD
 
 import scala.util.Try
 

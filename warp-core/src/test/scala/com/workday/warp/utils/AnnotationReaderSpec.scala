@@ -2,7 +2,7 @@ package com.workday.warp.utils
 
 import java.util.concurrent.TimeUnit
 
-import com.workday.warp.{Required, TestId, ZScoreRequirement}
+import com.workday.warp.{Required, TestId}
 import Implicits._
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
