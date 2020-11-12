@@ -7,7 +7,6 @@ import Implicits._
 import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}
 import org.junit.jupiter.api.Timeout
 import org.junit.platform.commons.util.AnnotationUtils
-import com.workday.warp.config.CoreWarpProperty.WARP_PERCENTAGE_DEGRADATION_THRESHOLD
 
 
 /**
