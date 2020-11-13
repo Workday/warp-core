@@ -9,7 +9,7 @@ import com.workday.warp.math.{DistributionLike, NullDistribution}
   */
 trait CoreConstants {
 
-  @deprecated("use TestId.empty", "5.0.0")
+  @deprecated("use TestId.undefined", "5.0.0")
   lazy val UNDEFINED_TEST_ID = "com.workday.warp.Undefined.undefined"
   lazy val DISABLE_WARP_USAGE_STRING = "DisableWarpUsage"
   lazy val SMART_THRESHOLD_BASELINE_DATE_STRING = "SmartThresholdBaselineDate"

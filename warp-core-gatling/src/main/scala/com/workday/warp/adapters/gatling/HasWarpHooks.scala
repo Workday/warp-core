@@ -1,4 +1,4 @@
-package com.workday.warp.adapters.gatling.traits
+package com.workday.warp.adapters.gatling
 
 import com.workday.warp.controllers.AbstractMeasurementCollectionController
 

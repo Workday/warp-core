@@ -1,7 +1,7 @@
-package com.workday.warp.adapters.gatling.traits
+package com.workday.warp.adapters.gatling
 
 import com.workday.warp.TestId
-import com.workday.warp.config.CoreConstants.{UNDEFINED_TEST_ID => DEFAULT_TEST_ID}
+import com.workday.warp.config.CoreConstants.{ UNDEFINED_TEST_ID => DEFAULT_TEST_ID }
 
 import scala.util.{Success, Try}
 

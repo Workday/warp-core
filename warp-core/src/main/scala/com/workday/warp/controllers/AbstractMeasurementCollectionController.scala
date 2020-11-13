@@ -33,7 +33,6 @@ import scala.util.{Failure, Success, Try}
   * @param testId fully qualified name of the method being measured.
   * @param tags [[List]] of [[Tag]] that should be persisted during endMeasurementCollection.
   */
-// TODO consider renaming to AbstractMeasurementController
 abstract class AbstractMeasurementCollectionController(val testId: TestId, val tags: List[Tag]) extends PersistenceAware {
 
 
