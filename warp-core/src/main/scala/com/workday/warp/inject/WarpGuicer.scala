@@ -50,7 +50,7 @@ object WarpGuicer {
     classOf[TestId], classOf[List[Tag]]
   )
 
-  val baseModule: WarpModule = this.moduleConstructor.newInstance(TestId.empty, Nil)
+  val baseModule: WarpModule = this.moduleConstructor.newInstance(TestId.undefined, Nil)
 
   // won't be used for creating any controllers
   val baseInjector: Injector = Guice.createInjector(this.baseModule)
@@ -69,7 +69,7 @@ object WarpGuicer {
     */
   @deprecated("use getController(TestId, Iterable[Tag]) instead", since = "5.0.0")
   def getController(testId: String, tags: Iterable[Tag] = Seq.empty): AbstractMeasurementCollectionController = {
-      this.getController(TestIdImplicits.methodSignatureIsTestId(testId), tags)
+      this.getController(TestIdImplicits.string2TestId(testId), tags)
   }
 
 
@@ -81,7 +81,7 @@ object WarpGuicer {
     * @return a measurement controller.
     */
   def getController(info: TestInfo, tags: Iterable[Tag]): AbstractMeasurementCollectionController = {
-    this.getController(testInfoIsTestId(info), tags)
+    this.getController(testInfo2TestId(info), tags)
   }
   def getController(info: TestInfo): AbstractMeasurementCollectionController = this.getController(info, Nil)
 

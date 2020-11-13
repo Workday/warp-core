@@ -15,8 +15,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target(METHOD)
-// TODO consider whether this should be deprecated
-// TODO consider moving this to com.workday.warp.annotation
 public @interface Required {
 
     /**

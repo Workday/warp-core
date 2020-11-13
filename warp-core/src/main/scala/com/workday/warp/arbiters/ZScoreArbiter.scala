@@ -26,7 +26,7 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike {
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     this.vote(
-      this.responseTimes(ballot.testId.testId, testExecution.idTestExecution),
+      this.responseTimes(ballot.testId.id, testExecution.idTestExecution),
       ballot,
       testExecution,
       WARP_ARBITER_MINIMUM_N.value.toInt

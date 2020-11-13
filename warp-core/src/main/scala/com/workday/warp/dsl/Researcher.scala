@@ -230,7 +230,7 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
 
   /** @return a configured [[AbstractMeasurementCollectionController]] ready to instrument a measured function. */
   def collectionController(): AbstractMeasurementCollectionController = {
-    val testId: TestId = if (this.config.testId.testId.nonEmpty) this.config.testId else TestId.empty
+    val testId: TestId = if (this.config.testId.id.nonEmpty) this.config.testId else TestId.undefined
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId, this.config.additionalTags)
 
     // configure measurement collectors

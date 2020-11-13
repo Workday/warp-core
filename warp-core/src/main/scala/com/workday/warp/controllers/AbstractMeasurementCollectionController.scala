@@ -38,8 +38,8 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
 
 
   // boilerplate for java interop
-  def this(info: TestInfo, tags: List[Tag]) = this(info.testId, tags)
-  def this(info: TestInfo) = this(info.testId, Nil)
+  def this(info: TestInfo, tags: List[Tag]) = this(info.id, tags)
+  def this(info: TestInfo) = this(info.id, Nil)
 
   // scalastyle:off var.field
   /** collectors that will be wrapped around this test. */

@@ -14,7 +14,6 @@ import com.workday.warp.persistence.{CoreIdentifier, CorePersistenceAware}
   *
   * Created by tomas.mccandless on 3/9/16.
   */
-// TODO consider moving to utils or persistence
 trait CanReadHistory extends CorePersistenceAware {
 
   /**

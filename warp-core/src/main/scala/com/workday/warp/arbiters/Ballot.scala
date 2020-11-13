@@ -9,8 +9,7 @@ import scala.collection.mutable
   *
   * Created by tomas.mccandless on 1/27/16.
   */
-// TODO consider the need for a default arg here
-class Ballot(val testId: TestId = TestId.empty) extends StackTraceFilter {
+case class Ballot(testId: TestId) extends StackTraceFilter {
 
   /** holds any throwables created by arbiters */
   private val errors: mutable.ListBuffer[Throwable] = mutable.ListBuffer[Throwable]()

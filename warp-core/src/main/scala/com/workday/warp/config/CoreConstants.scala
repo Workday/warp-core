@@ -10,18 +10,18 @@ import com.workday.warp.math.{DistributionLike, NullDistribution}
 trait CoreConstants {
 
   @deprecated("use TestId.empty", "5.0.0")
-  val UNDEFINED_TEST_ID = "com.workday.warp.Undefined.undefined"
-  val DISABLE_WARP_USAGE_STRING = "DisableWarpUsage"
-  val SMART_THRESHOLD_BASELINE_DATE_STRING = "SmartThresholdBaselineDate"
-  val SMART_THRESHOLD_SLIDING_WINDOW_STRING = "SmartThresholdSlidingWindow"
-  val SMART_THRESHOLD_TOLERANCE_STRING = "SmartThresholdTolerance"
-  val SMART_SCALAR_STRING = "SmartScalarNumber"
-  val SMART_THRESHOLD_STRING = "SmartThreshold"
-  val USE_DOUBLE_RPCA_STRING = "UseDoubleRpca"
-  val WARP_SPECIFICATION_FIELDS_STRING = "WarpSpecificationFields"
-  val USE_SMART_THRESHOLD_STRING = "UseSmartThreshold"
+  lazy val UNDEFINED_TEST_ID = "com.workday.warp.Undefined.undefined"
+  lazy val DISABLE_WARP_USAGE_STRING = "DisableWarpUsage"
+  lazy val SMART_THRESHOLD_BASELINE_DATE_STRING = "SmartThresholdBaselineDate"
+  lazy val SMART_THRESHOLD_SLIDING_WINDOW_STRING = "SmartThresholdSlidingWindow"
+  lazy val SMART_THRESHOLD_TOLERANCE_STRING = "SmartThresholdTolerance"
+  lazy val SMART_SCALAR_STRING = "SmartScalarNumber"
+  lazy val SMART_THRESHOLD_STRING = "SmartThreshold"
+  lazy val USE_DOUBLE_RPCA_STRING = "UseDoubleRpca"
+  lazy val WARP_SPECIFICATION_FIELDS_STRING = "WarpSpecificationFields"
+  lazy val USE_SMART_THRESHOLD_STRING = "UseSmartThreshold"
   // default distribution with 0 delay between test invocations
-  val DISTRIBUTION: DistributionLike = new NullDistribution
+  lazy val DISTRIBUTION: DistributionLike = new NullDistribution
 }
 
 

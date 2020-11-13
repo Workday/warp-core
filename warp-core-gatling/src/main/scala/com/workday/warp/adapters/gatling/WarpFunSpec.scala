@@ -13,7 +13,7 @@ import io.gatling.http.funspec.GatlingHttpFunSpec
   */
 abstract class WarpFunSpec(val testId: TestId) extends GatlingHttpFunSpec with HasDefaultTestName with HasWarpHooks {
 
-  def this() = this(TestId.empty)
+  def this() = this(TestId.undefined)
 
   val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(this.canonicalName, tags = List.empty)
 

@@ -13,7 +13,7 @@ import io.gatling.core.Predef.Simulation
   */
 abstract class WarpSimulation(val testId: TestId) extends Simulation with HasDefaultTestName with HasWarpHooks {
 
-  def this() = this(TestId.empty)
+  def this() = this(TestId.undefined)
 
   val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(this.testId, tags = List.empty)
 

@@ -19,8 +19,8 @@ class DefaultMeasurementCollectionController(override val testId: TestId,
 
 
   // boilerplate for java interop
-  def this(info: TestInfo, tags: List[Tag]) = this(info.testId, tags)
-  def this(info: TestInfo) = this(info.testId, Nil)
+  def this(info: TestInfo, tags: List[Tag]) = this(info.id, tags)
+  def this(info: TestInfo) = this(info.id, Nil)
 
   this._collectors = List(new WallClockTimeCollector, new HeapUsageCollector)
 }

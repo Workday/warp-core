@@ -56,7 +56,7 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
             // without this tag only the last point in the batch will be retained because all points in the batch will be
             // considered identical as they have identical timestamps
             .tag("className", histoEntry.className)
-            .tag("warpTestName", warpTestName.testId)
+            .tag("warpTestName", warpTestName.id)
             .addField("numInstances", histoEntry.numInstances)
             .addField("numBytes", histoEntry.numBytes)
             .build

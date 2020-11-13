@@ -14,6 +14,6 @@ class JUnitSpecTest extends WarpJUnitSpec {
   /** Checks that we can read test id from [[TestIdImplicits]]. */
   @UnitTest
   def nameTest(info: TestInfo): Unit = {
-    info.testId should be ("com.workday.warp.utils.JUnitSpecTest.nameTest")
+    info.id should be ("com.workday.warp.utils.JUnitSpecTest.nameTest")
   }
 }

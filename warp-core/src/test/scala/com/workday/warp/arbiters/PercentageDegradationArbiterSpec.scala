@@ -52,8 +52,8 @@ class PercentageDegradationArbiterSpec extends WarpJUnitSpec with CorePersistenc
   @UnitTest
   @PercentageDegradationRequirement(percentage = 20)
   def percentageVote(info: TestInfo): Unit = {
-    val ballot: Ballot = new Ballot(info.testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.testId, Instant.now(), 4.0, 5.0)
+    val ballot: Ballot = new Ballot(info.id)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.id, Instant.now(), 4.0, 5.0)
 
     val arbiter: PercentageDegradationArbiter = new PercentageDegradationArbiter
     arbiter.vote(List(1.0, 2.0, 3.0), ballot, testExecution, this.minimumHistoricalData) should be (defined)
