@@ -59,7 +59,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     // we don't care about today's response time for this
-    val rawResponseTimes: Iterable[Double] = this.responseTimes(ballot.testId.testId, testExecution.idTestExecution,
+    val rawResponseTimes: Iterable[Double] = this.responseTimes(ballot.testId.id, testExecution.idTestExecution,
       startDateLowerBound, useSlidingWindow, slidingWindowSize)
     val threshold: Duration = this.smartNumber(rawResponseTimes).seconds
     val responseTime: Duration = TimeUtils.toNanos(testExecution.responseTime, TimeUnit.SECONDS).nanoseconds

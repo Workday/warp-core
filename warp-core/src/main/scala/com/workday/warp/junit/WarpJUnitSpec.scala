@@ -1,6 +1,6 @@
 package com.workday.warp.junit
 
-import com.workday.warp.utils.TryMatchers
+import com.workday.warp.scalatest.TryMatchers
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.{Inside, Inspectors, OptionValues}
 import org.scalatestplus.junit.{AssertionsForJUnit, JUnitSuite}

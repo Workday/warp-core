@@ -7,7 +7,7 @@ import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import com.workday.warp.persistence.mysql.WarpSlickSingleColumnExtensionsSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
-import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
+import com.workday.warp.TestIdImplicits.string2TestId
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.parallel.Isolated
 

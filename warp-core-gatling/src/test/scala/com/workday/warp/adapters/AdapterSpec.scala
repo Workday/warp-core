@@ -2,7 +2,7 @@ package com.workday.warp.adapters
 
 import java.time.Duration
 
-import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
+import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.TrialResult
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.{ExecutionTag, Tag}

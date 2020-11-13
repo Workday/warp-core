@@ -12,7 +12,7 @@ import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.{DistributionLike, GaussianDistribution}
-import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
+import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
@@ -332,17 +332,17 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     // check that we can manually override the test id
     val someTestId: String = "com.workday.warp.dsl.test1"
     val config: ExecutionConfig = using testId someTestId
-    Researcher(config).collectionController().testId.testId should be (someTestId)
+    Researcher(config).collectionController().testId.id should be (someTestId)
     config measure { 1 + 1 }
     ConfigStore.get(someTestId) should be (Some(config))
-    Researcher(using iterations 5 testId someTestId).collectionController().testId.testId should be (someTestId)
+    Researcher(using iterations 5 testId someTestId).collectionController().testId.id should be (someTestId)
 
     // check that we can read it from telemetron name rule
     val randomTestId: TestId = this.randomTestId()
     Researcher(using testId randomTestId).collectionController().testId should be (randomTestId)
 
     // check that we handle empty string correctly
-    Researcher(using testId "").collectionController().testId should be (TestId.empty)
+    Researcher(using testId "").collectionController().testId should be (TestId.undefined)
   }
 
 

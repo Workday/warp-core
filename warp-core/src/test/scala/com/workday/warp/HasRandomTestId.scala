@@ -1,7 +1,7 @@
 package com.workday.warp
 
 import java.util.UUID
-import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
+import com.workday.warp.TestIdImplicits.string2TestId
 
 /**
   * Created by tomas.mccandless on 6/16/20.

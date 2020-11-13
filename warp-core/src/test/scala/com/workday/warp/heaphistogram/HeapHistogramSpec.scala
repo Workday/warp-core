@@ -55,7 +55,7 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike with HasRando
   @UnitTest
   def lifecycleSpec(info: TestInfo): Unit = {
     val measCollectionController: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
-    val contHeapHistoCollector: AbstractMeasurementCollector = new ContinuousHeapHistogramCollector(TestId.empty)
+    val contHeapHistoCollector: AbstractMeasurementCollector = new ContinuousHeapHistogramCollector(TestId.undefined)
 
     measCollectionController.registerCollector(contHeapHistoCollector)
     measCollectionController.registerCollector(new HeapHistogramCollector(this.randomTestId()))

@@ -52,8 +52,8 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   @ZScoreRequirement(percentile = 95.0)
   def percentileVote(info: TestInfo): Unit = {
-    val ballot: Ballot = new Ballot(info.testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.testId, Instant.now(), 4.0, 3.0)
+    val ballot: Ballot = new Ballot(info.id)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.id, Instant.now(), 4.0, 3.0)
     val arbiter: ZScoreArbiter = new ZScoreArbiter
 
     arbiter.vote(List(1.0, 1.0, 1.0, 2.0, 4.0), ballot, testExecution, this.minimumHistoricalData) shouldBe defined
@@ -65,8 +65,8 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   @ZScoreRequirement(percentile = Double.MaxValue)
   def percentilePassed(info: TestInfo): Unit = {
-    val ballot: Ballot = new Ballot(info.testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.testId, Instant.now(), 1.0, 0.0)
+    val ballot: Ballot = new Ballot(info.id)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.id, Instant.now(), 1.0, 0.0)
     val arbiter: ZScoreArbiter = new ZScoreArbiter
 
     arbiter.maybeThrow(arbiter.vote(List(1.0, 1.0, 1.0, 1.0), ballot, testExecution, this.minimumHistoricalData))
@@ -77,8 +77,8 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   @ZScoreRequirement(percentile = 75.0)
   def percentileFailed(info: TestInfo): Unit = {
-    val ballot: Ballot = new Ballot(info.testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.testId, Instant.now(), 4.0, 0.0)
+    val ballot: Ballot = new Ballot(info.id)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.id, Instant.now(), 4.0, 0.0)
     val arbiter: ZScoreArbiter = new ZScoreArbiter
 
     // catch the thrown exception

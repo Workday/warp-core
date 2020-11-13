@@ -17,11 +17,6 @@ import scala.util.{Failure, Success, Try}
   * Multiple Junit interfaces [[org.junit.jupiter.api.extension.ExtensionContext]] and [[org.junit.jupiter.api.TestInfo]],
   * for example, declare methods `getTestClass` and `getTestMethod`, but share no common supertype.
   *
-  * We use ad-hoc polymorphism to declare [[TestId]] instances for [[org.junit.jupiter.api.TestInfo]] and
-  * [[org.junit.jupiter.api.extension.ExtensionContext]].
-  *
-  * TODO consider whether we are doing the right thing with hashcode() and equals()
-  *
   * Created by tomas.mccandless on 6/18/20.
   */
 case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
@@ -33,7 +28,7 @@ case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
     *
     * @return Some fully qualified method name, or [[None]].
     */
-  lazy val maybeTestId: Try[String] = for {
+  lazy val maybeId: Try[String] = for {
     className: String <- this.maybeTestClass.map(_.getCanonicalName)
     method: String <- this.maybeTestMethod.map(_.getName)
   } yield s"$className.$method"
@@ -45,53 +40,73 @@ case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
     * @return some fully qualified method name.
     */
   @throws[RuntimeException]
-  // TODO consider renaming this to methodSignature
-  final def testId: String = this.maybeTestId.get
+  final def id: String = this.maybeId.get
 
-  override def hashCode(): Int = this.testId.hashCode
+  /** @return a hashCode for this [[TestId]]. Currently only considers string id field, generally fully qualified method signature. */
+  override def hashCode: Int = this.id.hashCode
 
-  // TODO this only looks at testId
-  override def equals(obj: Any): Boolean = {
-    obj != None.orNull && obj.isInstanceOf[TestId] && obj.asInstanceOf[TestId].testId == this.testId
+  /**
+    * Equality check. Currently only considers `id`.
+    *
+    * @param other another object to compare to.
+    * @return whether this [[TestId]] is equal to `other`.
+    */
+  override def equals(other: Any): Boolean = {
+    other != None.orNull && other.isInstanceOf[TestId] && other.asInstanceOf[TestId].id == this.id
   }
 }
 
 
 object TestId {
 
-  lazy val empty: TestId = new TestId(Failure(new ClassNotFoundException()), Failure(new NoSuchMethodException())) {
-    override lazy val maybeTestId: Try[String] = Success(CoreConstants.UNDEFINED_TEST_ID)
+  /** A default undefined [[TestId]]. */
+  lazy val undefined: TestId = new TestId(Failure(new ClassNotFoundException), Failure(new NoSuchMethodException)) {
+    override lazy val maybeId: Try[String] = Success(CoreConstants.UNDEFINED_TEST_ID)
   }
 
+  /**
+    * Constructs a [[TestId]] from a [[TestInfo]], usually obtained from a junit test method parameter.
+    *
+    * @param info a [[TestInfo]].
+    * @return a [[TestId]].
+    */
   def fromTestInfo(info: TestInfo): TestId = TestId(info.getTestClass.toTry, info.getTestMethod.toTry)
 
+  /**
+    * Constructs a [[TestId]] from an [[ExtensionContext]], usually obtained from a junit extension hook.
+    *
+    * @param context a [[ExtensionContext]].
+    * @return a [[TestId]].
+    */
   def fromExtensionContext(context: ExtensionContext): TestId = TestId(context.getTestClass.toTry, context.getTestMethod.toTry)
 
   /**
-    * Constructs a [[TestId]] from a fully qualified method signature.
+    * Constructs a [[TestId]] from a [[String]].
     *
     * Attempts to parse a test class and test method from the signature, however note that there may be overloaded
     * test methods.
     *
-    * @param signature
-    * @return
+    * If we are unable to parse a test
+    *
+    * @param str treated as a fully qualified method signature.
+    * @return a [[TestId]].
     */
-  def fromMethodSignature(signature: String): TestId = {
-    val className: String = signature take signature.lastIndexOf('.')
-    val methodName: String = signature drop signature.lastIndexOf('.') + 1
+  def fromString(str: String): TestId = {
+    val className: String = str take str.lastIndexOf('.')
+    val methodName: String = str drop str.lastIndexOf('.') + 1
 
     val maybeTestClass: Try[Class[_]] = Try(Class.forName(className))
     val maybeTestMethod: Try[Method] = for {
       cls <- maybeTestClass
       methods: Array[Method] = cls.getMethods.filter(_.getName == methodName)
       _ = if (methods.length > 1) {
-        Logger.warn(s"detected overloaded methods for signature $signature, annotation processing may not work as expected.")
+        Logger.warn(s"detected overloaded methods for signature $str, annotation processing may not work as expected.")
       }
       method <- methods.headOption.toTry
     } yield method
 
     new TestId(maybeTestClass, maybeTestMethod) {
-      override lazy val maybeTestId: Try[String] = Success(signature)
+      override lazy val maybeId: Try[String] = Success(str)
     }
   }
 }

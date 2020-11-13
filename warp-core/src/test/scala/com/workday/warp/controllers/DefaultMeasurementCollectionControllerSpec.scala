@@ -2,7 +2,7 @@ package com.workday.warp.controllers
 
 import java.time.Instant
 
-import com.workday.warp.TestIdImplicits.methodSignatureIsTestId
+import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.TrialResult
 import com.workday.warp.arbiters.SmartNumberArbiter
 import com.workday.warp.collectors.{AbstractMeasurementCollector, ResponseTimeCollector}
@@ -179,7 +179,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
   @UnitTest
   def testInfo(info: TestInfo): Unit = {
     val controller: AbstractMeasurementCollectionController = new DefaultMeasurementCollectionController(info)
-    controller.testId.testId should be ("com.workday.warp.controllers.DefaultMeasurementCollectionControllerSpec.testInfo")
+    controller.testId.id should be ("com.workday.warp.controllers.DefaultMeasurementCollectionControllerSpec.testInfo")
   }
 
   /**

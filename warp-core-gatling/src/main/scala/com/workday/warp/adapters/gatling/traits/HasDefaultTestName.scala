@@ -17,13 +17,13 @@ trait HasDefaultTestName extends HasBasePackageName { self =>
     * Gets the fully qualified test name.
    */
   def canonicalName: TestId = {
-    val currentTestId: String = this.testId.testId
+    val currentTestId: String = this.testId.id
     if (currentTestId == DEFAULT_TEST_ID) new TestId(testId.maybeTestClass, testId.maybeTestMethod) {
-      override lazy val maybeTestId: Try[String] = Success(defaultName)
+      override lazy val maybeId: Try[String] = Success(defaultName)
     }
     else if (currentTestId.startsWith(packageName)) testId
     else new TestId(testId.maybeTestClass, testId.maybeTestMethod) {
-      override lazy val maybeTestId: Try[String] = Success(s"$packageName.$currentTestId")
+      override lazy val maybeId: Try[String] = Success(s"$packageName.$currentTestId")
     }
   }
 }

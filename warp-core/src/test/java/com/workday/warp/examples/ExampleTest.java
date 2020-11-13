@@ -23,7 +23,7 @@ public class ExampleTest {
 
     @Test
     public void testId(final TestInfo info) {
-        final String id = TestId.fromTestInfo(info).testId();
+        final String id = TestId.fromTestInfo(info).id();
         Assert.assertTrue("com.workday.warp.examples.ExampleTest.testId".equals(id));
     }
 

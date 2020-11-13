@@ -1,8 +1,9 @@
 package com.workday.warp.math.linalg
 
-import com.workday.warp.arbiters.Ballot
+import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
-import com.workday.warp.utils.{DataUtils, WarpStopwatch}
+import com.workday.warp.math.standardize
+import com.workday.warp.utils.WarpStopwatch
 import org.pmw.tinylog.Logger
 
 import scala.collection.mutable
@@ -34,14 +35,14 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     * Top-level function that delegates to either single or robust rpca.
     *
     * @param rawResponseTimes collection of response times to analyze.
-    * @param ballot [[Ballot]] used to cast votes.
+    * @param testId [[TestId]] used to log status.
     * @return None if responseTimes is empty or has size < `requiredMeasurements`, otherwise a wrapped RobustPCA object.
     */
   def robustPca(rawResponseTimes: Iterable[Double],
-                ballot: Ballot = new Ballot): Option[RobustPca] = {
+                testId: TestId = TestId.undefined): Option[RobustPca] = {
 
     if (rawResponseTimes.size < this.requiredMeasurements) {
-      Logger.debug(s"insufficient historical data for ${ballot.testId} (found ${rawResponseTimes.size} but we require " +
+      Logger.debug(s"insufficient historical data for ${testId.id} (found ${rawResponseTimes.size} but we require " +
         s"${this.requiredMeasurements}). rpca anomaly detection will not be performed.")
       None
     }
@@ -99,7 +100,7 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     }
 
     // standardize the data, taking sliding window if appropriate
-    val responseTimes: Iterable[Double] = DataUtils.standardize(testedData)
+    val responseTimes: Iterable[Double] = standardize(testedData)
     // wrap response times to create a 2d matrix
     val responseTimeMatrix: Array[Array[Double]] = Array(responseTimes.toArray)
 

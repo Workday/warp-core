@@ -6,7 +6,6 @@ package com.workday.warp.arbiters
   * Created by leslie.lam on 12/14/17.
   * Based on java class created by michael.ottati on 9/18/15.
   */
-// TODO consider renaming to RequirementFailedEception or RequirementViolatedException
 class RequirementViolationException(message: String = None.orNull,
                                     cause: Throwable = None.orNull,
                                     enableSuppression: Boolean = false,

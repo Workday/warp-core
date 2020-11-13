@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtensionContext
   * This provides some flexibility in terms of multiple entrypoints into our framework,
   * and avoids the boilerplate of multiple method overloadings.
   *
-  * Java users can statically import and explicitly call these methods.
+  * Java users can statically import and explicitly call these methods, or use methods such as [[TestId.fromTestInfo()]].
   *
   * Created by tomas.mccandless on 6/18/20.
   */
@@ -25,7 +25,7 @@ object TestIdImplicits {
     *             as part of a running test.
     * @return a [[TestId]] used to identify tests.
     */
-  implicit def testInfoIsTestId(info: TestInfo): TestId = TestId.fromTestInfo(info)
+  implicit def testInfo2TestId(info: TestInfo): TestId = TestId.fromTestInfo(info)
 
 
   /**
@@ -34,7 +34,7 @@ object TestIdImplicits {
     * @param context an [[ExtensionContext]], usually obtained as part of [[org.junit.jupiter.api.BeforeEach]] or other hook.
     * @return a [[TestId]] used to identify tests.
     */
-  implicit def extensionContextIsTestId(context: ExtensionContext): TestId = TestId.fromExtensionContext(context)
+  implicit def extensionContext2TestId(context: ExtensionContext): TestId = TestId.fromExtensionContext(context)
 
 
   /**
@@ -46,5 +46,5 @@ object TestIdImplicits {
     * @param signature
     * @return
     */
-  implicit def methodSignatureIsTestId(signature: String): TestId = TestId.fromMethodSignature(signature)
+  implicit def string2TestId(signature: String): TestId = TestId.fromString(signature)
 }
