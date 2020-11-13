@@ -8,7 +8,7 @@ import scala.util.{Success, Try}
 /**
   * Created by ruiqi.wang
   */
-trait HasDefaultTestName extends HasBasePackageName { self =>
+trait HasDefaultTestName extends HasBasePackageName {
 
   val testId: TestId
   private val defaultName = s"$packageName.${this.getClass.getSimpleName}"

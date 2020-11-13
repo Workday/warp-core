@@ -3,11 +3,11 @@ package com.workday.warp.heaphistogram
 import java.io.InputStream
 import java.lang.management.ManagementFactory
 
-import com.sun.tools.attach.VirtualMachine
+import com.sun.tools.attach.VirtualMachine // scalastyle:ignore
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.influxdb.InfluxDBClient
-import sun.tools.attach.HotSpotVirtualMachine
+import sun.tools.attach.HotSpotVirtualMachine // scalastyle:ignore
 
 import scala.util.matching.Regex
 
