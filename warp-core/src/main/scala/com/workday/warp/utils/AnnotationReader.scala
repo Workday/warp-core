@@ -6,10 +6,7 @@ import java.time.Duration
 import Implicits._
 import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}
 import org.junit.jupiter.api.Timeout
-import org.pmw.tinylog.Logger
 import org.junit.platform.commons.util.AnnotationUtils
-
-import scala.util.Try
 
 
 /**
