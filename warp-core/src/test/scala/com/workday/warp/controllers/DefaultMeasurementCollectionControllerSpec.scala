@@ -80,7 +80,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
 
       // Not ignoring duplicate execution and definition tags
       ExecutionTag("key3", "val3"),
-      // these meta tags should no longer fail to insert
+      // These meta tags should successfully insert despite the duplicate tag value on the test definition
       ExecutionTag("key3", "val31", List(
         ExecutionMetaTag("metaKey31", "metaVal31"),
         ExecutionMetaTag("metaKey32", "metaVal32")
@@ -102,6 +102,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     val tagDescriptionLength: Int = this.persistenceUtils.synchronously(TagName.length.result)
 
     // test adding a total of 2 TestExecutionTags, 2 TestExecutionMetaTags, 1 DefinitionTag, 1 TestDefinitionMetaTag, 8 Tag Descriptions.
+    // TODO: v
     // erroneous/redundant MetaTags and OuterTags are no longer ignored, and instead overwritten/updated
     outerTestExecutionTagLength should be (2)
     testExecutionMetaTagLength should be (2)
@@ -131,6 +132,7 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     queryTestDefinitionMetaTagWithRowId(definitionTag1RowId, "metaKey21").head.value should be (("metaKey21", "metaVal21"))
 
 
+    // TODO: v
     // test that erroneous description/key tag insertion no longer throws exception
     tryRecordTags(4).tryTag._1.isFailure should be (false)
 

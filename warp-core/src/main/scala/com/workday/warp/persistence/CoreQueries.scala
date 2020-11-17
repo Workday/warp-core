@@ -78,6 +78,16 @@ trait CoreQueries extends AbstractQueries {
     query.result
   }
 
+  // TODO
+  def readTestExecutionTagQuery(idTestExecution: Int, testExecutionTagName: String): DBIO[Option[TestExecutionTagRowWrapper]] = {
+    val query = for {
+      tagName <- TagName if tagName.name === testExecutionTagName
+      testExecutionTag <- TestExecutionTag if testExecutionTag.idTestExecution === idTestExecution && testExecutionTag.idTagName === tagName.idTagName
+    } yield testExecutionTag
+
+    query.result.map(_.headOption)
+  }
+
 
   /** @return [[DBIO]] for reading the number of rows in [[TestExecution]]. */
   override def numTestExecutionsQuery: DBIO[Int] = TestExecution.length.result
@@ -342,6 +352,14 @@ trait CoreQueries extends AbstractQueries {
   override def writeTestExecutionQuery[T: TestExecutionRowLikeType](row: T): DBIO[TestExecutionRowWrapper] = {
     TestExecution returning TestExecution.map(_.idTestExecution) into ((row, id) => row.copy(idTestExecution = id)) += row
   }
+
+
+  // TODO should be added to the base class
+  def insertOrUpdateTestExecutionTagQuery[T: TestExecutionTagRowLikeType](row: T): DBIO[Option[TestExecutionTagRowWrapper]] = {
+    TestExecutionTag returning TestExecutionTag.map(_.idTestExecutionTag) into ((row, id) => row.copy(idTestExecutionTag = id)) insertOrUpdate(row)
+  }
+
+
 
 
   /**

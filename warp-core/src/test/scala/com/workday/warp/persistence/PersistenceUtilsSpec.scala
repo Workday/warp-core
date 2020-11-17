@@ -380,4 +380,21 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
     this.createTestExecution(6)
     this.persistenceUtils.getMedianResponseTime(CoreIdentifier(this.methodSignature)) should be (4.5)
   }
+
+  @UnitTest
+  def overwriteTestExecutionTag(): Unit = {
+    val testExecution: TestExecutionRowLike = this.createTestExecution(1)
+    val tag: TablesLike.TestExecutionTagRowLike = this.persistenceUtils.recordTestExecutionTag(
+      testExecution.idTestExecution, "some name", "old tag value"
+    )
+    val newTag = this.persistenceUtils.recordTestExecutionTag(
+      testExecution.idTestExecution, "some name", "new tag value"
+    )
+
+    val readBackTag: Option[(String, String)] = this.persistenceUtils.synchronously(
+      this.persistenceUtils.testExecutionTagsQuery(testExecution.idTestExecution, newTag.idTagName)
+    ).headOption
+
+    readBackTag.get._2 should be ("new tag value")
+  }
 }

@@ -14,7 +14,9 @@ import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.IdentifierSyntax._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import org.pmw.tinylog.Logger
+import slick.dbio.Effect
 import slick.jdbc.TransactionIsolation
+import slick.sql.FixedSqlAction
 
 import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -222,7 +224,16 @@ trait CorePersistenceAware extends PersistenceAware {
                                    value: String,
                                    isUserGenerated: Boolean = true): TestExecutionTagRowLike = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
+      val updatedRow = this.insertOrUpdateTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
 
+      //      val find: DBIO[Option[Tables.TestExecutionTagRowWrapper]] = this.readTestExecutionTagQuery(idTestExecution, name)
+//      val create: DBIO[Tables.TestExecutionTagRowWrapper] = this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
+//      this.findOrCreate(find.map(_.toSeq), create)
+
+
+      //      val updatedRow = (TestExecutionTag returning TestExecutionTag).insertOrUpdate(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
+//      val updatedRow = this.insertOrUpdateTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
+      /*
       val dbAction: DBIO[TestExecutionTagRow] = for {
         tags: Option[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName)
         // TODO we can use Option monad here instead
@@ -231,15 +242,28 @@ trait CorePersistenceAware extends PersistenceAware {
             this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
           case (oldKey, oldValue) :: Nil =>
             Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
-            DBIO.successful(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, oldValue))
+            this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
+//            DBIO.successful(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, oldValue))
 
           case _ =>
             DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestExecution tag"))
         }
       } yield action
+      */
 
-      this.runWithRetries(dbAction)
+      val q: DBIO[TestExecutionTagRowWrapper] = for {
+        r: Option[Tables.TestExecutionTagRowWrapper] <- updatedRow
+//        a <- r match {
+//          case Some(row: Tables.TestExecutionTagRowWrapper) => DBIO.successful(row)
+//           This .get should be okay since we're doing it in a db transactional boundary
+//          case None => this.readTestExecutionTagQuery(idTestExecution, name).map(_.get)
+//        }
+        a <- r.fold (ifEmpty = this.readTestExecutionTagQuery(idTestExecution, name).map(_.get)) (DBIO.successful)
+      } yield a
+
+      this.runWithRetries(q)
     }
+    // TODO: do the same for the testdefinitiontag and the two metatags, should be same structure
 
 
     /**
@@ -275,6 +299,7 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param value value of the tag.
       * @return a [[TestDefinitionTagRowLike]] with the given parameters.
       */
+      // TODO: come back here after doing testexecutiontag
     @throws[WarpFieldPersistenceException]
     override def recordTestDefinitionTag(idTestDefinition: Int,
                                        name: String,
@@ -289,7 +314,7 @@ trait CorePersistenceAware extends PersistenceAware {
             this.writeTestDefinitionTagQuery(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value))
           case (oldKey, oldValue) :: Nil =>
             Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
-            DBIO.successful(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, oldValue))
+            this.writeTestDefinitionTagQuery(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value))
           case _ =>
             DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestDefinition tag"))
         }
