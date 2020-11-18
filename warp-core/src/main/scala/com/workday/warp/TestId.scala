@@ -34,7 +34,7 @@ case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
   } yield s"$className.$method"
 
   /**
-    * Unsafe variant of `maybeTestId`
+    * Unsafe variant of `maybeId`
     *
     * @throws
     * @return some fully qualified method name.
