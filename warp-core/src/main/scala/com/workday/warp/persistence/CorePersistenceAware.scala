@@ -6,7 +6,6 @@ import java.time.Instant
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.WarpPropertyManager
-import com.workday.warp.persistence.exception.PreExistingTagException
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.Tables.profile.api._
@@ -224,46 +223,17 @@ trait CorePersistenceAware extends PersistenceAware {
                                    value: String,
                                    isUserGenerated: Boolean = true): TestExecutionTagRowLike = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val updatedRow = this.insertOrUpdateTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
+      val teTagRow: TestExecutionTagRow = TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value)
+      val updatedRow = this.insertOrUpdateTestExecutionTagQuery(teTagRow)
 
-      //      val find: DBIO[Option[Tables.TestExecutionTagRowWrapper]] = this.readTestExecutionTagQuery(idTestExecution, name)
-//      val create: DBIO[Tables.TestExecutionTagRowWrapper] = this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-//      this.findOrCreate(find.map(_.toSeq), create)
+      val updateRowQuery: DBIO[TestExecutionTagRowWrapper] = for {
+        row: Option[Tables.TestExecutionTagRowWrapper] <- updatedRow
+        tag <- row.fold (ifEmpty = this.readTestExecutionTagQuery(idTestExecution, name).map(_.get)) (DBIO.successful)
+      } yield tag
 
-
-      //      val updatedRow = (TestExecutionTag returning TestExecutionTag).insertOrUpdate(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-//      val updatedRow = this.insertOrUpdateTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-      /*
-      val dbAction: DBIO[TestExecutionTagRow] = for {
-        tags: Option[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName)
-        // TODO we can use Option monad here instead
-        action <- tags.toList match {
-          case Nil =>
-            this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-          case (oldKey, oldValue) :: Nil =>
-            Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
-            this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-//            DBIO.successful(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, oldValue))
-
-          case _ =>
-            DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestExecution tag"))
-        }
-      } yield action
-      */
-
-      val q: DBIO[TestExecutionTagRowWrapper] = for {
-        r: Option[Tables.TestExecutionTagRowWrapper] <- updatedRow
-//        a <- r match {
-//          case Some(row: Tables.TestExecutionTagRowWrapper) => DBIO.successful(row)
-//           This .get should be okay since we're doing it in a db transactional boundary
-//          case None => this.readTestExecutionTagQuery(idTestExecution, name).map(_.get)
-//        }
-        a <- r.fold (ifEmpty = this.readTestExecutionTagQuery(idTestExecution, name).map(_.get)) (DBIO.successful)
-      } yield a
-
-      this.runWithRetries(q)
+      this.runWithRetries(updateRowQuery)
     }
-    // TODO: do the same for the testdefinitiontag and the two metatags, should be same structure
+    // TODO: do the same for the two metatags, should be same structure
 
 
     /**
@@ -305,23 +275,16 @@ trait CorePersistenceAware extends PersistenceAware {
                                        name: String,
                                        value: String,
                                        isUserGenerated: Boolean = true): TestDefinitionTagRowLike = {
-      val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
+        val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
+        val tdTagRow: TestDefinitionTagRow = TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value)
+        val updatedRow = this.insertOrUpdateTestDefinitionTagQuery(tdTagRow)
 
-      val dbAction: DBIO[TestDefinitionTagRow] = for {
-        tags: Seq[(String, String)] <- this.testDefinitionTagsQuery(idTestDefinition, nameRow.idTagName).result
-        action <- tags.toList match {
-          case Nil =>
-            this.writeTestDefinitionTagQuery(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value))
-          case (oldKey, oldValue) :: Nil =>
-            Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
-            this.writeTestDefinitionTagQuery(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value))
-          case _ =>
-            DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestDefinition tag"))
-        }
-      } yield action
+        val updateRowQuery: DBIO[TestDefinitionTagRowWrapper] = for {
+          row: Option[Tables.TestDefinitionTagRowWrapper] <- updatedRow
+          tag <- row.fold (ifEmpty = this.readTestDefinitionTagQuery(idTestDefinition, name).map(_.get)) (DBIO.successful)
+        } yield tag
 
-
-      this.runWithRetries(dbAction)
+        this.runWithRetries(updateRowQuery)
     }
 
 

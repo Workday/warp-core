@@ -51,6 +51,19 @@ trait CoreQueries extends AbstractQueries {
     TestDefinition.filter(_.methodSignature === methodSignature).result.headOption
   }
 
+  /**
+   * TODO: docs
+   */
+  def readTestDefinitionTagQuery(idTestDefinition: Int, testDefinitionTagName: String): DBIO[Option[TestDefinitionTagRowWrapper]] = {
+    val query = for {
+      tagName <- TagName if tagName.name === testDefinitionTagName
+      testDefinitionTag <- TestDefinitionTag if testDefinitionTag.idTestDefinition === idTestDefinition &&
+                                                testDefinitionTag.idTagName === tagName.idTagName
+    } yield testDefinitionTag
+
+    query.result.map(_.headOption)
+  }
+
 
   /**
     * Creates a [[Query]] for selecting the method signature of `testExecution`.
@@ -78,11 +91,17 @@ trait CoreQueries extends AbstractQueries {
     query.result
   }
 
-  // TODO
+  /**
+   * TODO: Docs
+   * @param idTestExecution
+   * @param testExecutionTagName
+   * @return
+   */
   def readTestExecutionTagQuery(idTestExecution: Int, testExecutionTagName: String): DBIO[Option[TestExecutionTagRowWrapper]] = {
     val query = for {
       tagName <- TagName if tagName.name === testExecutionTagName
-      testExecutionTag <- TestExecutionTag if testExecutionTag.idTestExecution === idTestExecution && testExecutionTag.idTagName === tagName.idTagName
+      testExecutionTag <- TestExecutionTag if testExecutionTag.idTestExecution === idTestExecution &&
+                                              testExecutionTag.idTagName === tagName.idTagName
     } yield testExecutionTag
 
     query.result.map(_.headOption)
@@ -356,9 +375,16 @@ trait CoreQueries extends AbstractQueries {
 
   // TODO should be added to the base class
   def insertOrUpdateTestExecutionTagQuery[T: TestExecutionTagRowLikeType](row: T): DBIO[Option[TestExecutionTagRowWrapper]] = {
-    TestExecutionTag returning TestExecutionTag.map(_.idTestExecutionTag) into ((row, id) => row.copy(idTestExecutionTag = id)) insertOrUpdate(row)
+    TestExecutionTag returning TestExecutionTag.map(_.idTestExecutionTag) into (
+      (row, id) => row.copy(idTestExecutionTag = id)
+    ) insertOrUpdate(row)
   }
 
+  def insertOrUpdateTestDefinitionTagQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[Option[TestDefinitionTagRowWrapper]] = {
+    TestDefinitionTag returning TestDefinitionTag.map(_.idTestDefinitionTag) into (
+      (row, id) => row.copy(idTestDefinitionTag = id)
+    ) insertOrUpdate(row)
+  }
 
 
 

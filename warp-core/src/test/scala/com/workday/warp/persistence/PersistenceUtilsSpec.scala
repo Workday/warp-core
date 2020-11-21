@@ -384,7 +384,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   def overwriteTestExecutionTag(): Unit = {
     val testExecution: TestExecutionRowLike = this.createTestExecution(1)
-    val tag: TablesLike.TestExecutionTagRowLike = this.persistenceUtils.recordTestExecutionTag(
+    this.persistenceUtils.recordTestExecutionTag(
       testExecution.idTestExecution, "some name", "old tag value"
     )
     val newTag = this.persistenceUtils.recordTestExecutionTag(
@@ -393,6 +393,23 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val readBackTag: Option[(String, String)] = this.persistenceUtils.synchronously(
       this.persistenceUtils.testExecutionTagsQuery(testExecution.idTestExecution, newTag.idTagName)
+    ).headOption
+
+    readBackTag.get._2 should be ("new tag value")
+  }
+
+  @UnitTest
+  def overwriteTestDefinitionTag(): Unit = {
+    val testDefinition: TestDefinitionRowLike = this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature)
+    this.persistenceUtils.recordTestDefinitionTag(
+      testDefinition.idTestDefinition, "some name", "old tag value"
+    )
+    val newTag = this.persistenceUtils.recordTestDefinitionTag(
+      testDefinition.idTestDefinition, "some name", "new tag value"
+    )
+
+    val readBackTag: Option[(String, String)] = this.persistenceUtils.synchronously(
+      this.persistenceUtils.testDefinitionTagsQuery(testDefinition.idTestDefinition, newTag.idTagName)
     ).headOption
 
     readBackTag.get._2 should be ("new tag value")
