@@ -1,6 +1,7 @@
 package com.workday.warp.utils
 
 import java.lang.annotation.Annotation
+import java.lang.reflect.Method
 import java.time.Duration
 
 import Implicits._
@@ -26,8 +27,8 @@ object AnnotationReader extends StackTraceFilter {
     */
   def getWarpTestAnnotation[T <: Annotation](annotationClass: Class[T], testId: TestId): Option[T] = {
     for {
-      m <- testId.maybeTestMethod.toOption
-      a <- AnnotationUtils.findAnnotation(m, annotationClass).toOption
+      m: Method <- testId.maybeTestMethod.toOption
+      a: T <- AnnotationUtils.findAnnotation(m, annotationClass).toOption
     } yield a
   }
 
@@ -38,7 +39,7 @@ object AnnotationReader extends StackTraceFilter {
     * @return max response time as a [[Duration]] for the test we are about to invoke
     */
   def getRequiredMaxValue(testId: TestId): Option[Duration] = {
-    getWarpTestAnnotation(classOf[Required], testId).map { a =>
+    getWarpTestAnnotation(classOf[Required], testId).map { a: Required =>
       Duration.ofNanos(TimeUtils.toNanos(a.maxResponseTime, a.timeUnit))
     }
   }
@@ -51,7 +52,7 @@ object AnnotationReader extends StackTraceFilter {
     * @return max response time as a [[Duration]] for the test we are about to invoke
     */
   def getTimeoutValue(testId: TestId): Option[Duration] = {
-    getWarpTestAnnotation(classOf[Timeout], testId).map { a =>
+    getWarpTestAnnotation(classOf[Timeout], testId).map { a: Timeout =>
       TimeUtils.durationOf(a.value, a.unit)
     }
   }

@@ -64,7 +64,7 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
       maybePercentageRequirement.flatMap { percentageRequirement =>
         if (percentage <= percentageRequirement) None
         else Option(new RequirementViolationException(
-          this.failureMessage(ballot.testId.id) +
+          this.failureMessage(ballot.testId) +
             s"response time ($measuredResponseTime sec) was $percentage% greater than historical average. " +
             s"should have been <= $percentageRequirement%")
         )

@@ -1,5 +1,6 @@
 package com.workday.warp.arbiters
 
+import com.workday.warp.TestId
 import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
 
@@ -69,6 +70,5 @@ trait ArbiterLike extends PersistenceAware {
     * @param testId id of the measured test.
     * @return a generic failure message. Implementing arbiters should append further detail about the failure.
     */
-    // TODO should we accept a TestId here instead?
-  def failureMessage(testId: String): String = s"$testId failed requirement imposed by ${this.getClass.getName}. "
+  def failureMessage(testId: TestId): String = s"${testId.id} failed requirement imposed by ${this.getClass.getName}. "
 }
