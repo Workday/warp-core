@@ -1,10 +1,10 @@
 package com.workday.warp.dsl
 
-import com.workday.telemetron.math.DistributionLike
-import com.workday.warp.TrialResult
-import com.workday.warp.arbiters.traits.ArbiterLike
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
-import com.workday.warp.common.CoreConstants
+import com.workday.warp.{TestId, TrialResult}
+import com.workday.warp.arbiters.ArbiterLike
+import com.workday.warp.collectors.AbstractMeasurementCollector
+import com.workday.warp.config.CoreConstants
+import com.workday.warp.math.DistributionLike
 import com.workday.warp.persistence.Tag
 
 import scala.reflect.runtime.universe._
@@ -22,7 +22,7 @@ case class ExecutionConfig(invocations: Int = 1,
                            threads: Int = 1,
                            warmups: Int = 0,
                            distribution: DistributionLike = CoreConstants.DISTRIBUTION,
-                           testId: String = CoreConstants.UNDEFINED_TEST_ID,
+                           testId: TestId = TestId.undefined,
                            mode: ModeWord = multi,
                            disableExistingArbiters: Boolean = false,
                            additionalArbiters: List[ArbiterLike] = List.empty,
@@ -46,7 +46,7 @@ case class ExecutionConfig(invocations: Int = 1,
     * @return a new [[ExecutionConfig]] with the specified test id.
     */
   @DslApi
-  def testId(newTestId: String): ExecutionConfig = this.copy(testId = newTestId)
+  def testId(newTestId: TestId): ExecutionConfig = this.copy(testId = newTestId)
 
 
   /**

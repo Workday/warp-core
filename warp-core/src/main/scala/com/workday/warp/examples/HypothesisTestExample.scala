@@ -2,6 +2,7 @@ package com.workday.warp.examples
 
 import java.time.Instant
 
+import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.TrialResult
 import com.workday.warp.dsl.{defaults, using}
 import com.workday.warp.math.stats.{AllRegressionStatTestResults, TwoSampleRegressionTest}

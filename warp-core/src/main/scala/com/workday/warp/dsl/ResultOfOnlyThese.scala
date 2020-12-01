@@ -1,7 +1,7 @@
 package com.workday.warp.dsl
 
-import com.workday.warp.arbiters.traits.ArbiterLike
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
+import com.workday.warp.arbiters.ArbiterLike
+import com.workday.warp.collectors.AbstractMeasurementCollector
 
 /**
   * Holds the instance on which `only these` was invoked. The next chained function call should be `collectors` or

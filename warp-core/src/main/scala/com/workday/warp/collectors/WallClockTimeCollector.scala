@@ -1,6 +1,5 @@
 package com.workday.warp.collectors
 
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
@@ -8,9 +7,8 @@ import com.workday.warp.persistence.Tables._
 /**
   * A [[AbstractMeasurementCollector]] that records elapsed wall clock time.
   *
-  * @param testId fully qualified name of the method being measured.
   */
-class WallClockTimeCollector(testId: String) extends AbstractMeasurementCollector(testId) with CorePersistenceAware {
+class WallClockTimeCollector extends AbstractMeasurementCollector with CorePersistenceAware {
 
   // scalastyle:off var.field
   private var timeBeforeMs: Long = _

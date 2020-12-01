@@ -2,11 +2,10 @@ package com.workday.warp.arbiters
 
 import java.util.UUID
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
-import com.workday.warp.utils.Ballot
 import org.junit.jupiter.api.BeforeAll
 
 /**

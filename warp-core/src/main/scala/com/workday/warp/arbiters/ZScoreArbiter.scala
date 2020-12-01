@@ -1,11 +1,10 @@
 package com.workday.warp.arbiters
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.arbiters.traits.{ArbiterLike, CanReadHistory}
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
-import com.workday.warp.utils.{AnnotationReader, Ballot}
+import com.workday.warp.math.truncatePercent
+import com.workday.warp.utils.AnnotationReader
 import org.apache.commons.math3.distribution.NormalDistribution
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation
 import org.pmw.tinylog.Logger
@@ -26,7 +25,12 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike {
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    this.vote(this.responseTimes(ballot.testId, testExecution.idTestExecution), ballot, testExecution, WARP_ARBITER_MINIMUM_N.value.toInt)
+    this.vote(
+      this.responseTimes(ballot.testId.id, testExecution.idTestExecution),
+      ballot,
+      testExecution,
+      WARP_ARBITER_MINIMUM_N.value.toInt
+    )
   }
 
 
@@ -59,13 +63,14 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike {
       // convert cdf value to a percentile
       val percentile: Double = 100 * new NormalDistribution(mean, stdDev).cumulativeProbability(measuredResponseTime)
 
-      val percentileRequirement: Double = AnnotationReader.getZScoreRequirement(ballot.testId)
-      // check that the percentile according to cumulative distribution function is less than the requirement
-      if (percentile <= percentileRequirement) None
-      else Option(new RequirementViolationException(
+      val maybePercentileRequirement: Option[Double] = AnnotationReader.getZScoreRequirement(ballot.testId).map(truncatePercent)
+
+      for {
+        percentileRequirement <- maybePercentileRequirement
+        if percentile >= percentileRequirement
+      } yield new RequirementViolationException(
         s"${ballot.testId} failed requirement imposed by ${this.getClass.getName}. expected response time (measured " +
-        s"$measuredResponseTime sec) percentile <= $percentileRequirement, but was $percentile")
-      )
+          s"$measuredResponseTime sec) percentile <= $percentileRequirement, but was $percentile")
     }
   }
 }

@@ -1,7 +1,6 @@
 package com.workday.warp.math.linalg
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.linalg.Implicits._
 import org.apache.commons.math3.linear.{MatrixUtils, RealMatrix}
 

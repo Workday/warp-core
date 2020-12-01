@@ -3,15 +3,15 @@ package com.workday.warp.persistence.influxdb
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-import com.workday.warp.common.CoreConstants
-import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.exception.WarpConfigurationException
-import com.workday.warp.common.heaphistogram.{HeapHistogram, HeapHistogramEntry}
-import com.workday.warp.common.utils.StackTraceFilter
+import com.workday.warp.TestId
+import com.workday.warp.config.{CoreConstants, WarpConfigurationException}
+import com.workday.warp.utils.Implicits._
+import com.workday.warp.config.CoreWarpProperty._
+import com.workday.warp.heaphistogram.{HeapHistogram, HeapHistogramEntry}
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
+import com.workday.warp.utils.StackTraceFilter
 import org.influxdb.dto.{BatchPoints, Point, Pong, Query, QueryResult}
 import org.influxdb.{InfluxDB, InfluxDBFactory}
 import org.pmw.tinylog.Logger
@@ -33,7 +33,7 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
    * @param dbName the database to use for persistence.
    * @param seriesName the series (also referred to as a measurement) to use for persistence.
    */
-  def persistHeapHistogram(histo: HeapHistogram, dbName: String, seriesName: String, warpTestName: String): Try[Unit] = {
+  def persistHeapHistogram(histo: HeapHistogram, dbName: String, seriesName: String, warpTestName: TestId): Try[Unit] = {
     InfluxDBClient.maybeClient match {
       case Left(error) => Failure(new WarpConfigurationException(error))
       case Right(client) =>
@@ -56,7 +56,7 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
             // without this tag only the last point in the batch will be retained because all points in the batch will be
             // considered identical as they have identical timestamps
             .tag("className", histoEntry.className)
-            .tag("warpTestName", warpTestName)
+            .tag("warpTestName", warpTestName.id)
             .addField("numInstances", histoEntry.numInstances)
             .addField("numBytes", histoEntry.numBytes)
             .build

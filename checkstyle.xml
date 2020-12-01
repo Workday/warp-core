@@ -38,7 +38,7 @@
     		<property name="severity" value="error"/>
         </module>
         <module name="AvoidStarImport">
-			<property name="excludes" value="com.workday.warp.common.WarpProperty,org.junit.Assert,com.workday.warp.persistence.model,com.workday.warp.persistence.PersistenceConstants,com.workday.warp.persistence.controller,org.hamcrest.Matchers"/>
+			<property name="excludes" value="com.workday.warp.config.WarpProperty,org.junit.Assert,com.workday.warp.persistence.model,com.workday.warp.persistence.PersistenceConstants,com.workday.warp.persistence.controller,org.hamcrest.Matchers"/>
 		</module>
         <module name="OneTopLevelClass"/>
         <module name="NoLineWrap"/>

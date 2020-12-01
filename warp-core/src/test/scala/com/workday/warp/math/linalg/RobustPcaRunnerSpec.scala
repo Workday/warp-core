@@ -3,10 +3,10 @@ package com.workday.warp.math.linalg
 import com.workday.warp.TrialResult
 import com.workday.warp.dsl._
 import com.workday.warp.dsl.WarpMatchers._
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.common.utils.Implicits.{DecoratedDuration, DecoratedInt}
-import com.workday.warp.junit.UnitTest
-import com.workday.warp.utils.Ballot
+import com.workday.warp.TestIdImplicits.string2TestId
+import com.workday.warp.arbiters.Ballot
+import com.workday.warp.utils.Implicits.{DecoratedDuration, DecoratedInt}
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.pmw.tinylog.Logger
 
 import scala.util.Random
@@ -19,11 +19,11 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
   /** Checks usage of the public rpca method. */
   @UnitTest
   def robustPca(): Unit = {
-    val ballot: Ballot = new Ballot("com.workday.warp.test.test1")
+    val ballot: Ballot = Ballot("com.workday.warp.test.test1")
     // use an empty list of response times and take the minimum number from configuration
-    RobustPcaRunner().robustPca(List.empty[Double], ballot) shouldBe None
+    RobustPcaRunner().robustPca(List.empty[Double], ballot.testId) shouldBe None
     // override minimum number of required measurements
-    RobustPcaRunner(requiredMeasurements = 1).robustPca(List(1.5, 2.0, 3.14), ballot) shouldBe defined
+    RobustPcaRunner(requiredMeasurements = 1).robustPca(List(1.5, 2.0, 3.14), ballot.testId) shouldBe defined
   }
 
 
@@ -54,7 +54,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
   def testDoubleRobustPca(): Unit = {
     val runner: RobustPcaRunner = RobustPcaRunner(useDoubleRpca = true)
 
-    val dataSize: Int = 1000
+    val dataSize: Int = 200
     // create some dummy data, we don't care about the actual values, just the size
     val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
 

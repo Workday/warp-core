@@ -1,7 +1,6 @@
 package com.workday.warp.math.linalg
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.linalg.RobustPcaSpec.{Matrix, Vec}
 import org.pmw.tinylog.Logger
 

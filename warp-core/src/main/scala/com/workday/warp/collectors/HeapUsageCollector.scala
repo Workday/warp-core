@@ -1,16 +1,14 @@
 package com.workday.warp.collectors
 
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
 
 /**
-  * A [[AbstractMeasurementCollector]] that records observed heap usage of the current process.
+  * An [[AbstractMeasurementCollector]] that records observed heap usage of the current process.
   *
-  * @param testId fully qualified name of the method being measured.
   */
-class HeapUsageCollector(testId: String) extends AbstractMeasurementCollector(testId) with CorePersistenceAware {
+class HeapUsageCollector extends AbstractMeasurementCollector with CorePersistenceAware {
 
   // scalastyle:off var.field
   private var heapUsedBefore: Long = _

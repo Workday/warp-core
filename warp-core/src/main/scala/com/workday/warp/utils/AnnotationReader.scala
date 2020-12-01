@@ -4,14 +4,11 @@ import java.lang.annotation.Annotation
 import java.lang.reflect.Method
 import java.time.Duration
 
-import com.workday.telemetron.annotation.{Required, Schedule}
-import com.workday.telemetron.utils.TimeUtils
-import com.workday.warp.common.annotation.{PercentageDegradationRequirement, ZScoreRequirement}
-import com.workday.warp.common.utils.StackTraceFilter
+import Implicits._
+import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}
 import org.junit.jupiter.api.Timeout
-import org.pmw.tinylog.Logger
+import org.junit.platform.commons.util.AnnotationUtils
 
-import scala.util.Try
 
 /**
  * Utilities for reading annotations
@@ -21,158 +18,63 @@ import scala.util.Try
 object AnnotationReader extends StackTraceFilter {
 
   /**
-   * @param testId fully qualified name of the junit test method
-   * @return an Option containing the WARP JUnit Class referred to by testId
-   */
-  protected def getWarpTestClass(testId: String): Option[Class[_]] = {
-    // remove the method name to obtain the fully qualified class name
-    val className: String = testId take testId.lastIndexOf('.')
-
-    // return None if we can't locate the class
-    // we have this double monadic nesting to avoid returning a Success(null)
-    Try(Option(Class.forName(className))).toOption.flatten
+    * Reads the value of the specified annotation from the identified test.
+    *
+    * @param annotationClass the class of the annotation to read
+    * @param testId fully qualified name of the junit test method
+    * @tparam T a subtype of Annotation
+    * @return an Option containing the annotation annotationClass from the current WARP Junit method
+    */
+  def getWarpTestAnnotation[T <: Annotation](annotationClass: Class[T], testId: TestId): Option[T] = {
+    for {
+      m: Method <- testId.maybeTestMethod.toOption
+      a: T <- AnnotationUtils.findAnnotation(m, annotationClass).toOption
+    } yield a
   }
 
-
-
   /**
-   * @param testId fully qualified name of the junit test method
-   * @return an Option containing the Method referred to by testId
-   */
-  protected def getWarpTestMethod(testId: String): Option[Method] = {
-    val methodName: String = testId drop testId.lastIndexOf('.') + 1
-    // TODO won't work correctly wrt method overloading, its possible that we will have
-    // multiple junit test methods with the same name and we can't disambiguate
-    this.getWarpTestClass(testId).flatMap { cls =>
-      val methods: Seq[Method] = cls.getMethods.filter(_.getName == methodName)
-      if (methods.length > 1) {
-        Logger.warn(s"detected overloaded methods for signature $testId, annotation processing may not work as expected.")
-      }
-      methods.headOption
+    * Reads the max response time from the telemetron [[Required]] annotation.
+    *
+    * @param testId fully qualified name of the junit test method
+    * @return max response time as a [[Duration]] for the test we are about to invoke
+    */
+  def getRequiredMaxValue(testId: TestId): Option[Duration] = {
+    getWarpTestAnnotation(classOf[Required], testId).map { a: Required =>
+      Duration.ofNanos(TimeUtils.toNanos(a.maxResponseTime, a.timeUnit))
     }
-  }
-
-
-
-  /**
-   * Reads the value of the annotation annotationClass from the currently executing WARP Junit class.
-   *
-   * @param annotationClass the class of the annotation to read
-   * @param testId fully qualified name of the junit test method
-   * @tparam T a subtype of Annotation
-   * @return an Option containing the annotation annotationClass from the current WARP Junit class
-   */
-  def getWarpTestClassAnnotation[T <: Annotation](annotationClass: Class[T], testId: String): Option[T] = {
-    this.getWarpTestClass(testId) flatMap { clazz => Try(Option(clazz.getAnnotation(annotationClass))).toOption.flatten }
-  }
-
-
-
-  /**
-   * Reads the value of the annotation annotationClass from the currently executing WARP Junit method.
-   *
-   * @param annotationClass the class of the annotation to read
-   * @param testId fully qualified name of the junit test method
-   * @tparam T a subtype of Annotation
-   * @return an Option containing the annotation annotationClass from the current WARP Junit method
-   */
-  def getWarpTestMethodAnnotation[T <: Annotation](annotationClass: Class[T], testId: String): Option[T] = {
-    this.getWarpTestMethod(testId) flatMap { method => Try(Option(method.getAnnotation(annotationClass))).toOption.flatten }
-  }
-
-
-
-  /**
-   * Reads the max response time from the telemetron [[Required]] annotation.
-   *
-   * @param testId fully qualified name of the junit test method
-   * @return max response time as a [[Duration]] for the test we are about to invoke
-   */
-  def getRequiredMaxValue(testId: String): Duration = {
-    this.getWarpTestMethodAnnotation(classOf[Required], testId)
-      .map(req => Duration.ofNanos(TimeUtils.toNanos(req.maxResponseTime, req.timeUnit)))
-      .getOrElse(Duration.ofMillis(-1))
   }
 
 
   /**
     * Reads the max response time from the junit [[Timeout]] annotation.
     *
-    * @param testId fully qualified name of the junit test method
+    * @param testId [[TestId]] for test method.
     * @return max response time as a [[Duration]] for the test we are about to invoke
     */
-  def getTimeoutValue(testId: String): Duration = {
-    this.getWarpTestMethodAnnotation(classOf[Timeout], testId)
-      .map(timeout => Duration.ofNanos(TimeUtils.toNanos(timeout.value, timeout.unit)))
-      .getOrElse(Duration.ofMillis(-1))
+  def getTimeoutValue(testId: TestId): Option[Duration] = {
+    getWarpTestAnnotation(classOf[Timeout], testId).map { a: Timeout =>
+      TimeUtils.durationOf(a.value, a.unit)
+    }
   }
 
-
   /**
-   * Reads the invocations value from the [[Schedule]] annotation.
-   *
-   * @param testId fully qualified name of the junit test method
-   * @return number of invocations set by the [[Schedule]] annotation.
-   */
-  def getScheduleInvocations(testId: String): Int = {
-    this.getWarpTestMethodAnnotation(classOf[Schedule], testId)
-      .map(_.invocations)
-      .getOrElse(Schedule.INVOCATIONS_DEFAULT)
-  }
-
-
-
-  /**
-    * Reads the percentile (z-score) threshold requirement from the [[ZScoreRequirement]] annotation for this test.
+    * Looks up [[ZScoreRequirement]] on the annotated test element.
     *
-    * Truncates the value to be within 0.0 and 100.0
-    *
-    * @param testId fully qualified name of the junit test method
-    * @return z-score percentile threshold requirement
+    * @param testId
+    * @return
     */
-  def getZScoreRequirement(testId: String): Double = {
-    this.getWarpTestMethodAnnotation(classOf[ZScoreRequirement], testId)
-      .map(req => math.max(0.0, math.min(100.0, req.percentile)))
-      .getOrElse(ZScoreRequirement.DEFAULT_PERCENTILE)
+  def getZScoreRequirement(testId: TestId): Option[Double] = {
+    getWarpTestAnnotation(classOf[ZScoreRequirement], testId).map(_.percentile)
   }
-
-
-
-  /**
-    * Reads the [[ZScoreRequirement]] annotation, returns true iff such an annotation exists.
-    *
-    * @param testId fully qualified name of the junit test method.
-    * @return true iff the measured test is annotated with [[ZScoreRequirement]].
-    */
-  def hasZScoreRequirement(testId: String): Boolean = {
-    this.getWarpTestMethodAnnotation(classOf[ZScoreRequirement], testId).isDefined
-  }
-
 
 
   /**
     * Reads the percentage threshold requirement from the [[PercentageDegradationRequirement]] annotation for this test.
     *
-    * Truncates the value to be within 0.0 and 100.0.
-    *
     * @param testId fully qualified name of the junit test method.
     * @return percentage threshold requirement.
     */
-  def getPercentageDegradationRequirement(testId: String): Double = {
-    this.getWarpTestMethodAnnotation(classOf[PercentageDegradationRequirement], testId)
-      .map(req => math.max(0.0, math.min(100.0, req.percentage)))
-      .getOrElse(PercentageDegradationRequirement.DEFAULT_PERCENTAGE)
-  }
-
-
-
-  /**
-    * Reads the [[PercentageDegradationRequirement]] annotation, returns true iff such an annotation exists.
-    *
-    * @param testId fully qualified name of the junit test method.
-    * @return true iff the measured test is annotated with [[PercentageDegradationRequirement]].
-    */
-  def hasPercentageDegradationRequirement(testId: String): Boolean = {
-    this.getWarpTestMethodAnnotation(classOf[PercentageDegradationRequirement], testId).isDefined
+  def getPercentageDegradationRequirement(testId: TestId): Option[Double] = {
+    getWarpTestAnnotation(classOf[PercentageDegradationRequirement], testId).map(_.percentage)
   }
 }

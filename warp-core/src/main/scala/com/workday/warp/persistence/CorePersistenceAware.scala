@@ -3,8 +3,9 @@ package com.workday.warp.persistence
 import java.sql.Timestamp
 import java.time.Instant
 
-import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.common.WarpPropertyManager
+import com.workday.warp.TestId
+import com.workday.warp.config.CoreWarpProperty._
+import com.workday.warp.config.WarpPropertyManager
 import com.workday.warp.persistence.exception.PreExistingTagException
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
@@ -42,7 +43,7 @@ trait CorePersistenceAware extends PersistenceAware {
       * @return a [[BuildRow]] with the specified parameters.
       */
     override def findOrCreateBuild(year: Int, week: Int, buildNumber: Int): BuildRowLike = {
-      val find: DBIO[Seq[BuildRowWrapper]] = this.readBuildQuery(year, week, buildNumber)
+      val find: DBIO[Seq[BuildRowWrapper]] = this.readBuildQuery(year, week, buildNumber).map(_.toSeq)
       val timestamp: Timestamp = Timestamp from Instant.now
       // mysql truncates to second precision anyway, TODO we might be able to modify the write query to return the truncated timestamp
       timestamp.setNanos(0)
@@ -56,12 +57,12 @@ trait CorePersistenceAware extends PersistenceAware {
       * Attempts to look up a [[TestDefinitionRow]] with the given method signature. Will be created if it does not exist.
       * If documentation does not match, then it will be updated
       *
-      * @param methodSignature the method signature to look up.
+      * @param testId the method signature to look up.
       * @return a [[TestDefinitionRowLike]] with the given method signature.
       */
-    override def findOrCreateTestDefinition(methodSignature: String, documentation: Option[String] = None): TestDefinitionRowLike = {
+    override def findOrCreateTestDefinition(testId: TestId, documentation: Option[String] = None): TestDefinitionRowLike = {
       // make sure we have something that fits the schema column size
-      val trimmedSignature: String = methodSignature take CorePersistenceConstants.SIGNATURE_LENGTH
+      val trimmedSignature: String = testId.id take CorePersistenceConstants.SIGNATURE_LENGTH
       val find: Query[TestDefinition, TestDefinitionRow, Seq] = TestDefinition filter { _.methodSignature === trimmedSignature }
       val signature: MethodSignature = MethodSignature(trimmedSignature)
       val row: TestDefinitionRow = TestDefinitionRow(
@@ -101,7 +102,7 @@ trait CorePersistenceAware extends PersistenceAware {
     override def findOrCreateMeasurementName(name: String): MeasurementNameRowLike = {
       // make sure we have something that fits the schema column size
       val trimmedName: String = name take CorePersistenceConstants.DESCRIPTION_LENGTH
-      val find: DBIO[Seq[MeasurementNameRowWrapper]] = this.readMeasurementNameQuery(trimmedName)
+      val find: DBIO[Seq[MeasurementNameRowWrapper]] = this.readMeasurementNameQuery(trimmedName).map(_.toSeq)
       val row: MeasurementNameRow = MeasurementNameRow(Tables.nullId, trimmedName)
       val create: DBIO[MeasurementNameRowWrapper] = this.writeMeasurementNameQuery(row)
       this.findOrCreate(find, create)
@@ -118,7 +119,7 @@ trait CorePersistenceAware extends PersistenceAware {
                                             isUserGenerated: Boolean = true): TagNameRowLike = {
       // make sure we have something that fits the schema column size
       val trimmedName: String = name take CorePersistenceConstants.DESCRIPTION_LENGTH
-      val find: DBIO[Seq[TagNameRowWrapper]] = this.readTagNameQuery(trimmedName)
+      val find: DBIO[Seq[TagNameRowWrapper]] = this.readTagNameQuery(trimmedName).map(_.toSeq)
       val row: TagNameRow = TagNameRow(Tables.nullId, trimmedName, nameType, isUserGenerated)
       val create: DBIO[TagNameRowWrapper] = this.writeTagNameQuery(row)
       this.findOrCreate(find, create)
@@ -135,7 +136,7 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param maybeDocs containing documentation for the [[TestExecutionRow]]
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
-    override def createTestExecution(testId: String,
+    override def createTestExecution(testId: TestId,
                                      timeStarted: Instant,
                                      responseTime: Double,
                                      maxResponseTime: Double,
@@ -224,7 +225,8 @@ trait CorePersistenceAware extends PersistenceAware {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
 
       val dbAction: DBIO[TestExecutionTagRow] = for {
-        tags: Seq[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName).result
+        tags: Option[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName)
+        // TODO we can use Option monad here instead
         action <- tags.toList match {
           case Nil =>
             this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))

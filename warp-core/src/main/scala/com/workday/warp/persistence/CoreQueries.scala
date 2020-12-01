@@ -34,10 +34,10 @@ trait CoreQueries extends AbstractQueries {
     */
   override def readBuildQuery(major: Int,
                               minor: Int,
-                              patch: Int): DBIO[Seq[BuildRowWrapper]] = {
+                              patch: Int): DBIO[Option[BuildRowWrapper]] = {
     (Build filter { build: Build =>
       build.major === major && build.minor === minor && build.patch === patch
-    }).result
+    }).result.headOption
   }
 
 
@@ -47,8 +47,8 @@ trait CoreQueries extends AbstractQueries {
     * @param methodSignature method signature of [[TestDefinitionRow]] (usually fully-qualified method name).
     * @return a [[DBIO]] for selecting the [[TestDefinitionRow]] with the specified method signature.
     */
-  override def readTestDefinitionQuery(methodSignature: String): DBIO[Seq[TestDefinitionRowWrapper]] = {
-    (TestDefinition filter { _.methodSignature === methodSignature }).result
+  override def readTestDefinitionQuery(methodSignature: String): DBIO[Option[TestDefinitionRowWrapper]] = {
+    TestDefinition.filter(_.methodSignature === methodSignature).result.headOption
   }
 
 
@@ -58,10 +58,8 @@ trait CoreQueries extends AbstractQueries {
     * @param testExecution [[TestExecutionRow]] to read the method signature of.
     * @return a [[Query]] for selecting the method signature of `testExecution`
     */
-  override def readTestExecutionSignatureQuery[T: TestExecutionRowLikeType](testExecution: T): Query[Rep[String], String, Seq] = {
-    for {
-      testDefinition <- TestDefinition if testDefinition.idTestDefinition === testExecution.idTestDefinition
-    } yield testDefinition.methodSignature
+  override def readTestExecutionSignatureQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[String]] = {
+    TestDefinition.filter(_.idTestDefinition === testExecution.idTestDefinition).map(_.methodSignature).result.headOption
   }
 
 
@@ -91,8 +89,8 @@ trait CoreQueries extends AbstractQueries {
     * @param name name to look up in [[MeasurementName]] table.
     * @return a [[DBIO]] for reading the [[MeasurementNameRow]] with the given name.
     */
-  override def readMeasurementNameQuery(name: String): DBIO[Seq[MeasurementNameRowWrapper]] = {
-    (MeasurementName filter { _.name === name }).result
+  override def readMeasurementNameQuery(name: String): DBIO[Option[MeasurementNameRowWrapper]] = {
+    (MeasurementName filter { _.name === name }).result.headOption
   }
 
 
@@ -102,8 +100,8 @@ trait CoreQueries extends AbstractQueries {
     * @param name name to look up in [[TagName]] table.
     * @return a [[DBIO]] for reading the [[TagNameRow]] with the given name.
     */
-  override def readTagNameQuery(name: String): DBIO[Seq[TagNameRowWrapper]] = {
-    (TagName filter { _.name === name }).result
+  override def readTagNameQuery(name: String): DBIO[Option[TagNameRowWrapper]] = {
+    (TagName filter { _.name === name }).result.headOption
   }
 
 
@@ -201,17 +199,17 @@ trait CoreQueries extends AbstractQueries {
 
 
   /**
-    * Creates a [[Query]] for reading the tag with id `idTagName` set on the [[TestExecutionRow]] with id `idTestExecution`.
+    * Creates a [[DBIO]] for reading the tag with id `idTagName` set on the [[TestExecutionRow]] with id `idTestExecution`.
     *
     * @param idTestExecution id of the [[TestExecutionRow]] to look up tags for.
     * @param idTagName id of the [[TagNameRow]] to look up.
     * @return a [[Query]] for looking up a specified tag.
     */
-  override def testExecutionTagsQuery(idTestExecution: Int, idTagName: Int): Query[(Rep[String], Rep[String]), (String, String), Seq] = {
-    for {
+  override def testExecutionTagsQuery(idTestExecution: Int, idTagName: Int): DBIO[Option[(String, String)]] = {
+    (for {
       name <- TagName if name.idTagName === idTagName
       tag <- TestExecutionTag if tag.idTestExecution === idTestExecution && tag.idTagName === idTagName
-    } yield (name.name, tag.value)
+    } yield (name.name, tag.value)).result.headOption
   }
 
 
@@ -223,8 +221,8 @@ trait CoreQueries extends AbstractQueries {
     * @param idTagName id of the [[TagNameRow]] to look up.
     * @return a [[DBIO]] for looking up the whole row for a specified tag.
     */
-  override def testExecutionTagsRowQuery(idTestExecution: Int, idTagName: Int) : DBIO[Seq[TestExecutionTagRowWrapper]]= {
-    TestExecutionTag.filter(row => row.idTestExecution === idTestExecution && row.idTagName === idTagName).result
+  override def testExecutionTagsRowQuery(idTestExecution: Int, idTagName: Int) : DBIO[Option[TestExecutionTagRowWrapper]]= {
+    TestExecutionTag.filter(row => row.idTestExecution === idTestExecution && row.idTagName === idTagName).result.headOption
   }
 
   /**

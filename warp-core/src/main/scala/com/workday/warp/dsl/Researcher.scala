@@ -2,9 +2,9 @@ package com.workday.warp.dsl
 
 import java.util.concurrent.{Callable, Executors, ScheduledExecutorService, ScheduledFuture, TimeUnit}
 
-import com.workday.warp.TrialResult
-import com.workday.warp.collectors.{AbstractMeasurementCollectionController, Defaults}
-import com.workday.warp.common.utils.Implicits._
+import com.workday.warp.controllers.AbstractMeasurementCollectionController
+import com.workday.warp.{TestId, TrialResult}
+import com.workday.warp.utils.Implicits._
 import com.workday.warp.inject.WarpGuicer
 
 import scala.collection.JavaConverters._
@@ -176,7 +176,7 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
     * Runs a single experimental trial.
     *
     * Creates a [[AbstractMeasurementCollectionController]], invokes `measuredFunction` and collects measurements. If multiple
-    * invocations are being scheduled in a threadpool, all intrusive [[com.workday.warp.collectors.abstracts.AbstractMeasurementCollector]]
+    * invocations are being scheduled in a threadpool, all intrusive [[AbstractMeasurementCollector]]
     * will be disabled.
     *
     * @param measuredFunction
@@ -230,7 +230,7 @@ case class Researcher[ResultType: TypeTag, TrialType](config: ExecutionConfig) {
 
   /** @return a configured [[AbstractMeasurementCollectionController]] ready to instrument a measured function. */
   def collectionController(): AbstractMeasurementCollectionController = {
-    val testId: String = if (this.config.testId.nonEmpty) this.config.testId else Defaults.testId
+    val testId: TestId = if (this.config.testId.id.nonEmpty) this.config.testId else TestId.undefined
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId, this.config.additionalTags)
 
     // configure measurement collectors

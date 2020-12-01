@@ -1,10 +1,10 @@
 package com.workday.warp.adapters
 
-import com.workday.warp.TrialResult
+import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.dsl.using
 import com.workday.warp.persistence.Tag
-import scala.reflect.runtime.universe._
 
+import scala.reflect.runtime.universe._
 import scala.util.Try
 
 /**
@@ -12,7 +12,7 @@ import scala.util.Try
   *
   * Created by tomas.mccandless on 1/6/17.
   */
-abstract class Adapter[T: TypeTag](val testId: String, val tags: List[Tag]) {
+abstract class Adapter[T: TypeTag](val testId: TestId, val tags: List[Tag]) {
 
   /** @return a [[scala.util.Success]] containing a [[TrialResult]], or a wrapped exception. */
   def invoke(): Try[TrialResult[T]]

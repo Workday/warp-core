@@ -1,8 +1,7 @@
 package com.workday.warp
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.utils.Implicits._
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 /**
   * Created by tomas.mccandless on 6/8/18.

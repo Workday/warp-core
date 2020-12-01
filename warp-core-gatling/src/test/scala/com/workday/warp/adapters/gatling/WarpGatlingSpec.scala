@@ -1,7 +1,8 @@
 package com.workday.warp.adapters.gatling
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.TestId
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.TestIdImplicits.string2TestId
 
 /**
   * Created by ruiqi.wang
@@ -14,8 +15,8 @@ class WarpGatlingSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def defaultTestName(): Unit = {
-    defaultSimulation.canonicalName should equal (s"$packageName.DefaultSimulation")
-    defaultFunSpec.canonicalName should equal (s"$packageName.DefaultFunSpec")
+    defaultSimulation.canonicalName.id should equal (s"$packageName.DefaultSimulation")
+    defaultFunSpec.canonicalName.id should equal (s"$packageName.DefaultFunSpec")
   }
 
   /**
@@ -23,8 +24,8 @@ class WarpGatlingSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def customTestName(): Unit = {
-    customSimulation.canonicalName should equal (s"$packageName.MyCustomSimulationTest")
-    customFunSpec.canonicalName should equal (s"$packageName.MyCustomFunSpec")
+    customSimulation.canonicalName.id should equal (s"$packageName.MyCustomSimulationTest")
+    customFunSpec.canonicalName.id should equal (s"$packageName.MyCustomFunSpec")
   }
 
   // TODO: Add integration tests for our own custom hooks.
@@ -34,8 +35,8 @@ class WarpGatlingSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def inheritedSimulation(): Unit = {
-    childSpec.canonicalName should equal (s"$packageName.DAMNITJIM")
-    babySpec.canonicalName should equal (s"$packageName.BABYCOMEBACK")
+    childSpec.canonicalName.id should equal (s"$packageName.DAMNITJIM")
+    babySpec.canonicalName.id should equal (s"$packageName.BABYCOMEBACK")
   }
 
   /**
@@ -64,7 +65,7 @@ object WarpGatlingSpec {
   class CustomFunSpec extends WarpFunSpec("MyCustomFunSpec") {val baseUrl: String = ""}
 
   // Child Spec that overrides CustomFunSpec
-  class ChildCustomFunSpec(override val testId: String = "DAMNITJIM") extends CustomFunSpec
+  class ChildCustomFunSpec(override val testId: TestId = "DAMNITJIM") extends CustomFunSpec
   // Child Spec that overrides ChildCustomFunSpec
   class BabyCustomFunSpec extends ChildCustomFunSpec("BABYCOMEBACK")
 

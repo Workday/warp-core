@@ -1,22 +1,19 @@
 package com.workday.warp.dsl
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.telemetron.math.{DistributionLike, GaussianDistribution}
-import com.workday.telemetron.spec.HasRandomTestId
-import com.workday.warp.TrialResult
-import com.workday.warp.arbiters.traits.ArbiterLike
-import com.workday.warp.collectors.{AbstractMeasurementCollectionController, Defaults}
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
-import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.common.spec.WarpJUnitSpec
+import com.workday.warp.arbiters.{ArbiterLike, Ballot, RequirementViolationException}
+import com.workday.warp.{HasRandomTestId, TestId, TrialResult}
+import com.workday.warp.collectors.AbstractMeasurementCollector
+import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
-import com.workday.warp.utils.Ballot
 import org.pmw.tinylog.Logger
 import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.dsl.using._
 import com.workday.warp.dsl.Implicits._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.math.{DistributionLike, GaussianDistribution}
+import com.workday.warp.TestIdImplicits.string2TestId
+import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
 
@@ -329,37 +326,25 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   }
 
 
-  /** Checks that we can set test id manually or read it from [[com.workday.telemetron.junit.TelemetronNameRule]]. */
+  /** Checks that we can set test id manually. */
   @UnitTest
   def testId(): Unit = {
     // check that we can manually override the test id
     val someTestId: String = "com.workday.warp.dsl.test1"
     val config: ExecutionConfig = using testId someTestId
-    Researcher(config).collectionController().testId should be (someTestId)
+    Researcher(config).collectionController().testId.id should be (someTestId)
     config measure { 1 + 1 }
     ConfigStore.get(someTestId) should be (Some(config))
-    Researcher(using iterations 5 testId someTestId).collectionController().testId should be (someTestId)
+    Researcher(using iterations 5 testId someTestId).collectionController().testId.id should be (someTestId)
 
     // check that we can read it from telemetron name rule
-    val randomTestId: String = this.randomTestId()
+    val randomTestId: TestId = this.randomTestId()
     Researcher(using testId randomTestId).collectionController().testId should be (randomTestId)
 
     // check that we handle empty string correctly
-    Researcher(using testId "").collectionController().testId should be (Defaults.testId)
+    Researcher(using testId "").collectionController().testId should be (TestId.undefined)
   }
 
-
-  /** Checks that custom collectors passed in through the dsl will have their test ids correctly set. */
-  @UnitTest
-  def testIdInCollectors(): Unit = {
-    val someTestId: String = "com.workday.warp.dsl.DslSpec.testIdInCollectors"
-    val config: ExecutionConfig = using testId someTestId collectors {
-      new SomeMeasurementCollector :: new SomeOtherMeasurementCollector
-    }
-
-    // get a list of all the collectors test ids, make sure it contains only the one we specified
-    Researcher(config).collectionController().collectors map { _.testId } should contain only (someTestId)
-  }
 
 
   /** Checks the usage of syntax like `using only these collectors` or `using only these arbiters` */

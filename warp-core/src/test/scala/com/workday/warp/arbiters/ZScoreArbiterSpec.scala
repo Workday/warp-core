@@ -3,15 +3,13 @@ package com.workday.warp.arbiters
 import java.time.Instant
 import java.util.UUID
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.warp.common.annotation.ZScoreRequirement
-import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.TestIdImplicits._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.ZScoreRequirement
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
-import com.workday.warp.utils.{AnnotationReader, Ballot}
+import com.workday.warp.utils.AnnotationReader
 import org.junit.jupiter.api.TestInfo
 
 /**
@@ -22,40 +20,26 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   // minimum number of measurements necessary for percentile processing to continue.
   private[this] val minimumHistoricalData: Int = 3
 
-  /** Checks that we can set a custom threshold. */
-  @UnitTest
-  @ZScoreRequirement(percentile = 99.9)
-  def hasPercentileThreshold(info: TestInfo): Unit = {
-    val testId: String = info.testId
-    AnnotationReader.getZScoreRequirement(testId) shouldBe 99.9
-    AnnotationReader.hasZScoreRequirement(testId) shouldBe true
-  }
 
-  /** Checks that we can detect there is no percentile requirement set */
-  @UnitTest
-  def noPercentileThreshold(info: TestInfo): Unit = {
-    AnnotationReader.hasZScoreRequirement(info.testId) shouldBe false
-  }
-
-  /** Checks that the provided percentile threshold is truncated to 100.0. */
+  /** Checks that the provided percentile threshold is not truncated during reading. */
   @UnitTest
   @ZScoreRequirement(percentile = 100.2345)
   def percentileThreshold(info: TestInfo): Unit = {
-    AnnotationReader.getZScoreRequirement(info.testId) shouldBe 100.0
+    AnnotationReader.getZScoreRequirement(info) shouldBe Some(100.2345)
   }
 
 
-  /** Checks that the provided percentile threshold is truncated to 0.0. */
+  /** Checks that the provided percentile threshold is not truncated during reading. */
   @UnitTest
   @ZScoreRequirement(percentile = -1.2345)
   def percentileThresholdNegative(info: TestInfo): Unit = {
-    AnnotationReader.getZScoreRequirement(info.testId) shouldBe 0.0
+    AnnotationReader.getZScoreRequirement(info) shouldBe Some(-1.2345)
   }
 
 
   /** Checks behavior when there are not enough datapoints. */
   @UnitTest
-  def notEnoughData(info: TestInfo): Unit = {
+  def notEnoughData(): Unit = {
     val testId: String = s"com.workday.warp.ZScore.${UUID.randomUUID().toString}"
     val ballot: Ballot = new Ballot(testId)
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 4.0, 3.0)
@@ -68,8 +52,8 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   @ZScoreRequirement(percentile = 95.0)
   def percentileVote(info: TestInfo): Unit = {
-    val ballot: Ballot = new Ballot(info.testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.testId, Instant.now(), 4.0, 3.0)
+    val ballot: Ballot = new Ballot(info.id)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.id, Instant.now(), 4.0, 3.0)
     val arbiter: ZScoreArbiter = new ZScoreArbiter
 
     arbiter.vote(List(1.0, 1.0, 1.0, 2.0, 4.0), ballot, testExecution, this.minimumHistoricalData) shouldBe defined
@@ -81,8 +65,8 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   @ZScoreRequirement(percentile = Double.MaxValue)
   def percentilePassed(info: TestInfo): Unit = {
-    val ballot: Ballot = new Ballot(info.testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.testId, Instant.now(), 1.0, 0.0)
+    val ballot: Ballot = new Ballot(info.id)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.id, Instant.now(), 1.0, 0.0)
     val arbiter: ZScoreArbiter = new ZScoreArbiter
 
     arbiter.maybeThrow(arbiter.vote(List(1.0, 1.0, 1.0, 1.0), ballot, testExecution, this.minimumHistoricalData))
@@ -93,8 +77,8 @@ class ZScoreArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   @ZScoreRequirement(percentile = 75.0)
   def percentileFailed(info: TestInfo): Unit = {
-    val ballot: Ballot = new Ballot(info.testId)
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.testId, Instant.now(), 4.0, 0.0)
+    val ballot: Ballot = new Ballot(info.id)
+    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(info.id, Instant.now(), 4.0, 0.0)
     val arbiter: ZScoreArbiter = new ZScoreArbiter
 
     // catch the thrown exception

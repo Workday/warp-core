@@ -2,10 +2,10 @@ package com.workday.warp.persistence
 
 import java.time.Instant
 
-import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.dsl._
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLike
+import com.workday.warp.TestIdImplicits.string2TestId
 import org.junit.jupiter.api.BeforeAll
 
 /**
@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeAll
   * Created by tomas.mccandless on 1/17/17.
   */
 class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
-  override val shouldVerifyResponseTime: Boolean = true
 
   private val methodSignature: String = "com.workday.warp.product.subproduct.Class.method"
 

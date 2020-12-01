@@ -1,12 +1,9 @@
 package com.workday.warp.arbiters
 
-import com.workday.telemetron.RequirementViolationException
-import com.workday.warp.common.CoreWarpProperty._
-import com.workday.warp.arbiters.traits.{ArbiterLike, CanReadHistory}
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.math.linalg.{RobustPca, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
-import com.workday.warp.utils.Ballot
 import org.pmw.tinylog.Logger
 
 /**
@@ -34,13 +31,13 @@ class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     // incorrect.
     // we need to ensure the response time for this test execution is the final entry in this list.
     val rawResponseTimes: Iterable[Double] = this.responseTimes(
-      ballot.testId,
+      ballot.testId.id,
       testExecution.idTestExecution
     ) ++ List(testExecution.responseTime)
 
     val runner: RobustPcaRunner = RobustPcaRunner(this.lPenalty, this.sPenaltyNumerator)
 
-    runner.robustPca(rawResponseTimes, ballot) flatMap { rpca: RobustPca =>
+    runner.robustPca(rawResponseTimes, ballot.testId) flatMap { rpca: RobustPca =>
       val responseTime: Double = rawResponseTimes.last
       val isAnomaly: Boolean = rpca.isAnomaly
       val errorComponent: Double = rpca.error.getData.head.last

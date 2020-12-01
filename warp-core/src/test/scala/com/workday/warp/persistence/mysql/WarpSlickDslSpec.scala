@@ -9,14 +9,14 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.{Calendar, TimeZone, Date => JUDate}
 
-import com.workday.warp.common.spec.WarpJUnitSpec
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
+import com.workday.warp.TestIdImplicits.string2TestId
 import WarpSlickDslSpec._
 import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
 import slick.lifted.Query
 import TablesLike.{TestDefinitionRowLike, TestExecutionRowLike}
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.junit.jupiter.api.parallel.Isolated
 
 /**

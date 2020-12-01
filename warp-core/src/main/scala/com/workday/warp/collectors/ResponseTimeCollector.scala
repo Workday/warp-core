@@ -2,16 +2,15 @@ package com.workday.warp.collectors
 
 import java.time.Duration
 
-import com.workday.warp.common.CoreWarpProperty._
+import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.TrialResult
-import com.workday.warp.collectors.abstracts.AbstractMeasurementCollector
-import com.workday.warp.common.utils.Implicits._
-import com.workday.warp.common.utils.StackTraceFilter
+import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.influxdb.InfluxDBClient
+import com.workday.warp.utils.StackTraceFilter
 
 /**
   * Writes test response time thresholds to influxdb, and updates them in MySql.
@@ -20,10 +19,8 @@ import com.workday.warp.persistence.influxdb.InfluxDBClient
   * have been written. This class patches up the existing rows once we know the threshold.
   *
   * Created by tomas.mccandless on 7/12/16.
-  *
-  * @param testId fully qualified name of the method being measured.
   */
-class ResponseTimeCollector(testId: String) extends AbstractMeasurementCollector(testId) {
+class ResponseTimeCollector extends AbstractMeasurementCollector {
   /**
     * Called prior to starting an individual test invocation.
     */

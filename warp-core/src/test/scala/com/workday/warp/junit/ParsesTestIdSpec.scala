@@ -1,6 +1,5 @@
 package com.workday.warp.junit
 
-import com.workday.warp.common.spec.WarpJUnitSpec
 import org.pmw.tinylog.Logger
 
 /**

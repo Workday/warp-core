@@ -2,9 +2,11 @@ package com.workday.warp.persistence
 
 import java.time.{Instant, LocalDate}
 
-import com.workday.warp.common.CoreWarpProperty.WARP_DATABASE_URL
+import com.workday.warp.TestId
+import com.workday.warp.config.CoreWarpProperty.WARP_DATABASE_URL
 import com.workday.warp.persistence.exception.PreExistingTagException
 import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.utils.TimeUtils
 import org.pmw.tinylog.Logger
 
 import scala.annotation.tailrec
@@ -49,13 +51,11 @@ trait PersistenceAware {
       * @tparam Row type of the row that we are referencing.
       * @return preexisting [[Row]], or newly inserted [[Row]].
       */
-    def findOrCreate[Table, Row](find: DBIO[Seq[Row]], create: DBIO[Row]): Row = {
+      // TODO make this more generic to accept an Option transparently.
+    def findOrCreate[Table, Row](find: DBIO[Iterable[Row]], create: DBIO[Row]): Row = {
       val action: DBIO[Row] = for {
         maybeRow <- find
-        _ <- maybeRow.headOption match {
-          case Some(row) => DBIO.successful(row)
-          case None => create
-        }
+        _ <- maybeRow.headOption.map(DBIO.successful).getOrElse(create)
         // finally read back the row
         result <- find
       } yield result.head
@@ -78,10 +78,10 @@ trait PersistenceAware {
       * Attempts to look up a [[TestDefinitionRowLike]] with the given method signature. Will be created if it does not exist.
       * If documentation does not match, then it will be updated
       *
-      * @param methodSignature the method signature to look up.
+      * @param testId the method signature to look up.
       * @return a [[TestDefinitionRowLike]] with the given method signature.
       */
-    def findOrCreateTestDefinition(methodSignature: String, documentation: Option[String] = None): TestDefinitionRowLike
+    def findOrCreateTestDefinition(testId: TestId, documentation: Option[String] = None): TestDefinitionRowLike
 
 
     /**
@@ -114,7 +114,7 @@ trait PersistenceAware {
       * @param maybeDocs optional documentation for the [[TestExecutionRowLike]].
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
-    def createTestExecution(testId: String,
+    def createTestExecution(testId: TestId,
                             timeStarted: Instant,
                             responseTime: Double,
                             maxResponseTime: Double,
@@ -416,7 +416,7 @@ trait MigrateSchemaLike extends PersistenceAware {
           flyway.migrate()
           flyway.validate()
           val after: Long = System.currentTimeMillis()
-          Logger.debug(s"migrated schema in ${after - before}ms")
+          Logger.info(s"migrated schema in ${TimeUtils.millisToHumanReadable(after - before)}")
         })
       case None =>
         val error: String = s"schema migration is only supported for mysql. check the value of ${WARP_DATABASE_URL.propertyName}"

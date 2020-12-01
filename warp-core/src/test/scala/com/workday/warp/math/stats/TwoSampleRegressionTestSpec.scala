@@ -1,7 +1,6 @@
 package com.workday.warp.math.stats
 
-import com.workday.warp.common.spec.WarpJUnitSpec
-import com.workday.warp.junit.UnitTest
+import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 import scala.util.Random
 

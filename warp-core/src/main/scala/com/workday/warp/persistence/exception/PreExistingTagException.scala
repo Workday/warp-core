@@ -1,6 +1,6 @@
 package com.workday.warp.persistence.exception
 
-import com.workday.warp.common.exception.WarpRuntimeException
+import com.workday.warp.utils.WarpRuntimeException
 
 /**
   * Represents an error where we attempted to overwrite an "immutable" tag.
