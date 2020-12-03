@@ -64,6 +64,16 @@ trait CoreQueries extends AbstractQueries {
     query.result.map(_.headOption)
   }
 
+  def readTestDefinitionMetaTagQuery(idTestDefinition: Int, testDefinitionMetaTagName: String): DBIO[Option[TestDefinitionMetaTagRowWrapper]] = {
+    val query = for {
+      tagName <- TagName if tagName.name === testDefinitionMetaTagName
+      testDefinitionMetaTag <- TestDefinitionMetaTag if testDefinitionMetaTag.idTestDefinitionTag === idTestDefinition &&
+                                                        testDefinitionMetaTag.idTagName === tagName.idTagName
+    } yield testDefinitionMetaTag
+
+    query.result.map(_.headOption)
+  }
+
 
   /**
     * Creates a [[Query]] for selecting the method signature of `testExecution`.
@@ -386,7 +396,11 @@ trait CoreQueries extends AbstractQueries {
     ) insertOrUpdate(row)
   }
 
-
+  def insertOrUpdateTestDefinitionMetaTagQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Option[TestDefinitionMetaTagRowWrapper]] = {
+    TestDefinitionMetaTag returning TestDefinitionMetaTag.map(_.idTestDefinitionTag) into (
+      (row, id) => row.copy(idTestDefinitionTag = id)
+    ) insertOrUpdate(row)
+  }
 
   /**
     * Creates a [[DBIO]] for inserting `row` into [[TestExecutionTag]] and returning it with updated auto-increment id.

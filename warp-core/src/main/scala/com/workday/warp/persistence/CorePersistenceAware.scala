@@ -13,9 +13,7 @@ import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.IdentifierSyntax._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import org.pmw.tinylog.Logger
-import slick.dbio.Effect
 import slick.jdbc.TransactionIsolation
-import slick.sql.FixedSqlAction
 
 import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -308,20 +306,15 @@ trait CorePersistenceAware extends PersistenceAware {
                                              value: String,
                                              isUserGenerated: Boolean = true): Unit = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val action: DBIO[Seq[(String, String)]] = for {
-        tags: Seq[(String, String)] <- this.testDefinitionMetaTagQuery(idTestDefinitionTag, nameRow.idTagName).result
-        _ <- tags.toList match {
-          case Nil =>
-            Tables.TestDefinitionMetaTag += TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
-          case (oldKey, oldValue) :: Nil =>
-            Logger.debug(s"Attempting to log an definition metatag with matching Name: $oldKey and Value: $oldValue")
-            DBIO.successful((oldKey, oldValue))
-          case _ =>
-            DBIO.failed(new WarpFieldPersistenceException("bad database state recording DefinitionMetaTag"))
-        }
-      } yield tags
+      val tdmTagRow: TestDefinitionMetaTagRow = TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
+      val updatedRow = this.insertOrUpdateTestDefinitionMetaTagQuery(tdmTagRow)
 
-      this.runWithRetries(action)
+      val updateRowQuery: DBIO[TestDefinitionMetaTagRowWrapper] = for {
+        row: Option[Tables.TestDefinitionMetaTagRowWrapper] <- updatedRow
+        tag <- row.fold (ifEmpty = this.readTestDefinitionMetaTagQuery(tdmTagRow.idTestDefinitionTag, nameRow.name).map(_.get)) (DBIO.successful)
+      } yield tag
+
+      this.runWithRetries(updateRowQuery)
     }
 
 
