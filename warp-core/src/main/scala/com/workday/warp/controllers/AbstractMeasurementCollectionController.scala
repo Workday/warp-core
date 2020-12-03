@@ -9,7 +9,7 @@ import com.workday.warp.persistence.Tables.{TestDefinitionMetaTag => _, TestExec
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.{Tag, _}
-import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
+import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.utils.{AnnotationReader, FutureUtils, TimeUtils}
 import com.workday.warp.{TestId, TrialResult}

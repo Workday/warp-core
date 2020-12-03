@@ -4,7 +4,7 @@ import java.time.{Instant, LocalDate}
 
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty.WARP_DATABASE_URL
-import com.workday.warp.persistence.exception.PreExistingTagException
+import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.utils.TimeUtils
 import org.pmw.tinylog.Logger
