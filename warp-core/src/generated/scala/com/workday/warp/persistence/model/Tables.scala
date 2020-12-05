@@ -11,7 +11,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema = Array(Build.schema, Measurement.schema, MeasurementName.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
+  lazy val schema = Array(Build.schema, flyway_schema_history.schema, Measurement.schema, MeasurementName.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -32,6 +32,31 @@ trait Tables {
       def patch(row: BuildRowWrapper): Int = row.patch
       def firstTested(row: BuildRowWrapper): java.sql.Timestamp = row.firstTested
       def lastTested(row: BuildRowWrapper): java.sql.Timestamp = row.lastTested
+    }
+    implicit object flyway_schema_historyRowTypeClassObject extends flyway_schema_historyRowLikeType[flyway_schema_historyRow] {
+      def installed_rank(row: flyway_schema_historyRow): Int = row.installed_rank
+      def version(row: flyway_schema_historyRow): Option[String] = row.version
+      def description(row: flyway_schema_historyRow): String = row.description
+      def `type`(row: flyway_schema_historyRow): String = row.`type`
+      def script(row: flyway_schema_historyRow): String = row.script
+      def checksum(row: flyway_schema_historyRow): Option[Int] = row.checksum
+      def installed_by(row: flyway_schema_historyRow): String = row.installed_by
+      def installed_on(row: flyway_schema_historyRow): java.sql.Timestamp = row.installed_on
+      def execution_time(row: flyway_schema_historyRow): Int = row.execution_time
+      def success(row: flyway_schema_historyRow): Boolean = row.success
+    }
+
+    implicit object flyway_schema_historyRowWrapperTypeClassObject extends flyway_schema_historyRowLikeType[flyway_schema_historyRowWrapper] {
+      def installed_rank(row: flyway_schema_historyRowWrapper): Int = row.installed_rank
+      def version(row: flyway_schema_historyRowWrapper): Option[String] = row.version
+      def description(row: flyway_schema_historyRowWrapper): String = row.description
+      def `type`(row: flyway_schema_historyRowWrapper): String = row.`type`
+      def script(row: flyway_schema_historyRowWrapper): String = row.script
+      def checksum(row: flyway_schema_historyRowWrapper): Option[Int] = row.checksum
+      def installed_by(row: flyway_schema_historyRowWrapper): String = row.installed_by
+      def installed_on(row: flyway_schema_historyRowWrapper): java.sql.Timestamp = row.installed_on
+      def execution_time(row: flyway_schema_historyRowWrapper): Int = row.execution_time
+      def success(row: flyway_schema_historyRowWrapper): Boolean = row.success
     }
     implicit object MeasurementRowTypeClassObject extends MeasurementRowLikeType[MeasurementRow] {
       def idTestExecution(row: MeasurementRow): Int = row.idTestExecution
@@ -179,7 +204,7 @@ trait Tables {
   class Build(_tableTag: Tag) extends profile.api.Table[BuildRow](_tableTag, None, "Build") with BuildLike {
     def * = (idBuild, major, minor, patch, firstTested, lastTested) <> (BuildRow.tupled, BuildRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idBuild), Rep.Some(major), Rep.Some(minor), Rep.Some(patch), Rep.Some(firstTested), Rep.Some(lastTested)).shaped.<>({r=>import r._; _1.map(_=> BuildRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idBuild), Rep.Some(major), Rep.Some(minor), Rep.Some(patch), Rep.Some(firstTested), Rep.Some(lastTested))).shaped.<>({r=>import r._; _1.map(_=> BuildRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idBuild SqlType(INT), AutoInc, PrimaryKey */
     val idBuild: Rep[Int] = column[Int]("idBuild", O.AutoInc, O.PrimaryKey)
@@ -200,6 +225,62 @@ trait Tables {
   /** Collection-like TableQuery object for table Build */
   lazy val Build = new TableQuery(tag => new Build(tag))
 
+  /** Entity class storing rows of table flyway_schema_history
+   *  @param installed_rank Database column installed_rank SqlType(INT), PrimaryKey
+   *  @param version Database column version SqlType(VARCHAR), Length(50,true), Default(None)
+   *  @param description Database column description SqlType(VARCHAR), Length(200,true)
+   *  @param `type` Database column type SqlType(VARCHAR), Length(20,true)
+   *  @param script Database column script SqlType(VARCHAR), Length(1000,true)
+   *  @param checksum Database column checksum SqlType(INT), Default(None)
+   *  @param installed_by Database column installed_by SqlType(VARCHAR), Length(100,true)
+   *  @param installed_on Database column installed_on SqlType(TIMESTAMP)
+   *  @param execution_time Database column execution_time SqlType(INT)
+   *  @param success Database column success SqlType(BIT) */
+  class flyway_schema_historyRowWrapper(val installed_rank: Int, val version: Option[String] = None, val description: String, val `type`: String, val script: String, val checksum: Option[Int] = None, val installed_by: String, val installed_on: java.sql.Timestamp, val execution_time: Int, val success: Boolean) extends flyway_schema_historyRowLike
+  case class flyway_schema_historyRow(override val installed_rank: Int, override val version: Option[String] = None, override val description: String, override val `type`: String, override val script: String, override val checksum: Option[Int] = None, override val installed_by: String, override val installed_on: java.sql.Timestamp, override val execution_time: Int, override val success: Boolean) extends flyway_schema_historyRowWrapper(installed_rank, version, description, `type`, script, checksum, installed_by, installed_on, execution_time, success)
+  implicit def flyway_schema_historyRowWrapper2flyway_schema_historyRow(x: flyway_schema_historyRowWrapper): flyway_schema_historyRow = flyway_schema_historyRow(x.installed_rank, x.version, x.description, x.`type`, x.script, x.checksum, x.installed_by, x.installed_on, x.execution_time, x.success)
+  implicit def flyway_schema_historyRow2flyway_schema_historyRowWrapper(x: flyway_schema_historyRow): flyway_schema_historyRowWrapper = new flyway_schema_historyRowWrapper(x.installed_rank, x.version, x.description, x.`type`, x.script, x.checksum, x.installed_by, x.installed_on, x.execution_time, x.success)
+  implicit def flyway_schema_historyRowFromTypeClass[T: flyway_schema_historyRowLikeType](x: T): flyway_schema_historyRow = flyway_schema_historyRow(implicitly[flyway_schema_historyRowLikeType[T]].installed_rank(x), implicitly[flyway_schema_historyRowLikeType[T]].version(x), implicitly[flyway_schema_historyRowLikeType[T]].description(x), implicitly[flyway_schema_historyRowLikeType[T]].`type`(x), implicitly[flyway_schema_historyRowLikeType[T]].script(x), implicitly[flyway_schema_historyRowLikeType[T]].checksum(x), implicitly[flyway_schema_historyRowLikeType[T]].installed_by(x), implicitly[flyway_schema_historyRowLikeType[T]].installed_on(x), implicitly[flyway_schema_historyRowLikeType[T]].execution_time(x), implicitly[flyway_schema_historyRowLikeType[T]].success(x))
+  /** GetResult implicit for fetching flyway_schema_historyRow objects using plain SQL queries */
+  implicit def GetResultflyway_schema_historyRow(implicit e0: GR[Int], e1: GR[Option[String]], e2: GR[String], e3: GR[Option[Int]], e4: GR[java.sql.Timestamp], e5: GR[Boolean]): GR[flyway_schema_historyRow] = GR{
+    prs => import prs._
+    flyway_schema_historyRow.tupled((<<[Int], <<?[String], <<[String], <<[String], <<[String], <<?[Int], <<[String], <<[java.sql.Timestamp], <<[Int], <<[Boolean]))
+  }
+  /** Table description of table flyway_schema_history. Objects of this class serve as prototypes for rows in queries.
+   *  NOTE: The following names collided with Scala keywords and were escaped: type */
+  class flyway_schema_history(_tableTag: Tag) extends profile.api.Table[flyway_schema_historyRow](_tableTag, None, "flyway_schema_history") with flyway_schema_historyLike {
+    def * = (installed_rank, version, description, `type`, script, checksum, installed_by, installed_on, execution_time, success) <> (flyway_schema_historyRow.tupled, flyway_schema_historyRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = ((Rep.Some(installed_rank), version, Rep.Some(description), Rep.Some(`type`), Rep.Some(script), checksum, Rep.Some(installed_by), Rep.Some(installed_on), Rep.Some(execution_time), Rep.Some(success))).shaped.<>({r=>import r._; _1.map(_=> flyway_schema_historyRow.tupled((_1.get, _2, _3.get, _4.get, _5.get, _6, _7.get, _8.get, _9.get, _10.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column installed_rank SqlType(INT), PrimaryKey */
+    val installed_rank: Rep[Int] = column[Int]("installed_rank", O.PrimaryKey)
+    /** Database column version SqlType(VARCHAR), Length(50,true), Default(None) */
+    val version: Rep[Option[String]] = column[Option[String]]("version", O.Length(50,varying=true), O.Default(None))
+    /** Database column description SqlType(VARCHAR), Length(200,true) */
+    val description: Rep[String] = column[String]("description", O.Length(200,varying=true))
+    /** Database column type SqlType(VARCHAR), Length(20,true)
+     *  NOTE: The name was escaped because it collided with a Scala keyword. */
+    val `type`: Rep[String] = column[String]("type", O.Length(20,varying=true))
+    /** Database column script SqlType(VARCHAR), Length(1000,true) */
+    val script: Rep[String] = column[String]("script", O.Length(1000,varying=true))
+    /** Database column checksum SqlType(INT), Default(None) */
+    val checksum: Rep[Option[Int]] = column[Option[Int]]("checksum", O.Default(None))
+    /** Database column installed_by SqlType(VARCHAR), Length(100,true) */
+    val installed_by: Rep[String] = column[String]("installed_by", O.Length(100,varying=true))
+    /** Database column installed_on SqlType(TIMESTAMP) */
+    val installed_on: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("installed_on")
+    /** Database column execution_time SqlType(INT) */
+    val execution_time: Rep[Int] = column[Int]("execution_time")
+    /** Database column success SqlType(BIT) */
+    val success: Rep[Boolean] = column[Boolean]("success")
+
+    /** Index over (success) (database name flyway_schema_history_s_idx) */
+    val index1 = index("flyway_schema_history_s_idx", success)
+  }
+  /** Collection-like TableQuery object for table flyway_schema_history */
+  lazy val flyway_schema_history = new TableQuery(tag => new flyway_schema_history(tag))
+
   /** Entity class storing rows of table Measurement
    *  @param idTestExecution Database column idTestExecution SqlType(INT)
    *  @param idMeasurementName Database column idMeasurementName SqlType(INT)
@@ -218,7 +299,7 @@ trait Tables {
   class Measurement(_tableTag: Tag) extends profile.api.Table[MeasurementRow](_tableTag, None, "Measurement") with MeasurementLike {
     def * = (idTestExecution, idMeasurementName, result) <> (MeasurementRow.tupled, MeasurementRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestExecution), Rep.Some(idMeasurementName), Rep.Some(result)).shaped.<>({r=>import r._; _1.map(_=> MeasurementRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestExecution), Rep.Some(idMeasurementName), Rep.Some(result))).shaped.<>({r=>import r._; _1.map(_=> MeasurementRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestExecution SqlType(INT) */
     val idTestExecution: Rep[Int] = column[Int]("idTestExecution")
@@ -255,7 +336,7 @@ trait Tables {
   class MeasurementName(_tableTag: Tag) extends profile.api.Table[MeasurementNameRow](_tableTag, None, "MeasurementName") with MeasurementNameLike {
     def * = (idMeasurementName, name) <> (MeasurementNameRow.tupled, MeasurementNameRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idMeasurementName), Rep.Some(name)).shaped.<>({r=>import r._; _1.map(_=> MeasurementNameRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idMeasurementName), Rep.Some(name))).shaped.<>({r=>import r._; _1.map(_=> MeasurementNameRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idMeasurementName SqlType(INT), AutoInc, PrimaryKey */
     val idMeasurementName: Rep[Int] = column[Int]("idMeasurementName", O.AutoInc, O.PrimaryKey)
@@ -287,7 +368,7 @@ trait Tables {
   class TagName(_tableTag: Tag) extends profile.api.Table[TagNameRow](_tableTag, None, "TagName") with TagNameLike {
     def * = (idTagName, name, nameType, isUserGenerated) <> (TagNameRow.tupled, TagNameRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTagName), Rep.Some(name), Rep.Some(nameType), Rep.Some(isUserGenerated)).shaped.<>({r=>import r._; _1.map(_=> TagNameRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTagName), Rep.Some(name), Rep.Some(nameType), Rep.Some(isUserGenerated))).shaped.<>({r=>import r._; _1.map(_=> TagNameRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTagName SqlType(INT), AutoInc, PrimaryKey */
     val idTagName: Rep[Int] = column[Int]("idTagName", O.AutoInc, O.PrimaryKey)
@@ -327,7 +408,7 @@ trait Tables {
   class TestDefinition(_tableTag: Tag) extends profile.api.Table[TestDefinitionRow](_tableTag, None, "TestDefinition") with TestDefinitionLike {
     def * = (idTestDefinition, methodSignature, active, productName, subProductName, className, methodName, documentation) <> (TestDefinitionRow.tupled, TestDefinitionRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestDefinition), Rep.Some(methodSignature), Rep.Some(active), Rep.Some(productName), Rep.Some(subProductName), Rep.Some(className), Rep.Some(methodName), documentation).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestDefinition), Rep.Some(methodSignature), Rep.Some(active), Rep.Some(productName), Rep.Some(subProductName), Rep.Some(className), Rep.Some(methodName), documentation)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestDefinition SqlType(INT), AutoInc, PrimaryKey */
     val idTestDefinition: Rep[Int] = column[Int]("idTestDefinition", O.AutoInc, O.PrimaryKey)
@@ -372,7 +453,7 @@ trait Tables {
   class TestDefinitionMetaTag(_tableTag: Tag) extends profile.api.Table[TestDefinitionMetaTagRow](_tableTag, None, "TestDefinitionMetaTag") with TestDefinitionMetaTagLike {
     def * = (idTestDefinitionTag, idTagName, value) <> (TestDefinitionMetaTagRow.tupled, TestDefinitionMetaTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestDefinitionTag), Rep.Some(idTagName), Rep.Some(value)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestDefinitionTag), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestDefinitionTag SqlType(INT) */
     val idTestDefinitionTag: Rep[Int] = column[Int]("idTestDefinitionTag")
@@ -411,7 +492,7 @@ trait Tables {
   class TestDefinitionTag(_tableTag: Tag) extends profile.api.Table[TestDefinitionTagRow](_tableTag, None, "TestDefinitionTag") with TestDefinitionTagLike {
     def * = (idTestDefinitionTag, idTestDefinition, idTagName, value) <> (TestDefinitionTagRow.tupled, TestDefinitionTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestDefinitionTag), Rep.Some(idTestDefinition), Rep.Some(idTagName), Rep.Some(value)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestDefinitionTag), Rep.Some(idTestDefinition), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestDefinitionTag SqlType(INT), AutoInc, PrimaryKey */
     val idTestDefinitionTag: Rep[Int] = column[Int]("idTestDefinitionTag", O.AutoInc, O.PrimaryKey)
@@ -427,8 +508,8 @@ trait Tables {
     /** Foreign key referencing TestDefinition (database name idTestDefinition_Tag) */
     lazy val testDefinitionFk = foreignKey("idTestDefinition_Tag", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
 
-    /** Uniqueness Index over (value,idTagName,idTestDefinition) (database name idTestDefinition_value_TagName_unique) */
-    val index1 = index("idTestDefinition_value_TagName_unique", (value, idTagName, idTestDefinition), unique=true)
+    /** Uniqueness Index over (idTagName,idTestDefinition) (database name idTestDefinition_TagName_unique) */
+    val index1 = index("idTestDefinition_TagName_unique", (idTagName, idTestDefinition), unique=true)
   }
   /** Collection-like TableQuery object for table TestDefinitionTag */
   lazy val TestDefinitionTag = new TableQuery(tag => new TestDefinitionTag(tag))
@@ -456,7 +537,7 @@ trait Tables {
   class TestExecution(_tableTag: Tag) extends profile.api.Table[TestExecutionRow](_tableTag, None, "TestExecution") with TestExecutionLike {
     def * = (idTestExecution, idTestDefinition, idBuild, passed, responseTime, responseTimeRequirement, startTime, endTime) <> (TestExecutionRow.tupled, TestExecutionRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestExecution), Rep.Some(idTestDefinition), Rep.Some(idBuild), Rep.Some(passed), Rep.Some(responseTime), Rep.Some(responseTimeRequirement), Rep.Some(startTime), Rep.Some(endTime)).shaped.<>({r=>import r._; _1.map(_=> TestExecutionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestExecution), Rep.Some(idTestDefinition), Rep.Some(idBuild), Rep.Some(passed), Rep.Some(responseTime), Rep.Some(responseTimeRequirement), Rep.Some(startTime), Rep.Some(endTime))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestExecution SqlType(INT), AutoInc, PrimaryKey */
     val idTestExecution: Rep[Int] = column[Int]("idTestExecution", O.AutoInc, O.PrimaryKey)
@@ -477,8 +558,8 @@ trait Tables {
 
     /** Foreign key referencing Build (database name idBuild) */
     lazy val buildFk = foreignKey("idBuild", idBuild, Build)(r => r.idBuild, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
-    /** Foreign key referencing TestDefinition (database name description) */
-    lazy val testDefinitionFk = foreignKey("description", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.Cascade)
+    /** Foreign key referencing TestDefinition (database name definition_TestExecution) */
+    lazy val testDefinitionFk = foreignKey("definition_TestExecution", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.Cascade)
   }
   /** Collection-like TableQuery object for table TestExecution */
   lazy val TestExecution = new TableQuery(tag => new TestExecution(tag))
@@ -501,7 +582,7 @@ trait Tables {
   class TestExecutionMetaTag(_tableTag: Tag) extends profile.api.Table[TestExecutionMetaTagRow](_tableTag, None, "TestExecutionMetaTag") with TestExecutionMetaTagLike {
     def * = (idTestExecutionTag, idTagName, value) <> (TestExecutionMetaTagRow.tupled, TestExecutionMetaTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestExecutionTag), Rep.Some(idTagName), Rep.Some(value)).shaped.<>({r=>import r._; _1.map(_=> TestExecutionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestExecutionTag), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestExecutionTag SqlType(INT) */
     val idTestExecutionTag: Rep[Int] = column[Int]("idTestExecutionTag")
@@ -540,7 +621,7 @@ trait Tables {
   class TestExecutionTag(_tableTag: Tag) extends profile.api.Table[TestExecutionTagRow](_tableTag, None, "TestExecutionTag") with TestExecutionTagLike {
     def * = (idTestExecutionTag, idTestExecution, idTagName, value) <> (TestExecutionTagRow.tupled, TestExecutionTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestExecutionTag), Rep.Some(idTestExecution), Rep.Some(idTagName), Rep.Some(value)).shaped.<>({r=>import r._; _1.map(_=> TestExecutionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestExecutionTag), Rep.Some(idTestExecution), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestExecutionTag SqlType(INT), AutoInc, PrimaryKey */
     val idTestExecutionTag: Rep[Int] = column[Int]("idTestExecutionTag", O.AutoInc, O.PrimaryKey)
@@ -551,13 +632,13 @@ trait Tables {
     /** Database column value SqlType(VARCHAR), Length(255,true) */
     val value: Rep[String] = column[String]("value", O.Length(255,varying=true))
 
-    /** Foreign key referencing TagName (database name idTagDescription_TestCaseTag) */
-    lazy val tagNameFk = foreignKey("idTagDescription_TestCaseTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    /** Foreign key referencing TagName (database name idTagName_TestExecutionTag) */
+    lazy val tagNameFk = foreignKey("idTagName_TestExecutionTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
     /** Foreign key referencing TestExecution (database name idTestExecution_Tag) */
     lazy val testExecutionFk = foreignKey("idTestExecution_Tag", idTestExecution, TestExecution)(r => r.idTestExecution, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
 
-    /** Uniqueness Index over (value,idTagName,idTestExecution) (database name idTestExecution_value_TagName_unique) */
-    val index1 = index("idTestExecution_value_TagName_unique", (value, idTagName, idTestExecution), unique=true)
+    /** Uniqueness Index over (idTagName,idTestExecution) (database name idTestExecution_TagName_unique) */
+    val index1 = index("idTestExecution_TagName_unique", (idTagName, idTestExecution), unique=true)
   }
   /** Collection-like TableQuery object for table TestExecutionTag */
   lazy val TestExecutionTag = new TableQuery(tag => new TestExecutionTag(tag))

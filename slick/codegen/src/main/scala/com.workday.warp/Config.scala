@@ -7,7 +7,7 @@ package com.workday.warp
   */
 object Config {
   // Jdbc url
-  val url: String = "jdbc:mysql://localhost:3306/warp?user=root&password=1234"
+  val url: String = "jdbc:mysql://localhost:3307/warp_core?user=root&password=1234"
   // We'll use this to connect to the above url
   val jdbcDriver: String = "com.mysql.jdbc.Driver"
   // Profile used by the generated slick code

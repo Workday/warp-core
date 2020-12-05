@@ -5,7 +5,7 @@ import slick.lifted.Rep
 import annotation.implicitNotFound
 
 trait TablesLike {
-  val CORE_TABLES: Map[String, String] = Map(("BuildRow","BuildRowWrapper(idBuild,major,minor,patch,firstTested,lastTested)"),("MeasurementRow","MeasurementRowWrapper(idTestExecution,idMeasurementName,result)"),("MeasurementNameRow","MeasurementNameRowWrapper(idMeasurementName,name)"),("TagNameRow","TagNameRowWrapper(idTagName,name,nameType,isUserGenerated)"),("TestDefinitionRow","TestDefinitionRowWrapper(idTestDefinition,methodSignature,active,productName,subProductName,className,methodName,documentation)"),("TestDefinitionMetaTagRow","TestDefinitionMetaTagRowWrapper(idTestDefinitionTag,idTagName,value)"),("TestDefinitionTagRow","TestDefinitionTagRowWrapper(idTestDefinitionTag,idTestDefinition,idTagName,value)"),("TestExecutionRow","TestExecutionRowWrapper(idTestExecution,idTestDefinition,idBuild,passed,responseTime,responseTimeRequirement,startTime,endTime)"),("TestExecutionMetaTagRow","TestExecutionMetaTagRowWrapper(idTestExecutionTag,idTagName,value)"),("TestExecutionTagRow","TestExecutionTagRowWrapper(idTestExecutionTag,idTestExecution,idTagName,value)"))
+  val CORE_TABLES: Map[String, String] = Map(("BuildRow","BuildRowWrapper(idBuild,major,minor,patch,firstTested,lastTested)"),("flyway_schema_historyRow","flyway_schema_historyRowWrapper(installed_rank,version,description,`type`,script,checksum,installed_by,installed_on,execution_time,success)"),("MeasurementRow","MeasurementRowWrapper(idTestExecution,idMeasurementName,result)"),("MeasurementNameRow","MeasurementNameRowWrapper(idMeasurementName,name)"),("TagNameRow","TagNameRowWrapper(idTagName,name,nameType,isUserGenerated)"),("TestDefinitionRow","TestDefinitionRowWrapper(idTestDefinition,methodSignature,active,productName,subProductName,className,methodName,documentation)"),("TestDefinitionMetaTagRow","TestDefinitionMetaTagRowWrapper(idTestDefinitionTag,idTagName,value)"),("TestDefinitionTagRow","TestDefinitionTagRowWrapper(idTestDefinitionTag,idTestDefinition,idTagName,value)"),("TestExecutionRow","TestExecutionRowWrapper(idTestExecution,idTestDefinition,idBuild,passed,responseTime,responseTimeRequirement,startTime,endTime)"),("TestExecutionMetaTagRow","TestExecutionMetaTagRowWrapper(idTestExecutionTag,idTagName,value)"),("TestExecutionTagRow","TestExecutionTagRowWrapper(idTestExecutionTag,idTestExecution,idTagName,value)"))
   /** Supertrait for entity classes storing rows of table BuildLike
    *  
    *  idBuild: Database column idBuild SqlType(INT), AutoInc, PrimaryKey
@@ -40,6 +40,58 @@ trait TablesLike {
     val patch: Rep[Int]
     val firstTested: Rep[java.sql.Timestamp]
     val lastTested: Rep[java.sql.Timestamp]
+  }
+
+  /** Supertrait for entity classes storing rows of table flyway_schema_historyLike
+   *  
+   *  installed_rank: Database column installed_rank SqlType(INT), PrimaryKey
+   *  version: Database column version SqlType(VARCHAR), Length(50,true), Default(None)
+   *  description: Database column description SqlType(VARCHAR), Length(200,true)
+   *  `type`: Database column type SqlType(VARCHAR), Length(20,true)
+   *  script: Database column script SqlType(VARCHAR), Length(1000,true)
+   *  checksum: Database column checksum SqlType(INT), Default(None)
+   *  installed_by: Database column installed_by SqlType(VARCHAR), Length(100,true)
+   *  installed_on: Database column installed_on SqlType(TIMESTAMP)
+   *  execution_time: Database column execution_time SqlType(INT)
+   *  success: Database column success SqlType(BIT) */
+  trait flyway_schema_historyRowLike {
+    val installed_rank: Int
+    val version: Option[String]
+    val description: String
+    val `type`: String
+    val script: String
+    val checksum: Option[Int]
+    val installed_by: String
+    val installed_on: java.sql.Timestamp
+    val execution_time: Int
+    val success: Boolean
+  }
+  /** Type Class for flyway_schema_historyRowLike **/
+  @implicitNotFound("Could not find an implicit value for evidence of type class flyway_schema_historyRowLikeType[${T}]. You might pass an (implicit ev: flyway_schema_historyRowLikeType[${T}]) parameter to your method or import Tables.RowTypeClasses._")
+  trait flyway_schema_historyRowLikeType[T] {
+    def installed_rank(row: T): Int
+    def version(row: T): Option[String]
+    def description(row: T): String
+    def `type`(row: T): String
+    def script(row: T): String
+    def checksum(row: T): Option[Int]
+    def installed_by(row: T): String
+    def installed_on(row: T): java.sql.Timestamp
+    def execution_time(row: T): Int
+    def success(row: T): Boolean
+  }
+  /** Supertrait for Table descriptions of table flyway_schema_historyLike */
+  trait flyway_schema_historyLike {
+    val installed_rank: Rep[Int]
+    val version: Rep[Option[String]]
+    val description: Rep[String]
+    val `type`: Rep[String]
+    val script: Rep[String]
+    val checksum: Rep[Option[Int]]
+    val installed_by: Rep[String]
+    val installed_on: Rep[java.sql.Timestamp]
+    val execution_time: Rep[Int]
+    val success: Rep[Boolean]
   }
 
   /** Supertrait for entity classes storing rows of table MeasurementLike
@@ -313,6 +365,18 @@ trait TablesLike {
       def patch(row: BuildRowLike): Int = row.patch
       def firstTested(row: BuildRowLike): java.sql.Timestamp = row.firstTested
       def lastTested(row: BuildRowLike): java.sql.Timestamp = row.lastTested
+    }
+    implicit object flyway_schema_historyRowLikeTypeClassObject extends flyway_schema_historyRowLikeType[flyway_schema_historyRowLike] {
+      def installed_rank(row: flyway_schema_historyRowLike): Int = row.installed_rank
+      def version(row: flyway_schema_historyRowLike): Option[String] = row.version
+      def description(row: flyway_schema_historyRowLike): String = row.description
+      def `type`(row: flyway_schema_historyRowLike): String = row.`type`
+      def script(row: flyway_schema_historyRowLike): String = row.script
+      def checksum(row: flyway_schema_historyRowLike): Option[Int] = row.checksum
+      def installed_by(row: flyway_schema_historyRowLike): String = row.installed_by
+      def installed_on(row: flyway_schema_historyRowLike): java.sql.Timestamp = row.installed_on
+      def execution_time(row: flyway_schema_historyRowLike): Int = row.execution_time
+      def success(row: flyway_schema_historyRowLike): Boolean = row.success
     }
     implicit object MeasurementRowLikeTypeClassObject extends MeasurementRowLikeType[MeasurementRowLike] {
       def idTestExecution(row: MeasurementRowLike): Int = row.idTestExecution
