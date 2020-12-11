@@ -44,17 +44,6 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   }
 
 
-  /**
-    * Checks that we don't throw an exception when the schema already exists.
-    */
-  @UnitTest
-  def doubleInit(): Unit = {
-    Connection.refresh()
-    CorePersistenceUtils.initSchema()
-    CorePersistenceUtils.initSchema()
-  }
-
-
   /** Checks that we can find or create [[Tables.Build]]. */
   @UnitTest
   def findOrCreateBuild(): Unit = {

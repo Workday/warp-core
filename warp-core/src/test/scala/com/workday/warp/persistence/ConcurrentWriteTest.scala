@@ -85,6 +85,17 @@ class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
       this.persistenceUtils.findOrCreateTagName("some other description").idTagName should not be id
     }
   }
+
+
+  /**
+   * Checks that we don't throw an exception when the schema already exists.
+   */
+  @UnitTest
+  def doubleInit(): Unit = {
+    Connection.refresh()
+    CorePersistenceUtils.initSchema()
+    CorePersistenceUtils.initSchema()
+  }
 }
 
 
