@@ -11,7 +11,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema = Array(Build.schema, flyway_schema_history.schema, Measurement.schema, MeasurementName.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
+  lazy val schema = Array(Build.schema, Measurement.schema, MeasurementName.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -32,31 +32,6 @@ trait Tables {
       def patch(row: BuildRowWrapper): Int = row.patch
       def firstTested(row: BuildRowWrapper): java.sql.Timestamp = row.firstTested
       def lastTested(row: BuildRowWrapper): java.sql.Timestamp = row.lastTested
-    }
-    implicit object flyway_schema_historyRowTypeClassObject extends flyway_schema_historyRowLikeType[flyway_schema_historyRow] {
-      def installed_rank(row: flyway_schema_historyRow): Int = row.installed_rank
-      def version(row: flyway_schema_historyRow): Option[String] = row.version
-      def description(row: flyway_schema_historyRow): String = row.description
-      def `type`(row: flyway_schema_historyRow): String = row.`type`
-      def script(row: flyway_schema_historyRow): String = row.script
-      def checksum(row: flyway_schema_historyRow): Option[Int] = row.checksum
-      def installed_by(row: flyway_schema_historyRow): String = row.installed_by
-      def installed_on(row: flyway_schema_historyRow): java.sql.Timestamp = row.installed_on
-      def execution_time(row: flyway_schema_historyRow): Int = row.execution_time
-      def success(row: flyway_schema_historyRow): Boolean = row.success
-    }
-
-    implicit object flyway_schema_historyRowWrapperTypeClassObject extends flyway_schema_historyRowLikeType[flyway_schema_historyRowWrapper] {
-      def installed_rank(row: flyway_schema_historyRowWrapper): Int = row.installed_rank
-      def version(row: flyway_schema_historyRowWrapper): Option[String] = row.version
-      def description(row: flyway_schema_historyRowWrapper): String = row.description
-      def `type`(row: flyway_schema_historyRowWrapper): String = row.`type`
-      def script(row: flyway_schema_historyRowWrapper): String = row.script
-      def checksum(row: flyway_schema_historyRowWrapper): Option[Int] = row.checksum
-      def installed_by(row: flyway_schema_historyRowWrapper): String = row.installed_by
-      def installed_on(row: flyway_schema_historyRowWrapper): java.sql.Timestamp = row.installed_on
-      def execution_time(row: flyway_schema_historyRowWrapper): Int = row.execution_time
-      def success(row: flyway_schema_historyRowWrapper): Boolean = row.success
     }
     implicit object MeasurementRowTypeClassObject extends MeasurementRowLikeType[MeasurementRow] {
       def idTestExecution(row: MeasurementRow): Int = row.idTestExecution
@@ -224,62 +199,6 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table Build */
   lazy val Build = new TableQuery(tag => new Build(tag))
-
-  /** Entity class storing rows of table flyway_schema_history
-   *  @param installed_rank Database column installed_rank SqlType(INT), PrimaryKey
-   *  @param version Database column version SqlType(VARCHAR), Length(50,true), Default(None)
-   *  @param description Database column description SqlType(VARCHAR), Length(200,true)
-   *  @param `type` Database column type SqlType(VARCHAR), Length(20,true)
-   *  @param script Database column script SqlType(VARCHAR), Length(1000,true)
-   *  @param checksum Database column checksum SqlType(INT), Default(None)
-   *  @param installed_by Database column installed_by SqlType(VARCHAR), Length(100,true)
-   *  @param installed_on Database column installed_on SqlType(TIMESTAMP)
-   *  @param execution_time Database column execution_time SqlType(INT)
-   *  @param success Database column success SqlType(BIT) */
-  class flyway_schema_historyRowWrapper(val installed_rank: Int, val version: Option[String] = None, val description: String, val `type`: String, val script: String, val checksum: Option[Int] = None, val installed_by: String, val installed_on: java.sql.Timestamp, val execution_time: Int, val success: Boolean) extends flyway_schema_historyRowLike
-  case class flyway_schema_historyRow(override val installed_rank: Int, override val version: Option[String] = None, override val description: String, override val `type`: String, override val script: String, override val checksum: Option[Int] = None, override val installed_by: String, override val installed_on: java.sql.Timestamp, override val execution_time: Int, override val success: Boolean) extends flyway_schema_historyRowWrapper(installed_rank, version, description, `type`, script, checksum, installed_by, installed_on, execution_time, success)
-  implicit def flyway_schema_historyRowWrapper2flyway_schema_historyRow(x: flyway_schema_historyRowWrapper): flyway_schema_historyRow = flyway_schema_historyRow(x.installed_rank, x.version, x.description, x.`type`, x.script, x.checksum, x.installed_by, x.installed_on, x.execution_time, x.success)
-  implicit def flyway_schema_historyRow2flyway_schema_historyRowWrapper(x: flyway_schema_historyRow): flyway_schema_historyRowWrapper = new flyway_schema_historyRowWrapper(x.installed_rank, x.version, x.description, x.`type`, x.script, x.checksum, x.installed_by, x.installed_on, x.execution_time, x.success)
-  implicit def flyway_schema_historyRowFromTypeClass[T: flyway_schema_historyRowLikeType](x: T): flyway_schema_historyRow = flyway_schema_historyRow(implicitly[flyway_schema_historyRowLikeType[T]].installed_rank(x), implicitly[flyway_schema_historyRowLikeType[T]].version(x), implicitly[flyway_schema_historyRowLikeType[T]].description(x), implicitly[flyway_schema_historyRowLikeType[T]].`type`(x), implicitly[flyway_schema_historyRowLikeType[T]].script(x), implicitly[flyway_schema_historyRowLikeType[T]].checksum(x), implicitly[flyway_schema_historyRowLikeType[T]].installed_by(x), implicitly[flyway_schema_historyRowLikeType[T]].installed_on(x), implicitly[flyway_schema_historyRowLikeType[T]].execution_time(x), implicitly[flyway_schema_historyRowLikeType[T]].success(x))
-  /** GetResult implicit for fetching flyway_schema_historyRow objects using plain SQL queries */
-  implicit def GetResultflyway_schema_historyRow(implicit e0: GR[Int], e1: GR[Option[String]], e2: GR[String], e3: GR[Option[Int]], e4: GR[java.sql.Timestamp], e5: GR[Boolean]): GR[flyway_schema_historyRow] = GR{
-    prs => import prs._
-    flyway_schema_historyRow.tupled((<<[Int], <<?[String], <<[String], <<[String], <<[String], <<?[Int], <<[String], <<[java.sql.Timestamp], <<[Int], <<[Boolean]))
-  }
-  /** Table description of table flyway_schema_history. Objects of this class serve as prototypes for rows in queries.
-   *  NOTE: The following names collided with Scala keywords and were escaped: type */
-  class flyway_schema_history(_tableTag: Tag) extends profile.api.Table[flyway_schema_historyRow](_tableTag, None, "flyway_schema_history") with flyway_schema_historyLike {
-    def * = (installed_rank, version, description, `type`, script, checksum, installed_by, installed_on, execution_time, success) <> (flyway_schema_historyRow.tupled, flyway_schema_historyRow.unapply)
-    /** Maps whole row to an option. Useful for outer joins. */
-    def ? = ((Rep.Some(installed_rank), version, Rep.Some(description), Rep.Some(`type`), Rep.Some(script), checksum, Rep.Some(installed_by), Rep.Some(installed_on), Rep.Some(execution_time), Rep.Some(success))).shaped.<>({r=>import r._; _1.map(_=> flyway_schema_historyRow.tupled((_1.get, _2, _3.get, _4.get, _5.get, _6, _7.get, _8.get, _9.get, _10.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
-
-    /** Database column installed_rank SqlType(INT), PrimaryKey */
-    val installed_rank: Rep[Int] = column[Int]("installed_rank", O.PrimaryKey)
-    /** Database column version SqlType(VARCHAR), Length(50,true), Default(None) */
-    val version: Rep[Option[String]] = column[Option[String]]("version", O.Length(50,varying=true), O.Default(None))
-    /** Database column description SqlType(VARCHAR), Length(200,true) */
-    val description: Rep[String] = column[String]("description", O.Length(200,varying=true))
-    /** Database column type SqlType(VARCHAR), Length(20,true)
-     *  NOTE: The name was escaped because it collided with a Scala keyword. */
-    val `type`: Rep[String] = column[String]("type", O.Length(20,varying=true))
-    /** Database column script SqlType(VARCHAR), Length(1000,true) */
-    val script: Rep[String] = column[String]("script", O.Length(1000,varying=true))
-    /** Database column checksum SqlType(INT), Default(None) */
-    val checksum: Rep[Option[Int]] = column[Option[Int]]("checksum", O.Default(None))
-    /** Database column installed_by SqlType(VARCHAR), Length(100,true) */
-    val installed_by: Rep[String] = column[String]("installed_by", O.Length(100,varying=true))
-    /** Database column installed_on SqlType(TIMESTAMP) */
-    val installed_on: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("installed_on")
-    /** Database column execution_time SqlType(INT) */
-    val execution_time: Rep[Int] = column[Int]("execution_time")
-    /** Database column success SqlType(BIT) */
-    val success: Rep[Boolean] = column[Boolean]("success")
-
-    /** Index over (success) (database name flyway_schema_history_s_idx) */
-    val index1 = index("flyway_schema_history_s_idx", success)
-  }
-  /** Collection-like TableQuery object for table flyway_schema_history */
-  lazy val flyway_schema_history = new TableQuery(tag => new flyway_schema_history(tag))
 
   /** Entity class storing rows of table Measurement
    *  @param idTestExecution Database column idTestExecution SqlType(INT)

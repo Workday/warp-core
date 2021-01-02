@@ -221,41 +221,36 @@ trait CorePersistenceAware extends PersistenceAware {
                                    value: String,
                                    isUserGenerated: Boolean = true): TestExecutionTagRowLike = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-//      val teTagRow: TestExecutionTagRow = TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value)
-//      val updatedRow = this.insertOrUpdateTestExecutionTagQuery(teTagRow)
+      val teTagRow: TestExecutionTagRow = TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value)
+      val updatedRow = this.insertOrUpdateTestExecutionTagQuery(teTagRow)
 
-//      val updateRowQuery: DBIO[TestExecutionTagRowWrapper] = for {
-//        row: Option[Tables.TestExecutionTagRowWrapper] <- updatedRow
-//        tag <- row.fold (ifEmpty = this.readTestExecutionTagQuery(idTestExecution, name).map(_.get)) (DBIO.successful)
-//      } yield tag
-//      this.runWithRetries(updateRowQuery)
-
-      val dbAction: DBIO[TestExecutionTagRow] = for {
-        tags: Option[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName)
-        // TODO we can use Option monad here instead
-        action <- tags.toList match {
-          case Nil =>
-            this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
-            Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
-            val teTagRow: TestExecutionTagRow = TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value)
-            val updatedRow: DBIO[Option[Tables.TestExecutionTagRowWrapper]] = this.insertOrUpdateTestExecutionTagQuery(teTagRow)
-            updatedRow.map(_.get)
-            /*
-                      /** Lift a constant value to a [[DBIOAction]]. */
-                      def successful[R](v: R): DBIOAction[R, NoStream, Effect] = SuccessAction[R](v)
-             */
-
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new WarpFieldPersistenceException(s"Tag exists with same name but different value: ($oldKey, $oldValue)"))
-
-          case _ =>
-            DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestExecution tag"))
-        }
-      } yield action
-
-      this.runWithRetries(dbAction)
+      val updateRowQuery: DBIO[TestExecutionTagRowWrapper] = for {
+        row: Option[Tables.TestExecutionTagRowWrapper] <- updatedRow
+        tag <- row.fold(ifEmpty = this.readTestExecutionTagQuery(idTestExecution, name).map(_.get))(DBIO.successful)
+      } yield tag
+      this.runWithRetries(updateRowQuery)
     }
+
+//      val dbAction: DBIO[TestExecutionTagRow] = for {
+//        tags: Option[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName)
+//         TODO we can use Option monad here instead
+//        action <- tags.toList match {
+//          case Nil =>
+//            this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
+//          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
+//            Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
+//            val teTagRow: TestExecutionTagRow = TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value)
+//            val updatedRow: DBIO[Option[Tables.TestExecutionTagRowWrapper]] = this.insertOrUpdateTestExecutionTagQuery(teTagRow)
+//            updatedRow.map(_.get)
+//          case (oldKey, oldValue) :: Nil =>
+//            DBIO.failed(new WarpFieldPersistenceException(s"Tag exists with same name but different value: ($oldKey, $oldValue)"))
+//
+//          case _ =>
+//            DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestExecution tag"))
+//        }
+//      } yield action
+//      this.runWithRetries(dbAction)
+//    }
     // TODO: do the same for the two metatags, should be same structure
 
 
