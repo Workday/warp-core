@@ -231,6 +231,7 @@ trait CorePersistenceAware extends PersistenceAware {
       this.runWithRetries(updateRowQuery)
     }
 
+// TODO: come back here
 //      val dbAction: DBIO[TestExecutionTagRow] = for {
 //        tags: Option[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName)
 //         TODO we can use Option monad here instead
@@ -329,14 +330,15 @@ trait CorePersistenceAware extends PersistenceAware {
       val tdmTagRow: TestDefinitionMetaTagRow = TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
       val updatedRow = this.insertOrUpdateTestDefinitionMetaTagQuery(tdmTagRow)
 
-      // scalastyle:off
-      val updateRowQuery: DBIO[TestDefinitionMetaTagRowWrapper] = for {
-        row: Option[Tables.TestDefinitionMetaTagRowWrapper] <- updatedRow
-        tag <- row.fold (ifEmpty = this.readTestDefinitionMetaTagQuery(tdmTagRow.idTestDefinitionTag, nameRow.name).map(_.get)) (DBIO.successful)
-      } yield tag
-      // scalastyle:on
+      val action: DBIO[Seq[(String, String)]] = for {
+        tags: Seq[(String, String)] <- this.testDefinitionMetaTagQuery(idTestDefinitionTag, nameRow.idTagName).result
+        _ <- tags.toList match {
+          case Nil => Tables.TestDefinitionMetaTag += tdmTagRow
+          case _ => updatedRow
+        }
+      } yield tags
 
-      this.runWithRetries(updateRowQuery)
+      this.runWithRetries(action)
     }
 
 
