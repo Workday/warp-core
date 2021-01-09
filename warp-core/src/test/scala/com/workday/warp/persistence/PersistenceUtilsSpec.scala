@@ -409,14 +409,19 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
     val testExecution: TestExecutionRow = this.createTestExecution(1)
     this.persistenceUtils.recordTestDefinitionTag(testExecution.idTestDefinition, "instanceId", "755$1234")
 
+    // Write a TestDefinitionMetaTag, there should be one more tag than there was before
     val before: Int = this.persistenceUtils.synchronously(Tables.TestDefinitionMetaTag.length.result)
     this.persistenceUtils.recordTestDefinitionMetaTag(1, "Key", "Value")
-    val after: Int = this.persistenceUtils.synchronously(Tables.TestDefinitionMetaTag.length.result)
+    val afterOne: Int = this.persistenceUtils.synchronously(Tables.TestDefinitionMetaTag.length.result)
 
-    print("================================================================================")
-    print(before)
-    print(after)
-    print("================================================================================")
+    afterOne should be (before + 1)
+
+    // Write another with a different value (but same key!). There should still only be one, updated with a new value
+    this.persistenceUtils.recordTestDefinitionMetaTag(1, "Key", "New value")
+    val afterTwo: Int = this.persistenceUtils.synchronously(Tables.TestDefinitionMetaTag.length.result)
+    val updatedRow: TablesLike.TagNameRowLike = this.persistenceUtils.getTagName("Key")
+    afterTwo should be (before + 1)
+    updatedRow.
 
     /* writing a new testdefinitionmetatag from an above test
     val testExecution: TestExecutionRow = this.createTestExecution(1)

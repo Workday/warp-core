@@ -9,6 +9,8 @@ import com.workday.warp.persistence.TablesLike._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.workday.warp.persistence.IdentifierSyntax._
+import slick.dbio.Effect
+import slick.sql.FixedSqlAction
 
 /**
   * Defines functions for creating read and write [[Query]]. These queries can be composed, converted to [[DBIOAction]],
@@ -392,6 +394,14 @@ trait CoreQueries extends AbstractQueries {
     ) insertOrUpdate(row)
   }
 
+  def insertOrUpdateTestExecutionMetaTagQuery[T: TestExecutionMetaTagRowLikeType](
+                                                                                     row: T
+                                                                                   ): DBIO[Option[TestExecutionMetaTagRowWrapper]] = {
+    TestExecutionMetaTag returning TestExecutionMetaTag.map(_.idTestExecutionTag) into (
+      (row, id) => row.copy(idTestExecutionTag = id)
+      ) insertOrUpdate(row)
+  }
+
   def insertOrUpdateTestDefinitionTagQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[Option[TestDefinitionTagRowWrapper]] = {
     TestDefinitionTag returning TestDefinitionTag.map(_.idTestDefinitionTag) into (
       (row, id) => row.copy(idTestDefinitionTag = id)
@@ -400,10 +410,13 @@ trait CoreQueries extends AbstractQueries {
 
   def insertOrUpdateTestDefinitionMetaTagQuery[T: TestDefinitionMetaTagRowLikeType](
                                                                                      row: T
-                                                                                   ): DBIO[Option[TestDefinitionMetaTagRowWrapper]] = {
-    TestDefinitionMetaTag returning TestDefinitionMetaTag.map(_.idTestDefinitionTag) into (
-      (row, id) => row.copy(idTestDefinitionTag = id)
-    ) insertOrUpdate(row)
+//                                                                                   ): DBIO[Option[TestDefinitionMetaTagRowWrapper]] = {
+                                                                                   ): FixedSqlAction[Int, NoStream, Effect.Write] = {
+//    TestDefinitionMetaTag returning TestDefinitionMetaTag.map(_.idTestDefinitionTag) into (
+//      (row, id) => row.copy(idTestDefinitionTag = id)
+//    ) insertOrUpdate(row)
+//    (TestDefinitionMetaTag returning TestDefinitionMetaTag).insertOrUpdate(row)
+    TestDefinitionMetaTag.insertOrUpdate(row)
   }
 
   /**
