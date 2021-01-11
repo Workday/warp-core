@@ -288,7 +288,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param value value of the tag.
       * @return a [[TestDefinitionTagRowLike]] with the given parameters.
       */
-      // TODO: come back here after doing testexecutiontag
     @throws[WarpFieldPersistenceException]
     override def recordTestDefinitionTag(idTestDefinition: Int,
                                        name: String,
@@ -326,41 +325,19 @@ trait CorePersistenceAware extends PersistenceAware {
                                              name: String,
                                              value: String,
                                              isUserGenerated: Boolean = true): Unit = {
-      /*
-      val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val tdmTagRow: TestDefinitionMetaTagRow = TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
-//      val updatedRow = this.insertOrUpdateTestDefinitionMetaTagQuery(tdmTagRow)
-
-      val action: DBIO[Seq[(String, String)]] = for {
-        tags: Seq[(String, String)] <- this.testDefinitionMetaTagQuery(idTestDefinitionTag, nameRow.idTagName).result
-        _ <- tags.toList match {
-          case Nil =>
-            Tables.TestDefinitionMetaTag += tdmTagRow
-          case _ =>
-            this.insertOrUpdateTestDefinitionMetaTagQuery(tdmTagRow)
-        }
-      } yield tags
-
-      this.runWithRetries(action)
-      */
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
       val tdmTagRow: TestDefinitionMetaTagRow = TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
 
       val action: DBIO[Seq[(String, String)]] = for {
         tags: Seq[(String, String)] <- this.testDefinitionMetaTagQuery(idTestDefinitionTag, nameRow.idTagName).result
         _ <- tags.toList match {
-          case Nil =>
-//            Tables.TestDefinitionMetaTag += tdmTagRow
-            this.insertOrUpdateTestDefinitionMetaTagQuery(tdmTagRow)
-
           case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
             Logger.debug(s"Attempting to log an definition metatag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful((oldKey, oldValue))
 
-          case (oldKey, oldValue) :: Nil =>
-//            DBIO.failed(new WarpFieldPersistenceException(s"DefinitionMetaTag exists with same name but different value: " +
-//              s"($oldKey, $oldValue)"))
+          case Nil | _ :: Nil =>
             this.insertOrUpdateTestDefinitionMetaTagQuery(tdmTagRow)
+
           case _ =>
             DBIO.failed(new WarpFieldPersistenceException("bad database state recording DefinitionMetaTag"))
         }
