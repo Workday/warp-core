@@ -419,35 +419,13 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
     // Write another with a different value (but same key!). There should still only be one, updated with a new value
     this.persistenceUtils.recordTestDefinitionMetaTag(1, "Key", "New value")
     val afterTwo: Int = this.persistenceUtils.synchronously(Tables.TestDefinitionMetaTag.length.result)
-    val updatedRow: TablesLike.TagNameRowLike = this.persistenceUtils.getTagName("Key")
+
+    val keyId: Int = this.persistenceUtils.findOrCreateTagName("Key").idTagName
+    val updatedTag: (String, String) = this.persistenceUtils.synchronously(
+      this.persistenceUtils.testDefinitionMetaTagQuery(1, keyId)
+    ).headOption.get
+
     afterTwo should be (before + 1)
-    updatedRow.
-
-    /* writing a new testdefinitionmetatag from an above test
-    val testExecution: TestExecutionRow = this.createTestExecution(1)
-    this.persistenceUtils.recordTestDefinitionTag(testExecution.idTestDefinition, "instanceId", "755$1234")
-
-    val before: Int = this.persistenceUtils.synchronously(Tables.TestDefinitionMetaTag.length.result)
-    this.persistenceUtils.recordTestDefinitionMetaTag(1, "Key", "Value")
-    val after: Int = this.persistenceUtils.synchronously(Tables.TestDefinitionMetaTag.length.result)
-
-    after should be (before + 1)
-     */
-
-    /*
-    val testDefinition: TestDefinitionMetaTagRowLike = this.persistenceUtils.findOrCreateTestDefinitionMetaTag(this.methodSignature)
-    this.persistenceUtils.recordTestDefinitionMetaTag(
-      testDefinition.idTestDefinition, "some name", "old tag value"
-    )
-    val newTag = this.persistenceUtils.recordTestDefinitionMetaTag(
-      testDefinition.idTestDefinition, "some name", "new tag value"
-    )
-
-    val readBackTag: Option[(String, String)] = this.persistenceUtils.synchronously(
-      this.persistenceUtils.testDefinitionTagsQuery(testDefinition.idTestDefinition, newTag.idTagName)
-    ).headOption
-
-    readBackTag.get._2 should be ("new tag value")
-    */
+    updatedTag._2 should be ("New value")
   }
 }
