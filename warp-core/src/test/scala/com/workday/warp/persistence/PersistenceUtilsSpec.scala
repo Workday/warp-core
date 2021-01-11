@@ -370,6 +370,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
     this.persistenceUtils.getMedianResponseTime(CoreIdentifier(this.methodSignature)) should be (4.5)
   }
 
+
   @UnitTest
   def overwriteTestExecutionTag(): Unit = {
     val testExecution: TestExecutionRowLike = this.createTestExecution(1)
@@ -387,6 +388,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
     readBackTag.get._2 should be ("new tag value")
   }
 
+
   @UnitTest
   def overwriteTestDefinitionTag(): Unit = {
     val testDefinition: TestDefinitionRowLike = this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature)
@@ -403,6 +405,7 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     readBackTag.get._2 should be ("new tag value")
   }
+
 
   @UnitTest
   def overwriteTestDefinitionMetaTag(): Unit = {
@@ -423,6 +426,30 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
     val keyId: Int = this.persistenceUtils.findOrCreateTagName("Key").idTagName
     val updatedTag: (String, String) = this.persistenceUtils.synchronously(
       this.persistenceUtils.testDefinitionMetaTagQuery(1, keyId)
+    ).headOption.get
+
+    afterTwo should be (before + 1)
+    updatedTag._2 should be ("New value")
+  }
+
+
+  @UnitTest
+  def overwriteTestExecutionMetaTag(): Unit = {
+    val testExecution: TestExecutionRow = this.createTestExecution(1)
+    this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, "some name", "some value")
+
+    val before: Int = this.persistenceUtils.synchronously(Tables.TestExecutionMetaTag.length.result)
+    this.persistenceUtils.recordTestExecutionMetaTag(1, "Key", "Value")
+    val after: Int = this.persistenceUtils.synchronously(Tables.TestExecutionMetaTag.length.result)
+    after should be (before + 1)
+
+    // There should still only be one TestExecutionMetaTag after writing with a new value
+    this.persistenceUtils.recordTestExecutionMetaTag(1, "Key", "New value")
+    val afterTwo: Int = this.persistenceUtils.synchronously(Tables.TestExecutionMetaTag.length.result)
+
+    val keyId: Int = this.persistenceUtils.findOrCreateTagName("Key").idTagName
+    val updatedTag: (String, String) = this.persistenceUtils.synchronously(
+      this.persistenceUtils.testExecutionMetaTagQuery(1, keyId)
     ).headOption.get
 
     afterTwo should be (before + 1)

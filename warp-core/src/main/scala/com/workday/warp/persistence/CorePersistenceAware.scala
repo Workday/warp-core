@@ -231,28 +231,6 @@ trait CorePersistenceAware extends PersistenceAware {
       this.runWithRetries(updateRowQuery)
     }
 
-// TODO: come back here
-//      val dbAction: DBIO[TestExecutionTagRow] = for {
-//        tags: Option[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName)
-//         TODO we can use Option monad here instead
-//        action <- tags.toList match {
-//          case Nil =>
-//            this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-//          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
-//            Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
-//            val teTagRow: TestExecutionTagRow = TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value)
-//            val updatedRow: DBIO[Option[Tables.TestExecutionTagRowWrapper]] = this.insertOrUpdateTestExecutionTagQuery(teTagRow)
-//            updatedRow.map(_.get)
-//          case (oldKey, oldValue) :: Nil =>
-//            DBIO.failed(new WarpFieldPersistenceException(s"Tag exists with same name but different value: ($oldKey, $oldValue)"))
-//
-//          case _ =>
-//            DBIO.failed(new WarpFieldPersistenceException("bad database state recording TestExecution tag"))
-//        }
-//      } yield action
-//      this.runWithRetries(dbAction)
-//    }
-    // TODO: do the same for the two metatags, should be same structure
 
 
     /**
@@ -332,7 +310,7 @@ trait CorePersistenceAware extends PersistenceAware {
         tags: Seq[(String, String)] <- this.testDefinitionMetaTagQuery(idTestDefinitionTag, nameRow.idTagName).result
         _ <- tags.toList match {
           case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
-            Logger.debug(s"Attempting to log an definition metatag with matching Name: $oldKey and Value: $oldValue")
+            Logger.debug(s"Attempting to log a definition metatag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful((oldKey, oldValue))
 
           case Nil | _ :: Nil =>
@@ -368,20 +346,19 @@ trait CorePersistenceAware extends PersistenceAware {
                                             isUserGenerated: Boolean = true): Unit = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
       val temTagRow: TestExecutionMetaTagRow = TestExecutionMetaTagRow(idTestExecutionTag, nameRow.idTagName, value)
-      val updatedRow = this.insertOrUpdateTestExecutionMetaTagQuery(temTagRow)
 
       val action: DBIO[Seq[(String, String)]] = for {
         tags: Seq[(String, String)] <- this.testExecutionMetaTagQuery(idTestExecutionTag, nameRow.idTagName).result
         _ <- tags.toList match {
-          case Nil =>
-            Logger.debug(s"tags: $tags")
-            Logger.debug(s"$idTestExecutionTag $nameRow Nil")
-            Tables.TestExecutionMetaTag += TestExecutionMetaTagRow(idTestExecutionTag, nameRow.idTagName, value)
+          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
+            Logger.debug(s"Attempting to log an execution metatag with matching Name: $oldKey and Value: $oldValue")
+            DBIO.successful((oldKey, oldValue))
+
+          case Nil | _ :: Nil =>
+            this.insertOrUpdateTestExecutionMetaTagQuery(temTagRow)
 
           case _ =>
-            Logger.debug(s"tags: $tags")
-            Logger.debug(s"$idTestExecutionTag $nameRow")
-            updatedRow
+            DBIO.failed(new WarpFieldPersistenceException("bad database state recording ExecutionMetaTag"))
         }
       } yield tags
 

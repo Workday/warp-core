@@ -396,10 +396,8 @@ trait CoreQueries extends AbstractQueries {
 
   def insertOrUpdateTestExecutionMetaTagQuery[T: TestExecutionMetaTagRowLikeType](
                                                                                      row: T
-                                                                                   ): DBIO[Option[TestExecutionMetaTagRowWrapper]] = {
-    TestExecutionMetaTag returning TestExecutionMetaTag.map(_.idTestExecutionTag) into (
-      (row, id) => row.copy(idTestExecutionTag = id)
-      ) insertOrUpdate(row)
+                                                                                 ): DBIO[Int] = {
+    TestExecutionMetaTag.insertOrUpdate(row)
   }
 
   def insertOrUpdateTestDefinitionTagQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[Option[TestDefinitionTagRowWrapper]] = {
@@ -410,12 +408,7 @@ trait CoreQueries extends AbstractQueries {
 
   def insertOrUpdateTestDefinitionMetaTagQuery[T: TestDefinitionMetaTagRowLikeType](
                                                                                      row: T
-//                                                                                   ): DBIO[Option[TestDefinitionMetaTagRowWrapper]] = {
-                                                                                   ): FixedSqlAction[Int, NoStream, Effect.Write] = {
-//    TestDefinitionMetaTag returning TestDefinitionMetaTag.map(_.idTestDefinitionTag) into (
-//      (row, id) => row.copy(idTestDefinitionTag = id)
-//    ) insertOrUpdate(row)
-//    (TestDefinitionMetaTag returning TestDefinitionMetaTag).insertOrUpdate(row)
+                                                                                   ): DBIO[Int] = {
     TestDefinitionMetaTag.insertOrUpdate(row)
   }
 
