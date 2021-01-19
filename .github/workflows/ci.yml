@@ -11,6 +11,10 @@ jobs:
         image: mysql:5.7.24
         ports:
           - 3307:3306
+        env:
+          # make sure to use something more secure in production
+          MYSQL_ROOT_PASSWORD: 1234
+          MYSQL_DATABASE: warp_core
       influxdb:
         image: influxdb:1.5.2
         ports:
