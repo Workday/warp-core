@@ -195,7 +195,7 @@ trait ${container}${parentType.map(t => s" extends $t").getOrElse("")} {
     val traitsGen: Future[SourceCodeGenerator] = db.run {
       MySQLProfile.defaultTables map {
         // we don't want to generate any code for views, or for schema_version table used by flyway
-        _.filter { table: MTable => table.tableType.equalsIgnoreCase("table") && !table.name.name.equalsIgnoreCase("schema_version") }
+        _.filter { table: MTable => table.tableType.equalsIgnoreCase("table") && !table.name.name.equalsIgnoreCase("schema_version") && !table.name.name.equalsIgnoreCase("flyway_schema_history") }
       } flatMap { name: Seq[MTable] =>
         MySQLProfile.createModelBuilder(name, ignoreInvalidDefaults = false).buildModel
       }
