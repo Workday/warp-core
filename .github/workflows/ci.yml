@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build_scala_2.11:
+  build_scala_2_11:
     runs-on: ubuntu-latest
     # Service containers to run with `container-job`
     services:
@@ -40,7 +40,7 @@ jobs:
         run: ./gradlew copyConfigTemplate test -PscalaVersion=2.11.11
 
 
-  build_scala_2.12:
+  build_scala_2_12:
     runs-on: ubuntu-latest
     # Service containers to run with `container-job`
     services:
