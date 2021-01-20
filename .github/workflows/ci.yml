@@ -5,6 +5,10 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        scala: [2.11.11, 2.12.12]
+
     # Service containers to run with `container-job`
     services:
       mysql:
@@ -27,14 +31,14 @@ jobs:
         with:
           java-version: 1.8
       - name: Compile
-        run: ./gradlew clean compileTestScala
+        run: ./gradlew clean compileTestScala -PscalaVersion=${{ matrix.scala }}
 
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
+          key: ${{ runner.os }}-gradle-${{ matrix.scala }}-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle-${{ matrix.scala }}
 
       - name: Build with Gradle
-        run: ./gradlew copyConfigTemplate test
+        run: ./gradlew copyConfigTemplate test -PscalaVersion=${{ matrix.scala }}
