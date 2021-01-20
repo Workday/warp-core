@@ -33,8 +33,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
+          key: ${{ runner.os }}-gradle-scala-2-11-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle-scala-2-11
 
       - name: Build with Gradle
         run: ./gradlew copyConfigTemplate test -PscalaVersion=2.11.11
@@ -70,8 +70,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
+          key: ${{ runner.os }}-gradle-scala-2-12-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle-scala-2-12
 
       - name: Build with Gradle
         run: ./gradlew copyConfigTemplate test -PscalaVersion=2.12.12
