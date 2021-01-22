@@ -254,12 +254,52 @@ trait AbstractQueries {
 
 
   /**
-    * Creates a [[DBIO]] for inserting `row` into [[TestDefinitionTagLike]] and returning it with updated auto-increment id.
-    *
-    * @param row row to be inserted.
-    * @return a [[DBIO]] (not yet executed) for inserting `row` into [[TestDefinitionTagLike]].
-    */
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestExecutionTagRowLike]] and returning an [[Option]]
+   * with the result
+   *
+   * @param row row to be inserted.
+   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionTagRowLike]].
+   */
+  def insertOrUpdateTestExecutionTagQuery[T: TestExecutionTagRowLikeType](row: T): DBIO[Option[TestExecutionTagRowLike]]
+
+
+  /**
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestExecutionMetaTag]] and returning an [[Int]] with the
+   * rows affected
+   *
+   * @param row to be inserted
+   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionMetaTag]]
+   */
+  def insertOrUpdateTestExecutionMetaTagQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[Int]
+
+
+  /**
+   * Creates a [[DBIO]] for inserting `row` into [[TestDefinitionTagLike]] and returning it with updated auto-increment id.
+   *
+   * @param row row to be inserted.
+   * @return a [[DBIO]] (not yet executed) for inserting `row` into [[TestDefinitionTagLike]].
+   */
   def writeTestDefinitionTagQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[TestDefinitionTagRowLike]
+
+
+  /**
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestDefinitionTag]] and returning an [[Option]] with
+   * the result
+   *
+   * @param row to be inserted
+   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionTag]]
+   */
+  def insertOrUpdateTestDefinitionTagQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[Option[TestDefinitionTagRowLike]]
+
+
+  /**
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestDefinitionMetaTag]] and returning an [[Int]] with the
+   * rows affected
+   *
+   * @param row to be inserted
+   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionMetaTag]]
+   */
+  def insertOrUpdateTestDefinitionMetaTagQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Int]
 
 
   /**

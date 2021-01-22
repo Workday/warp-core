@@ -3,11 +3,11 @@ package com.workday.warp.persistence
 import java.net.URI
 
 import com.workday.warp.config.CoreWarpProperty._
-import com.workday.warp.persistence.exception.PreExistingTagException
 import Tables.profile.api._
 import Tables.profile.backend.DatabaseDef
 import com.typesafe.config.ConfigFactory
 import com.workday.warp.config.WarpConfigurationException
+import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
@@ -78,7 +78,7 @@ trait Connection {
     this.trySynchronously(action.transactionally.withTransactionIsolation(TransactionIsolation.Serializable)) match {
       case Success(row) => row
         // TODO consider matching on just a rollback exception
-      case Failure(exception: PreExistingTagException) => throw exception
+      case Failure(exception: WarpFieldPersistenceException) => throw exception
       case Failure(exception) =>
         if (retries < 0) throw exception
         else {

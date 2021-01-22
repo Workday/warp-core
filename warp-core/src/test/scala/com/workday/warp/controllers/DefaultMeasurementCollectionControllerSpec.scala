@@ -60,27 +60,27 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
       ExecutionTag("key1", "val1", List(
         ExecutionMetaTag("metaKey11", "metaVal11"),
         ExecutionMetaTag("metaKey12", "metaVal12"),
-        // duplicate key, value: ignored success
+        // duplicate key, value: ignored successfully
         ExecutionMetaTag("metaKey12", "metaVal12"),
-        // duplicate key, different value: exception
+        // duplicate key, different value: updated value
         ExecutionMetaTag("metaKey12", "metaVal13")
       )),
 
       // now test definition tag with one definition metatag
       DefinitionTag("key2", "val2", List(
         DefinitionMetaTag("metaKey21", "metaVal21"),
-        // duplicate key, value: ignored success
+        // duplicate key, value: ignored successfully
         DefinitionMetaTag("metaKey21", "metaVal21"),
-        // duplicate key, different value: exception
+        // duplicate key, different value: updated value
         DefinitionMetaTag("metaKey21", "metaVal22")
       )),
 
       // execution tag with no meta tags
       ExecutionTag("key3", "val3"),
 
-      // Ignored duplicate/erroneous execution and definition tags
+      // Not ignoring duplicate execution and definition tags
       ExecutionTag("key3", "val3"),
-      // these meta tags should fail to insert
+      // These meta tags should successfully insert despite the duplicate tag value on the test definition
       ExecutionTag("key3", "val31", List(
         ExecutionMetaTag("metaKey31", "metaVal31"),
         ExecutionMetaTag("metaKey32", "metaVal32")
@@ -101,13 +101,13 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     val testDefinitionMetaTagLength: Int = this.persistenceUtils.synchronously(TestDefinitionMetaTag.length.result)
     val tagDescriptionLength: Int = this.persistenceUtils.synchronously(TagName.length.result)
 
-    // test adding a total of 2 TestExecutionTags, 2 TestExecutionMetaTags, 1 DefinitionTag, 1 TestDefinitionMetaTag, 6 Tag Descriptions.
-    // erroneous/redundant MetaTags and OuterTags should be ignored
+    // test adding a total of 2 TestExecutionTags, 4 TestExecutionMetaTags, 1 DefinitionTag, 1 TestDefinitionMetaTag, 8 Tag Descriptions.
+    // MetaTags and OuterTags are no longer ignored, and instead overwritten/updated
     outerTestExecutionTagLength should be (2)
-    testExecutionMetaTagLength should be (2)
+    testExecutionMetaTagLength should be (4)
     outerTestDefinitionTagLength should be (1)
     testDefinitionMetaTagLength should be (1)
-    tagDescriptionLength should be (6)
+    tagDescriptionLength should be (8)
 
 
     // test that using the rowID for the OuterTag to search for the MetaTag produces the correct key/value result
@@ -116,37 +116,35 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
       TestExecutionTag.filter{_.idTestExecutionTag === 1}
     ).head.idTestExecutionTag
     queryTestExecutionMetaTagWithRowId(trialTag1RowID, "metaKey11").head.value should be (("metaKey11", "metaVal11"))
-    queryTestExecutionMetaTagWithRowId(trialTag1RowID, "metaKey12").head.value should be (("metaKey12", "metaVal12"))
+    queryTestExecutionMetaTagWithRowId(trialTag1RowID, "metaKey12").head.value should be (("metaKey12", "metaVal13"))
 
-    // should be no metatag persisted associated to this OuterTag
+    // because we overwrite persisted tags with a new value, there should be a meta tag associated with this OuterTag
     val trialTag2RowID: Int = this.persistenceUtils.synchronously(
       TestExecutionTag.filter{_.idTestExecutionTag === 2}
     ).head.idTestExecutionTag
     this.persistenceUtils.synchronously(TestExecutionMetaTag.filter(_.idTestExecutionTag === trialTag2RowID))
-                         .headOption should be (None)
+                         .headOption should not be (None)
 
     // definition tags
     val definitionTag1RowId: Int = this.persistenceUtils.synchronously(TestDefinitionTag.filter{_.idTestDefinitionTag === 1})
       .head.idTestDefinitionTag
-    queryTestDefinitionMetaTagWithRowId(definitionTag1RowId, "metaKey21").head.value should be (("metaKey21", "metaVal21"))
+    queryTestDefinitionMetaTagWithRowId(definitionTag1RowId, "metaKey21").head.value should be (("metaKey21", "metaVal22"))
 
 
-    // test that erroneous description/key tag insertion throws exception
-    // erroneous Tags
-    tryRecordTags(4).tryTag._1.isFailure should be (true)
-    tryRecordTags(6).tryTag._1.isFailure should be (true)
+    // test that erroneous description/key tag insertion no longer throws exception
+    tryRecordTags(4).tryTag._1.isFailure should be (false)
 
     // ExecutionMetaTag
     tryRecordTags.head.tryTag._2(2).tryMetaTag.isSuccess should be (true)
-    tryRecordTags.head.tryTag._2(3).tryMetaTag.isFailure should be (true)
+    tryRecordTags.head.tryTag._2(3).tryMetaTag.isSuccess should be (true)
 
     // DefinitionMetaTag
     tryRecordTags(1).tryTag._2(1).tryMetaTag.isSuccess should be (true)
-    tryRecordTags(1).tryTag._2(2).tryMetaTag.isFailure should be (true)
+    tryRecordTags(1).tryTag._2(2).tryMetaTag.isSuccess should be (true)
 
-    // erroneous Tag preventing MetaTag insertion
-    tryRecordTags(4).tryTag._2.head.tryMetaTag.isFailure should be (true)
-    tryRecordTags(4).tryTag._2(1).tryMetaTag.isFailure should be (true)
+    // Updated Tag with MetaTag insertion/update
+    tryRecordTags(4).tryTag._2.head.tryMetaTag.isSuccess should be (true)
+    tryRecordTags(4).tryTag._2(1).tryMetaTag.isSuccess should be (true)
   }
   // scalastyle:on
 
