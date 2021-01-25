@@ -179,7 +179,7 @@ trait Tables {
   class Build(_tableTag: Tag) extends profile.api.Table[BuildRow](_tableTag, None, "Build") with BuildLike {
     def * = (idBuild, major, minor, patch, firstTested, lastTested) <> (BuildRow.tupled, BuildRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idBuild), Rep.Some(major), Rep.Some(minor), Rep.Some(patch), Rep.Some(firstTested), Rep.Some(lastTested)).shaped.<>({r=>import r._; _1.map(_=> BuildRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idBuild), Rep.Some(major), Rep.Some(minor), Rep.Some(patch), Rep.Some(firstTested), Rep.Some(lastTested))).shaped.<>({r=>import r._; _1.map(_=> BuildRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idBuild SqlType(INT), AutoInc, PrimaryKey */
     val idBuild: Rep[Int] = column[Int]("idBuild", O.AutoInc, O.PrimaryKey)
@@ -218,7 +218,7 @@ trait Tables {
   class Measurement(_tableTag: Tag) extends profile.api.Table[MeasurementRow](_tableTag, None, "Measurement") with MeasurementLike {
     def * = (idTestExecution, idMeasurementName, result) <> (MeasurementRow.tupled, MeasurementRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestExecution), Rep.Some(idMeasurementName), Rep.Some(result)).shaped.<>({r=>import r._; _1.map(_=> MeasurementRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestExecution), Rep.Some(idMeasurementName), Rep.Some(result))).shaped.<>({r=>import r._; _1.map(_=> MeasurementRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestExecution SqlType(INT) */
     val idTestExecution: Rep[Int] = column[Int]("idTestExecution")
@@ -255,7 +255,7 @@ trait Tables {
   class MeasurementName(_tableTag: Tag) extends profile.api.Table[MeasurementNameRow](_tableTag, None, "MeasurementName") with MeasurementNameLike {
     def * = (idMeasurementName, name) <> (MeasurementNameRow.tupled, MeasurementNameRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idMeasurementName), Rep.Some(name)).shaped.<>({r=>import r._; _1.map(_=> MeasurementNameRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idMeasurementName), Rep.Some(name))).shaped.<>({r=>import r._; _1.map(_=> MeasurementNameRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idMeasurementName SqlType(INT), AutoInc, PrimaryKey */
     val idMeasurementName: Rep[Int] = column[Int]("idMeasurementName", O.AutoInc, O.PrimaryKey)
@@ -287,7 +287,7 @@ trait Tables {
   class TagName(_tableTag: Tag) extends profile.api.Table[TagNameRow](_tableTag, None, "TagName") with TagNameLike {
     def * = (idTagName, name, nameType, isUserGenerated) <> (TagNameRow.tupled, TagNameRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTagName), Rep.Some(name), Rep.Some(nameType), Rep.Some(isUserGenerated)).shaped.<>({r=>import r._; _1.map(_=> TagNameRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTagName), Rep.Some(name), Rep.Some(nameType), Rep.Some(isUserGenerated))).shaped.<>({r=>import r._; _1.map(_=> TagNameRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTagName SqlType(INT), AutoInc, PrimaryKey */
     val idTagName: Rep[Int] = column[Int]("idTagName", O.AutoInc, O.PrimaryKey)
@@ -327,7 +327,7 @@ trait Tables {
   class TestDefinition(_tableTag: Tag) extends profile.api.Table[TestDefinitionRow](_tableTag, None, "TestDefinition") with TestDefinitionLike {
     def * = (idTestDefinition, methodSignature, active, productName, subProductName, className, methodName, documentation) <> (TestDefinitionRow.tupled, TestDefinitionRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestDefinition), Rep.Some(methodSignature), Rep.Some(active), Rep.Some(productName), Rep.Some(subProductName), Rep.Some(className), Rep.Some(methodName), documentation).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestDefinition), Rep.Some(methodSignature), Rep.Some(active), Rep.Some(productName), Rep.Some(subProductName), Rep.Some(className), Rep.Some(methodName), documentation)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestDefinition SqlType(INT), AutoInc, PrimaryKey */
     val idTestDefinition: Rep[Int] = column[Int]("idTestDefinition", O.AutoInc, O.PrimaryKey)
@@ -372,7 +372,7 @@ trait Tables {
   class TestDefinitionMetaTag(_tableTag: Tag) extends profile.api.Table[TestDefinitionMetaTagRow](_tableTag, None, "TestDefinitionMetaTag") with TestDefinitionMetaTagLike {
     def * = (idTestDefinitionTag, idTagName, value) <> (TestDefinitionMetaTagRow.tupled, TestDefinitionMetaTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestDefinitionTag), Rep.Some(idTagName), Rep.Some(value)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestDefinitionTag), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestDefinitionTag SqlType(INT) */
     val idTestDefinitionTag: Rep[Int] = column[Int]("idTestDefinitionTag")
@@ -411,7 +411,7 @@ trait Tables {
   class TestDefinitionTag(_tableTag: Tag) extends profile.api.Table[TestDefinitionTagRow](_tableTag, None, "TestDefinitionTag") with TestDefinitionTagLike {
     def * = (idTestDefinitionTag, idTestDefinition, idTagName, value) <> (TestDefinitionTagRow.tupled, TestDefinitionTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestDefinitionTag), Rep.Some(idTestDefinition), Rep.Some(idTagName), Rep.Some(value)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestDefinitionTag), Rep.Some(idTestDefinition), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestDefinitionTag SqlType(INT), AutoInc, PrimaryKey */
     val idTestDefinitionTag: Rep[Int] = column[Int]("idTestDefinitionTag", O.AutoInc, O.PrimaryKey)
@@ -427,8 +427,8 @@ trait Tables {
     /** Foreign key referencing TestDefinition (database name idTestDefinition_Tag) */
     lazy val testDefinitionFk = foreignKey("idTestDefinition_Tag", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
 
-    /** Uniqueness Index over (value,idTagName,idTestDefinition) (database name idTestDefinition_value_TagName_unique) */
-    val index1 = index("idTestDefinition_value_TagName_unique", (value, idTagName, idTestDefinition), unique=true)
+    /** Uniqueness Index over (idTagName,idTestDefinition) (database name idTestDefinition_TagName_unique) */
+    val index1 = index("idTestDefinition_TagName_unique", (idTagName, idTestDefinition), unique=true)
   }
   /** Collection-like TableQuery object for table TestDefinitionTag */
   lazy val TestDefinitionTag = new TableQuery(tag => new TestDefinitionTag(tag))
@@ -456,7 +456,7 @@ trait Tables {
   class TestExecution(_tableTag: Tag) extends profile.api.Table[TestExecutionRow](_tableTag, None, "TestExecution") with TestExecutionLike {
     def * = (idTestExecution, idTestDefinition, idBuild, passed, responseTime, responseTimeRequirement, startTime, endTime) <> (TestExecutionRow.tupled, TestExecutionRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestExecution), Rep.Some(idTestDefinition), Rep.Some(idBuild), Rep.Some(passed), Rep.Some(responseTime), Rep.Some(responseTimeRequirement), Rep.Some(startTime), Rep.Some(endTime)).shaped.<>({r=>import r._; _1.map(_=> TestExecutionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestExecution), Rep.Some(idTestDefinition), Rep.Some(idBuild), Rep.Some(passed), Rep.Some(responseTime), Rep.Some(responseTimeRequirement), Rep.Some(startTime), Rep.Some(endTime))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestExecution SqlType(INT), AutoInc, PrimaryKey */
     val idTestExecution: Rep[Int] = column[Int]("idTestExecution", O.AutoInc, O.PrimaryKey)
@@ -477,8 +477,8 @@ trait Tables {
 
     /** Foreign key referencing Build (database name idBuild) */
     lazy val buildFk = foreignKey("idBuild", idBuild, Build)(r => r.idBuild, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
-    /** Foreign key referencing TestDefinition (database name description) */
-    lazy val testDefinitionFk = foreignKey("description", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.Cascade)
+    /** Foreign key referencing TestDefinition (database name definition_TestExecution) */
+    lazy val testDefinitionFk = foreignKey("definition_TestExecution", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.Cascade)
   }
   /** Collection-like TableQuery object for table TestExecution */
   lazy val TestExecution = new TableQuery(tag => new TestExecution(tag))
@@ -501,7 +501,7 @@ trait Tables {
   class TestExecutionMetaTag(_tableTag: Tag) extends profile.api.Table[TestExecutionMetaTagRow](_tableTag, None, "TestExecutionMetaTag") with TestExecutionMetaTagLike {
     def * = (idTestExecutionTag, idTagName, value) <> (TestExecutionMetaTagRow.tupled, TestExecutionMetaTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestExecutionTag), Rep.Some(idTagName), Rep.Some(value)).shaped.<>({r=>import r._; _1.map(_=> TestExecutionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestExecutionTag), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestExecutionTag SqlType(INT) */
     val idTestExecutionTag: Rep[Int] = column[Int]("idTestExecutionTag")
@@ -540,7 +540,7 @@ trait Tables {
   class TestExecutionTag(_tableTag: Tag) extends profile.api.Table[TestExecutionTagRow](_tableTag, None, "TestExecutionTag") with TestExecutionTagLike {
     def * = (idTestExecutionTag, idTestExecution, idTagName, value) <> (TestExecutionTagRow.tupled, TestExecutionTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(idTestExecutionTag), Rep.Some(idTestExecution), Rep.Some(idTagName), Rep.Some(value)).shaped.<>({r=>import r._; _1.map(_=> TestExecutionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestExecutionTag), Rep.Some(idTestExecution), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestExecutionTag SqlType(INT), AutoInc, PrimaryKey */
     val idTestExecutionTag: Rep[Int] = column[Int]("idTestExecutionTag", O.AutoInc, O.PrimaryKey)
@@ -551,13 +551,13 @@ trait Tables {
     /** Database column value SqlType(VARCHAR), Length(255,true) */
     val value: Rep[String] = column[String]("value", O.Length(255,varying=true))
 
-    /** Foreign key referencing TagName (database name idTagDescription_TestCaseTag) */
-    lazy val tagNameFk = foreignKey("idTagDescription_TestCaseTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    /** Foreign key referencing TagName (database name idTagName_TestExecutionTag) */
+    lazy val tagNameFk = foreignKey("idTagName_TestExecutionTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
     /** Foreign key referencing TestExecution (database name idTestExecution_Tag) */
     lazy val testExecutionFk = foreignKey("idTestExecution_Tag", idTestExecution, TestExecution)(r => r.idTestExecution, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
 
-    /** Uniqueness Index over (value,idTagName,idTestExecution) (database name idTestExecution_value_TagName_unique) */
-    val index1 = index("idTestExecution_value_TagName_unique", (value, idTagName, idTestExecution), unique=true)
+    /** Uniqueness Index over (idTagName,idTestExecution) (database name idTestExecution_TagName_unique) */
+    val index1 = index("idTestExecution_TagName_unique", (idTagName, idTestExecution), unique=true)
   }
   /** Collection-like TableQuery object for table TestExecutionTag */
   lazy val TestExecutionTag = new TableQuery(tag => new TestExecutionTag(tag))

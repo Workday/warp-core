@@ -4,7 +4,7 @@ import java.time.{Instant, LocalDate}
 
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty.WARP_DATABASE_URL
-import com.workday.warp.persistence.exception.PreExistingTagException
+import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.utils.TimeUtils
 import org.pmw.tinylog.Logger
@@ -162,7 +162,7 @@ trait PersistenceAware {
       * @return a [[TestExecutionTagRowLike]] with the given parameters.
       */
     @throws[scala.RuntimeException]
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     def recordTestExecutionTag(idTestExecution: Int,
                                name: String,
                                value: String,
@@ -201,7 +201,7 @@ trait PersistenceAware {
       * @param value value of the tag.
       * @return a [[TestDefinitionTagRowLike]] with the given parameters.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     def recordTestDefinitionTag(idTestDefinition: Int,
                                 name: String,
                                 value: String,
@@ -217,7 +217,7 @@ trait PersistenceAware {
       * @param value value of the tag.
       * @return a [[TestDefinitionTagRowLike]] with the given parameters.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     def recordTestDefinitionTag[T: TestDefinitionRowLikeType](testDefinition: T,
                                                               name: String,
                                                               value: String,
@@ -242,7 +242,7 @@ trait PersistenceAware {
       * @param name name to use for this tag.
       * @param value value of the tag.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     def recordTestDefinitionMetaTag(idTestDefinitionTag: Int, name: String, value: String, isUserGenerated: Boolean = true): Unit
 
 
@@ -262,7 +262,7 @@ trait PersistenceAware {
       * @param name name to use for this tag.
       * @param value value of the tag.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     def recordTestExecutionMetaTag(idTestExecutionTag: Int, name: String, value: String, isUserGenerated: Boolean = true): Unit
 
 

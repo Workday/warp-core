@@ -9,7 +9,7 @@ import com.workday.warp.persistence.Tables.{TestDefinitionMetaTag => _, TestExec
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.{Tag, _}
-import com.workday.warp.persistence.exception.{PreExistingTagException, WarpFieldPersistenceException}
+import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.utils.{AnnotationReader, FutureUtils, TimeUtils}
 import com.workday.warp.{TestId, TrialResult}
@@ -191,7 +191,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
     * @return a [[TrialResult]] with information about the measured test or an exception if test failed functionally.
     */
   @throws[RuntimeException]
-  @throws[PreExistingTagException]
+  @throws[WarpFieldPersistenceException]
   def endMeasurementCollection[TrialType](maybeTrial: Try[TrialResult[TrialType]]): TrialResult[TrialType] = {
 
     if (!this._measurementInProgress) {
@@ -230,7 +230,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
     * @param trial a [[TrialResult]] with information about a measured test
     * @return a [[TrialResult]] containing the final results from the measured test
     */
-  @throws[PreExistingTagException]
+  @throws[WarpFieldPersistenceException]
   private def recordTrial[TrialType](trial: TrialResult[TrialType]): TrialResult[TrialType] = {
     val responseTime: Duration = TimeUtils.max(
       // fall back on elapsed wall clock time
@@ -351,7 +351,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
         tryOuterTag match {
           case (Success(_), _) =>
             Logger.debug(s"OuterTag $outerTag persisted... testing MetaTags")
-          case (Failure(pte: PreExistingTagException), _) =>
+          case (Failure(pte: WarpFieldPersistenceException), _) =>
             throw pte
           case (Failure(exception), _) =>
             Logger.error(s"OuterTag $outerTag failed to persist with exception: $exception")
@@ -362,7 +362,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
           case PersistMetaTagResult(metaTag, triedMetaTag) =>
             triedMetaTag match {
               case Success(_) => Logger.debug(s"MetaTag $metaTag persisted")
-              case Failure(pte: PreExistingTagException) => throw pte
+              case Failure(wfpe: WarpFieldPersistenceException) => throw wfpe
               case Failure(exception) => Logger.error(s"MetaTag $metaTag failed to persist with exception: $exception")
             }
         }

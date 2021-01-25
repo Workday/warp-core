@@ -9,6 +9,8 @@ import com.workday.warp.persistence.TablesLike._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.workday.warp.persistence.IdentifierSyntax._
+import slick.dbio.Effect
+import slick.sql.FixedSqlAction
 
 /**
   * Defines functions for creating read and write [[Query]]. These queries can be composed, converted to [[DBIOAction]],
@@ -51,6 +53,35 @@ trait CoreQueries extends AbstractQueries {
     TestDefinition.filter(_.methodSignature === methodSignature).result.headOption
   }
 
+  /**
+   * Creates a [[DBIO]] for selecting from [[TestDefinitionTag]].
+   *
+   * @param idTestDefinition to filter TestDefinitionTags with
+   * @param testDefinitionTagName to filter TestDefinitionTags with
+   * @return a [[DBIO]] for selecting the [[TestDefinitionTagRow]] that matches the provided id and name
+   */
+  def readTestDefinitionTagQuery(idTestDefinition: Int, testDefinitionTagName: String): DBIO[Option[TestDefinitionTagRowWrapper]] = {
+    val query = for {
+      tagName <- TagName if tagName.name === testDefinitionTagName
+      testDefinitionTag <- TestDefinitionTag if testDefinitionTag.idTestDefinition === idTestDefinition &&
+                                                testDefinitionTag.idTagName === tagName.idTagName
+    } yield testDefinitionTag
+
+    query.result.map(_.headOption)
+  }
+
+  def readTestDefinitionMetaTagQuery(
+                                      idTestDefinition: Int, testDefinitionMetaTagName: String
+                                    ): DBIO[Option[TestDefinitionMetaTagRowWrapper]] = {
+    val query = for {
+      tagName <- TagName if tagName.name === testDefinitionMetaTagName
+      testDefinitionMetaTag <- TestDefinitionMetaTag if testDefinitionMetaTag.idTestDefinitionTag === idTestDefinition &&
+                                                        testDefinitionMetaTag.idTagName === tagName.idTagName
+    } yield testDefinitionMetaTag
+
+    query.result.map(_.headOption)
+  }
+
 
   /**
     * Creates a [[Query]] for selecting the method signature of `testExecution`.
@@ -76,6 +107,23 @@ trait CoreQueries extends AbstractQueries {
     } yield testcase
 
     query.result
+  }
+
+  /**
+   * Creates a [[DBIO]] for selecting from [[TestExecutionTag]].
+   *
+   * @param idTestExecution to filter TestExecutionTags with
+   * @param testExecutionTagName to filter TestExecutionTags with
+   * @return a [[DBIO]] for selecting the [[TestExecutionTagRow]] that matches the provided id and name
+   */
+  def readTestExecutionTagQuery(idTestExecution: Int, testExecutionTagName: String): DBIO[Option[TestExecutionTagRowWrapper]] = {
+    val query = for {
+      tagName <- TagName if tagName.name === testExecutionTagName
+      testExecutionTag <- TestExecutionTag if testExecutionTag.idTestExecution === idTestExecution &&
+                                              testExecutionTag.idTagName === tagName.idTagName
+    } yield testExecutionTag
+
+    query.result.map(_.headOption)
   }
 
 
@@ -341,6 +389,57 @@ trait CoreQueries extends AbstractQueries {
     */
   override def writeTestExecutionQuery[T: TestExecutionRowLikeType](row: T): DBIO[TestExecutionRowWrapper] = {
     TestExecution returning TestExecution.map(_.idTestExecution) into ((row, id) => row.copy(idTestExecution = id)) += row
+  }
+
+
+  /**
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestExecutionTag]] and returning an [[Option]] with
+   * the result
+   *
+   * @param row to be inserted
+   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionTag]]
+   */
+  override def insertOrUpdateTestExecutionTagQuery[T: TestExecutionTagRowLikeType](row: T): DBIO[Option[TestExecutionTagRowWrapper]] = {
+    TestExecutionTag returning TestExecutionTag.map(_.idTestExecutionTag) into (
+      (row, id) => row.copy(idTestExecutionTag = id)
+    ) insertOrUpdate(row)
+  }
+
+  /**
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestExecutionMetaTag]] and returning an [[Int]] with the
+   * rows affected
+   *
+   * @param row to be inserted
+   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionMetaTag]]
+   */
+  override def insertOrUpdateTestExecutionMetaTagQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[Int] = {
+    TestExecutionMetaTag.insertOrUpdate(row)
+  }
+
+
+  /**
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestDefinitionTag]] and returning an [[Option]] with
+   * the result
+   *
+   * @param row to be inserted
+   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionTag]]
+   */
+  override def insertOrUpdateTestDefinitionTagQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[Option[TestDefinitionTagRowWrapper]] = {
+    TestDefinitionTag returning TestDefinitionTag.map(_.idTestDefinitionTag) into (
+      (row, id) => row.copy(idTestDefinitionTag = id)
+    ) insertOrUpdate(row)
+  }
+
+
+  /**
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestDefinitionMetaTag]] and returning an [[Int]] with the
+   * rows affected
+   *
+   * @param row to be inserted
+   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionMetaTag]]
+   */
+  override def insertOrUpdateTestDefinitionMetaTagQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Int] = {
+    TestDefinitionMetaTag.insertOrUpdate(row)
   }
 
 

@@ -6,12 +6,12 @@ import java.time.Instant
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.WarpPropertyManager
-import com.workday.warp.persistence.exception.PreExistingTagException
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.Tables.profile.api._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.IdentifierSyntax._
+import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import org.pmw.tinylog.Logger
 import slick.jdbc.TransactionIsolation
 
@@ -206,8 +206,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * Behavior:
       *   If a tag with the given name and value exists in the database:
       *     Log a warning, but is a success.
-      *   If a tag with the given name but different value exists in the database:
-      *     Throw an error. This is a failure.
       *   If no tag with given name and idTestDefinition exists in the database:
       *     Success.
       *
@@ -217,33 +215,22 @@ trait CorePersistenceAware extends PersistenceAware {
       * @return a [[TestExecutionTagRowLike]] with the given parameters.
       */
     @throws[scala.RuntimeException]
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     override def recordTestExecutionTag(idTestExecution: Int,
                                    name: String,
                                    value: String,
                                    isUserGenerated: Boolean = true): TestExecutionTagRowLike = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
+      val teTagRow: TestExecutionTagRow = TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value)
+      val updatedRow = this.insertOrUpdateTestExecutionTagQuery(teTagRow)
 
-      val dbAction: DBIO[TestExecutionTagRow] = for {
-        tags: Option[(String, String)] <- this.testExecutionTagsQuery(idTestExecution, nameRow.idTagName)
-        // TODO we can use Option monad here instead
-        action <- tags.toList match {
-          case Nil =>
-            this.writeTestExecutionTagQuery(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value))
-          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
-            Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
-            DBIO.successful(TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, oldValue))
-
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new PreExistingTagException(s"Tag exists with same name but different value: ($oldKey, $oldValue)"))
-
-          case _ =>
-            DBIO.failed(new PreExistingTagException("bad database state recording TestExecution tag"))
-        }
-      } yield action
-
-      this.runWithRetries(dbAction)
+      val updateRowQuery: DBIO[TestExecutionTagRowWrapper] = for {
+        row: Option[Tables.TestExecutionTagRowWrapper] <- updatedRow
+        tag <- row.fold(ifEmpty = this.readTestExecutionTagQuery(idTestExecution, name).map(_.get))(DBIO.successful)
+      } yield tag
+      this.runWithRetries(updateRowQuery)
     }
+
 
 
     /**
@@ -271,8 +258,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * Behavior:
       *   If a tag with the given name and value exists in the database:
       *     Log a warning, but is a success.
-      *   If a tag with the given name but different value exists in the database:
-      *     Throw an error. This is a failure.
       *   If no tag with given name and idTestDefinition exists in the database:
       *     Success.
       *
@@ -281,32 +266,21 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param value value of the tag.
       * @return a [[TestDefinitionTagRowLike]] with the given parameters.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     override def recordTestDefinitionTag(idTestDefinition: Int,
                                        name: String,
                                        value: String,
                                        isUserGenerated: Boolean = true): TestDefinitionTagRowLike = {
-      val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
+        val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
+        val tdTagRow: TestDefinitionTagRow = TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value)
+        val updatedRow = this.insertOrUpdateTestDefinitionTagQuery(tdTagRow)
 
-      val dbAction: DBIO[TestDefinitionTagRow] = for {
-        tags: Seq[(String, String)] <- this.testDefinitionTagsQuery(idTestDefinition, nameRow.idTagName).result
-        action <- tags.toList match {
-          case Nil =>
-            this.writeTestDefinitionTagQuery(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value))
-          case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
-            Logger.debug(s"Attempting to log a tag with matching Name: $oldKey and Value: $oldValue")
-            DBIO.successful(TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, oldValue))
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new PreExistingTagException(s"Tag exists with same name but different value: ($oldKey, $oldValue)" +
-              s" new key, new value = (${nameRow.name}, $value)"))
+        val updateRowQuery: DBIO[TestDefinitionTagRowWrapper] = for {
+          row: Option[Tables.TestDefinitionTagRowWrapper] <- updatedRow
+          tag <- row.fold (ifEmpty = this.readTestDefinitionTagQuery(idTestDefinition, name).map(_.get)) (DBIO.successful)
+        } yield tag
 
-          case _ =>
-            DBIO.failed(new PreExistingTagException("bad database state recording TestDefinition tag"))
-        }
-      } yield action
-
-
-      this.runWithRetries(dbAction)
+        this.runWithRetries(updateRowQuery)
     }
 
 
@@ -317,8 +291,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * Behavior:
       *   If a tag with the given name and value exists in the database:
       *     Log a warning, but is a success.
-      *   If a tag with the given name but different value exists in the database:
-      *     Throw an error. This is a failure.
       *   If no tag with given name and idTestDefinitionTag exists in the database:
       *     Success.
       *
@@ -326,28 +298,26 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param name name to use for this tag.
       * @param value value of the tag.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     override def recordTestDefinitionMetaTag(idTestDefinitionTag: Int,
                                              name: String,
                                              value: String,
                                              isUserGenerated: Boolean = true): Unit = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
+      val tdmTagRow: TestDefinitionMetaTagRow = TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
+
       val action: DBIO[Seq[(String, String)]] = for {
         tags: Seq[(String, String)] <- this.testDefinitionMetaTagQuery(idTestDefinitionTag, nameRow.idTagName).result
         _ <- tags.toList match {
-          case Nil =>
-            Tables.TestDefinitionMetaTag += TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
-
           case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
-            Logger.debug(s"Attempting to log an definition metatag with matching Name: $oldKey and Value: $oldValue")
+            Logger.debug(s"Attempting to log a definition metatag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful((oldKey, oldValue))
 
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new PreExistingTagException(s"DefinitionMetaTag exists with same name but different value: " +
-              s"($oldKey, $oldValue)"))
+          case Nil | _ :: Nil =>
+            this.insertOrUpdateTestDefinitionMetaTagQuery(tdmTagRow)
 
           case _ =>
-            DBIO.failed(new PreExistingTagException("bad database state recording DefinitionMetaTag"))
+            DBIO.failed(new WarpFieldPersistenceException("bad database state recording DefinitionMetaTag"))
         }
       } yield tags
 
@@ -362,8 +332,6 @@ trait CorePersistenceAware extends PersistenceAware {
       * Behavior:
       *   If a tag with the given name and value exists in the database:
       *     Log a warning, but is a success.
-      *   If a tag with the given name but different value exists in the database:
-      *     Throw an error. This is a failure.
       *   If no tag with given name and idTestDefinitionTag exists in the database:
       *     Success.
       *
@@ -371,32 +339,26 @@ trait CorePersistenceAware extends PersistenceAware {
       * @param name name to use for this tag.
       * @param value value of the tag.
       */
-    @throws[PreExistingTagException]
+    @throws[WarpFieldPersistenceException]
     override def recordTestExecutionMetaTag(idTestExecutionTag: Int,
                                             name: String,
                                             value: String,
                                             isUserGenerated: Boolean = true): Unit = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
+      val temTagRow: TestExecutionMetaTagRow = TestExecutionMetaTagRow(idTestExecutionTag, nameRow.idTagName, value)
 
       val action: DBIO[Seq[(String, String)]] = for {
         tags: Seq[(String, String)] <- this.testExecutionMetaTagQuery(idTestExecutionTag, nameRow.idTagName).result
         _ <- tags.toList match {
-          case Nil =>
-            Logger.debug(s"tags: $tags")
-            Logger.debug(s"$idTestExecutionTag $nameRow Nil")
-            Tables.TestExecutionMetaTag += TestExecutionMetaTagRow(idTestExecutionTag, nameRow.idTagName, value)
-
           case (oldKey, oldValue) :: Nil if oldValue.equals(value) =>
-            Logger.debug(s"tags: $tags")
             Logger.debug(s"Attempting to log an execution metatag with matching Name: $oldKey and Value: $oldValue")
             DBIO.successful((oldKey, oldValue))
 
-          case (oldKey, oldValue) :: Nil =>
-            DBIO.failed(new PreExistingTagException(s"ExecutionMetaTag exists with same name " +
-              s"but different value: ($oldKey, $oldValue)"))
+          case Nil | _ :: Nil =>
+            this.insertOrUpdateTestExecutionMetaTagQuery(temTagRow)
 
           case _ =>
-            DBIO.failed(new PreExistingTagException("bad database state recording ExecutionMetaTag"))
+            DBIO.failed(new WarpFieldPersistenceException("bad database state recording ExecutionMetaTag"))
         }
       } yield tags
 
