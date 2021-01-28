@@ -9,8 +9,6 @@ import com.workday.warp.persistence.TablesLike._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.workday.warp.persistence.IdentifierSyntax._
-import slick.dbio.Effect
-import slick.sql.FixedSqlAction
 
 /**
   * Defines functions for creating read and write [[Query]]. These queries can be composed, converted to [[DBIOAction]],
