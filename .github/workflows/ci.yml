@@ -41,4 +41,4 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-${{ matrix.scala }}
 
       - name: Build with Gradle
-        run: ./gradlew copyConfigTemplate test -PscalaVersion=${{ matrix.scala }}
+        run: ./gradlew copyConfigTemplate test checkScalafix -PscalaVersion=${{ matrix.scala }}
