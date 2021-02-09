@@ -20,8 +20,7 @@ for instrumenting their code.
 For example, the following class records elapsed wall clock time as a measurement:
 
 {{< highlight scala "linenos=" >}}
-class WallClockTimeCollector(testId: String) extends AbstractMeasurementCollector(testId) 
-    with CorePersistenceAware {
+class WallClockTimeCollector extends AbstractMeasurementCollector with CorePersistenceAware {
 
   private var timeBeforeMs: Long = _
 

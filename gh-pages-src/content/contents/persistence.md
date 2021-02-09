@@ -60,8 +60,8 @@ For example, the `createTestExecution` method is used to write a record of a sin
   * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
   * @return a [[TestExecutionRowLike]] with the given parameters.
   */
-override def createTestExecution(testId: String,
-					             timeStarted: Date,
+override def createTestExecution(testId: TestId,
+					             timeStarted: Instant,
 					             responseTime: Double,
 					    		 maxResponseTime: Double): TestExecutionRowLike
 {{< /highlight >}}

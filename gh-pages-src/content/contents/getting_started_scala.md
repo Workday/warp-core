@@ -1,12 +1,12 @@
 ---
-title: "Getting Started (Scala DSL)"
+title: "Scala DSL"
 date: 2018-04-02T12:49:11-07:00
 draft: true
 weight: 30
 ---
 
 The recommended way to interact with WARP is through the Scala DSL. 
-This API is more mature than the Telemetron Java API and provides a richer feature set, including the ability
+This API provides a richer feature set than the Java API, including the ability
 to register custom `MeasurementCollector` and `Arbiter` instances, and add 
 new tags in the form of String metadata that will be persisted.
 
@@ -20,11 +20,19 @@ import com.workday.warp.dsl._
 val config: ExecutionConfig = using invocations 32 threads 4 distribution GaussianDistribution(50, 10)
 {{< /highlight >}}
 
+Note, however, that the DSL itself manages the measurement lifecycle. Thus, we do not recommend using "@WarpTest" annotation
+together with the DSL, as that would lead to doubly measured tests. The DSL can be especially useful in cases where users
+already make heavy use of "BeforeEach"/"AfterEach" hooks. "@WarpTest" annotation is implemented using JUnit before/after hooks, the order
+of which cannot be controlled. Thus, it is possible that tests using "@WarpTest" will have extra overhead from other hooks included in their
+measurement metadata. The DSL is decoupled from JUnit and can be used with other JVM testing frameworks.
+
 Finally, a call-by name function is passed to `ExecutionConfig.measuring`:
 {{< highlight scala "linenos=" >}}
+import com.workday.warp.TestIdImplicits._
+
 @Test
-def dslExample(): Unit = {
-  using invocations 32 threads 4 measuring {
+def dslExample(testInfo: TestInfo): Unit = {
+  using testId testInfo invocations 32 threads 4 measuring {
     val i: Int = 1
     Logger.info(s"result is ${i + i}")
   } should not exceed (2 seconds)
@@ -33,12 +41,13 @@ def dslExample(): Unit = {
 
 Custom `Arbiter` and `MeasurementCollector` instances can be registered by calling the `arbiters` and `collectors` methods:
 {{< highlight scala "linenos=" >}}
+import com.workday.warp.TestIdImplicits._
 import com.workday.warp.dsl.Implicits._
 
 @Test
-def dslCollectors(): Unit = {
+def dslCollectors(testInfo: TestInfo): Unit = {
   // disables the existing default collectors, and registers a new collector
-  using only these collectors {
+  using testId testInfo only these collectors {
     new SomeMeasurementCollector
   // registers two new arbiters
   } arbiters {
@@ -57,7 +66,7 @@ The threshold defined by the `should not exceed` syntax is implemented as a [sca
 ## DSL Operations
 The DSL provides a flexible way to describe experimental setups for conducting repeated trials, and supports the following operations:
 
-* `testId(id: String)` sets a testId, the name under which results will be recorded in our database. (default `"com.workday.warp.Undefined.undefined"`. Typically we use the fully qualified method name of the test being measured.)
+* `testId(id: TestId)` sets a testId, the name under which results will be recorded in our database. (default `"com.workday.warp.Undefined.undefined"`. Typically we use the fully qualified method name of the test being measured.)
 
 * `invocations(i: Int)` sets the number of measured trial invocations (default 1).
 * `warmups(w: Int)` sets the number of unmeasured warmups (default 0).
@@ -100,10 +109,12 @@ the measured response time of the trial.
 For example, suppose we are interested in measuring the performance of `List.fill[Int]` construction:
 
 {{< highlight scala "linenos=" >}}
+import com.workday.warp.TestIdImplicits._
+
 @Test
-def listFill(): Unit = {
+def listFill(testInfo: TestInfo): Unit = {
   // measure creating a list of 1000 0's
-  val results: Seq[TrialResult[List[Int]]] = using invocations 8 measure { List.fill(1000)(0) }
+  val results: Seq[TrialResult[List[Int]]] = using testId testInfo invocations 8 measure { List.fill(1000)(0) }
 
   // make some assertions about the created lists
   results should have length 8

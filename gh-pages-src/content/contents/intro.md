@@ -50,31 +50,28 @@ WARP framework includes features that make it simple to:
 
 The general WARP framework has two supported frontends:
 
-  - annotations (for Java users)
+  - JUnit annotations and extensions (for Java or Scala users)
 
 {{< highlight java "linenos=" >}}
-@Test
-@Measure
-@Required(maxResponseTime = 1)
-@Schedule(invocations = 8, threads = 4)
+@WarpTest(warmups = 2, trials = 6)
 public void example() {
-    this.telemetron().setResponseTime(Duration.ofSeconds(10));
+    Logger.info("hello, world!");
 }
 {{< /highlight >}}
 
-  - DSL (for Scala users)
+  - DSL (for Scala users only)
 
 {{< highlight scala "linenos=" >}}
 @Test
-def example(): Unit = {
-  using invocations 8 threads 4 measuring {
+def example(testInfo: TestInfo): Unit = {
+  using testId testInfo invocations 8 threads 4 measuring {
     someExperiment() 
   } should not exceed (1 second)
 }
 {{< /highlight >}}
 
-The above examples both create a pool of 4 threads, invoke the given test 8 times, collect a default set of measurements
-from each invocation, and write the results to a relational database.
+The above DSL example creates a pool of 4 threads, invokes the given test 8 times, collects a default set of measurements
+from each invocation, and writes the results to a relational database.
 
 WARP includes many features that make it easy to reason scientifically about your performance tests,
 such as statistical significance tests and anomaly detection to help find performance regressions.

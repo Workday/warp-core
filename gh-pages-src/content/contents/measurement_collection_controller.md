@@ -19,16 +19,20 @@ that is started/stopped in parallel.
 `MCC` is the lowest-level api we provide, and it is possible to use this class directly:
 
 {{< highlight scala "linenos=" >}}
-val mcc = new DefaultMeasurementCollectionController(testId = "com.workday.warp.some.experiment")
-mcc.registerCollector(new SomeMeasurementCollector)
-// start all measurement collectors prior to running the experiment
-mcc.beginMeasurementCollection()
+@Test
+def mcc(testInfo: TestInfo): Unit = {
+  val mcc = new DefaultMeasurementCollectionController(testId = testInfo)
+  mcc.registerCollector(new SomeMeasurementCollector)
+  // start all measurement collectors prior to running the experiment
+  mcc.beginMeasurementCollection()
 
-// run your experiment code
-someExperiment()
+  // run your experiment code
+  someExperiment()
 
-// stop all measurement collectors, persist results, other cleanup
-mcc.endMeasurementCollection()
+  // stop all measurement collectors, persist results, other cleanup
+  mcc.endMeasurementCollection()
+}
+
 {{< /highlight >}}
 
 The DSL encapsulates the above sequence of operations in a more convenient API and provides some higher-level 

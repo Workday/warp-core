@@ -24,7 +24,7 @@ class AnnotationReaderSpec extends WarpJUnitSpec {
 
 
   /**
-    * Checks that we can read the right telemetron thresholds.
+    * Checks that we can read the right thresholds.
     */
   @UnitTest
   @Required(maxResponseTime = 10)

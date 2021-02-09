@@ -10,6 +10,8 @@ import org.junit.jupiter.api.TestInfo;
 import org.pmw.tinylog.Logger;
 
 /**
+ * Some examples of Java usage.
+ *
  * Created by tomas.mccandless on 10/23/20.
  */
 public class ExampleTest {

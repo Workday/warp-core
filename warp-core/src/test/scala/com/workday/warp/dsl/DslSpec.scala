@@ -14,6 +14,7 @@ import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.{DistributionLike, GaussianDistribution}
 import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.controllers.AbstractMeasurementCollectionController
+import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
 
@@ -328,7 +329,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
 
   /** Checks that we can set test id manually. */
   @UnitTest
-  def testId(): Unit = {
+  def testIdCheck(testInfo: TestInfo): Unit = {
     // check that we can manually override the test id
     val someTestId: String = "com.workday.warp.dsl.test1"
     val config: ExecutionConfig = using testId someTestId
@@ -337,7 +338,6 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     ConfigStore.get(someTestId) should be (Some(config))
     Researcher(using iterations 5 testId someTestId).collectionController().testId.id should be (someTestId)
 
-    // check that we can read it from telemetron name rule
     val randomTestId: TestId = this.randomTestId()
     Researcher(using testId randomTestId).collectionController().testId should be (randomTestId)
 
