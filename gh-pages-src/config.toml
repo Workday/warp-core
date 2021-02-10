@@ -60,10 +60,25 @@ url = "https://github.com/Workday/warp-core/releases"
 weight = 11
 
 [[menu.shortcuts]]
-name = "<i class='fa fa-bookmark'></i> <label>ScalaDoc</label>"
+name = "Scaladoc"
+identifier = "Scaladoc"
+url = "/scaladoc"
+weight = 12
+
+[[menu.shortcuts]]
+name = "<i class='fa fa-bookmark'></i> <label>warp-core</label>"
 identifier = "hugodoc"
 url = "/scaladoc/warp-core/index.html"
-weight = 20
+parent = "Scaladoc"
+weight = 13
+
+[[menu.shortcuts]]
+name = "<i class='fa fa-bookmark'></i> <label>warp-core-gatling</label>"
+identifier = "hugodoc"
+url = "/scaladoc/warp-core-gatling/index.html"
+parent = "Scaladoc"
+weight = 13
+
 
 [[menu.shortcuts]]
 name = "<i class='fa fa-bullhorn'></i> <label>Contributors</label>"

@@ -13,8 +13,8 @@ Wrap your existing code with measurement collectors to track arbitrary custom me
 {{< highlight scala "linenos=" >}}
 
 @Test
-def example(): Unit = {
-  using collectors { new CpuUsageCollector } measure { yourServiceCall() }
+def example(testInfo: TestInfo): Unit = {
+  using testId testInfo collectors { new CpuUsageCollector } measure { yourServiceCall() }
 }
 
 {{< /highlight >}}
