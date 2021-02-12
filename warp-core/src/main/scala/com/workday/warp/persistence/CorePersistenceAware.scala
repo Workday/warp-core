@@ -452,7 +452,7 @@ trait CorePersistenceAware extends PersistenceAware {
 }
 
 // This companion object initializes the schema, inserts seed data, and creates database users.
-object CorePersistenceUtils extends Connection with CoreQueries with CanDropCoreSchema {
+object CorePersistenceUtils extends Connection with CorePersistenceAware with MigrateSchemaLike with CoreQueries with CanDropCoreSchema {
   // make sure properties get loaded
   val version: String = WarpPropertyManager.version
 
@@ -470,7 +470,7 @@ object CorePersistenceUtils extends Connection with CoreQueries with CanDropCore
       // migrate the schema if we're using mysql and the migration property is set
       case _: slick.jdbc.MySQLProfile if WARP_MIGRATE_SCHEMA.value.toBoolean =>
         Logger.info(s"migrating mysql schema using flyway")
-        this.maybeFlyway().get.migrate()
+        this.migrate()
       // if we're using mysql but the migration property is not set, just log a message
       case _: slick.jdbc.MySQLProfile =>
         Logger.info(

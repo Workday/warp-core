@@ -87,15 +87,17 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     val testedData: Iterable[Double] = this.useDiff match {
       // check user overrides
       case Some(true) =>
-        Logger.debug(s"override in place (useDiff=true). time series will be treated as non-stationary.")
+        Logger.debug(s"override in place (useDiff=true). time series will be treated as non-stationary and trending down.")
         dickeyFuller.zeroPaddedDiff
       case Some(false) =>
         Logger.debug(s"override in place (useDiff=false). time series will be treated as stationary.")
         truncatedData
       // check actual results of the test
       case _ if !dickeyFuller.isStationary && trend < 0.0 =>
+        Logger.debug(s"dickey-fuller test result: not stationary and trending down. global trend will be smoothed")
         dickeyFuller.zeroPaddedDiff
       case _ =>
+        Logger.debug(s"dickey-fuller test result: stationary or trending up. global trend will not be smoothed")
         truncatedData
     }
 
