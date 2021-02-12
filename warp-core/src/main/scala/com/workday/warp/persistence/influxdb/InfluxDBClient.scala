@@ -4,7 +4,7 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 import com.workday.warp.TestId
-import com.workday.warp.config.{CoreConstants, WarpConfigurationException}
+import com.workday.warp.config.WarpConfigurationException
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.heaphistogram.{HeapHistogram, HeapHistogramEntry}
