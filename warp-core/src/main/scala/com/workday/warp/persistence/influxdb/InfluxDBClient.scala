@@ -4,7 +4,7 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 import com.workday.warp.TestId
-import com.workday.warp.config.{CoreConstants, WarpConfigurationException}
+import com.workday.warp.config.WarpConfigurationException
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.heaphistogram.{HeapHistogram, HeapHistogramEntry}
@@ -90,7 +90,7 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
         // default to current time if the testcase doesnt have a start time set
         .time(Try(testExecution.startTime.getTime).getOrElse(System.currentTimeMillis), TimeUnit.MILLISECONDS)
         // default to undefined test id if the testcase doesnt have an associated method signature
-        .tag("warpTestName", methodSignature.getOrElse(CoreConstants.UNDEFINED_TEST_ID))
+        .tag("warpTestName", methodSignature.getOrElse(TestId.undefined.id))
         .tag("build", SILVER_BUILD_NUMBER.value)
         .addField("responseTime", testExecution.responseTime)
         // try to use the duration we're given, otherwise look at the testcase instance
