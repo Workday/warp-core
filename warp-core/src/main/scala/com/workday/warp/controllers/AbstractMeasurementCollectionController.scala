@@ -299,7 +299,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
         case trial: ExecutionTag =>
           Try(persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, trial.key, trial.value,
                                                  trial.isUserGenerated).idTestExecutionTag)
-      }
+        }
 
         // if rowId succeeds, record success and begin reading metatags. If fail, log that all the metatags will have
         // also failed since there won't be a matching outerTag rowID.
