@@ -1,4 +1,4 @@
-baseURL = "https://tomnis.github.io/warp-core/"
+baseURL = "https://workday.github.io/warp-core/"
 canonifyurls = "true"
 
 publishDir = "docs"
