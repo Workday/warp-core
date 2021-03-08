@@ -248,19 +248,33 @@
     <p>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses
 to identify individual tests is a fully qualified test method signature. We refer to this as a &ldquo;TestId&rdquo;.
 Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry.
-The most basic example is a test annotated with &ldquo;@WarpTest&rdquo;:</p>
+The most basic example is a plain JUnit test annotated with &ldquo;@WarpTest&rdquo;:</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75715e">/** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials. */</span>
-    <span style="color:#75af00">@WarpTest</span><span style="color:#f92672">(</span><span style="color:#111">warmups</span> <span style="color:#f92672">=</span> <span style="color:#111">1</span><span style="color:#f92672">,</span> <span style="color:#111">trials</span> <span style="color:#f92672">=</span> <span style="color:#111">2</span><span style="color:#f92672">)</span>
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">void</span> <span style="color:#75af00">measured</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-        <span style="color:#111">Logger</span><span style="color:#f92672">.</span><span style="color:#75af00">trace</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;hi there&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span></code></pre></div>
+<p>Java:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Assertions</span>;
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala">    <span style="color:#75715e">/** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials. */</span>
-    <span style="color:#75af00">@WarpTest</span><span style="color:#f92672">(</span><span style="color:#111">warmups</span> <span style="color:#00a8c8">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#111">trials</span> <span style="color:#00a8c8">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">)</span>
-    <span style="color:#00a8c8">def</span> <span style="color:#111">measured</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-        <span style="color:#75af00">Logger</span><span style="color:#f92672">.</span><span style="color:#111">trace</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;hi there&#34;</span><span style="color:#f92672">)</span>
-    <span style="color:#f92672">}</span></code></pre></div>
+<span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleTest</span> {
+
+    <span style="color:#228b22">/** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials. */</span>
+    <span style="color:#707a7c">@WarpTest</span>(warmups = 1, trials = 2)
+    <span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">measured</span>() {
+        Assertions.<span style="color:#658b00">assertEquals</span>(2, 1 + 1);
+    }
+}</code></pre></div></p>
+
+<p>Scala:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Assertions</span>
+
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> {
+
+  <span style="color:#228b22">/** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials. */</span>
+  <span style="color:#707a7c">@WarpTest</span>(warmups <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#b452cd">1</span>, trials <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#b452cd">2</span>)
+  <span style="color:#8b008b;font-weight:bold">def</span> measured()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#008b45;font-weight:bold">Assertions</span>.assertEquals(<span style="color:#b452cd">2</span>, <span style="color:#b452cd">1</span> + <span style="color:#b452cd">1</span>)
+  }
+}</code></pre></div></p>
 
 <p>&rdquo;@WarpTest&rdquo; is a meta-annotation that combines JUnit5 &ldquo;@TestTemplate&rdquo; annotation with our &ldquo;WarpTestExtension&rdquo; JUnit extension.
 A JUnit test template is not directly a test case, but is rather a template designed to be invoked multiple times as dictated by
@@ -270,54 +284,101 @@ invocation context providers.
 <p>If your project has other constraints that preclude you from using &ldquo;@TestTemplate&rdquo; instead of &ldquo;@Test&rdquo;, another possibility is
 adding the &ldquo;@Measure&rdquo; annotation to your existing tests, however note that this approach does not support repeated measurements or warmups.</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#75af00">@Test</span>
-    <span style="color:#75af00">@Measure</span>
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">void</span> <span style="color:#75af00">measureExtension</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-        <span style="color:#111">Logger</span><span style="color:#f92672">.</span><span style="color:#75af00">trace</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;we are being measured but not repeated&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span></code></pre></div>
+<p>Java:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.Measure</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Assertions</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Test</span>;
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala">    <span style="color:#75af00">@Test</span>
-    <span style="color:#75af00">@Measure</span>
-    <span style="color:#00a8c8">def</span> <span style="color:#111">measureExtension</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-        <span style="color:#75af00">Logger</span><span style="color:#f92672">.</span><span style="color:#111">trace</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;we are being measured but not repeated&#34;</span><span style="color:#f92672">)</span>
-    <span style="color:#f92672">}</span></code></pre></div>
+<span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleTest</span> {
 
-<p>Occasionally users may require usage of a lower-level api and direct access to a &ldquo;TestId&rdquo;. For this use case we provide implicits
-augmenting Junit &ldquo;TestInfo&rdquo;, which is available to all JUnit tests using a default &ldquo;ParameterResolver&rdquo; that is automatically configured
+    <span style="color:#707a7c">@Test</span>
+    <span style="color:#707a7c">@Measure</span>
+    <span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">measureExtension</span>() {
+        Assertions.<span style="color:#658b00">assertEquals</span>(2, 1 + 1);
+    }
+}</code></pre></div></p>
+
+<p>Scala:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.Measure</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Assertions</span>, <span style="color:#008b45;font-weight:bold">Test</span>}
+
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> {
+
+  <span style="color:#707a7c">@Test</span>
+  <span style="color:#707a7c">@Measure</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> measureExtension()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#008b45;font-weight:bold">Assertions</span>.assertEquals(<span style="color:#b452cd">2</span>, <span style="color:#b452cd">1</span> + <span style="color:#b452cd">1</span>)
+  }
+}</code></pre></div></p>
+
+<p>Occasionally users may require usage of a lower-level api and direct access to a &ldquo;TestId&rdquo;. At the database level, a &ldquo;TestId&rdquo; is
+used as a unique test identifier, stored as a fully qualified test method name. For this use case we provide implicits
+augmenting Junit &ldquo;TestInfo&rdquo;. A &ldquo;TestInfo&rdquo; is available to all JUnit tests using a default &ldquo;ParameterResolver&rdquo; that is automatically configured
 for all tests. Java users can call &ldquo;TestId.fromTestInfo&rdquo; directly, while scala users can make use of an implicit conversion:</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> <span style="color:#111">com.workday.warp.TestId</span><span style="color:#f92672">;</span>
+<p>Java:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.TestId</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Assertions</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.TestInfo</span>;
 
-<span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">ExampleTest</span> <span style="color:#f92672">{</span>
+<span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleTest</span> {
 
-    <span style="color:#75af00">@Test</span>
-    <span style="color:#00a8c8">public</span> <span style="color:#00a8c8">void</span> <span style="color:#75af00">testId</span><span style="color:#f92672">(</span><span style="color:#00a8c8">final</span> <span style="color:#111">TestInfo</span> <span style="color:#111">info</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#00a8c8">final</span> <span style="color:#111">String</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#111">TestId</span><span style="color:#f92672">.</span><span style="color:#75af00">fromTestInfo</span><span style="color:#f92672">(</span><span style="color:#111">info</span><span style="color:#f92672">).</span><span style="color:#75af00">id</span><span style="color:#f92672">();</span>
-        <span style="color:#111">Assert</span><span style="color:#f92672">.</span><span style="color:#75af00">assertTrue</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;com.workday.warp.examples.ExampleTest.testId&#34;</span><span style="color:#f92672">.</span><span style="color:#75af00">equals</span><span style="color:#f92672">(</span><span style="color:#111">id</span><span style="color:#f92672">));</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span></code></pre></div>
+    <span style="color:#707a7c">@WarpTest</span>
+    <span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">testId</span>(<span style="color:#8b008b;font-weight:bold">final</span> TestInfo info) {
+        <span style="color:#8b008b;font-weight:bold">final</span> String id = TestId.<span style="color:#658b00">fromTestInfo</span>(info).<span style="color:#658b00">id</span>();
+        Assertions.<span style="color:#658b00">assertTrue</span>(<span style="color:#cd5555">&#34;com.workday.warp.examples.ExampleTest.testId&#34;</span>.<span style="color:#658b00">equals</span>(id));
+    }
+}</code></pre></div></p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">import</span> <span style="color:#111">com.workday.warp.TestIdImplicits._</span>
+<p>Scala:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.TestIdImplicits._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Assertions</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
 
-<span style="color:#00a8c8">class</span> <span style="color:#75af00">ExampleSpec</span> <span style="color:#f92672">{</span>
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> {
 
-  <span style="color:#75af00">@Test</span>
-  <span style="color:#00a8c8">def</span> <span style="color:#111">testId</span><span style="color:#f92672">(</span><span style="color:#111">info</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestInfo</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-    <span style="color:#75715e">// TestIdImplicits implicit conversion
-</span><span style="color:#75715e"></span>    <span style="color:#00a8c8">val</span> <span style="color:#111">testId</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span> <span style="color:#f92672">=</span> <span style="color:#111">info</span><span style="color:#f92672">.</span><span style="color:#111">id</span>
-    <span style="color:#75af00">Assert</span><span style="color:#f92672">.</span><span style="color:#111">assertTrue</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;com.workday.warp.examples.ExampleTest.testId&#34;</span> <span style="color:#f92672">==</span> <span style="color:#111">testId</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span></code></pre></div>
+  <span style="color:#707a7c">@WarpTest</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> testId(info<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#228b22">// TestIdImplicits implicit conversion
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">val</span> testId<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">String</span> = info.id
+    <span style="color:#008b45;font-weight:bold">Assertions</span>.assertEquals(<span style="color:#cd5555">&#34;com.workday.warp.examples.ExampleTest.testId&#34;</span>, testId)
+  }
+}</code></pre></div></p>
 
 <p>Alternatively, we also provide a &ldquo;ParameterResolver&rdquo; that allows resolution of &ldquo;WarpInfo&rdquo;. &ldquo;WarpInfo&rdquo; is similar to Junit &ldquo;TestInfo&rdquo;, but
 also allows users to access metadata about current test iteration sequences. Note, however, that this parameter resolver is tightly coupled
-to warp-core invocation context extensions, and will only work correctly for tests annotated with &ldquo;@WarpTest&rdquo;.</p>
+to warp-core invocation context extensions, and will only work for tests annotated with &ldquo;@WarpTest&rdquo;.</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala">  <span style="color:#75715e">/** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */</span>
-  <span style="color:#75af00">@WarpTest</span>
-  <span style="color:#00a8c8">def</span> <span style="color:#111">measuredWithInfo</span><span style="color:#f92672">(</span><span style="color:#111">info</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">WarpInfo</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-    <span style="color:#75af00">Assert</span><span style="color:#f92672">.</span><span style="color:#111">assertTrue</span><span style="color:#f92672">(</span><span style="color:#111">info</span><span style="color:#f92672">.</span><span style="color:#111">testId</span> <span style="color:#f92672">==</span> <span style="color:#d88200">&#34;com.workday.warp.examples.ExampleTest.measuredWithInfo&#34;</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">}</span></code></pre></div>
+<p>Java:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">package</span> <span style="color:#008b45">com.workday.warp.examples</span>;
+
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Assertions</span>;
+
+<span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleTest</span> {
+
+    <span style="color:#228b22">/** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */</span>
+    <span style="color:#707a7c">@WarpTest</span>
+    <span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">measuredWithInfo</span>(<span style="color:#8b008b;font-weight:bold">final</span> WarpInfo info) {
+        Assertions.<span style="color:#658b00">assertEquals</span>(<span style="color:#cd5555">&#34;com.workday.warp.examples.ExampleTest.measuredWithInfo&#34;</span>, info.<span style="color:#658b00">testId</span>());
+    }
+}</code></pre></div></p>
+
+<p>Scala:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">package</span> <span style="color:#008b45">com.workday.warp.examples</span> 
+
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Assertions</span>
+
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> {
+
+  <span style="color:#228b22">/** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */</span>
+  <span style="color:#707a7c">@WarpTest</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> measuredWithInfo(info<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">WarpInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#008b45;font-weight:bold">Assertions</span>.assertTrue(<span style="color:#cd5555">&#34;com.workday.warp.examples.ExampleTest.measuredWithInfo&#34;</span>, info.testId)
+  }
+}</code></pre></div></p>
 
 
     

@@ -28,8 +28,8 @@ Academic papers published in other scientific fields, such as biology, place an 
       <pubDate>Mon, 02 Apr 2018 13:32:53 -0700</pubDate>
       
       <guid>https://tomnis.github.io/warp-core/contents/getting_started_java/</guid>
-      <description>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses to identify individual tests is a fully qualified test method signature. We refer to this as a &amp;ldquo;TestId&amp;rdquo;. Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry. The most basic example is a test annotated with &amp;ldquo;@WarpTest&amp;rdquo;:
-/** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials.</description>
+      <description>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses to identify individual tests is a fully qualified test method signature. We refer to this as a &amp;ldquo;TestId&amp;rdquo;. Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry. The most basic example is a plain JUnit test annotated with &amp;ldquo;@WarpTest&amp;rdquo;:
+Java: import com.workday.warp.junit.WarpTest; import org.</description>
     </item>
     
     <item>
@@ -59,7 +59,7 @@ Implementations of a measurement or measurement collection should extend this cl
       
       <guid>https://tomnis.github.io/warp-core/contents/custom_arbiters/</guid>
       <description>An Arbiter defines a vote method that allows us to implement custom failure criteria for a given test execution.
-For example, the following Arbiter implementation fails a test if it took longer than 5 seconds: class ResponseTimeArbiter extends ArbiterLike with CorePersistenceAware { /** * Checks that the measured test took less than 5 seconds. * * @param ballot box used to register vote result. * @param testExecution [[TestExecutionRowLikeType]] we are voting on.</description>
+For example, the following Arbiter implementation fails a test if it took longer than 5 seconds: import com.workday.warp.arbiters.ArbiterLike import com.workday.warp.persistence.CorePersistenceAware import com.workday.warp.persistence.TablesLike._ import com.workday.warp.persistence.Tables._ class ResponseTimeArbiter extends ArbiterLike with CorePersistenceAware { /** * Checks that the measured test took less than 5 seconds. * * @param ballot box used to register vote result.</description>
     </item>
     
     <item>
@@ -68,9 +68,9 @@ For example, the following Arbiter implementation fails a test if it took longer
       <pubDate>Fri, 06 Apr 2018 12:16:51 -0700</pubDate>
       
       <guid>https://tomnis.github.io/warp-core/contents/measurement_collection_controller/</guid>
-      <description>The MeasurementCollectionController (often called MCC) class is the central &amp;ldquo;overlord&amp;rdquo; responsible for tracking all registered collectors and arbiters, wrapping collectors around measured tests in the correct order, and invoking the measured code block.
-Note that all collectors must be stopped in the reverse order from which they were started to maximize measurement accuracy and avoid capturing the overheard from other collectors.
-The multiple circles of hell serve as a useful mental model; each circle represents a logical group of collectors that is started/stopped in parallel.</description>
+      <description>The MeasurementCollectionController (often called MCC) is the central &amp;ldquo;overlord&amp;rdquo; class responsible for tracking all registered collectors and arbiters, wrapping collectors around measured tests in the correct order, and invoking the measured code block.
+Note that all collectors must be stopped in the reverse order from which they were started to maximize measurement accuracy and avoid mistakenly capturing any overheard from other collectors.
+The multiple circles of hell serve as a useful mental model: each circle represents a collector that is started/stopped in a specific order.</description>
     </item>
     
     <item>
@@ -125,8 +125,8 @@ The binding module we provide out of the box in DefaultWarpModule should be fine
       <pubDate>Mon, 08 Feb 2021 10:57:50 -0700</pubDate>
       
       <guid>https://tomnis.github.io/warp-core/contents/gatling/</guid>
-      <description>&amp;ldquo;warp-core-gatling&amp;rdquo; is published as a separate jar and includes a base class &amp;ldquo;WarpSimulation&amp;rdquo; that add warp measurements to existing simulations as before/after gatling hooks. This module also includes a (now deprecated) vintage JUnit4 runner that allows for easily executing gatling simulations along with the rest of your JUnit test suite.
-@RunWith(classOf[GatlingJUnitRunner]) class BasicSimulation extends WarpSimulation { val httpConf: HttpProtocolBuilder = http .baseUrl(&amp;#34;http://google.com&amp;#34;) val scn: ScenarioBuilder = scenario(&amp;#34;Positive Scenario&amp;#34;) .exec( http(&amp;#34;request_1&amp;#34;).get(&amp;#34;/&amp;#34;) ) setUp(scn.</description>
+      <description>&amp;ldquo;warp-core-gatling&amp;rdquo; is published as a separate jar and includes a base class &amp;ldquo;WarpSimulation&amp;rdquo; that add warp measurements to existing simulations as before/after gatling hooks. This module also includes a (now deprecated) vintage JUnit4 runner that allows for easily executing gatling simulations along with the rest of your JUnit test suite. In the future, we plan to develop a tighter integration between gatling and JUnit5
+import com.workday.warp.adapters.gatling.{GatlingJUnitRunner, WarpSimulation} @RunWith(classOf[GatlingJUnitRunner]) class BasicSimulation extends WarpSimulation { val httpConf: HttpProtocolBuilder = http .</description>
     </item>
     
     <item>

@@ -271,14 +271,14 @@ to the corresponding <code>TestDefinition</code> and <code>Build</code> the test
 
 <p>For example, the following generated case class is used to represent a single test execution:</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">case</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">TestExecutionRow</span><span style="color:#f92672">(</span><span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">idTestExecution</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span>
-                            <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">idTestDefinition</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span> 
-                            <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">idBuild</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span> 
-                            <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">passed</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Boolean</span><span style="color:#f92672">,</span> 
-                            <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">responseTime</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span><span style="color:#f92672">,</span> 
-                            <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">responseTimeRequirement</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span><span style="color:#f92672">,</span> 
-                            <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">startTime</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span><span style="color:#f92672">,</span> 
-                            <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">val</span> <span style="color:#111">endTime</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">java.sql.Timestamp</span><span style="color:#f92672">)</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">case</span> <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">TestExecutionRow</span>(<span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">val</span> idTestExecution<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>,
+                            <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">val</span> idTestDefinition<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>, 
+                            <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">val</span> idBuild<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>, 
+                            <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">val</span> passed<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span>, 
+                            <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">val</span> responseTime<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Double</span>, 
+                            <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">val</span> responseTimeRequirement<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Double</span>, 
+                            <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">val</span> startTime<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">java.sql.Timestamp</span>, 
+                            <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">val</span> endTime<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">java.sql.Timestamp</span>) <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">TestExecutionRowWrapper</span>(idTestExecution, idTestDefinition, idBuild, passed, responseTime, responseTimeRequirement, startTime, endTime)</code></pre></div>
 
 <h2 id="queries">Queries</h2>
 
@@ -289,31 +289,31 @@ to obtain an instance of <code>CorePersistenceUtils</code></p>
 
 <p>For example, the <code>createTestExecution</code> method is used to write a record of a single test execution:</p>
 
-<p><div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">/**
-</span><span style="color:#75715e">  * Creates, inserts, and returns a [[TestExecutionRowLike]]
-</span><span style="color:#75715e">  *
-</span><span style="color:#75715e">  * @param testId id of the measured test (usually fully qualified junit method).
-</span><span style="color:#75715e">  * @param timeStarted time the measured test was started.
-</span><span style="color:#75715e">  * @param responseTime observed duration of the measured test (seconds).
-</span><span style="color:#75715e">  * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
-</span><span style="color:#75715e">  * @return a [[TestExecutionRowLike]] with the given parameters.
-</span><span style="color:#75715e">  */</span>
-<span style="color:#00a8c8">override</span> <span style="color:#00a8c8">def</span> <span style="color:#111">createTestExecution</span><span style="color:#f92672">(</span><span style="color:#111">testId</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestId</span><span style="color:#f92672">,</span>
-					             <span style="color:#111">timeStarted</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Instant</span><span style="color:#f92672">,</span>
-					             <span style="color:#111">responseTime</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span><span style="color:#f92672">,</span>
-					    		 <span style="color:#111">maxResponseTime</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestExecutionRowLike</span></code></pre></div></p>
+<p><div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#228b22">/**
+</span><span style="color:#228b22">  * Creates, inserts, and returns a [[TestExecutionRowLike]]
+</span><span style="color:#228b22">  *
+</span><span style="color:#228b22">  * @param testId id of the measured test (usually fully qualified junit method).
+</span><span style="color:#228b22">  * @param timeStarted time the measured test was started.
+</span><span style="color:#228b22">  * @param responseTime observed duration of the measured test (seconds).
+</span><span style="color:#228b22">  * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
+</span><span style="color:#228b22">  * @return a [[TestExecutionRowLike]] with the given parameters.
+</span><span style="color:#228b22">  */</span>
+<span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">def</span> createTestExecution(testId<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestId</span>,
+					             timeStarted<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Instant</span>,
+					             responseTime<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Double</span>,
+					    		 maxResponseTime<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Double</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestExecutionRowLike</span></code></pre></div></p>
 
 <p>Similarly, the <code>recordMeasurement</code> method is used to persist a measurement obtained for a given test execution.</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">/**
-</span><span style="color:#75715e">  * Persists generic measurements in the Measurement table. Looks up the MeasurementName corresponding to
-</span><span style="color:#75715e">  * `name`, creates a new Measurement with the appropriate fields set.
-</span><span style="color:#75715e">  *
-</span><span style="color:#75715e">  * @param idTestExecution id for the [[TestExecutionRow]] associated with this measurement.
-</span><span style="color:#75715e">  * @param name name to use for this measurement.
-</span><span style="color:#75715e">  * @param result result of this measurement.
-</span><span style="color:#75715e">  */</span>
-<span style="color:#00a8c8">override</span> <span style="color:#00a8c8">def</span> <span style="color:#111">recordMeasurement</span><span style="color:#f92672">(</span><span style="color:#111">idTestExecution</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span> <span style="color:#111">name</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span><span style="color:#f92672">,</span> <span style="color:#111">result</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#228b22">/**
+</span><span style="color:#228b22">  * Persists generic measurements in the Measurement table. Looks up the MeasurementName corresponding to
+</span><span style="color:#228b22">  * `name`, creates a new Measurement with the appropriate fields set.
+</span><span style="color:#228b22">  *
+</span><span style="color:#228b22">  * @param idTestExecution id for the [[TestExecutionRow]] associated with this measurement.
+</span><span style="color:#228b22">  * @param name name to use for this measurement.
+</span><span style="color:#228b22">  * @param result result of this measurement.
+</span><span style="color:#228b22">  */</span>
+<span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">def</span> recordMeasurement(idTestExecution<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>, name<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">String</span>, result<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Double</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {</code></pre></div>
 
 <p>In general, if you need to interact with the WARP database, mix <code>CorePersistenceAware</code> into your class and
 use the provided instance of <code>CorePersistenceUtils</code>.</p>

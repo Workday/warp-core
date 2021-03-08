@@ -52,21 +52,35 @@ The general WARP framework has two supported frontends:
 
   - JUnit annotations and extensions (for Java or Scala users)
 
-{{< highlight java "linenos=" >}}
-@WarpTest(warmups = 2, trials = 6)
-public void example() {
-    Logger.info("hello, world!");
+{{< highlight java "linenos=, style=perldoc" >}}
+import com.workday.warp.junit.WarpTest;
+import org.junit.jupiter.api.Assertions;
+
+public class ExampleTest {
+
+    @WarpTest(warmups = 2, trials = 6)
+    public void example() {
+        Logger.info("hello, world!");
+        Assertions.assertEquals(2, 1 + 1);
+    }
 }
 {{< /highlight >}}
 
   - DSL (for Scala users only)
 
-{{< highlight scala "linenos=" >}}
-@Test
-def example(testInfo: TestInfo): Unit = {
-  using testId testInfo invocations 8 threads 4 measuring {
-    someExperiment() 
-  } should not exceed (1 second)
+{{< highlight scala "linenos=, style=perldoc" >}}
+import org.junit.jupiter.api.{Test, TestInfo}
+import com.workday.warp.dsl._
+import com.workday.warp.junit.WarpJUnitSpec
+
+class ExampleSpec extends WarpJUnitSpec {
+
+  @Test
+  def example(testInfo: TestInfo): Unit = {
+    using testId testInfo invocations 8 threads 4 measuring {
+      someExperiment() 
+    } should not exceed (1 second)
+  }
 }
 {{< /highlight >}}
 

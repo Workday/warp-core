@@ -15,4 +15,4 @@ The binding module we provide out of the box in `DefaultWarpModule` should be fi
 However, advanced users can implement their own bindings in a new module and set the system property `wd.warp.inject.module`
 with the fully qualified value of their module class.
 
-Internally, we use an augmented `MeasurementCollectionController` and an extended version of `CoreWarpPropery`.
+Internally, we use an augmented `MeasurementCollectionController`, a slightly different schema with different implementations for `PersistenceUtils`, and an extended version of `CoreWarpPropery`.

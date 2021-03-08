@@ -290,7 +290,7 @@ value that would be flagged as anomalous. This derived threshold is recorded as 
 making the arbitration process easier to reason about than using a raw <code>RobustPcaArbiter</code>.</p>
 
 <p>Internally, we use RPCA daily to detect anomalies in an online manner for test executions.
-This chart illustrates how the detected anomalies can look over time:
+This chart is taken from an internal dashboard and illustrates how the detected anomalies can look over time:
 
 <figure>
     
@@ -302,14 +302,14 @@ This chart illustrates how the detected anomalies can look over time:
 
 <p>This code snippet illustrates how the <code>RobustPcaArbiter</code> can be used with an experiment:</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
-<span style="color:#00a8c8">def</span> <span style="color:#111">rpcaExample</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-  <span style="color:#111">using</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">20</span> <span style="color:#111">arbiters</span> <span style="color:#f92672">{</span> 
-    <span style="color:#00a8c8">new</span> <span style="color:#75af00">RobustPcaArbiter</span> 
-  <span style="color:#f92672">}</span> <span style="color:#111">measure</span> <span style="color:#f92672">{</span> 
-    <span style="color:#111">someExperiment</span><span style="color:#f92672">()</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@Test</span>
+<span style="color:#8b008b;font-weight:bold">def</span> rpcaExample()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+  using invocations <span style="color:#b452cd">20</span> arbiters { 
+    <span style="color:#8b008b;font-weight:bold">new</span> <span style="color:#008b45;font-weight:bold">RobustPcaArbiter</span> 
+  } measure { 
+    someExperiment()
+  }
+}</code></pre></div>
 
 <h2 id="tuning">Tuning</h2>
 
@@ -328,7 +328,7 @@ a sustained performance degradation will quickly be considered normal.</p>
 <p>To remedy this, we developed a novel extension to RPCA called Double RPCA. This algorithm
 features an &ldquo;extended training phase&rdquo; where only past normal measurements are used to determine
 the current threshold value. One intuitive way to grasp the effects of this modification is to say
-that it &ldquo;prevents Stockholm Syndrome&rdquo;.</p>
+that it, roughly speaking, &ldquo;prevents Stockholm Syndrome&rdquo;.</p>
 
 <p>This variant is more strict with respect to sustained test performance degradation,
 and can lead to increased false positive rates over extended periods of time. This algorithm is a good fit

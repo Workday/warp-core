@@ -7,9 +7,11 @@ weight: 72
 
 "warp-core-gatling" is published as a separate jar and includes a base class "WarpSimulation" that add warp measurements to existing simulations
 as before/after gatling hooks. This module also includes a (now deprecated) vintage JUnit4 runner that allows for easily executing gatling simulations along with
-the rest of your JUnit test suite.
+the rest of your JUnit test suite. In the future, we plan to develop a tighter integration between gatling and JUnit5
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
+import com.workday.warp.adapters.gatling.{GatlingJUnitRunner, WarpSimulation}
+
 @RunWith(classOf[GatlingJUnitRunner])
 class BasicSimulation extends WarpSimulation {
   val httpConf: HttpProtocolBuilder = http

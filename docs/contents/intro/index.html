@@ -296,21 +296,35 @@ WARP has been tested on both H2 and MySQL.</p>
 <li>JUnit annotations and extensions (for Java or Scala users)</li>
 </ul>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75af00">@WarpTest</span><span style="color:#f92672">(</span><span style="color:#111">warmups</span> <span style="color:#f92672">=</span> <span style="color:#111">2</span><span style="color:#f92672">,</span> <span style="color:#111">trials</span> <span style="color:#f92672">=</span> <span style="color:#111">6</span><span style="color:#f92672">)</span>
-<span style="color:#00a8c8">public</span> <span style="color:#00a8c8">void</span> <span style="color:#75af00">example</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-    <span style="color:#111">Logger</span><span style="color:#f92672">.</span><span style="color:#75af00">info</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;hello, world!&#34;</span><span style="color:#f92672">);</span>
-<span style="color:#f92672">}</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Assertions</span>;
+
+<span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleTest</span> {
+
+    <span style="color:#707a7c">@WarpTest</span>(warmups = 2, trials = 6)
+    <span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#00688b;font-weight:bold">void</span> <span style="color:#008b45">example</span>() {
+        Logger.<span style="color:#658b00">info</span>(<span style="color:#cd5555">&#34;hello, world!&#34;</span>);
+        Assertions.<span style="color:#658b00">assertEquals</span>(2, 1 + 1);
+    }
+}</code></pre></div>
 
 <ul>
 <li>DSL (for Scala users only)</li>
 </ul>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
-<span style="color:#00a8c8">def</span> <span style="color:#111">example</span><span style="color:#f92672">(</span><span style="color:#111">testInfo</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">TestInfo</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-  <span style="color:#111">using</span> <span style="color:#111">testId</span> <span style="color:#111">testInfo</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">8</span> <span style="color:#111">threads</span> <span style="color:#ae81ff">4</span> <span style="color:#111">measuring</span> <span style="color:#f92672">{</span>
-    <span style="color:#111">someExperiment</span><span style="color:#f92672">()</span> 
-  <span style="color:#f92672">}</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">exceed</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> <span style="color:#111">second</span><span style="color:#f92672">)</span>
-<span style="color:#f92672">}</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Test</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.dsl._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpJUnitSpec</span>
+
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">WarpJUnitSpec</span> {
+
+  <span style="color:#707a7c">@Test</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> example(testInfo<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    using testId testInfo invocations <span style="color:#b452cd">8</span> threads <span style="color:#b452cd">4</span> measuring {
+      someExperiment() 
+    } should not exceed (<span style="color:#b452cd">1</span> second)
+  }
+}</code></pre></div>
 
 <p>The above DSL example creates a pool of 4 threads, invokes the given test 8 times, collects a default set of measurements
 from each invocation, and writes the results to a relational database.</p>

@@ -15,7 +15,7 @@ all configuration parameters, such as number of invocations, warmups, threadpool
 We give sane defaults to all parameters.
 Calls to the various DSL methods invoke the compiler-generated `copy` method to build up
 new instances of `ExecutionConfig`:
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
 import com.workday.warp.dsl._
 val config: ExecutionConfig = using invocations 32 threads 4 distribution GaussianDistribution(50, 10)
 {{< /highlight >}}
@@ -26,35 +26,45 @@ already make heavy use of "BeforeEach"/"AfterEach" hooks. "@WarpTest" annotation
 of which cannot be controlled. Thus, it is possible that tests using "@WarpTest" will have extra overhead from other hooks included in their
 measurement metadata. The DSL is decoupled from JUnit and can be used with other JVM testing frameworks.
 
-Finally, a call-by name function is passed to `ExecutionConfig.measuring`:
-{{< highlight scala "linenos=" >}}
-import com.workday.warp.TestIdImplicits._
+Finally, a call-by name block is passed to `ExecutionConfig.measuring`:
 
-@Test
-def dslExample(testInfo: TestInfo): Unit = {
-  using testId testInfo invocations 32 threads 4 measuring {
-    val i: Int = 1
-    Logger.info(s"result is ${i + i}")
-  } should not exceed (2 seconds)
+{{< highlight scala "linenos=, style=perldoc" >}}
+import com.workday.warp.dsl._
+import com.workday.warp.TestIdImplicits._
+import org.junit.jupiter.api.{Test, TestInfo}
+
+class ExampleSpec extends WarpJUnitSpec  {
+
+  @Test
+  def dslExample(testInfo: TestInfo): Unit = {
+    using testId testInfo invocations 32 threads 4 measuring {
+      val i: Int = 1
+      Logger.info(s"result is ${i + i}")
+    } should not exceed (2 seconds)
+  }
 }
 {{< /highlight >}}
 
 Custom `Arbiter` and `MeasurementCollector` instances can be registered by calling the `arbiters` and `collectors` methods:
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=, style=perldoc" >}}
+import com.workday.warp.dsl._
 import com.workday.warp.TestIdImplicits._
-import com.workday.warp.dsl.Implicits._
+import org.junit.jupiter.api.{Test, TestInfo}
 
-@Test
-def dslCollectors(testInfo: TestInfo): Unit = {
-  // disables the existing default collectors, and registers a new collector
-  using testId testInfo only these collectors {
-    new SomeMeasurementCollector
-  // registers two new arbiters
-  } arbiters {
-    List(new SomeArbiter, new SomeOtherArbiter)
-  } measuring {
-    someExperiment()
-  } should not exceed (5 seconds)
+class ExampleSpec extends WarpJUnitSpec {
+
+  @Test
+  def dslCollectors(testInfo: TestInfo): Unit = {
+    // disables the existing default collectors, and registers a new collector
+    using testId testInfo only these collectors {
+      new SomeMeasurementCollector
+    // registers two new arbiters
+    } arbiters {
+      List(new SomeArbiter, new SomeOtherArbiter)
+    } measuring {
+      someExperiment()
+    } should not exceed (5 seconds)
+  }
 }
 {{< /highlight >}}
 
@@ -108,23 +118,29 @@ the measured response time of the trial.
 
 For example, suppose we are interested in measuring the performance of `List.fill[Int]` construction:
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=, style=perldoc" >}}
+import com.workday.warp.dsl._
+import com.workday.warp.utils.Implicits._
 import com.workday.warp.TestIdImplicits._
+import org.junit.jupiter.api.{Test, TestInfo}
 
-@Test
-def listFill(testInfo: TestInfo): Unit = {
-  // measure creating a list of 1000 0's
-  val results: Seq[TrialResult[List[Int]]] = using testId testInfo invocations 8 measure { List.fill(1000)(0) }
+class ExampleSpec extends WarpJUnitSpec {
 
-  // make some assertions about the created lists
-  results should have length 8
-  results.head.maybeResult should not be empty
+  @Test
+  def listFill(testInfo: TestInfo): Unit = {
+    // measure creating a list of 1000 0's
+    val results: Seq[TrialResult[List[Int]]] = using testId testInfo invocations 8 measure { List.fill(1000)(0) }
 
-  for {
-    result <- results
-    list <- result.maybeResult
-    element <- list
-  } element should be (0)
+    // make some assertions about the created lists
+    results should have length 8
+    results.head.maybeResult should not be empty
+
+    for {
+      result <- results
+      list <- result.maybeResult
+      element <- list
+    } element should be (0)
+  }
 }
 {{< /highlight >}}
 
@@ -132,4 +148,3 @@ After measurement has been completed, we are able to access the return values of
 
 The DSL provides a flexible way to customize the execution schedule of your experiment, including adding new
 measurement collectors and arbiters for defining failure criteria.
-

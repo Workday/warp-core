@@ -247,20 +247,22 @@
     
     <p>&ldquo;warp-core-gatling&rdquo; is published as a separate jar and includes a base class &ldquo;WarpSimulation&rdquo; that add warp measurements to existing simulations
 as before/after gatling hooks. This module also includes a (now deprecated) vintage JUnit4 runner that allows for easily executing gatling simulations along with
-the rest of your JUnit test suite.</p>
+the rest of your JUnit test suite. In the future, we plan to develop a tighter integration between gatling and JUnit5</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@RunWith</span><span style="color:#f92672">(</span><span style="color:#111">classOf</span><span style="color:#f92672">[</span><span style="color:#00a8c8">GatlingJUnitRunner</span><span style="color:#f92672">])</span>
-<span style="color:#00a8c8">class</span> <span style="color:#75af00">BasicSimulation</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">WarpSimulation</span> <span style="color:#f92672">{</span>
-  <span style="color:#00a8c8">val</span> <span style="color:#111">httpConf</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">HttpProtocolBuilder</span> <span style="color:#f92672">=</span> <span style="color:#111">http</span>
-    <span style="color:#f92672">.</span><span style="color:#111">baseUrl</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;http://google.com&#34;</span><span style="color:#f92672">)</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.adapters.gatling.</span>{<span style="color:#008b45;font-weight:bold">GatlingJUnitRunner</span>, <span style="color:#008b45;font-weight:bold">WarpSimulation</span>}
 
-  <span style="color:#00a8c8">val</span> <span style="color:#111">scn</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">ScenarioBuilder</span> <span style="color:#f92672">=</span> <span style="color:#111">scenario</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;Positive Scenario&#34;</span><span style="color:#f92672">)</span>
-    <span style="color:#f92672">.</span><span style="color:#111">exec</span><span style="color:#f92672">(</span>
-      <span style="color:#111">http</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;request_1&#34;</span><span style="color:#f92672">).</span><span style="color:#111">get</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;/&#34;</span><span style="color:#f92672">)</span>
-    <span style="color:#f92672">)</span>
+<span style="color:#707a7c">@RunWith</span>(classOf[<span style="color:#00688b;font-weight:bold">GatlingJUnitRunner</span>])
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">BasicSimulation</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">WarpSimulation</span> {
+  <span style="color:#8b008b;font-weight:bold">val</span> httpConf<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">HttpProtocolBuilder</span> = http
+    .baseUrl(<span style="color:#cd5555">&#34;http://google.com&#34;</span>)
 
-  <span style="color:#111">setUp</span><span style="color:#f92672">(</span><span style="color:#111">scn</span><span style="color:#f92672">.</span><span style="color:#111">inject</span><span style="color:#f92672">(</span><span style="color:#111">atOnceUsers</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)).</span><span style="color:#111">protocols</span><span style="color:#f92672">(</span><span style="color:#111">httpConf</span><span style="color:#f92672">))</span>
-<span style="color:#f92672">}</span></code></pre></div>
+  <span style="color:#8b008b;font-weight:bold">val</span> scn<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">ScenarioBuilder</span> = scenario(<span style="color:#cd5555">&#34;Positive Scenario&#34;</span>)
+    .exec(
+      http(<span style="color:#cd5555">&#34;request_1&#34;</span>).get(<span style="color:#cd5555">&#34;/&#34;</span>)
+    )
+
+  setUp(scn.inject(atOnceUsers(<span style="color:#b452cd">1</span>)).protocols(httpConf))
+}</code></pre></div>
 
 
     

@@ -57,6 +57,7 @@ case class ExecutionConfig(invocations: Int = 1,
     * @return a new [[ExecutionConfig]] with the specified number of invocations.
     */
   @DslApi
+  @deprecated("use trials(newInvocations) instead")
   def iterations(newIterations: Int): ExecutionConfig = this.copy(invocations = newIterations)
 
 
@@ -68,8 +69,19 @@ case class ExecutionConfig(invocations: Int = 1,
     * @return a new [[ExecutionConfig]] with the specified number of invocations.
     */
   @DslApi
-  def invocations(newInvocations: Int): ExecutionConfig = this.copy(invocations = newInvocations)
+  @deprecated("use trials(newInvocations) instead")
+  def invocations(newInvocations: Int): ExecutionConfig = this.iterations(newInvocations)
 
+
+  /**
+   * Part of the dsl. Sets number of invocations for the measured function. Enables syntax like 'using invocations 5'.
+   * Equivalent to `iterations`
+   *
+   * @param newTrials [[Int]] specifying the number of times to invoke the measured function.
+   * @return a new [[ExecutionConfig]] with the specified number of invocations.
+   */
+  @DslApi
+  def trials(newTrials: Int): ExecutionConfig = this.iterations(newTrials)
 
   /**
     * Part of the dsl. Sets number of warmup invocations for the measured function. Enables syntax like 'using warmups 5'.

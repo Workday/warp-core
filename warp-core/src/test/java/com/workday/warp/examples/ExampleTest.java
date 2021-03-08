@@ -4,7 +4,7 @@ import com.workday.warp.TestId;
 import com.workday.warp.junit.Measure;
 import com.workday.warp.junit.WarpInfo;
 import com.workday.warp.junit.WarpTest;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.pmw.tinylog.Logger;
@@ -26,7 +26,7 @@ public class ExampleTest {
     @Test
     public void testId(final TestInfo info) {
         final String id = TestId.fromTestInfo(info).id();
-        Assert.assertTrue("com.workday.warp.examples.ExampleTest.testId".equals(id));
+        Assertions.assertTrue("com.workday.warp.examples.ExampleTest.testId".equals(id));
     }
 
 
@@ -41,12 +41,13 @@ public class ExampleTest {
     @WarpTest(warmups = 1, trials = 2)
     public void measured() {
         Logger.trace("we are being measured");
+        Assertions.assertEquals(2, 1 + 1);
     }
 
 
     /** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */
     @WarpTest
     public void measuredWithInfo(final WarpInfo info) {
-        Assert.assertTrue(info.testId().equals("com.workday.warp.examples.ExampleTest.measuredWithInfo"));
+        Assertions.assertTrue(info.testId().equals("com.workday.warp.examples.ExampleTest.measuredWithInfo"));
     }
 }

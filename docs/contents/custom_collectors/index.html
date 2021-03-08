@@ -259,24 +259,29 @@ for instrumenting their code.</p>
 
 <p>For example, the following class records elapsed wall clock time as a measurement:</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">class</span> <span style="color:#75af00">WallClockTimeCollector</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">AbstractMeasurementCollector</span> <span style="color:#00a8c8">with</span> <span style="color:#75af00">CorePersistenceAware</span> <span style="color:#f92672">{</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.collectors.AbstractMeasurementCollector</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.CorePersistenceAware</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.TablesLike._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.Tables._</span>
 
-  <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">var</span> <span style="color:#111">timeBeforeMs</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Long</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">_</span>
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">WallClockTimeCollector</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">AbstractMeasurementCollector</span> <span style="color:#8b008b;font-weight:bold">with</span> <span style="color:#008b45;font-weight:bold">CorePersistenceAware</span> {
 
-  <span style="color:#75715e">/** Called prior to a test invocation.  */</span>
-  <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">def</span> <span style="color:#111">startMeasurement</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-    <span style="color:#00a8c8">this</span><span style="color:#f92672">.</span><span style="color:#111">timeBeforeMs</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">System</span><span style="color:#f92672">.</span><span style="color:#111">currentTimeMillis</span><span style="color:#f92672">()</span>
-  <span style="color:#f92672">}</span>
+  <span style="color:#8b008b;font-weight:bold">private</span> <span style="color:#8b008b;font-weight:bold">var</span> timeBeforeMs<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Long</span> = <span style="color:#8b008b;font-weight:bold">_</span>
 
-  <span style="color:#75715e">/** Called after finishing a test invocation.  */</span>
-  <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">def</span> <span style="color:#111">stopMeasurement</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T:</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">](</span><span style="color:#111">maybeTestExecution</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Option</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T</span><span style="color:#f92672">])</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-    <span style="color:#00a8c8">val</span> <span style="color:#111">durationMs</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Long</span> <span style="color:#f92672">=</span> <span style="color:#75af00">System</span><span style="color:#f92672">.</span><span style="color:#111">currentTimeMillis</span><span style="color:#f92672">()</span> <span style="color:#f92672">-</span> <span style="color:#00a8c8">this</span><span style="color:#f92672">.</span><span style="color:#111">timeBeforeMs</span>
+  <span style="color:#228b22">/** Called prior to a test invocation.  */</span>
+  <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">def</span> startMeasurement()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#8b008b;font-weight:bold">this</span>.timeBeforeMs <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#008b45;font-weight:bold">System</span>.currentTimeMillis()
+  }
 
-    <span style="color:#111">maybeTestExecution</span> <span style="color:#111">foreach</span> <span style="color:#f92672">{</span> <span style="color:#111">testExecution</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span> <span style="color:#f92672">=&gt;</span>
-      <span style="color:#00a8c8">this</span><span style="color:#f92672">.</span><span style="color:#111">persistenceUtils</span><span style="color:#f92672">.</span><span style="color:#111">recordMeasurement</span><span style="color:#f92672">(</span><span style="color:#111">testExecution</span><span style="color:#f92672">.</span><span style="color:#111">idTestExecution</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;wall clock time&#34;</span><span style="color:#f92672">,</span> <span style="color:#111">durationMs</span><span style="color:#f92672">)</span>
-    <span style="color:#f92672">}</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span></code></pre></div>
+  <span style="color:#228b22">/** Called after finishing a test invocation.  */</span>
+  <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">def</span> stopMeasurement[<span style="color:#00688b;font-weight:bold">T:</span> <span style="color:#00688b;font-weight:bold">TestExecutionRowLikeType</span>](maybeTestExecution<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Option</span>[<span style="color:#00688b;font-weight:bold">T</span>])<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#8b008b;font-weight:bold">val</span> durationMs<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Long</span> = <span style="color:#008b45;font-weight:bold">System</span>.currentTimeMillis() - <span style="color:#8b008b;font-weight:bold">this</span>.timeBeforeMs
+
+    maybeTestExecution foreach { testExecution<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">T</span> =&gt;
+      <span style="color:#8b008b;font-weight:bold">this</span>.persistenceUtils.recordMeasurement(testExecution.idTestExecution, <span style="color:#cd5555">&#34;wall clock time&#34;</span>, durationMs)
+    }
+  }
+}</code></pre></div>
 
 <p>In some cases it may be desirable to instead record measurements at a periodic interval
 throughout the duration of a test. The trait <code>ContinuousMeasurement</code> implements this functionality

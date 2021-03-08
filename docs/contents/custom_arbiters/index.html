@@ -250,26 +250,31 @@
 <p>An <code>Arbiter</code> defines a <code>vote</code> method that allows us to implement custom failure criteria for a given test execution.</p>
 
 <p>For example, the following <code>Arbiter</code> implementation fails a test if it took longer than 5 seconds:
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">class</span> <span style="color:#75af00">ResponseTimeArbiter</span> <span style="color:#00a8c8">extends</span> <span style="color:#75af00">ArbiterLike</span> <span style="color:#00a8c8">with</span> <span style="color:#75af00">CorePersistenceAware</span> <span style="color:#f92672">{</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.arbiters.ArbiterLike</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.CorePersistenceAware</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.TablesLike._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.Tables._</span>
 
-  <span style="color:#75715e">/**
-</span><span style="color:#75715e">    * Checks that the measured test took less than 5 seconds.
-</span><span style="color:#75715e">    *
-</span><span style="color:#75715e">    * @param ballot box used to register vote result.
-</span><span style="color:#75715e">    * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
-</span><span style="color:#75715e">    * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
-</span><span style="color:#75715e">    */</span>
-  <span style="color:#00a8c8">override</span> <span style="color:#00a8c8">def</span> <span style="color:#111">vote</span><span style="color:#f92672">[</span><span style="color:#00a8c8">T:</span> <span style="color:#00a8c8">TestExecutionRowLikeType</span><span style="color:#f92672">](</span><span style="color:#111">ballot</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Ballot</span><span style="color:#f92672">,</span> <span style="color:#111">testExecution</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">T</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Option</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Throwable</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#f92672">{</span>
-    <span style="color:#00a8c8">val</span> <span style="color:#111">testId</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">this</span><span style="color:#f92672">.</span><span style="color:#111">persistenceUtils</span><span style="color:#f92672">.</span><span style="color:#111">getMethodSignature</span><span style="color:#f92672">(</span><span style="color:#111">testExecution</span><span style="color:#f92672">)</span>
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ResponseTimeArbiter</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">ArbiterLike</span> <span style="color:#8b008b;font-weight:bold">with</span> <span style="color:#008b45;font-weight:bold">CorePersistenceAware</span> {
 
-    <span style="color:#00a8c8">if</span> <span style="color:#f92672">(</span><span style="color:#111">testExecution</span><span style="color:#f92672">.</span><span style="color:#111">responseTime</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-      <span style="color:#75af00">Option</span><span style="color:#f92672">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">RequirementViolationException</span><span style="color:#f92672">(</span><span style="color:#d88200">s&#34;</span><span style="color:#d88200">$testId</span><span style="color:#d88200"> took longer than 5 seconds&#34;</span><span style="color:#f92672">))</span>
-    <span style="color:#f92672">}</span>
-    <span style="color:#00a8c8">else</span> <span style="color:#f92672">{</span>
-      <span style="color:#75af00">None</span>
-    <span style="color:#f92672">}</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span></code></pre></div></p>
+  <span style="color:#228b22">/**
+</span><span style="color:#228b22">    * Checks that the measured test took less than 5 seconds.
+</span><span style="color:#228b22">    *
+</span><span style="color:#228b22">    * @param ballot box used to register vote result.
+</span><span style="color:#228b22">    * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
+</span><span style="color:#228b22">    * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
+</span><span style="color:#228b22">    */</span>
+  <span style="color:#8b008b;font-weight:bold">override</span> <span style="color:#8b008b;font-weight:bold">def</span> vote[<span style="color:#00688b;font-weight:bold">T:</span> <span style="color:#00688b;font-weight:bold">TestExecutionRowLikeType</span>](ballot<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Ballot</span>, testExecution<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">T</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Option</span>[<span style="color:#00688b;font-weight:bold">Throwable</span>] <span style="color:#8b008b;font-weight:bold">=</span> {
+    <span style="color:#8b008b;font-weight:bold">val</span> testId<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">String</span> = <span style="color:#8b008b;font-weight:bold">this</span>.persistenceUtils.getMethodSignature(testExecution)
+
+    <span style="color:#8b008b;font-weight:bold">if</span> (testExecution.responseTime &gt; <span style="color:#b452cd">5</span>) {
+      <span style="color:#008b45;font-weight:bold">Option</span>(<span style="color:#8b008b;font-weight:bold">new</span> <span style="color:#008b45;font-weight:bold">RequirementViolationException</span>(<span style="color:#cd5555">s&#34;</span><span style="color:#cd5555">$testId</span><span style="color:#cd5555"> took longer than 5 seconds&#34;</span>))
+    }
+    <span style="color:#8b008b;font-weight:bold">else</span> {
+      <span style="color:#008b45;font-weight:bold">None</span>
+    }
+  }
+}</code></pre></div></p>
 
 <p>Some arbiters may want access to historical data in order to make an informed decision about the most recent test invocation.
 To easily access historical data, mix in the trait <code>CanReadHistory</code>. For example, using this mechanism, we can

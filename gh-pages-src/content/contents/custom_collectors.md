@@ -19,7 +19,12 @@ for instrumenting their code.
 
 For example, the following class records elapsed wall clock time as a measurement:
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
+import com.workday.warp.collectors.AbstractMeasurementCollector
+import com.workday.warp.persistence.CorePersistenceAware
+import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.persistence.Tables._
+
 class WallClockTimeCollector extends AbstractMeasurementCollector with CorePersistenceAware {
 
   private var timeBeforeMs: Long = _
