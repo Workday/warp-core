@@ -7,7 +7,7 @@ import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.CoreConstants
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPcaRunner}
-import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
+import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.utils.TimeUtils
@@ -39,9 +39,11 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     */
   private def tryRecordSmartThreshold[T: TestExecutionRowLikeType](threshold: Duration, testExecution: T) : Try[Unit] = {
     Try {
-      val descriptionRowId: Int = this.persistenceUtils.getTagName(CoreConstants.WARP_SPECIFICATION_FIELDS_STRING).idTagName
-      val testExecutionTagRowId: Int = this.persistenceUtils.getTestExecutionTagsRow(
-        testExecution.idTestExecution, descriptionRowId
+      val testExecutionTagRowId: Int = this.persistenceUtils.recordTestExecutionTag(
+        testExecution.idTestExecution,
+        CoreConstants.WARP_SPECIFICATION_FIELDS_STRING,
+        "",
+        isUserGenerated = false
       ).idTestExecutionTag
 
       persistenceUtils.recordTestExecutionMetaTag(testExecutionTagRowId, CoreConstants.SMART_THRESHOLD_STRING,
