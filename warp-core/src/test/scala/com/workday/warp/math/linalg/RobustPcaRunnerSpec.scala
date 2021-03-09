@@ -2,7 +2,6 @@ package com.workday.warp.math.linalg
 
 import com.workday.warp.TrialResult
 import com.workday.warp.dsl._
-import com.workday.warp.dsl.WarpMatchers._
 import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.arbiters.Ballot
 import com.workday.warp.utils.Implicits.{DecoratedDuration, DecoratedInt}
