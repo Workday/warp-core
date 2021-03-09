@@ -206,22 +206,20 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 5.0, 6.0)
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter
 
-    // before the test is added to TestExecutionTag table
-    arbiter.vote(ballot, testExecution).get shouldBe a[WarpFieldPersistenceException]
-
-    // test execution added, persistence should succeed
-    val testExecutionTagId: Int = this.persistenceUtils.recordTestExecutionTag(
-      testExecution.idTestExecution,
-      CoreConstants.WARP_SPECIFICATION_FIELDS_STRING,
-      value = "",
-      isUserGenerated = false
-    ).idTestExecutionTag
-
     arbiter.vote(ballot, testExecution) should be (None)
     arbiter.voteAndThrow(ballot, testExecution)
-    val tagDescriptionId: Int = this.persistenceUtils.getTagName(CoreConstants.SMART_THRESHOLD_STRING).idTagName
+
+    // read warp spec test execution tag
+    val tagDescriptionId: Int = this.persistenceUtils.getTagName(CoreConstants.WARP_SPECIFICATION_FIELDS_STRING).idTagName
+    val testExecutionTagId: Int = this.persistenceUtils.getTestExecutionTagsRow(
+      testExecution.idTestExecution,
+      tagDescriptionId
+    ).idTestExecutionTag
+
+    // read smart threshold test execution metatag
+    val metaTagDescriptionId: Int = this.persistenceUtils.getTagName(CoreConstants.SMART_THRESHOLD_STRING).idTagName
     this.persistenceUtils.synchronously(
-      this.persistenceUtils.testExecutionMetaTagQuery(testExecutionTagId, tagDescriptionId)
+      this.persistenceUtils.testExecutionMetaTagQuery(testExecutionTagId, metaTagDescriptionId)
     ).nonEmpty should be (true)
   }
 
