@@ -28,8 +28,8 @@ Academic papers published in other scientific fields, such as biology, place an 
       <pubDate>Mon, 02 Apr 2018 13:32:53 -0700</pubDate>
       
       <guid>https://workday.github.io/warp-core/contents/getting_started_java/</guid>
-      <description>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses to identify individual tests is a fully qualified test method signature. We refer to this as a &amp;ldquo;TestId&amp;rdquo;. Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry. The most basic example is a plain JUnit test annotated with &amp;ldquo;@WarpTest&amp;rdquo;:
-Java: import com.workday.warp.junit.WarpTest; import org.</description>
+      <description>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses to identify individual tests is a fully qualified test method signature. We refer to this as a &amp;ldquo;TestId&amp;rdquo;. To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:
+build.gradle: apply plugin: &amp;#39;scala&amp;#39; sourceCompatibility = 1.8 repositories { mavenCentral() } dependencies { testImplementation &amp;#39;com.</description>
     </item>
     
     <item>
@@ -92,9 +92,8 @@ Tags can be configured at the start of test using the DSL.</description>
       
       <guid>https://workday.github.io/warp-core/contents/runtime_configuration/</guid>
       <description>WARP has many runtime configuration options. For example, one can set the log level, or override default JDBC persistence properties.
-Configuration properties can be set using JVM system properties or by creating a configuration file.
-For example, the default database we write to is an in-memory H2 database, however the following minimal warp.properties file can be used as a starting point to write results to MySQL:
-wd.warp.jdbc.url=jdbc:mysql://localhost:3307/warp?createDatabaseIfNotExist=true&amp;amp;zeroDateTimeBehavior=convertToNull wd.warp.jdbc.password=1234 wd.warp.jdbc.user=root wd.warp.jdbc.driver=com.mysql.jdbc.Driver wd.</description>
+Configuration properties can be set (in order of decreasing precedence) using environment variables, JVM system properties, or by creating a configuration file.
+For example, the default database we write to is an in-memory H2 database, however the following minimal warp.properties file can be used as a starting point to write results to MySQL:</description>
     </item>
     
     <item>

@@ -7,7 +7,37 @@ weight: 20
 
 Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses
 to identify individual tests is a fully qualified test method signature. We refer to this as a "TestId".
+To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:
+
+build.gradle:
+{{< highlight groovy "linenos=,style=perldoc">}}
+apply plugin: 'scala'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'com.workday.warp:warp-core_2.12:5.0.1'
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
+	testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.7.0") {
+		because 'allows JUnit 3 and JUnit 4 tests to run'
+	}
+}
+
+test {
+	testLogging {
+		events 'started', 'passed'
+		showStandardStreams = true
+	}
+
+	useJUnitPlatform()
+}
+{{< /highlight >}}
+
 Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry.
+By default, warp-core will record test data in an-memory H2 database. For more information on configuring database credentials and other properties, see the section on runtime configuration [here]({{< relref "runtime_configuration.md" >}} "runtime configuration") 
 The most basic example is a plain JUnit test annotated with "@WarpTest":
 
 Java:
@@ -114,7 +144,7 @@ class ExampleSpec {
   def testId(info: TestInfo): Unit = {
     // TestIdImplicits implicit conversion
     val testId: String = info.id
-    Assertions.assertEquals("com.workday.warp.examples.ExampleTest.testId", testId)
+    Assertions.assertEquals("com.workday.warp.examples.ExampleSpec.testId", testId)
   }
 }
 {{< /highlight >}}
@@ -153,7 +183,7 @@ class ExampleSpec {
   /** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */
   @WarpTest
   def measuredWithInfo(info: WarpInfo): Unit = {
-    Assertions.assertTrue("com.workday.warp.examples.ExampleTest.measuredWithInfo", info.testId)
+    Assertions.assertTrue("com.workday.warp.examples.ExampleSpec.measuredWithInfo", info.testId)
   }
 }
 {{< /highlight >}}

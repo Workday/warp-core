@@ -247,7 +247,35 @@
     
     <p>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses
 to identify individual tests is a fully qualified test method signature. We refer to this as a &ldquo;TestId&rdquo;.
-Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry.
+To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:</p>
+
+<p>build.gradle:
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-groovy" data-lang="groovy">apply plugin: <span style="color:#cd5555">&#39;scala&#39;</span>
+sourceCompatibility = <span style="color:#b452cd">1.8</span>
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation <span style="color:#cd5555">&#39;com.workday.warp:warp-core_2.12:5.0.1&#39;</span>
+	testRuntimeOnly <span style="color:#cd5555">&#34;org.junit.jupiter:junit-jupiter-engine:5.7.0&#34;</span>
+	testRuntimeOnly(<span style="color:#cd5555">&#34;org.junit.vintage:junit-vintage-engine:5.7.0&#34;</span>) {
+		because <span style="color:#cd5555">&#39;allows JUnit 3 and JUnit 4 tests to run&#39;</span>
+	}
+}
+
+test {
+	testLogging {
+		events <span style="color:#cd5555">&#39;started&#39;</span>, <span style="color:#cd5555">&#39;passed&#39;</span>
+		showStandardStreams = <span style="color:#8b008b;font-weight:bold">true</span>
+	}
+
+	useJUnitPlatform()
+}</code></pre></div></p>
+
+<p>Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry.
+By default, warp-core will record test data in an-memory H2 database. For more information on configuring database credentials and other properties, see the section on runtime configuration <a href="https://workday.github.io/warp-core/contents/runtime_configuration/" title="runtime configuration">here</a>
 The most basic example is a plain JUnit test annotated with &ldquo;@WarpTest&rdquo;:</p>
 
 <p>Java:
@@ -342,7 +370,7 @@ for all tests. Java users can call &ldquo;TestId.fromTestInfo&rdquo; directly, w
   <span style="color:#8b008b;font-weight:bold">def</span> testId(info<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
     <span style="color:#228b22">// TestIdImplicits implicit conversion
 </span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">val</span> testId<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">String</span> = info.id
-    <span style="color:#008b45;font-weight:bold">Assertions</span>.assertEquals(<span style="color:#cd5555">&#34;com.workday.warp.examples.ExampleTest.testId&#34;</span>, testId)
+    <span style="color:#008b45;font-weight:bold">Assertions</span>.assertEquals(<span style="color:#cd5555">&#34;com.workday.warp.examples.ExampleSpec.testId&#34;</span>, testId)
   }
 }</code></pre></div></p>
 
@@ -376,7 +404,7 @@ to warp-core invocation context extensions, and will only work for tests annotat
   <span style="color:#228b22">/** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */</span>
   <span style="color:#707a7c">@WarpTest</span>
   <span style="color:#8b008b;font-weight:bold">def</span> measuredWithInfo(info<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">WarpInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
-    <span style="color:#008b45;font-weight:bold">Assertions</span>.assertTrue(<span style="color:#cd5555">&#34;com.workday.warp.examples.ExampleTest.measuredWithInfo&#34;</span>, info.testId)
+    <span style="color:#008b45;font-weight:bold">Assertions</span>.assertTrue(<span style="color:#cd5555">&#34;com.workday.warp.examples.ExampleSpec.measuredWithInfo&#34;</span>, info.testId)
   }
 }</code></pre></div></p>
 
