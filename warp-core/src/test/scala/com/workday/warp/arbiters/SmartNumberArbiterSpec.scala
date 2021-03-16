@@ -5,7 +5,6 @@ import java.sql.Timestamp
 import java.time.{Instant, LocalDate}
 import java.util.UUID
 
-import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.CoreConstants
 import com.workday.warp.TestIdImplicits.string2TestId
