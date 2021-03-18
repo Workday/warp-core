@@ -28,7 +28,7 @@ Academic papers published in other scientific fields, such as biology, place an 
       <pubDate>Mon, 02 Apr 2018 13:32:53 -0700</pubDate>
       
       <guid>https://workday.github.io/warp-core/contents/getting_started_java/</guid>
-      <description>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses to identify individual tests is a fully qualified test method signature. We refer to this as a &amp;ldquo;TestId&amp;rdquo;. To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:
+      <description>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses to identify individual tests is a fully qualified test method signature. We refer to this as a TestId. To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:
 build.gradle: apply plugin: &amp;#39;scala&amp;#39; sourceCompatibility = 1.8 repositories { mavenCentral() } dependencies { testImplementation &amp;#39;com.</description>
     </item>
     

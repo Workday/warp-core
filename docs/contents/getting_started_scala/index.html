@@ -260,10 +260,10 @@ new instances of <code>ExecutionConfig</code>:
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.dsl._</span>
 <span style="color:#8b008b;font-weight:bold">val</span> config<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">ExecutionConfig</span> = using invocations <span style="color:#b452cd">32</span> threads <span style="color:#b452cd">4</span> distribution <span style="color:#008b45;font-weight:bold">GaussianDistribution</span>(<span style="color:#b452cd">50</span>, <span style="color:#b452cd">10</span>)</code></pre></div></p>
 
-<p>Note, however, that the DSL itself manages the measurement lifecycle. Thus, we do not recommend using &ldquo;@WarpTest&rdquo; annotation
+<p>Note, however, that the DSL itself manages the measurement lifecycle. Thus, we do not recommend using <code>@WarpTest</code> annotation
 together with the DSL, as that would lead to doubly measured tests. The DSL can be especially useful in cases where users
-already make heavy use of &ldquo;BeforeEach&rdquo;/&ldquo;AfterEach&rdquo; hooks. &ldquo;@WarpTest&rdquo; annotation is implemented using JUnit before/after hooks, the order
-of which cannot be controlled. Thus, it is possible that tests using &ldquo;@WarpTest&rdquo; will have extra overhead from other hooks included in their
+already make heavy use of <code>BeforeEach</code>/<code>AfterEach</code> hooks. <code>@WarpTest</code> annotation is implemented using JUnit before/after hooks, the order
+of which cannot be controlled. Thus, it is possible that tests using <code>@WarpTest</code> will have extra overhead from other hooks included in their
 measurement metadata. The DSL is decoupled from JUnit and can be used with other JVM testing frameworks.</p>
 
 <p>Finally, a call-by name block is passed to <code>ExecutionConfig.measuring</code>:</p>

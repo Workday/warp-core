@@ -6,7 +6,7 @@ weight: 20
 ---
 
 Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses
-to identify individual tests is a fully qualified test method signature. We refer to this as a "TestId".
+to identify individual tests is a fully qualified test method signature. We refer to this as a `TestId`.
 To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:
 
 build.gradle:
@@ -38,7 +38,7 @@ test {
 
 Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry.
 By default, warp-core will record test data in an-memory H2 database. For more information on configuring database credentials and other properties, see the section on runtime configuration [here]({{< relref "runtime_configuration.md" >}} "runtime configuration") 
-The most basic example is a plain JUnit test annotated with "@WarpTest":
+The most basic example is a plain JUnit test annotated with `@WarpTest`:
 
 Java:
 {{< highlight java "linenos=, style=perldoc">}}
@@ -70,13 +70,13 @@ class ExampleSpec {
 }
 {{< /highlight >}}
 
-"@WarpTest" is a meta-annotation that combines JUnit5 "@TestTemplate" annotation with our "WarpTestExtension" JUnit extension.
+`@WarpTest` is a meta-annotation that combines JUnit5 `@TestTemplate` annotation with our `WarpTestExtension` JUnit extension.
 A JUnit test template is not directly a test case, but is rather a template designed to be invoked multiple times as dictated by
 invocation context providers.
-"WarpTestExtension" is an invocation context provider that also uses JUnit "@BeforeEach" and after hooks to insert calls into our persistence module via the "MeasurementExtension"
+`WarpTestExtension` is an invocation context provider that also uses JUnit `@BeforeEach` and after hooks to insert calls into our persistence module via the `MeasurementExtension`
 
-If your project has other constraints that preclude you from using "@TestTemplate" instead of "@Test", another possibility is
-adding the "@Measure" annotation to your existing tests, however note that this approach does not support repeated measurements or warmups. 
+If your project has other constraints that preclude you from using `@TestTemplate` instead of `@Test`, another possibility is
+adding the `@Measure` annotation to your existing tests, however note that this approach does not support repeated measurements or warmups. 
 
 Java:
 {{< highlight java "linenos=, style=perldoc" >}}
@@ -110,10 +110,10 @@ class ExampleSpec {
 {{< /highlight >}}
 
 
-Occasionally users may require usage of a lower-level api and direct access to a "TestId". At the database level, a "TestId" is 
+Occasionally users may require usage of a lower-level api and direct access to a `TestId`. At the database level, a `TestId` is 
 used as a unique test identifier, stored as a fully qualified test method name. For this use case we provide implicits
-augmenting Junit "TestInfo". A "TestInfo" is available to all JUnit tests using a default "ParameterResolver" that is automatically configured
-for all tests. Java users can call "TestId.fromTestInfo" directly, while scala users can make use of an implicit conversion:
+augmenting Junit `TestInfo`. A `TestInfo` is available to all JUnit tests using a default `ParameterResolver` that is automatically configured
+for all tests. Java users can call `TestId.fromTestInfo` directly, while scala users can make use of an implicit conversion:
 
 Java:
 {{< highlight java "linenos=, style=perldoc" >}}
@@ -149,9 +149,9 @@ class ExampleSpec {
 }
 {{< /highlight >}}
 
-Alternatively, we also provide a "ParameterResolver" that allows resolution of "WarpInfo". "WarpInfo" is similar to Junit "TestInfo", but
+Alternatively, we also provide a `ParameterResolver` that allows resolution of `WarpInfo`. `WarpInfo` is similar to Junit `TestInfo`, but
 also allows users to access metadata about current test iteration sequences. Note, however, that this parameter resolver is tightly coupled
-to warp-core invocation context extensions, and will only work for tests annotated with "@WarpTest".
+to warp-core invocation context extensions, and will only work for tests annotated with `@WarpTest`.
 
 Java:
 {{< highlight java "linenos=, style=perldoc" >}}

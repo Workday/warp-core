@@ -20,10 +20,10 @@ import com.workday.warp.dsl._
 val config: ExecutionConfig = using invocations 32 threads 4 distribution GaussianDistribution(50, 10)
 {{< /highlight >}}
 
-Note, however, that the DSL itself manages the measurement lifecycle. Thus, we do not recommend using "@WarpTest" annotation
+Note, however, that the DSL itself manages the measurement lifecycle. Thus, we do not recommend using `@WarpTest` annotation
 together with the DSL, as that would lead to doubly measured tests. The DSL can be especially useful in cases where users
-already make heavy use of "BeforeEach"/"AfterEach" hooks. "@WarpTest" annotation is implemented using JUnit before/after hooks, the order
-of which cannot be controlled. Thus, it is possible that tests using "@WarpTest" will have extra overhead from other hooks included in their
+already make heavy use of `BeforeEach`/`AfterEach` hooks. `@WarpTest` annotation is implemented using JUnit before/after hooks, the order
+of which cannot be controlled. Thus, it is possible that tests using `@WarpTest` will have extra overhead from other hooks included in their
 measurement metadata. The DSL is decoupled from JUnit and can be used with other JVM testing frameworks.
 
 Finally, a call-by name block is passed to `ExecutionConfig.measuring`:

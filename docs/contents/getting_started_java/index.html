@@ -246,7 +246,7 @@
     
     
     <p>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses
-to identify individual tests is a fully qualified test method signature. We refer to this as a &ldquo;TestId&rdquo;.
+to identify individual tests is a fully qualified test method signature. We refer to this as a <code>TestId</code>.
 To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:</p>
 
 <p>build.gradle:
@@ -276,7 +276,7 @@ test {
 
 <p>Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry.
 By default, warp-core will record test data in an-memory H2 database. For more information on configuring database credentials and other properties, see the section on runtime configuration <a href="https://workday.github.io/warp-core/contents/runtime_configuration/" title="runtime configuration">here</a>
-The most basic example is a plain JUnit test annotated with &ldquo;@WarpTest&rdquo;:</p>
+The most basic example is a plain JUnit test annotated with <code>@WarpTest</code>:</p>
 
 <p>Java:
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>;
@@ -304,13 +304,13 @@ The most basic example is a plain JUnit test annotated with &ldquo;@WarpTest&rdq
   }
 }</code></pre></div></p>
 
-<p>&rdquo;@WarpTest&rdquo; is a meta-annotation that combines JUnit5 &ldquo;@TestTemplate&rdquo; annotation with our &ldquo;WarpTestExtension&rdquo; JUnit extension.
+<p><code>@WarpTest</code> is a meta-annotation that combines JUnit5 <code>@TestTemplate</code> annotation with our <code>WarpTestExtension</code> JUnit extension.
 A JUnit test template is not directly a test case, but is rather a template designed to be invoked multiple times as dictated by
 invocation context providers.
-&ldquo;WarpTestExtension&rdquo; is an invocation context provider that also uses JUnit &ldquo;@BeforeEach&rdquo; and after hooks to insert calls into our persistence module via the &ldquo;MeasurementExtension&rdquo;</p>
+<code>WarpTestExtension</code> is an invocation context provider that also uses JUnit <code>@BeforeEach</code> and after hooks to insert calls into our persistence module via the <code>MeasurementExtension</code></p>
 
-<p>If your project has other constraints that preclude you from using &ldquo;@TestTemplate&rdquo; instead of &ldquo;@Test&rdquo;, another possibility is
-adding the &ldquo;@Measure&rdquo; annotation to your existing tests, however note that this approach does not support repeated measurements or warmups.</p>
+<p>If your project has other constraints that preclude you from using <code>@TestTemplate</code> instead of <code>@Test</code>, another possibility is
+adding the <code>@Measure</code> annotation to your existing tests, however note that this approach does not support repeated measurements or warmups.</p>
 
 <p>Java:
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.Measure</span>;
@@ -339,10 +339,10 @@ adding the &ldquo;@Measure&rdquo; annotation to your existing tests, however not
   }
 }</code></pre></div></p>
 
-<p>Occasionally users may require usage of a lower-level api and direct access to a &ldquo;TestId&rdquo;. At the database level, a &ldquo;TestId&rdquo; is
+<p>Occasionally users may require usage of a lower-level api and direct access to a <code>TestId</code>. At the database level, a <code>TestId</code> is
 used as a unique test identifier, stored as a fully qualified test method name. For this use case we provide implicits
-augmenting Junit &ldquo;TestInfo&rdquo;. A &ldquo;TestInfo&rdquo; is available to all JUnit tests using a default &ldquo;ParameterResolver&rdquo; that is automatically configured
-for all tests. Java users can call &ldquo;TestId.fromTestInfo&rdquo; directly, while scala users can make use of an implicit conversion:</p>
+augmenting Junit <code>TestInfo</code>. A <code>TestInfo</code> is available to all JUnit tests using a default <code>ParameterResolver</code> that is automatically configured
+for all tests. Java users can call <code>TestId.fromTestInfo</code> directly, while scala users can make use of an implicit conversion:</p>
 
 <p>Java:
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.TestId</span>;
@@ -374,9 +374,9 @@ for all tests. Java users can call &ldquo;TestId.fromTestInfo&rdquo; directly, w
   }
 }</code></pre></div></p>
 
-<p>Alternatively, we also provide a &ldquo;ParameterResolver&rdquo; that allows resolution of &ldquo;WarpInfo&rdquo;. &ldquo;WarpInfo&rdquo; is similar to Junit &ldquo;TestInfo&rdquo;, but
+<p>Alternatively, we also provide a <code>ParameterResolver</code> that allows resolution of <code>WarpInfo</code>. <code>WarpInfo</code> is similar to Junit <code>TestInfo</code>, but
 also allows users to access metadata about current test iteration sequences. Note, however, that this parameter resolver is tightly coupled
-to warp-core invocation context extensions, and will only work for tests annotated with &ldquo;@WarpTest&rdquo;.</p>
+to warp-core invocation context extensions, and will only work for tests annotated with <code>@WarpTest</code>.</p>
 
 <p>Java:
 <div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">package</span> <span style="color:#008b45">com.workday.warp.examples</span>;
