@@ -18,7 +18,7 @@ A hypothesis is a theory or speculation typically originating from a question:
  
 A question can be converted into a hypothesis by reformulating it as a statement.  
 
->  _A change in in X causes a change in Y._  
+>  _A change in X causes a change in Y._  
 
 A [directional hypothesis](http://methods.sagepub.com/reference/encyc-of-research-design/n114.xml) is stronger form of hypothetical
 that predicts the relationship of the change in the variables, e.g. when X increases Y
@@ -136,7 +136,7 @@ Suppose we have the two following search implementations:
 
 * Binary Search
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
 def binarySearch(numbers: Vector[Int], target: Int): Boolean = {
 
   @tailrec def helper(left: Int, right: Int): Boolean = {
@@ -155,7 +155,7 @@ def binarySearch(numbers: Vector[Int], target: Int): Boolean = {
 
 * Linear Search
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
 @tailrec private def linearSearch(numbers: Vector[Int], target: Int, i: Int = 0): Boolean = {
   if (i == numbers.length) false
   else if (numbers(i) == target) true
@@ -166,7 +166,7 @@ def binarySearch(numbers: Vector[Int], target: Int): Boolean = {
 As good computer scientists, we know that binary search will significantly outperform the linear variant on sufficiently
 large datasets. Here is how we could elucidate that fact using WARP to capture test statistics:
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
 @Test
 def hypothesisExample(): Unit = {
   // randomly generate a dataset, and a collection of numbers to search for.

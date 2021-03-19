@@ -33,7 +33,7 @@ object AnnotationReader extends StackTraceFilter {
   }
 
   /**
-    * Reads the max response time from the telemetron [[Required]] annotation.
+    * Reads the max response time from the [[Required]] annotation.
     *
     * @param testId fully qualified name of the junit test method
     * @return max response time as a [[Duration]] for the test we are about to invoke

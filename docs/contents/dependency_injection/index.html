@@ -82,14 +82,14 @@
       <li data-nav-id="/contents/getting_started_java/" class="dd-item">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
-            Getting Started (Java)
+            Getting Started
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
       <li data-nav-id="/contents/getting_started_scala/" class="dd-item">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
-            Getting Started (Scala DSL)
+            Scala DSL
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -139,6 +139,13 @@
         <div>
           <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
             Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/gatling/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/gatling/">
+            Measuring Gatling Simulations
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -196,8 +203,8 @@
     <option value="/contents/" >
    Contents</option> 
       <option value="/contents/intro/" >- Introduction</option>
-      <option value="/contents/getting_started_java/" >- Getting Started (Java)</option>
-      <option value="/contents/getting_started_scala/" >- Getting Started (Scala DSL)</option>
+      <option value="/contents/getting_started_java/" >- Getting Started</option>
+      <option value="/contents/getting_started_scala/" >- Scala DSL</option>
       <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
       <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
       <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
@@ -205,6 +212,7 @@
       <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
       <option value="/contents/persistence/" >- Persistence</option>
       <option value="/contents/dependency_injection/"  selected>- Dependency Injection</option>
+      <option value="/contents/gatling/" >- Measuring Gatling Simulations</option>
       <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
       <option value="/contents/hypothesis_testing/" >- Case Study: Hypothesis Testing</option>
       <option value="/contents/heap_histogram/" >- Case Study: Monitoring Heap Histogram</option>
@@ -247,7 +255,7 @@ and provide an extension hook for users to bind additional <a href="https://gith
 However, advanced users can implement their own bindings in a new module and set the system property <code>wd.warp.inject.module</code>
 with the fully qualified value of their module class.</p>
 
-<p>Internally, we use an augmented <code>MeasurementCollectionController</code> and an extended version of <code>CoreWarpPropery</code>.</p>
+<p>Internally, we use an augmented <code>MeasurementCollectionController</code>, a slightly different schema with different implementations for <code>PersistenceUtils</code>, and an extended version of <code>CoreWarpPropery</code>.</p>
 
 
     
@@ -255,7 +263,7 @@ with the fully qualified value of their module class.</p>
         <div class="chevrons">
     <div id="navigation">
 <a class="nav nav-prev" href="https://workday.github.io/warp-core/contents/persistence/" title="Persistence"> <i class="fa fa-chevron-left"></i><label>Persistence</label></a>
-    <a class="nav nav-next" href="https://workday.github.io/warp-core/contents/anomaly_detection/" title="Case Study: RPCA Anomaly Detection" style="margin-right: 0px;"><label>Case Study: RPCA Anomaly Detection</label><i class="fa fa-chevron-right"></i></a></div>
+    <a class="nav nav-next" href="https://workday.github.io/warp-core/contents/gatling/" title="Measuring Gatling Simulations" style="margin-right: 0px;"><label>Measuring Gatling Simulations</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>

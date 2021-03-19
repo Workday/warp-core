@@ -82,14 +82,14 @@
       <li data-nav-id="/contents/getting_started_java/" class="dd-item">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
-            Getting Started (Java)
+            Getting Started
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
       <li data-nav-id="/contents/getting_started_scala/" class="dd-item">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
-            Getting Started (Scala DSL)
+            Scala DSL
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -139,6 +139,13 @@
         <div>
           <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
             Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/gatling/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/gatling/">
+            Measuring Gatling Simulations
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -196,8 +203,8 @@
     <option value="/contents/" >
    Contents</option> 
       <option value="/contents/intro/" >- Introduction</option>
-      <option value="/contents/getting_started_java/" >- Getting Started (Java)</option>
-      <option value="/contents/getting_started_scala/" >- Getting Started (Scala DSL)</option>
+      <option value="/contents/getting_started_java/" >- Getting Started</option>
+      <option value="/contents/getting_started_scala/" >- Scala DSL</option>
       <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
       <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
       <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
@@ -205,6 +212,7 @@
       <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
       <option value="/contents/persistence/" >- Persistence</option>
       <option value="/contents/dependency_injection/" >- Dependency Injection</option>
+      <option value="/contents/gatling/" >- Measuring Gatling Simulations</option>
       <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
       <option value="/contents/hypothesis_testing/"  selected>- Case Study: Hypothesis Testing</option>
       <option value="/contents/heap_histogram/" >- Case Study: Monitoring Heap Histogram</option>
@@ -256,7 +264,7 @@ assist users in evaluating their experimental hypotheses.</p>
 <p>A question can be converted into a hypothesis by reformulating it as a statement.</p>
 
 <blockquote>
-<p><em>A change in in X causes a change in Y.</em></p>
+<p><em>A change in X causes a change in Y.</em></p>
 </blockquote>
 
 <p>A <a href="http://methods.sagepub.com/reference/encyc-of-research-design/n114.xml">directional hypothesis</a> is stronger form of hypothetical
@@ -387,62 +395,62 @@ to discriminate our series: <em>binary</em>|<em>linear</em></p>
 <li>Binary Search</li>
 </ul>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">def</span> <span style="color:#111">binarySearch</span><span style="color:#f92672">(</span><span style="color:#111">numbers</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Vector</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Int</span><span style="color:#f92672">],</span> <span style="color:#111">target</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Boolean</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">def</span> binarySearch(numbers<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Vector</span>[<span style="color:#00688b;font-weight:bold">Int</span>], target<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span> = {
 
-  <span style="color:#75af00">@tailrec</span> <span style="color:#00a8c8">def</span> <span style="color:#111">helper</span><span style="color:#f92672">(</span><span style="color:#111">left</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span> <span style="color:#111">right</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Boolean</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-    <span style="color:#00a8c8">val</span> <span style="color:#111">mid</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#111">left</span> <span style="color:#f92672">+</span> <span style="color:#f92672">((</span><span style="color:#111">right</span> <span style="color:#f92672">-</span> <span style="color:#111">left</span><span style="color:#f92672">)</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">)</span>
-    <span style="color:#00a8c8">val</span> <span style="color:#111">midElement</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#111">numbers</span><span style="color:#f92672">(</span><span style="color:#111">mid</span><span style="color:#f92672">)</span>
+  <span style="color:#707a7c">@tailrec</span> <span style="color:#8b008b;font-weight:bold">def</span> helper(left<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>, right<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span> = {
+    <span style="color:#8b008b;font-weight:bold">val</span> mid<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span> = left + ((right - left) / <span style="color:#b452cd">2</span>)
+    <span style="color:#8b008b;font-weight:bold">val</span> midElement<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span> = numbers(mid)
 
-    <span style="color:#00a8c8">if</span> <span style="color:#f92672">(</span><span style="color:#111">right</span> <span style="color:#f92672">-</span> <span style="color:#111">left</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">false</span>
-    <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">if</span> <span style="color:#f92672">(</span><span style="color:#111">midElement</span> <span style="color:#f92672">&lt;</span> <span style="color:#111">target</span><span style="color:#f92672">)</span> <span style="color:#111">helper</span><span style="color:#f92672">(</span><span style="color:#111">left</span><span style="color:#f92672">,</span> <span style="color:#111">mid</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
-    <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">if</span> <span style="color:#f92672">(</span><span style="color:#111">midElement</span> <span style="color:#f92672">==</span> <span style="color:#111">target</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">true</span>
-    <span style="color:#00a8c8">else</span> <span style="color:#111">helper</span><span style="color:#f92672">(</span><span style="color:#111">mid</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#111">right</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">}</span>
+    <span style="color:#8b008b;font-weight:bold">if</span> (right - left &lt; <span style="color:#b452cd">1</span>) <span style="color:#8b008b;font-weight:bold">false</span>
+    <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (midElement &lt; target) helper(left, mid - <span style="color:#b452cd">1</span>)
+    <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (midElement == target) <span style="color:#8b008b;font-weight:bold">true</span>
+    <span style="color:#8b008b;font-weight:bold">else</span> helper(mid + <span style="color:#b452cd">1</span>, right)
+  }
 
-  <span style="color:#111">helper</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">,</span> <span style="color:#111">numbers</span><span style="color:#f92672">.</span><span style="color:#111">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
-<span style="color:#f92672">}</span></code></pre></div>
+  helper(<span style="color:#b452cd">0</span>, numbers.length - <span style="color:#b452cd">1</span>)
+}</code></pre></div>
 
 <ul>
 <li>Linear Search</li>
 </ul>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@tailrec</span> <span style="color:#00a8c8">private</span> <span style="color:#00a8c8">def</span> <span style="color:#111">linearSearch</span><span style="color:#f92672">(</span><span style="color:#111">numbers</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Vector</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Int</span><span style="color:#f92672">],</span> <span style="color:#111">target</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span><span style="color:#f92672">,</span> <span style="color:#111">i</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Boolean</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-  <span style="color:#00a8c8">if</span> <span style="color:#f92672">(</span><span style="color:#111">i</span> <span style="color:#f92672">==</span> <span style="color:#111">numbers</span><span style="color:#f92672">.</span><span style="color:#111">length</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">false</span>
-  <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">if</span> <span style="color:#f92672">(</span><span style="color:#111">numbers</span><span style="color:#f92672">(</span><span style="color:#111">i</span><span style="color:#f92672">)</span> <span style="color:#f92672">==</span> <span style="color:#111">target</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">true</span>
-  <span style="color:#00a8c8">else</span> <span style="color:#111">linearSearch</span><span style="color:#f92672">(</span><span style="color:#111">numbers</span><span style="color:#f92672">,</span> <span style="color:#111">target</span><span style="color:#f92672">,</span> <span style="color:#111">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
-<span style="color:#f92672">}</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@tailrec</span> <span style="color:#8b008b;font-weight:bold">private</span> <span style="color:#8b008b;font-weight:bold">def</span> linearSearch(numbers<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Vector</span>[<span style="color:#00688b;font-weight:bold">Int</span>], target<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>, i<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span> = <span style="color:#b452cd">0</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span> = {
+  <span style="color:#8b008b;font-weight:bold">if</span> (i == numbers.length) <span style="color:#8b008b;font-weight:bold">false</span>
+  <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (numbers(i) == target) <span style="color:#8b008b;font-weight:bold">true</span>
+  <span style="color:#8b008b;font-weight:bold">else</span> linearSearch(numbers, target, i + <span style="color:#b452cd">1</span>)
+}</code></pre></div>
 
 <p>As good computer scientists, we know that binary search will significantly outperform the linear variant on sufficiently
 large datasets. Here is how we could elucidate that fact using WARP to capture test statistics:</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
-<span style="color:#00a8c8">def</span> <span style="color:#111">hypothesisExample</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-  <span style="color:#75715e">// randomly generate a dataset, and a collection of numbers to search for.
-</span><span style="color:#75715e"></span>  <span style="color:#00a8c8">val</span> <span style="color:#111">dataset</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Vector</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Int</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Vector</span><span style="color:#f92672">.</span><span style="color:#111">fill</span><span style="color:#f92672">(</span><span style="color:#ae81ff">10000000</span><span style="color:#f92672">)(</span><span style="color:#75af00">Random</span><span style="color:#f92672">.</span><span style="color:#111">nextInt</span><span style="color:#f92672">(</span><span style="color:#ae81ff">100</span><span style="color:#f92672">)).</span><span style="color:#111">sorted</span>
-  <span style="color:#00a8c8">val</span> <span style="color:#111">targets</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Seq</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Int</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">List</span><span style="color:#f92672">.</span><span style="color:#111">fill</span><span style="color:#f92672">(</span><span style="color:#ae81ff">10</span><span style="color:#f92672">)(</span><span style="color:#75af00">Random</span><span style="color:#f92672">.</span><span style="color:#111">nextInt</span><span style="color:#f92672">(</span><span style="color:#ae81ff">100</span><span style="color:#f92672">))</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@Test</span>
+<span style="color:#8b008b;font-weight:bold">def</span> hypothesisExample()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+  <span style="color:#228b22">// randomly generate a dataset, and a collection of numbers to search for.
+</span><span style="color:#228b22"></span>  <span style="color:#8b008b;font-weight:bold">val</span> dataset<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Vector</span>[<span style="color:#00688b;font-weight:bold">Int</span>] <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#008b45;font-weight:bold">Vector</span>.fill(<span style="color:#b452cd">10000000</span>)(<span style="color:#008b45;font-weight:bold">Random</span>.nextInt(<span style="color:#b452cd">100</span>)).sorted
+  <span style="color:#8b008b;font-weight:bold">val</span> targets<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Seq</span>[<span style="color:#00688b;font-weight:bold">Int</span>] <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#008b45;font-weight:bold">List</span>.fill(<span style="color:#b452cd">10</span>)(<span style="color:#008b45;font-weight:bold">Random</span>.nextInt(<span style="color:#b452cd">100</span>))
 
-  <span style="color:#75715e">// run both search algorithms with the DSL.
-</span><span style="color:#75715e"></span>  <span style="color:#00a8c8">val</span> <span style="color:#111">linearResults</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Seq</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TrialResult</span><span style="color:#f92672">[</span><span style="color:#00a8c8">_</span><span style="color:#f92672">]]</span> <span style="color:#00a8c8">=</span> <span style="color:#111">using</span> <span style="color:#111">only</span> <span style="color:#111">defaults</span> <span style="color:#111">warmups</span> <span style="color:#ae81ff">5</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">30</span> <span style="color:#111">tags</span> <span style="color:#f92672">{</span>
-    <span style="color:#75af00">List</span><span style="color:#f92672">(</span><span style="color:#75af00">ExecutionTag</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;search-type&#34;</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;linear&#34;</span><span style="color:#f92672">))</span>
-  <span style="color:#f92672">}</span> <span style="color:#111">measure</span> <span style="color:#f92672">{</span>
-    <span style="color:#111">targets</span><span style="color:#f92672">.</span><span style="color:#111">foreach</span><span style="color:#f92672">(</span><span style="color:#111">i</span> <span style="color:#00a8c8">=&gt;</span> <span style="color:#111">linearSearch</span><span style="color:#f92672">(</span><span style="color:#111">dataset</span><span style="color:#f92672">,</span> <span style="color:#111">i</span><span style="color:#f92672">))</span>
-  <span style="color:#f92672">}</span>
-  <span style="color:#00a8c8">val</span> <span style="color:#111">binaryResults</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Seq</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TrialResult</span><span style="color:#f92672">[</span><span style="color:#00a8c8">_</span><span style="color:#f92672">]]</span> <span style="color:#00a8c8">=</span> <span style="color:#111">using</span> <span style="color:#111">only</span> <span style="color:#111">defaults</span> <span style="color:#111">warmups</span> <span style="color:#ae81ff">5</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">30</span> <span style="color:#111">tags</span> <span style="color:#f92672">{</span>
-    <span style="color:#75af00">List</span><span style="color:#f92672">(</span><span style="color:#75af00">ExecutionTag</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;search-type&#34;</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;binary&#34;</span><span style="color:#f92672">))</span>
-  <span style="color:#f92672">}</span> <span style="color:#111">measure</span> <span style="color:#f92672">{</span>
-    <span style="color:#111">targets</span><span style="color:#f92672">.</span><span style="color:#111">foreach</span><span style="color:#f92672">(</span><span style="color:#111">i</span> <span style="color:#00a8c8">=&gt;</span> <span style="color:#111">binarySearch</span><span style="color:#f92672">(</span><span style="color:#111">dataset</span><span style="color:#f92672">,</span> <span style="color:#111">i</span><span style="color:#f92672">))</span>
-  <span style="color:#f92672">}</span>
+  <span style="color:#228b22">// run both search algorithms with the DSL.
+</span><span style="color:#228b22"></span>  <span style="color:#8b008b;font-weight:bold">val</span> linearResults<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Seq</span>[<span style="color:#00688b;font-weight:bold">TrialResult</span>[<span style="color:#8b008b;font-weight:bold">_</span>]] <span style="color:#8b008b;font-weight:bold">=</span> using only defaults warmups <span style="color:#b452cd">5</span> invocations <span style="color:#b452cd">30</span> tags {
+    <span style="color:#008b45;font-weight:bold">List</span>(<span style="color:#008b45;font-weight:bold">ExecutionTag</span>(<span style="color:#cd5555">&#34;search-type&#34;</span>, <span style="color:#cd5555">&#34;linear&#34;</span>))
+  } measure {
+    targets.foreach(i <span style="color:#8b008b;font-weight:bold">=&gt;</span> linearSearch(dataset, i))
+  }
+  <span style="color:#8b008b;font-weight:bold">val</span> binaryResults<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Seq</span>[<span style="color:#00688b;font-weight:bold">TrialResult</span>[<span style="color:#8b008b;font-weight:bold">_</span>]] <span style="color:#8b008b;font-weight:bold">=</span> using only defaults warmups <span style="color:#b452cd">5</span> invocations <span style="color:#b452cd">30</span> tags {
+    <span style="color:#008b45;font-weight:bold">List</span>(<span style="color:#008b45;font-weight:bold">ExecutionTag</span>(<span style="color:#cd5555">&#34;search-type&#34;</span>, <span style="color:#cd5555">&#34;binary&#34;</span>))
+  } measure {
+    targets.foreach(i <span style="color:#8b008b;font-weight:bold">=&gt;</span> binarySearch(dataset, i))
+  }
 
-  <span style="color:#75715e">// extract wall-clock times for each trial
-</span><span style="color:#75715e"></span>  <span style="color:#00a8c8">val</span> <span style="color:#111">linearTimes</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Array</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Double</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#111">linearResults</span><span style="color:#f92672">.</span><span style="color:#111">map</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span><span style="color:#f92672">.</span><span style="color:#111">maybeTestExecution</span><span style="color:#f92672">.</span><span style="color:#111">get</span><span style="color:#f92672">.</span><span style="color:#111">responseTime</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span><span style="color:#f92672">).</span><span style="color:#111">toArray</span>
-  <span style="color:#00a8c8">val</span> <span style="color:#111">binaryTimes</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Array</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Double</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#111">binaryResults</span><span style="color:#f92672">.</span><span style="color:#111">map</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span><span style="color:#f92672">.</span><span style="color:#111">maybeTestExecution</span><span style="color:#f92672">.</span><span style="color:#111">get</span><span style="color:#f92672">.</span><span style="color:#111">responseTime</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span><span style="color:#f92672">).</span><span style="color:#111">toArray</span>
+  <span style="color:#228b22">// extract wall-clock times for each trial
+</span><span style="color:#228b22"></span>  <span style="color:#8b008b;font-weight:bold">val</span> linearTimes<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Array</span>[<span style="color:#00688b;font-weight:bold">Double</span>] <span style="color:#8b008b;font-weight:bold">=</span> linearResults.map(<span style="color:#8b008b;font-weight:bold">_</span>.maybeTestExecution.get.responseTime * <span style="color:#b452cd">1000</span>).toArray
+  <span style="color:#8b008b;font-weight:bold">val</span> binaryTimes<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Array</span>[<span style="color:#00688b;font-weight:bold">Double</span>] <span style="color:#8b008b;font-weight:bold">=</span> binaryResults.map(<span style="color:#8b008b;font-weight:bold">_</span>.maybeTestExecution.get.responseTime * <span style="color:#b452cd">1000</span>).toArray
 
-  <span style="color:#75715e">// conduct stats test and obtain p-value
-</span><span style="color:#75715e"></span>  <span style="color:#00a8c8">val</span> <span style="color:#111">statTestResult</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Option</span><span style="color:#f92672">[</span><span style="color:#00a8c8">AllRegressionStatTestResults</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">TwoSampleRegressionTest</span><span style="color:#f92672">.</span><span style="color:#111">testDifferenceOfMeans</span><span style="color:#f92672">(</span>
-    <span style="color:#111">binaryTimes</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;binary search&#34;</span><span style="color:#f92672">,</span> <span style="color:#111">linearTimes</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;linear search&#34;</span>
-  <span style="color:#f92672">)</span>
-  <span style="color:#00a8c8">val</span> <span style="color:#111">pValue</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Double</span> <span style="color:#f92672">=</span> <span style="color:#111">statTestResult</span><span style="color:#f92672">.</span><span style="color:#111">get</span><span style="color:#f92672">.</span><span style="color:#111">regressionTest</span><span style="color:#f92672">.</span><span style="color:#111">pValue</span>
-<span style="color:#f92672">}</span></code></pre></div>
+  <span style="color:#228b22">// conduct stats test and obtain p-value
+</span><span style="color:#228b22"></span>  <span style="color:#8b008b;font-weight:bold">val</span> statTestResult<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Option</span>[<span style="color:#00688b;font-weight:bold">AllRegressionStatTestResults</span>] <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#008b45;font-weight:bold">TwoSampleRegressionTest</span>.testDifferenceOfMeans(
+    binaryTimes, <span style="color:#cd5555">&#34;binary search&#34;</span>, linearTimes, <span style="color:#cd5555">&#34;linear search&#34;</span>
+  )
+  <span style="color:#8b008b;font-weight:bold">val</span> pValue<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Double</span> = statTestResult.get.regressionTest.pValue
+}</code></pre></div>
 
 <p>Our experiment creates a randomly generated collection of 10 million integers, each in the range (0, 99). We evaluate each search
 algorithm by repeatedly searching for elements in another randomly generated sequence. We tag invocations

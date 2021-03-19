@@ -30,7 +30,7 @@ We make heavy use of the slick code generator for generating boilerplate implici
 
 For example, the following generated case class is used to represent a single test execution:
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
 case class TestExecutionRow(override val idTestExecution: Int,
                             override val idTestDefinition: Int, 
                             override val idBuild: Int, 
@@ -38,7 +38,7 @@ case class TestExecutionRow(override val idTestExecution: Int,
                             override val responseTime: Double, 
                             override val responseTimeRequirement: Double, 
                             override val startTime: java.sql.Timestamp, 
-                            override val endTime: java.sql.Timestamp)
+                            override val endTime: java.sql.Timestamp) extends TestExecutionRowWrapper(idTestExecution, idTestDefinition, idBuild, passed, responseTime, responseTimeRequirement, startTime, endTime)
 {{< /highlight >}}
 
 ## Queries
@@ -50,7 +50,7 @@ to obtain an instance of `CorePersistenceUtils`
 
 For example, the `createTestExecution` method is used to write a record of a single test execution:
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
 /**
   * Creates, inserts, and returns a [[TestExecutionRowLike]]
   *
@@ -60,15 +60,15 @@ For example, the `createTestExecution` method is used to write a record of a sin
   * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
   * @return a [[TestExecutionRowLike]] with the given parameters.
   */
-override def createTestExecution(testId: String,
-					             timeStarted: Date,
+override def createTestExecution(testId: TestId,
+					             timeStarted: Instant,
 					             responseTime: Double,
 					    		 maxResponseTime: Double): TestExecutionRowLike
 {{< /highlight >}}
 
 Similarly, the `recordMeasurement` method is used to persist a measurement obtained for a given test execution.
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
 /**
   * Persists generic measurements in the Measurement table. Looks up the MeasurementName corresponding to
   * `name`, creates a new Measurement with the appropriate fields set.

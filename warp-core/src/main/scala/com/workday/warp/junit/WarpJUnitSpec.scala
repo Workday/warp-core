@@ -1,5 +1,6 @@
 package com.workday.warp.junit
 
+import com.workday.warp.dsl.WarpMatchers
 import com.workday.warp.scalatest.TryMatchers
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.{Inside, Inspectors, OptionValues}
@@ -16,6 +17,7 @@ import org.scalatestplus.junit.{AssertionsForJUnit, JUnitSuite}
   */
 trait WarpJUnitSpec extends JUnitSuite with Matchers
                                        with TryMatchers
+                                       with WarpMatchers
                                        with OptionValues
                                        with Inside
                                        with Inspectors

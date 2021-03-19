@@ -46,13 +46,13 @@ value that would be flagged as anomalous. This derived threshold is recorded as 
 making the arbitration process easier to reason about than using a raw `RobustPcaArbiter`.
 
 Internally, we use RPCA daily to detect anomalies in an online manner for test executions.
-This chart illustrates how the detected anomalies can look over time:
+This chart is taken from an internal dashboard and illustrates how the detected anomalies can look over time:
 {{< figure src="/images/rpca.png" >}}
 
 
 This code snippet illustrates how the `RobustPcaArbiter` can be used with an experiment:
 
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
 @Test
 def rpcaExample(): Unit = {
   using invocations 20 arbiters { 
@@ -80,7 +80,7 @@ a sustained performance degradation will quickly be considered normal.
 To remedy this, we developed a novel extension to RPCA called Double RPCA. This algorithm
 features an "extended training phase" where only past normal measurements are used to determine
 the current threshold value. One intuitive way to grasp the effects of this modification is to say 
-that it "prevents Stockholm Syndrome".
+that it, roughly speaking, "prevents Stockholm Syndrome".
 
 This variant is more strict with respect to sustained test performance degradation,
 and can lead to increased false positive rates over extended periods of time. This algorithm is a good fit

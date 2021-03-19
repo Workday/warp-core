@@ -8,7 +8,12 @@ weight: 50
 An `Arbiter` defines a `vote` method that allows us to implement custom failure criteria for a given test execution.
 
 For example, the following `Arbiter` implementation fails a test if it took longer than 5 seconds:
-{{< highlight scala "linenos=" >}}
+{{< highlight scala "linenos=,style=perldoc" >}}
+import com.workday.warp.arbiters.ArbiterLike
+import com.workday.warp.persistence.CorePersistenceAware
+import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.persistence.Tables._
+
 class ResponseTimeArbiter extends ArbiterLike with CorePersistenceAware {
 
   /**

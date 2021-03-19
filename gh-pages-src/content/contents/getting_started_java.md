@@ -1,78 +1,189 @@
 ---
-title: "Getting Started (Java)"
+title: "Getting Started"
 date: 2018-04-02T13:32:53-07:00
 draft: true
 weight: 20
 ---
 
-The recommended way to interact with WARP is through the Scala DSL. 
-The Scala DSL is more rich-featured,
-however, we also support calling a subset of our functionality through a Java API called Telemetron.
-Telemetron is based on annotations and JUnit [@Rule](https://junit.org/junit4/javadoc/4.12/org/junit/Rule.html). 
+Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses
+to identify individual tests is a fully qualified test method signature. We refer to this as a `TestId`.
+To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:
 
-Each facet of WARP functionality is implemented as a separate rule,
-and we use a [RuleChain](https://junit.org/junit4/javadoc/4.12/org/junit/rules/RuleChain.html)
-to ensure the rules are applied in the correct order.
+build.gradle:
+{{< highlight groovy "linenos=,style=perldoc">}}
+apply plugin: 'scala'
+sourceCompatibility = 1.8
 
-To get started, your JUnit class can either:
+repositories {
+    mavenCentral()
+}
 
-  * declare an `@Rule` with a `TelemetronRule` instance.
-  * extend the abstract class `TelemetronJUnitSpec`.
+dependencies {
+    testImplementation 'com.workday.warp:warp-core_2.12:5.0.1'
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
+	testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.7.0") {
+		because 'allows JUnit 3 and JUnit 4 tests to run'
+	}
+}
 
-## Telemetron Java Annotations
+test {
+	testLogging {
+		events 'started', 'passed'
+		showStandardStreams = true
+	}
 
-  * `@Schedule` is used to configure the measurement framework with information about how the test should be invoked, and
-  supports several optional configuration parameters:
-    - `invocations` indicates how many times the test should be invoked.
-    - `warmupInvocations` indicates how many times the test should be invoked without being measured or having requirements
-      checked.
-    - `threads` indicates the number of concurrent threads the test will be executed on. Note that we do not create
-      multiple instances of the test class. References to shared mutable state must be synchronized.
-
-  * `@BeforeOnce` and `@AfterOnce` provide a hook for one-time setup/teardown JUnit methods.
-  Telemetron honors the `@Before`/`@After` JUnit contract: an `@Before` method should be invoked before each test invocation.
-  However, some use cases (especially using `@Schedule` with multiple invocations and threads) require the ability to perform
-  a single setup/teardown cycle for the entire test schedule.
-  Methods annotated with `@BeforeOnce` or `@AfterOnce` will be invoked a single time at the start/end 
-  of the test schedule for each test method.
-
-  * `@Distribution` is used to conduct forms of load testing.
-  Test methods with multiple invocations can be further modified with this annotation to artificially inject latency
-  between each test invocation. 
-
-  * `@Measure` is used to specify that response time measurements for the test method should be persisted.
-
-  * `@Required` is used to specify a response time threshold that your test must meet.
-
-Putting it all together, we can write a test that is invoked 32 times on a small thread pool. Each individual invocation
-must complete within 1 second. A Gaussian distribution with mean and standard deviation of 50 and 10 milliseconds is used
-to inject artificial latency between each invocation.
-{{< highlight java "linenos=" >}}
-@Test
-@Schedule(
-	invocations = 32,
-	threads = 4,
-	distribution = @Distribution(
-		clazz = GaussianDistribution.class,
-		parameters = {50, 10}
-	)
-)
-@Measure
-@Required(maxResponseTime = 1)
-public void exampleTest() {
-	Logger.info("executing test");
+	useJUnitPlatform()
 }
 {{< /highlight >}}
 
-When the run has completed, we can see some rudimentary statistics printed to stdout:
-```
-samples:    32
-min:        0.000
-max:        0.037
-median:     0.001
-avg:        0.005
-geomean:    0.000
-std dev:    0.012
-skewness:   2.361
-kurtosis:   3.855
-```
+Warp-core is implemented using the JUnit5 extension model. Existing JUnit tests can be annotated to repeatedly execute or record telemetry.
+By default, warp-core will record test data in an-memory H2 database. For more information on configuring database credentials and other properties, see the section on runtime configuration [here]({{< relref "runtime_configuration.md" >}} "runtime configuration") 
+The most basic example is a plain JUnit test annotated with `@WarpTest`:
+
+Java:
+{{< highlight java "linenos=, style=perldoc">}}
+import com.workday.warp.junit.WarpTest;
+import org.junit.jupiter.api.Assertions;
+
+public class ExampleTest {
+
+    /** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials. */
+    @WarpTest(warmups = 1, trials = 2)
+    public void measured() {
+        Assertions.assertEquals(2, 1 + 1);
+    }
+}
+{{< /highlight >}}
+
+Scala:
+{{< highlight scala "linenos=, style=perldoc" >}}
+import com.workday.warp.junit.WarpTest
+import org.junit.jupiter.api.Assertions
+
+class ExampleSpec {
+
+  /** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials. */
+  @WarpTest(warmups = 1, trials = 2)
+  def measured(): Unit = {
+    Assertions.assertEquals(2, 1 + 1)
+  }
+}
+{{< /highlight >}}
+
+`@WarpTest` is a meta-annotation that combines JUnit5 `@TestTemplate` annotation with our `WarpTestExtension` JUnit extension.
+A JUnit test template is not directly a test case, but is rather a template designed to be invoked multiple times as dictated by
+invocation context providers.
+`WarpTestExtension` is an invocation context provider that also uses JUnit `@BeforeEach` and after hooks to insert calls into our persistence module via the `MeasurementExtension`
+
+If your project has other constraints that preclude you from using `@TestTemplate` instead of `@Test`, another possibility is
+adding the `@Measure` annotation to your existing tests, however note that this approach does not support repeated measurements or warmups. 
+
+Java:
+{{< highlight java "linenos=, style=perldoc" >}}
+import com.workday.warp.junit.Measure;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class ExampleTest {
+
+    @Test
+    @Measure
+    public void measureExtension() {
+        Assertions.assertEquals(2, 1 + 1);
+    }
+}
+{{< /highlight >}}
+
+Scala:
+{{< highlight scala "linenos=, style=perldoc" >}}
+import com.workday.warp.junit.Measure
+import org.junit.jupiter.api.{Assertions, Test}
+
+class ExampleSpec {
+
+  @Test
+  @Measure
+  def measureExtension(): Unit = {
+    Assertions.assertEquals(2, 1 + 1)
+  }
+}
+{{< /highlight >}}
+
+
+Occasionally users may require usage of a lower-level api and direct access to a `TestId`. At the database level, a `TestId` is 
+used as a unique test identifier, stored as a fully qualified test method name. For this use case we provide implicits
+augmenting Junit `TestInfo`. A `TestInfo` is available to all JUnit tests using a default `ParameterResolver` that is automatically configured
+for all tests. Java users can call `TestId.fromTestInfo` directly, while scala users can make use of an implicit conversion:
+
+Java:
+{{< highlight java "linenos=, style=perldoc" >}}
+import com.workday.warp.TestId;
+import com.workday.warp.junit.WarpTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.TestInfo;
+
+public class ExampleTest {
+
+    @WarpTest
+    public void testId(final TestInfo info) {
+        final String id = TestId.fromTestInfo(info).id();
+        Assertions.assertTrue("com.workday.warp.examples.ExampleTest.testId".equals(id));
+    }
+}
+{{< /highlight >}}
+
+Scala:
+{{< highlight scala "linenos=, style=perldoc" >}}
+import com.workday.warp.TestIdImplicits._
+import com.workday.warp.junit.WarpTest
+import org.junit.jupiter.api.{Assertions, TestInfo}
+
+class ExampleSpec {
+
+  @WarpTest
+  def testId(info: TestInfo): Unit = {
+    // TestIdImplicits implicit conversion
+    val testId: String = info.id
+    Assertions.assertEquals("com.workday.warp.examples.ExampleSpec.testId", testId)
+  }
+}
+{{< /highlight >}}
+
+Alternatively, we also provide a `ParameterResolver` that allows resolution of `WarpInfo`. `WarpInfo` is similar to Junit `TestInfo`, but
+also allows users to access metadata about current test iteration sequences. Note, however, that this parameter resolver is tightly coupled
+to warp-core invocation context extensions, and will only work for tests annotated with `@WarpTest`.
+
+Java:
+{{< highlight java "linenos=, style=perldoc" >}}
+package com.workday.warp.examples;
+
+import com.workday.warp.junit.WarpTest;
+import org.junit.jupiter.api.Assertions;
+
+public class ExampleTest {
+
+    /** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */
+    @WarpTest
+    public void measuredWithInfo(final WarpInfo info) {
+        Assertions.assertEquals("com.workday.warp.examples.ExampleTest.measuredWithInfo", info.testId());
+    }
+}
+{{< /highlight >}}
+
+
+Scala:
+{{< highlight scala "linenos=, style=perldoc" >}}
+package com.workday.warp.examples 
+
+import com.workday.warp.junit.WarpTest
+import org.junit.jupiter.api.Assertions
+
+class ExampleSpec {
+
+  /** Annotated WarpTests can also use the same parameter provider mechanism to pass WarpInfo. */
+  @WarpTest
+  def measuredWithInfo(info: WarpInfo): Unit = {
+    Assertions.assertTrue("com.workday.warp.examples.ExampleSpec.measuredWithInfo", info.testId)
+  }
+}
+{{< /highlight >}}

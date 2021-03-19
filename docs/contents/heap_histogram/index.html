@@ -82,14 +82,14 @@
       <li data-nav-id="/contents/getting_started_java/" class="dd-item">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
-            Getting Started (Java)
+            Getting Started
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
       <li data-nav-id="/contents/getting_started_scala/" class="dd-item">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
-            Getting Started (Scala DSL)
+            Scala DSL
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -139,6 +139,13 @@
         <div>
           <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
             Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/gatling/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/gatling/">
+            Measuring Gatling Simulations
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -196,8 +203,8 @@
     <option value="/contents/" >
    Contents</option> 
       <option value="/contents/intro/" >- Introduction</option>
-      <option value="/contents/getting_started_java/" >- Getting Started (Java)</option>
-      <option value="/contents/getting_started_scala/" >- Getting Started (Scala DSL)</option>
+      <option value="/contents/getting_started_java/" >- Getting Started</option>
+      <option value="/contents/getting_started_scala/" >- Scala DSL</option>
       <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
       <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
       <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
@@ -205,6 +212,7 @@
       <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
       <option value="/contents/persistence/" >- Persistence</option>
       <option value="/contents/dependency_injection/" >- Dependency Injection</option>
+      <option value="/contents/gatling/" >- Measuring Gatling Simulations</option>
       <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
       <option value="/contents/hypothesis_testing/" >- Case Study: Hypothesis Testing</option>
       <option value="/contents/heap_histogram/"  selected>- Case Study: Monitoring Heap Histogram</option>
@@ -298,24 +306,24 @@ will be similar to this example:</p>
 <li>End collection</li>
 </ul>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
-<span style="color:#00a8c8">def</span> <span style="color:#111">catSpec</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-  <span style="color:#00a8c8">case</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">Cat</span><span style="color:#f92672">()</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@Test</span>
+<span style="color:#8b008b;font-weight:bold">def</span> catSpec(testInfo<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+  <span style="color:#8b008b;font-weight:bold">case</span> <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">Cat</span>()
 
-  <span style="color:#00a8c8">val</span> <span style="color:#111">r</span> <span style="color:#00a8c8">=</span> <span style="color:#111">scala</span><span style="color:#f92672">.</span><span style="color:#111">util</span><span style="color:#f92672">.</span><span style="color:#75af00">Random</span>
-  <span style="color:#00a8c8">val</span> <span style="color:#111">heapSampler</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">ContinuousHeapHistogramCollector</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">ContinuousHeapHistogramCollector</span><span style="color:#f92672">(</span><span style="color:#75af00">CoreConstants</span><span style="color:#f92672">.</span><span style="color:#75af00">UNDEFINED_TEST_ID</span><span style="color:#f92672">)</span>
-  <span style="color:#75715e">// Sample the heap every 500 milliseconds instead of the default of 1 minute
-</span><span style="color:#75715e"></span>  <span style="color:#111">heapSampler</span><span style="color:#f92672">.</span><span style="color:#111">measurementIntervalMs</span> <span style="color:#00a8c8">=</span> <span style="color:#ae81ff">500</span>
+  <span style="color:#8b008b;font-weight:bold">val</span> r <span style="color:#8b008b;font-weight:bold">=</span> scala.util.<span style="color:#008b45;font-weight:bold">Random</span>
+  <span style="color:#8b008b;font-weight:bold">val</span> heapSampler<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">ContinuousHeapHistogramCollector</span> = <span style="color:#8b008b;font-weight:bold">new</span> <span style="color:#008b45;font-weight:bold">ContinuousHeapHistogramCollector</span>(<span style="color:#008b45;font-weight:bold">CoreConstants</span>.<span style="color:#008b45;font-weight:bold">UNDEFINED_TEST_ID</span>)
+  <span style="color:#228b22">// Sample the heap every 500 milliseconds instead of the default of 1 minute
+</span><span style="color:#228b22"></span>  heapSampler.measurementIntervalMs <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#b452cd">500</span>
 
-  <span style="color:#111">using</span> <span style="color:#111">only</span> <span style="color:#111">these</span> <span style="color:#111">collectors</span> <span style="color:#f92672">{</span>
-    <span style="color:#111">heapSampler</span>
-  <span style="color:#f92672">}</span> <span style="color:#111">measuring</span> <span style="color:#f92672">{</span>
-    <span style="color:#00a8c8">for</span><span style="color:#f92672">(</span><span style="color:#111">i</span> <span style="color:#00a8c8">&lt;-</span> <span style="color:#ae81ff">1</span> <span style="color:#111">to</span> <span style="color:#ae81ff">1000</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-      <span style="color:#00a8c8">val</span> <span style="color:#111">list</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">List</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Cat</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">List</span><span style="color:#f92672">.</span><span style="color:#111">fill</span><span style="color:#f92672">(</span><span style="color:#111">r</span><span style="color:#f92672">.</span><span style="color:#111">nextInt</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">))(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">Cat</span><span style="color:#f92672">)</span>
-      <span style="color:#75af00">Thread</span><span style="color:#f92672">.</span><span style="color:#111">sleep</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">)</span>
-    <span style="color:#f92672">}</span>
-  <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span></code></pre></div>
+  using testId testInfo only these collectors {
+    heapSampler
+  } measuring {
+    <span style="color:#8b008b;font-weight:bold">for</span>(i <span style="color:#8b008b;font-weight:bold">&lt;-</span> <span style="color:#b452cd">1</span> to <span style="color:#b452cd">1000</span>) {
+      <span style="color:#8b008b;font-weight:bold">val</span> list<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">List</span>[<span style="color:#00688b;font-weight:bold">Cat</span>] <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#008b45;font-weight:bold">List</span>.fill(r.nextInt(<span style="color:#b452cd">1000</span>))(<span style="color:#8b008b;font-weight:bold">new</span> <span style="color:#008b45;font-weight:bold">Cat</span>)
+      <span style="color:#008b45;font-weight:bold">Thread</span>.sleep(<span style="color:#b452cd">1000</span>)
+    }
+  }
+}</code></pre></div>
 
 <p>That graph was exposed using this Query on the Grafana Query Builder:
 

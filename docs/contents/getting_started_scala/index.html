@@ -6,7 +6,7 @@
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="generator" content="Hugo 0.38" />
-<title>Getting Started (Scala DSL) :: warp-core</title>
+<title>Scala DSL :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://workday.github.io/warp-core/css/nucleus.css" rel="stylesheet">
@@ -82,14 +82,14 @@
       <li data-nav-id="/contents/getting_started_java/" class="dd-item">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
-            Getting Started (Java)
+            Getting Started
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
       <li data-nav-id="/contents/getting_started_scala/" class="dd-item active">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
-            Getting Started (Scala DSL)
+            Scala DSL
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -139,6 +139,13 @@
         <div>
           <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
             Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/gatling/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/gatling/">
+            Measuring Gatling Simulations
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -196,8 +203,8 @@
     <option value="/contents/" >
    Contents</option> 
       <option value="/contents/intro/" >- Introduction</option>
-      <option value="/contents/getting_started_java/" >- Getting Started (Java)</option>
-      <option value="/contents/getting_started_scala/"  selected>- Getting Started (Scala DSL)</option>
+      <option value="/contents/getting_started_java/" >- Getting Started</option>
+      <option value="/contents/getting_started_scala/"  selected>- Scala DSL</option>
       <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
       <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
       <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
@@ -205,6 +212,7 @@
       <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
       <option value="/contents/persistence/" >- Persistence</option>
       <option value="/contents/dependency_injection/" >- Dependency Injection</option>
+      <option value="/contents/gatling/" >- Measuring Gatling Simulations</option>
       <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
       <option value="/contents/hypothesis_testing/" >- Case Study: Hypothesis Testing</option>
       <option value="/contents/heap_histogram/" >- Case Study: Monitoring Heap Histogram</option>
@@ -233,14 +241,14 @@
       </div>
     
 
-    <h1>Getting Started (Scala DSL)</h1>
+    <h1>Scala DSL</h1>
     
     
     
     
 
 <p>The recommended way to interact with WARP is through the Scala DSL.
-This API is more mature than the Telemetron Java API and provides a richer feature set, including the ability
+This API provides a richer feature set than the Java API, including the ability
 to register custom <code>MeasurementCollector</code> and <code>Arbiter</code> instances, and add
 new tags in the form of String metadata that will be persisted.</p>
 
@@ -249,33 +257,52 @@ all configuration parameters, such as number of invocations, warmups, threadpool
 We give sane defaults to all parameters.
 Calls to the various DSL methods invoke the compiler-generated <code>copy</code> method to build up
 new instances of <code>ExecutionConfig</code>:
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">import</span> <span style="color:#111">com.workday.warp.dsl._</span>
-<span style="color:#00a8c8">val</span> <span style="color:#111">config</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">ExecutionConfig</span> <span style="color:#f92672">=</span> <span style="color:#111">using</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">32</span> <span style="color:#111">threads</span> <span style="color:#ae81ff">4</span> <span style="color:#111">distribution</span> <span style="color:#75af00">GaussianDistribution</span><span style="color:#f92672">(</span><span style="color:#ae81ff">50</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">)</span></code></pre></div></p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.dsl._</span>
+<span style="color:#8b008b;font-weight:bold">val</span> config<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">ExecutionConfig</span> = using invocations <span style="color:#b452cd">32</span> threads <span style="color:#b452cd">4</span> distribution <span style="color:#008b45;font-weight:bold">GaussianDistribution</span>(<span style="color:#b452cd">50</span>, <span style="color:#b452cd">10</span>)</code></pre></div></p>
 
-<p>Finally, a call-by name function is passed to <code>ExecutionConfig.measuring</code>:
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
-<span style="color:#00a8c8">def</span> <span style="color:#111">dslExample</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-  <span style="color:#111">using</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">32</span> <span style="color:#111">threads</span> <span style="color:#ae81ff">4</span> <span style="color:#111">measuring</span> <span style="color:#f92672">{</span>
-    <span style="color:#00a8c8">val</span> <span style="color:#111">i</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Int</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#75af00">Logger</span><span style="color:#f92672">.</span><span style="color:#111">info</span><span style="color:#f92672">(</span><span style="color:#d88200">s&#34;result is </span><span style="color:#d88200">${</span><span style="color:#111">i</span> <span style="color:#f92672">+</span> <span style="color:#111">i</span><span style="color:#d88200">}</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">}</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">exceed</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span> <span style="color:#111">seconds</span><span style="color:#f92672">)</span>
-<span style="color:#f92672">}</span></code></pre></div></p>
+<p>Note, however, that the DSL itself manages the measurement lifecycle. Thus, we do not recommend using <code>@WarpTest</code> annotation
+together with the DSL, as that would lead to doubly measured tests. The DSL can be especially useful in cases where users
+already make heavy use of <code>BeforeEach</code>/<code>AfterEach</code> hooks. <code>@WarpTest</code> annotation is implemented using JUnit before/after hooks, the order
+of which cannot be controlled. Thus, it is possible that tests using <code>@WarpTest</code> will have extra overhead from other hooks included in their
+measurement metadata. The DSL is decoupled from JUnit and can be used with other JVM testing frameworks.</p>
+
+<p>Finally, a call-by name block is passed to <code>ExecutionConfig.measuring</code>:</p>
+
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.dsl._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.TestIdImplicits._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Test</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
+
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">WarpJUnitSpec</span>  {
+
+  <span style="color:#707a7c">@Test</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> dslExample(testInfo<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    using testId testInfo invocations <span style="color:#b452cd">32</span> threads <span style="color:#b452cd">4</span> measuring {
+      <span style="color:#8b008b;font-weight:bold">val</span> i<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span> = <span style="color:#b452cd">1</span>
+      <span style="color:#008b45;font-weight:bold">Logger</span>.info(<span style="color:#cd5555">s&#34;result is </span><span style="color:#cd5555">${</span>i + i<span style="color:#cd5555">}</span><span style="color:#cd5555">&#34;</span>)
+    } should not exceed (<span style="color:#b452cd">2</span> seconds)
+  }
+}</code></pre></div>
 
 <p>Custom <code>Arbiter</code> and <code>MeasurementCollector</code> instances can be registered by calling the <code>arbiters</code> and <code>collectors</code> methods:
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">import</span> <span style="color:#111">com.workday.warp.dsl.Implicits._</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.dsl._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.TestIdImplicits._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Test</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
 
-<span style="color:#75af00">@Test</span>
-<span style="color:#00a8c8">def</span> <span style="color:#111">dslCollectors</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-  <span style="color:#75715e">// disables the existing default collectors, and registers a new collector
-</span><span style="color:#75715e"></span>  <span style="color:#111">using</span> <span style="color:#111">only</span> <span style="color:#111">these</span> <span style="color:#111">collectors</span> <span style="color:#f92672">{</span>
-    <span style="color:#00a8c8">new</span> <span style="color:#75af00">SomeMeasurementCollector</span>
-  <span style="color:#75715e">// registers two new arbiters
-</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span> <span style="color:#111">arbiters</span> <span style="color:#f92672">{</span>
-    <span style="color:#75af00">List</span><span style="color:#f92672">(</span><span style="color:#00a8c8">new</span> <span style="color:#75af00">SomeArbiter</span><span style="color:#f92672">,</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">SomeOtherArbiter</span><span style="color:#f92672">)</span>
-  <span style="color:#f92672">}</span> <span style="color:#111">measuring</span> <span style="color:#f92672">{</span>
-    <span style="color:#111">someExperiment</span><span style="color:#f92672">()</span>
-  <span style="color:#f92672">}</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">exceed</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">5</span> <span style="color:#111">seconds</span><span style="color:#f92672">)</span>
-<span style="color:#f92672">}</span></code></pre></div></p>
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">WarpJUnitSpec</span> {
+
+  <span style="color:#707a7c">@Test</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> dslCollectors(testInfo<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#228b22">// disables the existing default collectors, and registers a new collector
+</span><span style="color:#228b22"></span>    using testId testInfo only these collectors {
+      <span style="color:#8b008b;font-weight:bold">new</span> <span style="color:#008b45;font-weight:bold">SomeMeasurementCollector</span>
+    <span style="color:#228b22">// registers two new arbiters
+</span><span style="color:#228b22"></span>    } arbiters {
+      <span style="color:#008b45;font-weight:bold">List</span>(<span style="color:#8b008b;font-weight:bold">new</span> <span style="color:#008b45;font-weight:bold">SomeArbiter</span>, <span style="color:#8b008b;font-weight:bold">new</span> <span style="color:#008b45;font-weight:bold">SomeOtherArbiter</span>)
+    } measuring {
+      someExperiment()
+    } should not exceed (<span style="color:#b452cd">5</span> seconds)
+  }
+}</code></pre></div></p>
 
 <p>The <code>arbiters</code> and <code>collectors</code> methods both accept a call-by-name function that returns an <code>Iterable</code>. We use an implicit
 to lift a single instance into an <code>Iterable</code> type.</p>
@@ -287,7 +314,7 @@ to lift a single instance into an <code>Iterable</code> type.</p>
 <p>The DSL provides a flexible way to describe experimental setups for conducting repeated trials, and supports the following operations:</p>
 
 <ul>
-<li><p><code>testId(id: String)</code> sets a testId, the name under which results will be recorded in our database. (default <code>&quot;com.workday.warp.Undefined.undefined&quot;</code>. Typically we use the fully qualified method name of the test being measured.)</p></li>
+<li><p><code>testId(id: TestId)</code> sets a testId, the name under which results will be recorded in our database. (default <code>&quot;com.workday.warp.Undefined.undefined&quot;</code>. Typically we use the fully qualified method name of the test being measured.)</p></li>
 
 <li><p><code>invocations(i: Int)</code> sets the number of measured trial invocations (default 1).</p></li>
 
@@ -339,21 +366,29 @@ the measured response time of the trial.</p>
 
 <p>For example, suppose we are interested in measuring the performance of <code>List.fill[Int]</code> construction:</p>
 
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75af00">@Test</span>
-<span style="color:#00a8c8">def</span> <span style="color:#111">listFill</span><span style="color:#f92672">()</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
-  <span style="color:#75715e">// measure creating a list of 1000 0&#39;s
-</span><span style="color:#75715e"></span>  <span style="color:#00a8c8">val</span> <span style="color:#111">results</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Seq</span><span style="color:#f92672">[</span><span style="color:#00a8c8">TrialResult</span><span style="color:#f92672">[</span><span style="color:#00a8c8">List</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Int</span><span style="color:#f92672">]]]</span> <span style="color:#00a8c8">=</span> <span style="color:#111">using</span> <span style="color:#111">invocations</span> <span style="color:#ae81ff">8</span> <span style="color:#111">measure</span> <span style="color:#f92672">{</span> <span style="color:#75af00">List</span><span style="color:#f92672">.</span><span style="color:#111">fill</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">)(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#f92672">}</span>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.dsl._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.utils.Implicits._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.TestIdImplicits._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Test</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
 
-  <span style="color:#75715e">// make some assertions about the created lists
-</span><span style="color:#75715e"></span>  <span style="color:#111">results</span> <span style="color:#111">should</span> <span style="color:#111">have</span> <span style="color:#111">length</span> <span style="color:#ae81ff">8</span>
-  <span style="color:#111">results</span><span style="color:#f92672">.</span><span style="color:#111">head</span><span style="color:#f92672">.</span><span style="color:#111">maybeResult</span> <span style="color:#111">should</span> <span style="color:#111">not</span> <span style="color:#111">be</span> <span style="color:#111">empty</span>
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">WarpJUnitSpec</span> {
 
-  <span style="color:#00a8c8">for</span> <span style="color:#f92672">{</span>
-    <span style="color:#111">result</span> <span style="color:#00a8c8">&lt;-</span> <span style="color:#111">results</span>
-    <span style="color:#111">list</span> <span style="color:#00a8c8">&lt;-</span> <span style="color:#111">result</span><span style="color:#f92672">.</span><span style="color:#111">maybeResult</span>
-    <span style="color:#111">element</span> <span style="color:#00a8c8">&lt;-</span> <span style="color:#111">list</span>
-  <span style="color:#f92672">}</span> <span style="color:#111">element</span> <span style="color:#111">should</span> <span style="color:#111">be</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span>
-<span style="color:#f92672">}</span></code></pre></div>
+  <span style="color:#707a7c">@Test</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> listFill(testInfo<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">TestInfo</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#228b22">// measure creating a list of 1000 0&#39;s
+</span><span style="color:#228b22"></span>    <span style="color:#8b008b;font-weight:bold">val</span> results<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Seq</span>[<span style="color:#00688b;font-weight:bold">TrialResult</span>[<span style="color:#00688b;font-weight:bold">List</span>[<span style="color:#00688b;font-weight:bold">Int</span>]]] <span style="color:#8b008b;font-weight:bold">=</span> using testId testInfo invocations <span style="color:#b452cd">8</span> measure { <span style="color:#008b45;font-weight:bold">List</span>.fill(<span style="color:#b452cd">1000</span>)(<span style="color:#b452cd">0</span>) }
+
+    <span style="color:#228b22">// make some assertions about the created lists
+</span><span style="color:#228b22"></span>    results should have length <span style="color:#b452cd">8</span>
+    results.head.maybeResult should not be empty
+
+    <span style="color:#8b008b;font-weight:bold">for</span> {
+      result <span style="color:#8b008b;font-weight:bold">&lt;-</span> results
+      list <span style="color:#8b008b;font-weight:bold">&lt;-</span> result.maybeResult
+      element <span style="color:#8b008b;font-weight:bold">&lt;-</span> list
+    } element should be (<span style="color:#b452cd">0</span>)
+  }
+}</code></pre></div>
 
 <p>After measurement has been completed, we are able to access the return values of the function being measured.</p>
 
@@ -365,7 +400,7 @@ measurement collectors and arbiters for defining failure criteria.</p>
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-prev" href="https://workday.github.io/warp-core/contents/getting_started_java/" title="Getting Started (Java)"> <i class="fa fa-chevron-left"></i><label>Getting Started (Java)</label></a>
+<a class="nav nav-prev" href="https://workday.github.io/warp-core/contents/getting_started_java/" title="Getting Started"> <i class="fa fa-chevron-left"></i><label>Getting Started</label></a>
     <a class="nav nav-next" href="https://workday.github.io/warp-core/contents/custom_collectors/" title="Collecting Custom Measurements" style="margin-right: 0px;"><label>Collecting Custom Measurements</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
