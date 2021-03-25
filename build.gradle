@@ -219,7 +219,7 @@ subprojects {
     }
 
     scalastyle {
-        scalaVersion = "${project.scalaVersion}"
+        scalaVersion = "2.13"
         config = config = file("${rootDir}/scalastyle_config.xml")
         // includeTestSourceDirectory = true
         // source = "src/main/scala"
