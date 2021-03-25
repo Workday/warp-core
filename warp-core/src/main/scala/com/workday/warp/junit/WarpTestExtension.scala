@@ -7,7 +7,7 @@ import com.workday.warp.TestIdImplicits.extensionContext2TestId
 import org.junit.jupiter.api.extension.{ExtensionContext, TestTemplateInvocationContext, TestTemplateInvocationContextProvider}
 import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
-import scala.collection.JavaConversions._
+import scala.jdk.CollectionConverters._
 
 /** TestTemplate for running and measuring WarpTests.
   *
@@ -61,8 +61,7 @@ trait WarpTestExtensionLike extends TestTemplateInvocationContextProvider {
       // measured trial reps should have an additional measurement extension
       additionalExtensions = List(new MeasurementExtension)
     )}
-
-    Stream.concat(warmups.stream(), trials.stream())
+    Stream.concat(warmups.toStream, trials.asJava)
   }
 
 

@@ -221,9 +221,6 @@ subprojects {
     scalastyle {
         scalaVersion = "2.13"
         config = config = file("${rootDir}/scalastyle_config.xml")
-        // includeTestSourceDirectory = true
-        // source = "src/main/scala"
-        // testSource = "src/test/scala"
     }
 
     checkstyle {
@@ -240,7 +237,7 @@ subprojects {
         if (project.hasProperty("shouldDeleteSchema") && Boolean.valueOf(project.shouldDeleteSchema.toString())) {
             task.dependsOn(deleteSchema)
         }
-        task.finalizedBy(scalastyle)
+        //task.finalizedBy(scalastyle)
         task.finalizedBy(checkstyleMain)
         task.finalizedBy(checkstyleTest)
 
