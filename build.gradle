@@ -1,6 +1,6 @@
 buildscript {
     // set a valid scala suffix for the buildscript itself
-    project.ext.scalaSuffix = '_2.12'
+    project.ext.scalaSuffix = '_2.13'
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
@@ -20,7 +20,7 @@ buildscript {
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
         classpath "io.github.cosmicsilence:gradle-scalafix:${versions.scalafix}"
         classpath "org.ajoberstar.grgit:grgit-gradle:${versions.gradleGit}"
-        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin${project.scalaSuffix}:${versions.scalaStyle}"
+        classpath "com.github.alisiikh:gradle-scalastyle-plugin:${versions.scalaStyle}"
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
     }
@@ -39,7 +39,7 @@ allprojects {
     apply plugin: 'scala'
     // apply multiversion to individual projects
     apply plugin: 'com.adtran.scala-multiversion-plugin'
-    apply plugin: 'scalaStyle'
+    apply plugin: 'com.github.alisiikh.scalastyle'
     apply plugin: 'idea'
     apply plugin: 'org.ajoberstar.grgit'
     apply plugin: 'nebula.gradle-git-scm'
@@ -218,11 +218,12 @@ subprojects {
         }
     }
 
-    scalaStyle {
-        configLocation = "${rootDir}/scalastyle.xml"
-        includeTestSourceDirectory = true
-        source = "src/main/scala"
-        testSource = "src/test/scala"
+    scalastyle {
+        scalaVersion = "${project.scalaVersion}"
+        config = config = file("${rootDir}/scalastyle_config.xml")
+        // includeTestSourceDirectory = true
+        // source = "src/main/scala"
+        // testSource = "src/test/scala"
     }
 
     checkstyle {
@@ -239,7 +240,7 @@ subprojects {
         if (project.hasProperty("shouldDeleteSchema") && Boolean.valueOf(project.shouldDeleteSchema.toString())) {
             task.dependsOn(deleteSchema)
         }
-        task.finalizedBy(scalaStyle)
+        task.finalizedBy(scalastyle)
         task.finalizedBy(checkstyleMain)
         task.finalizedBy(checkstyleTest)
 
@@ -273,7 +274,7 @@ subprojects {
     }
 
     afterEvaluate {
-        if (project.scalaSuffix != "_2.12") {
+        if (project.scalaSuffix != "_2.13") {
             tasks.withType(ScalafixTask) {
                 enabled = false
             }
@@ -288,7 +289,7 @@ subprojects {
 
     dependencyLocking {
         lockAllConfigurations()
-        if (project.scalaSuffix == "_2.12") {
+        if (project.scalaSuffix == "_2.13") {
             lockMode = LockMode.STRICT
         }
         lockFile = file("$projectDir/locking/${project.name}${scalaSuffix}.lockfile")
