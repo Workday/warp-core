@@ -7,7 +7,7 @@ import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
 import org.pmw.tinylog.Logger
-import com.workday.warp.dsl.using._
+import com.workday.warp.dsl.using.measuring
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.{DistributionLike, GaussianDistribution}
@@ -42,7 +42,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks usage of measuring multithreaded tests. */
   @UnitTest
   def dslThreads(): Unit = {
-    val results: Seq[TrialResult[_]] = using zero collectors threads 5 invocations 5 measure someExperiment()
+    val results: Seq[TrialResult[_]] = using no collectors threads 5 invocations 5 measure someExperiment()
     results should have length 5
     results foreach { _.maybeResponseTime.get should be (5 seconds) }
     results should not exceed (5 seconds)
@@ -77,7 +77,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks that we are only returned results for measured invocations. */
   @UnitTest
   def dslWarmups(): Unit = {
-    val results: Seq[TrialResult[_]] = using zero collectors threads 5 warmups 3 invocations 10 measure someExperiment()
+    val results: Seq[TrialResult[_]] = using no collectors threads 5 warmups 3 invocations 10 measure someExperiment()
     results should have length 10
     results foreach { _.maybeResponseTime.get should be (5 seconds) }
   }
@@ -103,11 +103,11 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   @UnitTest
   def dslDistribution(): Unit = {
     val normal: DistributionLike = GaussianDistribution(50, 10)
-    using zero collectors invocations 8 distribution normal measure { Logger.trace("i'm being measured") }
-    using zero collectors invocations 8 distribution normal threads 8 measure { Logger.trace("i'm being measured on multiple threads") }
+    using no collectors invocations 8 distribution normal measure { Logger.trace("i'm being measured") }
+    using no collectors invocations 8 distribution normal threads 8 measure { Logger.trace("i'm being measured on multiple threads") }
 
     // check using the default distribution -- the overall time should be very short since there is no delay
-    val config: ExecutionConfig = using zero collectors invocations 8 threads 2 mode single
+    val config: ExecutionConfig = using no collectors invocations 8 threads 2 mode single
     config measuring { someExperiment() } should not exceed (100 millis)
 
     // using the above normal distribution should make the overall time a bit longer
@@ -135,7 +135,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   @UnitTest
   def dslOnlyArbiters(): Unit = {
     intercept[RequirementViolationException] {
-      using zero collectors onlyArbiters {
+      using no collectors onlyArbiters {
         new ExceptionArbiter
       } measuring {
         someExperiment()
@@ -185,11 +185,11 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks that we can disable all collectors. */
   @UnitTest
   def noCollectors(): Unit = {
-    using zero collectors measuring {
+    using no collectors measuring {
       someExperiment()
     }
 
-    val config: ExecutionConfig = using zero collectors
+    val config: ExecutionConfig = using no collectors
 
     // make sure any existing collectors are disabled and no new collectors are registered
     config.disableExistingCollectors should be (true)
@@ -201,11 +201,11 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks that we can disable all arbiters and collectors. */
   @UnitTest
   def noCollectorsNoArbiters(): Unit = {
-    using zero collectors zero arbiters measuring {
+    using no collectors no arbiters measuring {
       someExperiment()
     }
 
-    val config: ExecutionConfig = using zero collectors zero arbiters
+    val config: ExecutionConfig = using no collectors no arbiters
     val controller: AbstractMeasurementCollectionController = Researcher(config).collectionController()
 
     // make sure any existing arbiters are disabled and no new arbiters are registered
@@ -322,7 +322,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     } should have length 5
 
     // check that invocations are passed through when we disable arbiters and collectors
-    using iterations 5 zero arbiters zero collectors measuring {
+    using iterations 5 no arbiters no collectors measuring {
       someExperiment()
     } should have length 5
   }
@@ -427,21 +427,21 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   @UnitTest
   def correctType(): Unit = {
     // check measuring something that returns a TrialResult
-    val someExperimentList: Seq[TrialResult[Int]] = using zero collectors measuring someExperiment()
+    val someExperimentList: Seq[TrialResult[Int]] = using no collectors measuring someExperiment()
     someExperimentList.head.maybeResponseTime.get should be (5 seconds)
     someExperimentList.head.maybeResult.get should be (5)
 
     // check measuring something that returns a Try[TrialResult]
-    val tryExperimentList: Seq[TrialResult[Int]] = using zero collectors warmups 1 measuring Try(someExperiment())
+    val tryExperimentList: Seq[TrialResult[Int]] = using no collectors warmups 1 measuring Try(someExperiment())
     tryExperimentList.head.maybeResponseTime.get should be (5 seconds)
     tryExperimentList.head.maybeResult.get should be (5)
 
     // check measuring something returns a TrialResult[_] (No result)
-    val voidExperimentList: Seq[TrialResult[_]] = using zero collectors measuring voidExperiment()
+    val voidExperimentList: Seq[TrialResult[_]] = using no collectors measuring voidExperiment()
     voidExperimentList.head.maybeResult should be (None)
 
     // check an arbitrary other return types
-    val stringExperimentList: Seq[TrialResult[String]] = using zero collectors measuring { "hello" }
+    val stringExperimentList: Seq[TrialResult[String]] = using no collectors measuring { "hello" }
     stringExperimentList should not exceed (500 millis)
     stringExperimentList.length should be (1)
 
@@ -449,7 +449,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     // This function's return value is a String, but we are storing it as Int
     // Due to runtime casting, an exception will not be thrown until the value is unboxed.
     intercept[ClassCastException] {
-      val badCastList: Seq[TrialResult[Int]] = using zero collectors measuring { "hello" }
+      val badCastList: Seq[TrialResult[Int]] = using no collectors measuring { "hello" }
       badCastList.length should be (1)
       // Unbox value. Should throw ClassCastException
       badCastList.head.maybeResult.get

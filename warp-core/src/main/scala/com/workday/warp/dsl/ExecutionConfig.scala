@@ -140,23 +140,12 @@ case class ExecutionConfig(invocations: Int = 1,
 
   /**
     * Part of the dsl. Allows all arbiters or collectors to be disabled. Enables syntax like
-    * `using zero arbiters`
-    *
-    * @param configurable a [[Configurable]] indicating whether arbiters or collectors should be disabled.
-    * @return a new [[ExecutionConfig]] with all arbitration or measurement collection disabled.
-    */
-  @DslApi
-  def zero(configurable: Configurable): ExecutionConfig = configurable.disable(this)
-
-  /**
-    * Part of the dsl. Allows all arbiters or collectors to be disabled. Enables syntax like
     * `using no arbiters`
     *
     * @param configurable a [[Configurable]] indicating whether arbiters or collectors should be disabled.
     * @return a new [[ExecutionConfig]] with all arbitration or measurement collection disabled.
     */
   @DslApi
-  @deprecated("use zero instead")
   def no(configurable: Configurable): ExecutionConfig = configurable.disable(this)
 
 
