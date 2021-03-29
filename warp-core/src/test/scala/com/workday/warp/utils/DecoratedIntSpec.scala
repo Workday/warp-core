@@ -4,6 +4,7 @@ import java.time.Duration
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.utils.Implicits._
+import scala.language.postfixOps
 
 /**
   * Created by tomas.mccandless on 7/22/16.

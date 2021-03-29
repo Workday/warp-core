@@ -2,6 +2,7 @@ package com.workday.warp
 
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import scala.language.postfixOps
 
 /**
   * Created by tomas.mccandless on 6/8/18.

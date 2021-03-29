@@ -7,6 +7,7 @@ import com.workday.warp.arbiters.Ballot
 import com.workday.warp.utils.Implicits.{DecoratedDuration, DecoratedInt}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.pmw.tinylog.Logger
+import scala.language.postfixOps
 
 import scala.util.Random
 

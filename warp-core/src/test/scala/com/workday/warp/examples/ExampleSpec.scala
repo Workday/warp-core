@@ -7,6 +7,7 @@ import com.workday.warp.junit.{Measure, WarpInfo, WarpJUnitSpec, WarpTest}
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.{Test, TestInfo}
 import org.pmw.tinylog.Logger
+import scala.language.postfixOps
 
 
 /**

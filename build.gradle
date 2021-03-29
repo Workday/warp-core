@@ -186,7 +186,8 @@ subprojects {
     tasks.withType(ScalaCompile) {
         scalaCompileOptions.additionalParameters = [
                 // needed for "RemoveUnused" scalafix rule
-                '-Ywarn-unused'
+                '-Ywarn-unused',
+                '-language:postfixOps'
         ]
     }
 

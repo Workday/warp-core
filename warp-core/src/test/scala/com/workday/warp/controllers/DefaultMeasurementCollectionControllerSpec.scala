@@ -14,6 +14,7 @@ import com.workday.warp.utils.Implicits._
 import org.junit.jupiter.api.parallel.Isolated
 import org.junit.jupiter.api.{BeforeEach, TestInfo}
 import slick.jdbc.MySQLProfile.api._
+import scala.language.postfixOps
 
 
 /**

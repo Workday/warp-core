@@ -36,7 +36,7 @@ trait WarpTestInvocationContextLike extends TestTemplateInvocationContext with H
     * @return additional JUnit extensions for this test invocation.
     */
   override def getAdditionalExtensions: util.List[Extension] = {
-    WarpInfoParameterResolver(this.warpInfo) :: additionalExtensions asJava
+    (WarpInfoParameterResolver(this.warpInfo) :: additionalExtensions).asJava
   }
 }
 

@@ -16,7 +16,7 @@ import org.influxdb.dto.{BatchPoints, Point, Pong, Query, QueryResult}
 import org.influxdb.{InfluxDB, InfluxDBFactory}
 import org.pmw.tinylog.Logger
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -161,7 +161,7 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
     InfluxDBClient.maybeClient match {
       case Left(error) => Failure(new WarpConfigurationException(error))
       case Right(client) => Try {
-        val results: Seq[QueryResult.Result] = client.query(showQuery).getResults.asScala
+        val results: Seq[QueryResult.Result] = client.query(showQuery).getResults.asScala.toSeq
         val databaseNames: Seq[String] = for {
           res <- results
           serie <- res.getSeries.asScala

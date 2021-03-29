@@ -16,6 +16,8 @@ import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
+import scala.language.postfixOps
+import scala.language._
 
 import scala.util.Try
 
@@ -40,7 +42,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks usage of measuring multithreaded tests. */
   @UnitTest
   def dslThreads(): Unit = {
-    val results: Seq[TrialResult[_]] = using no collectors threads 5 invocations 5 measure someExperiment()
+    val results: Seq[TrialResult[_]] = using no collectors threads(5) invocations 5 measure someExperiment()
     results should have length 5
     results foreach { _.maybeResponseTime.get should be (5 seconds) }
     results should not exceed (5 seconds)
