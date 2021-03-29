@@ -1,0 +1,7 @@
+# template config file used in h2 ci builds
+# this file is copied into config directory
+# for local development, this template can be used as a starting point for more customized settings
+wd.warp.log.level=info
+
+# only for testing
+systemProp.wd.warp.foo=bar
