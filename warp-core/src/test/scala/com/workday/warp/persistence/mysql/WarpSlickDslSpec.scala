@@ -13,7 +13,7 @@ import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import com.workday.warp.TestIdImplicits.string2TestId
 import WarpSlickDslSpec._
-import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, TablesLike}
+import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, SkipIfH2, TablesLike}
 import slick.lifted.Query
 import TablesLike.{TestDefinitionRowLike, TestExecutionRowLike}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
@@ -23,7 +23,7 @@ import org.junit.jupiter.api.parallel.Isolated
   * Created by ruiqi.wang
   */
 @Isolated
-class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
+class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware with SkipIfH2 {
 
   TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 
@@ -50,7 +50,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Tests QUOTE dsl. */
   @UnitTest
-  def returnQuoted(): Unit = {
+  def returnQuoted(): Unit = skipIfH2 {
     val testDefinition: TestDefinitionRowLike = this.persistenceUtils.findOrCreateTestDefinition(methodSignature3)
     val cast: Rep[String] = testDefinition.methodSignature
     val test: Rep[String] = cast quote()
@@ -59,7 +59,6 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
     val addBackSlash = testDefinition.methodSignature.replaceAll("\'", "\\\\\'")
     val query2 = "\'" + addBackSlash + "\'"
     query1 shouldEqual query2
-
   }
 
   /** Tests INTERVAL dsl. */
@@ -101,7 +100,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Tests UNIX_TIMESTAMP (Date) dsl. */
   @UnitTest
-  def returnUNIXTimeStampDate(): Unit = {
+  def returnUNIXTimeStampDate(): Unit = skipIfH2 {
     val date: Rep[java.sql.Date] = new sql.Date(Instant.now.toEpochMilli)
     val query: Rep[Long] = date unixTimestamp()
     val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
@@ -128,7 +127,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Tests subdate(date, interval) dsl. */
   @UnitTest
-  def getSubdateInterval(): Unit = {
+  def getSubdateInterval(): Unit = skipIfH2 {
   this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
     val cal: Calendar = Calendar.getInstance()
@@ -170,7 +169,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Tests subdate(date, days) dsl. */
   @UnitTest
-  def getSubdateNoInterval(): Unit = {
+  def getSubdateNoInterval(): Unit = skipIfH2 {
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val format: SimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
     val cal: Calendar = Calendar.getInstance()
@@ -189,7 +188,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Tests subdate(timestamp, interval) dsl. */
   @UnitTest
-  def getSubdateTimestamp(): Unit = {
+  def getSubdateTimestamp(): Unit = skipIfH2 {
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val time: ZonedDateTime = ZonedDateTime.now(ZoneOffset.UTC)
@@ -252,7 +251,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Tests NOW dsl. */
   @UnitTest
-  def getCurrentTimestamp(): Unit = {
+  def getCurrentTimestamp(): Unit = skipIfH2 {
     val query: Rep[String] = TimeStampExtensions.now()
     val result: String = this.persistenceUtils.runWithRetries(query.result, 5)
     val format: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -273,7 +272,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware {
 
   /** Tests UNIX_TIMESTAMP dsl. */
   @UnitTest
-  def returnUNIXTimeStamp(): Unit = {
+  def returnUNIXTimeStamp(): Unit = skipIfH2 {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
     val query: Rep[Long] = timeStamp unixTimestamp()

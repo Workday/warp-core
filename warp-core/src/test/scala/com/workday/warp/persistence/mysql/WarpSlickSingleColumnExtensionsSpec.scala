@@ -6,7 +6,7 @@ import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import com.workday.warp.persistence.mysql.WarpSlickSingleColumnExtensionsSpec._
-import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils}
+import com.workday.warp.persistence.{Connection, CorePersistenceAware, CorePersistenceUtils, SkipIfH2}
 import com.workday.warp.TestIdImplicits.string2TestId
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.parallel.Isolated
@@ -15,20 +15,21 @@ import org.junit.jupiter.api.parallel.Isolated
   * Created by ruiqi.wang
   */
 @Isolated
-class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersistenceAware {
+class WarpSlickSingleColumnExtensionsSpec extends WarpJUnitSpec with CorePersistenceAware with SkipIfH2 {
 
   /** Truncates the schema. */
   @BeforeEach
   def truncateSchema(): Unit = {
     Connection.refresh()
     CorePersistenceUtils.truncateSchema()
+    Connection.refresh()
   }
 
   /**
     * Checks that our custom standard deviation aggregation function works correctly.
     */
   @UnitTest
-  def standardDeviation(): Unit = {
+  def standardDeviation(): Unit = skipIfH2 {
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 2.0, 10)
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 3.0, 10)

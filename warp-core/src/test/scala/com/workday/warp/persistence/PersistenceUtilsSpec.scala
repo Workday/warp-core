@@ -41,16 +41,18 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   def truncateSchema(): Unit = {
     Connection.refresh()
     CorePersistenceUtils.truncateSchema()
+    Connection.refresh()
+    Connection.refresh()
   }
 
 
   /** Checks that we can find or create [[Tables.Build]]. */
   @UnitTest
   def findOrCreateBuild(): Unit = {
-    this.persistenceUtils.findOrCreateBuild(2016, 1, 345).idBuild should be (1)
-    this.persistenceUtils.findOrCreateBuild(2016, 1, 345).idBuild should be (1)
-    this.persistenceUtils.findOrCreateBuild(2016, 1, 346).idBuild should be (2)
-    this.persistenceUtils.findOrCreateBuild(2016, 1, 346).idBuild should be (2)
+    val idBuild1: Int = this.persistenceUtils.findOrCreateBuild(2016, 1, 345).idBuild
+    this.persistenceUtils.findOrCreateBuild(2016, 1, 345).idBuild should be (idBuild1)
+    val idBuild2: Int = this.persistenceUtils.findOrCreateBuild(2016, 1, 346).idBuild
+    this.persistenceUtils.findOrCreateBuild(2016, 1, 346).idBuild should be (idBuild2)
 
     val buildInfo1: BuildRowLike = this.persistenceUtils.findOrCreateBuild(2017, 1, 123)
     Thread.sleep(1500)
@@ -63,10 +65,10 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   /** Checks that we can find or create [[Tables.TestDefinition]]. */
   @UnitTest
   def findOrCreateTestDefinition(): Unit = {
-    this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature).idTestDefinition should be (1)
-    this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature).idTestDefinition should be (1)
-    this.persistenceUtils.findOrCreateTestDefinition(this.anotherMethodSignature).idTestDefinition should be (2)
-    this.persistenceUtils.findOrCreateTestDefinition(this.anotherMethodSignature).idTestDefinition should be (2)
+    val idTestDef1: Int = this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature).idTestDefinition
+    this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature).idTestDefinition should be (idTestDef1)
+    val idTestDef2: Int = this.persistenceUtils.findOrCreateTestDefinition(this.anotherMethodSignature).idTestDefinition
+    this.persistenceUtils.findOrCreateTestDefinition(this.anotherMethodSignature).idTestDefinition should be (idTestDef2)
 
     // check that a long signature will be trimmed
     val longSignature = this.methodSignature + this.longString
@@ -87,10 +89,10 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   /** Checks that we can find or create [[Tables.MeasurementName]] with trimmed name. */
   @UnitTest
   def findOrCreateMeasurementName(): Unit = {
-    this.persistenceUtils.findOrCreateMeasurementName("some name").idMeasurementName should be (1)
-    this.persistenceUtils.findOrCreateMeasurementName("some name").idMeasurementName should be (1)
-    this.persistenceUtils.findOrCreateMeasurementName("some other name").idMeasurementName should be (2)
-    this.persistenceUtils.findOrCreateMeasurementName("some other name").idMeasurementName should be (2)
+    val idName1: Int = this.persistenceUtils.findOrCreateMeasurementName("some name").idMeasurementName
+    this.persistenceUtils.findOrCreateMeasurementName("some name").idMeasurementName should be (idName1)
+    val idName2: Int = this.persistenceUtils.findOrCreateMeasurementName("some other name").idMeasurementName
+    this.persistenceUtils.findOrCreateMeasurementName("some other name").idMeasurementName should be (idName2)
 
     // check that a long name will be trimmed
     this.longString.length should be > CorePersistenceConstants.DESCRIPTION_LENGTH
@@ -102,10 +104,10 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   /** Checks that we can find or create [[Tables.TagName]] with trimmed name. */
   @UnitTest
   def findOrCreateTagName(): Unit = {
-    this.persistenceUtils.findOrCreateTagName("some name").idTagName should be (1)
-    this.persistenceUtils.findOrCreateTagName("some name").idTagName should be (1)
-    this.persistenceUtils.findOrCreateTagName("some other name").idTagName should be (2)
-    this.persistenceUtils.findOrCreateTagName("some other name").idTagName should be (2)
+    val idName1: Int = this.persistenceUtils.findOrCreateTagName("some name").idTagName
+    this.persistenceUtils.findOrCreateTagName("some name").idTagName should be (idName1)
+    val idName2: Int = this.persistenceUtils.findOrCreateTagName("some other name").idTagName
+    this.persistenceUtils.findOrCreateTagName("some other name").idTagName should be (idName2)
 
     // check that a long name will be trimmed
     this.longString.length should be > CorePersistenceConstants.DESCRIPTION_LENGTH
