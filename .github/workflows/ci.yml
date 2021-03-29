@@ -8,7 +8,8 @@ jobs:
     strategy:
       matrix:
         scala: [2.11.11, 2.12.12]
-        configTask: [copyMySQLConfigTemplate, copyH2ConfigTemplate]
+        # see build.gradle copy template tasks
+        db: [MySQL, H2]
 
     # Service containers to run with `container-job`
     services:
@@ -42,4 +43,4 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-${{ matrix.scala }}
 
       - name: Build with Gradle
-        run: ./gradlew ${{ matrix.configTask }} test checkScalafix -PscalaVersion=${{ matrix.scala }}
+        run: ./gradlew copy${{ matrix.db }}ConfigTemplate test checkScalafix -PscalaVersion=${{ matrix.scala }}
