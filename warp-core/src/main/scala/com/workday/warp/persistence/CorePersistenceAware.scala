@@ -12,6 +12,7 @@ import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.IdentifierSyntax._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import org.pmw.tinylog.Logger
+import slick.dbio
 import slick.jdbc.TransactionIsolation
 
 import scala.util.{Failure, Success}
@@ -220,7 +221,7 @@ trait CorePersistenceAware extends PersistenceAware {
                                    value: String,
                                    isUserGenerated: Boolean = true): TestExecutionTagRowLike = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val dbAction = this.insertOrUpdateTestExecutionTagValueQuery(
+      val dbAction: DBIO[TestExecutionTagRowWrapper] = this.insertOrUpdateTestExecutionTagValueQuery(
         TestExecutionTagRow(Tables.nullId, idTestExecution, nameRow.idTagName, value)
       )
 
@@ -269,7 +270,7 @@ trait CorePersistenceAware extends PersistenceAware {
                                        value: String,
                                        isUserGenerated: Boolean = true): TestDefinitionTagRowLike = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val dbAction = this.insertOrUpdateTestDefinitionTagValueQuery(
+      val dbAction: DBIO[TestDefinitionTagRowWrapper] = this.insertOrUpdateTestDefinitionTagValueQuery(
         TestDefinitionTagRow(Tables.nullId, idTestDefinition, nameRow.idTagName, value)
       )
 
@@ -297,7 +298,7 @@ trait CorePersistenceAware extends PersistenceAware {
                                              value: String,
                                              isUserGenerated: Boolean = true): Unit = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val dbAction = this.insertOrUpdateTestDefinitionMetaTagValueQuery(
+      val dbAction: DBIO[Int] = this.insertOrUpdateTestDefinitionMetaTagValueQuery(
         TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
       )
 
@@ -325,7 +326,7 @@ trait CorePersistenceAware extends PersistenceAware {
                                             value: String,
                                             isUserGenerated: Boolean = true): Unit = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val dbAction = this.insertOrUpdateTestExecutionMetaTagValueQuery(
+      val dbAction: DBIO[Int] = this.insertOrUpdateTestExecutionMetaTagValueQuery(
         TestExecutionMetaTagRow(idTestExecutionTag, nameRow.idTagName, value)
       )
 
