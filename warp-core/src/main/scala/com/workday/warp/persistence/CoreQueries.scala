@@ -2,13 +2,13 @@ package com.workday.warp.persistence
 
 import java.sql.Timestamp
 import java.time.LocalDate
-
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.profile.api._
 import com.workday.warp.persistence.TablesLike._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.workday.warp.persistence.IdentifierSyntax._
+import slick.dbio.DBIO
 
 /**
   * Defines functions for creating read and write [[Query]]. These queries can be composed, converted to [[DBIOAction]],
@@ -286,6 +286,19 @@ trait CoreQueries extends AbstractQueries {
 
 
   /**
+   * Creates a [[DBIO]] for reading the entire row of a tag with id `idTagName` set on the [[TestDefinitionRow]] with
+   * id `idTestDefinition`.
+   *
+   * @param idTestDefinition id of the [[TestDefinitionRow]] to look up tags for.
+   * @param idTagName id of the [[TagNameRow]] to look up.
+   * @return a [[DBIO]] for looking up the whole row for a specified tag.
+   */
+  override def testDefinitionTagsRowQuery(idTestDefinition: Int, idTagName: Int): DBIO[Option[TestDefinitionTagRowWrapper]] = {
+    TestDefinitionTag.filter(row => row.idTestDefinition === idTestDefinition && row.idTagName === idTagName).result.headOption
+  }
+
+
+  /**
     * Creates a [[Query]] for reading the tag with id `idTagName` set on the [[TestDefinitionRow]] with id `idTestDefinition`.
     *
     * @param idTestDefinition id of the [[TestDefinitionRow]] to look up tags for.
@@ -391,53 +404,127 @@ trait CoreQueries extends AbstractQueries {
 
 
   /**
-   * Creates a [[DBIO]] for inserting or updating `row` into [[TestExecutionTag]] and returning an [[Option]] with
-   * the result
-   *
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestExecutionTag]] and returning a [[DBIO]] with the
+   * row created. This updates the `value` field.
    * @param row to be inserted
-   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionTag]]
+   * @tparam T TestExecutionTagRowLikeType
+   * @return DBIO of TestExecutionTagRow updated
    */
-  override def insertOrUpdateTestExecutionTagQuery[T: TestExecutionTagRowLikeType](row: T): DBIO[Option[TestExecutionTagRowWrapper]] = {
-    TestExecutionTag returning TestExecutionTag.map(_.idTestExecutionTag) into (
-      (row, id) => row.copy(idTestExecutionTag = id)
-    ) insertOrUpdate(row)
+  override def insertOrUpdateTestExecutionTagValueQuery[T: TestExecutionTagRowLikeType](row: T): DBIO[TestExecutionTagRowWrapper] = {
+    def byId = TestExecutionTag.filter(t =>
+      t.idTestExecution === row.idTestExecution && t.idTagName === row.idTagName
+    )
+    val find: DBIO[TestExecutionTagRow] = byId.result.head
+
+    for {
+      found: Option[TestExecutionTagRow] <- byId.result.headOption
+      _ <- found match {
+        case Some(existingTag: TestExecutionTagRow) =>
+          TestExecutionTag.filter(_.idTestExecutionTag === existingTag.idTestExecutionTag)
+          .map(_.value)
+          .update(row.value)
+        case None =>
+          this.writeTestExecutionTagQuery(row)
+      }
+      tag: TestExecutionTagRow <- find
+    } yield tag
   }
+
 
   /**
    * Creates a [[DBIO]] for inserting or updating `row` into [[TestExecutionMetaTag]] and returning an [[Int]] with the
-   * rows affected
+   * rows affected. This updates the `value` field.
    *
    * @param row to be inserted
    * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionMetaTag]]
    */
-  override def insertOrUpdateTestExecutionMetaTagQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[Int] = {
-    TestExecutionMetaTag.insertOrUpdate(row)
+  override def insertOrUpdateTestExecutionMetaTagValueQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[Int] = {
+    def byId(comparator: TestExecutionMetaTagRowLike) = TestExecutionMetaTag.filter(t =>
+      t.idTestExecutionTag === comparator.idTestExecutionTag && t.idTagName === comparator.idTagName
+    )
+
+    for {
+      found: Option[TestExecutionMetaTagRow] <- byId(row).result.headOption
+      metaTag: Int <- found match {
+        case Some(existingTag: TestExecutionMetaTagRow) =>
+          byId(existingTag).map(_.value).update(row.value)
+        case None =>
+          this.writeTestExecutionMetaTagQuery(row)
+      }
+    } yield metaTag
   }
 
 
   /**
-   * Creates a [[DBIO]] for inserting or updating `row` into [[TestDefinitionTag]] and returning an [[Option]] with
-   * the result
-   *
+   * Write a TestExecutionMetaTagRow into the TestExecutionMetaTag table.
    * @param row to be inserted
-   * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionTag]]
+   * @tparam T TestExecutionMetaTagRowLikeType
+   * @return Int of rows affected
    */
-  override def insertOrUpdateTestDefinitionTagQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[Option[TestDefinitionTagRowWrapper]] = {
-    TestDefinitionTag returning TestDefinitionTag.map(_.idTestDefinitionTag) into (
-      (row, id) => row.copy(idTestDefinitionTag = id)
-    ) insertOrUpdate(row)
+  override def writeTestExecutionMetaTagQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[Int] = {
+    TestExecutionMetaTag += row
   }
 
+
+  /**
+   * Creates a [[DBIO]] for inserting or updating `row` into [[TestDefinitionTag]] and returning a [[DBIO]] with the
+   * row created. This updates the `value` field.
+   * @param row to be inserted
+   * @tparam T TestDefinitionTagRowLikeType
+   * @return DBIO of TestDefinitionTagRow updated
+   */
+  override def insertOrUpdateTestDefinitionTagValueQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[TestDefinitionTagRowWrapper] = {
+    def byId = TestDefinitionTag.filter(t =>
+      t.idTestDefinition === row.idTestDefinition && t.idTagName === row.idTagName
+    )
+    val find: DBIO[TestDefinitionTagRow] = byId.result.head
+
+    for {
+      found: Option[TestDefinitionTagRow] <- byId.result.headOption
+      _ <- found match {
+        case Some(existingTag: TestDefinitionTagRow) =>
+          TestDefinitionTag.filter(_.idTestDefinitionTag === existingTag.idTestDefinitionTag)
+            .map(_.value)
+            .update(row.value)
+        case None =>
+          this.writeTestDefinitionTagQuery(row)
+      }
+      tag: TestDefinitionTagRow <- find
+    } yield tag
+  }
+
+
+  /**
+   * Write a TestDefinitionMetaTagRow into the TestDefinitionMetaTag table.
+   * @param row to be inserted
+   * @tparam T TestDefinitionMetaTagRowLikeType
+   * @return Int of rows affected
+   */
+  override def writeTestDefinitionMetaTagQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Int] = {
+    TestDefinitionMetaTag += row
+  }
 
   /**
    * Creates a [[DBIO]] for inserting or updating `row` into [[TestDefinitionMetaTag]] and returning an [[Int]] with the
-   * rows affected
+   * rows affected. This updates the `value` field.
    *
    * @param row to be inserted
    * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionMetaTag]]
    */
-  override def insertOrUpdateTestDefinitionMetaTagQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Int] = {
-    TestDefinitionMetaTag.insertOrUpdate(row)
+  override def insertOrUpdateTestDefinitionMetaTagValueQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Int] = {
+    def byId (comparator: TestDefinitionMetaTagRowLike)= TestDefinitionMetaTag.filter(t =>
+      t.idTestDefinitionTag === comparator.idTestDefinitionTag && t.idTagName === comparator.idTagName
+    )
+
+    for {
+      found: Option[TestDefinitionMetaTagRow] <- byId(row).result.headOption
+      metaTag: Int <- found match {
+        case Some(existingTag: TestDefinitionMetaTagRow) =>
+          byId(existingTag).map(_.value).update(row.value)
+        case None =>
+          this.writeTestDefinitionMetaTagQuery(row)
+      }
+    } yield metaTag
   }
 
 

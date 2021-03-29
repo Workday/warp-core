@@ -80,6 +80,10 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
 
       // Not ignoring duplicate execution and definition tags
       ExecutionTag("key3", "val3"),
+
+      // Intentionally updating key3's value
+      ExecutionTag("key3", "different value"),
+
       // These meta tags should successfully insert despite the duplicate tag value on the test definition
       ExecutionTag("key3", "val31", List(
         ExecutionMetaTag("metaKey31", "metaVal31"),
@@ -143,8 +147,8 @@ class DefaultMeasurementCollectionControllerSpec extends WarpJUnitSpec with Core
     tryRecordTags(1).tryTag._2(2).tryMetaTag.isSuccess should be (true)
 
     // Updated Tag with MetaTag insertion/update
-    tryRecordTags(4).tryTag._2.head.tryMetaTag.isSuccess should be (true)
-    tryRecordTags(4).tryTag._2(1).tryMetaTag.isSuccess should be (true)
+    tryRecordTags(5).tryTag._2.head.tryMetaTag.isSuccess should be (true)
+    tryRecordTags(5).tryTag._2(1).tryMetaTag.isSuccess should be (true)
   }
   // scalastyle:on
 
