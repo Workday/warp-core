@@ -12,7 +12,6 @@ import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.IdentifierSyntax._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import org.pmw.tinylog.Logger
-import slick.dbio
 import slick.jdbc.TransactionIsolation
 
 import scala.util.{Failure, Success}
