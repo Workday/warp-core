@@ -411,22 +411,21 @@ trait CoreQueries extends AbstractQueries {
    * @return DBIO of TestExecutionTagRow updated
    */
   override def insertOrUpdateTestExecutionTagValueQuery[T: TestExecutionTagRowLikeType](row: T): DBIO[TestExecutionTagRowWrapper] = {
-    def byId = TestExecutionTag.filter(t =>
+    val findQuery = TestExecutionTag.filter(t =>
       t.idTestExecution === row.idTestExecution && t.idTagName === row.idTagName
     )
-    val find: DBIO[TestExecutionTagRow] = byId.result.head
 
     for {
-      found: Option[TestExecutionTagRow] <- byId.result.headOption
+      found: Option[TestExecutionTagRow] <- findQuery.result.headOption
       _ <- found match {
         case Some(existingTag: TestExecutionTagRow) =>
           TestExecutionTag.filter(_.idTestExecutionTag === existingTag.idTestExecutionTag)
-          .map(_.value)
-          .update(row.value)
+            .map(_.value)
+            .update(row.value)
         case None =>
           this.writeTestExecutionTagQuery(row)
       }
-      tag: TestExecutionTagRow <- find
+      tag: TestExecutionTagRow <- findQuery.result.head
     } yield tag
   }
 
@@ -439,19 +438,19 @@ trait CoreQueries extends AbstractQueries {
    * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionMetaTag]]
    */
   override def insertOrUpdateTestExecutionMetaTagValueQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[Int] = {
-    def byId(comparator: TestExecutionMetaTagRowLike) = TestExecutionMetaTag.filter(t =>
+    def findQuery(comparator: TestExecutionMetaTagRowLike) = TestExecutionMetaTag.filter(t =>
       t.idTestExecutionTag === comparator.idTestExecutionTag && t.idTagName === comparator.idTagName
     )
 
     for {
-      found: Option[TestExecutionMetaTagRow] <- byId(row).result.headOption
-      metaTag: Int <- found match {
+      found: Option[TestExecutionMetaTagRow] <- findQuery(row).result.headOption
+      rowsAffected: Int <- found match {
         case Some(existingTag: TestExecutionMetaTagRow) =>
-          byId(existingTag).map(_.value).update(row.value)
+          findQuery(existingTag).map(_.value).update(row.value)
         case None =>
           this.writeTestExecutionMetaTagQuery(row)
       }
-    } yield metaTag
+    } yield rowsAffected
   }
 
 
@@ -474,13 +473,12 @@ trait CoreQueries extends AbstractQueries {
    * @return DBIO of TestDefinitionTagRow updated
    */
   override def insertOrUpdateTestDefinitionTagValueQuery[T: TestDefinitionTagRowLikeType](row: T): DBIO[TestDefinitionTagRowWrapper] = {
-    def byId = TestDefinitionTag.filter(t =>
+    val findQuery = TestDefinitionTag.filter(t =>
       t.idTestDefinition === row.idTestDefinition && t.idTagName === row.idTagName
     )
-    val find: DBIO[TestDefinitionTagRow] = byId.result.head
 
     for {
-      found: Option[TestDefinitionTagRow] <- byId.result.headOption
+      found: Option[TestDefinitionTagRow] <- findQuery.result.headOption
       _ <- found match {
         case Some(existingTag: TestDefinitionTagRow) =>
           TestDefinitionTag.filter(_.idTestDefinitionTag === existingTag.idTestDefinitionTag)
@@ -489,7 +487,7 @@ trait CoreQueries extends AbstractQueries {
         case None =>
           this.writeTestDefinitionTagQuery(row)
       }
-      tag: TestDefinitionTagRow <- find
+      tag: TestDefinitionTagRow <- findQuery.result.head
     } yield tag
   }
 
@@ -512,19 +510,19 @@ trait CoreQueries extends AbstractQueries {
    * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionMetaTag]]
    */
   override def insertOrUpdateTestDefinitionMetaTagValueQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Int] = {
-    def byId (comparator: TestDefinitionMetaTagRowLike)= TestDefinitionMetaTag.filter(t =>
+    def findQuery (comparator: TestDefinitionMetaTagRowLike)= TestDefinitionMetaTag.filter(t =>
       t.idTestDefinitionTag === comparator.idTestDefinitionTag && t.idTagName === comparator.idTagName
     )
 
     for {
-      found: Option[TestDefinitionMetaTagRow] <- byId(row).result.headOption
-      metaTag: Int <- found match {
+      found: Option[TestDefinitionMetaTagRow] <- findQuery(row).result.headOption
+      rowsAffected: Int <- found match {
         case Some(existingTag: TestDefinitionMetaTagRow) =>
-          byId(existingTag).map(_.value).update(row.value)
+          findQuery(existingTag).map(_.value).update(row.value)
         case None =>
           this.writeTestDefinitionMetaTagQuery(row)
       }
-    } yield metaTag
+    } yield rowsAffected
   }
 
 
