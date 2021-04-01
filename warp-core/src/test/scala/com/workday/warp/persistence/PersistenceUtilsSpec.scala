@@ -40,7 +40,9 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   @BeforeEach
   def truncateSchema(): Unit = {
     Connection.refresh()
-    CorePersistenceUtils.truncateSchema()
+    CorePersistenceUtils.dropSchema()
+    CorePersistenceUtils.initSchema()
+    Connection.refresh()
   }
 
 

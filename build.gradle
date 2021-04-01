@@ -101,10 +101,18 @@ if (project.hasProperty("teamcity")) {
 // note this task does not have any dependencies, and nothing depends on this task.
 // the expectation is this task will always be run in a ci environment,
 // and can be run once locally on a fresh checkout to create a starting config point
-task copyConfigTemplate(type: Copy) {
-    from "$rootDir/config-templates/warp.properties.template"
+task copyMySQLConfigTemplate(type: Copy) {
+    from "$rootDir/config-templates/warp.properties.mysql.template"
     rename { String filename ->
-        filename - '.template'
+        'warp.properties'
+    }
+
+    into "$rootDir/config/"
+}
+task copyH2ConfigTemplate(type: Copy) {
+    from "$rootDir/config-templates/warp.properties.h2.template"
+    rename { String filename ->
+        'warp.properties'
     }
 
     into "$rootDir/config/"
