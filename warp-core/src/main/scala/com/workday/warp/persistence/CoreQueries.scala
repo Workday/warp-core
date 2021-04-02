@@ -437,20 +437,22 @@ trait CoreQueries extends AbstractQueries {
    * @param row to be inserted
    * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionMetaTag]]
    */
-  override def insertOrUpdateTestExecutionMetaTagValueQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[Int] = {
+  override def insertOrUpdateTestExecutionMetaTagValueQuery[T: TestExecutionMetaTagRowLikeType](row: T)
+  : DBIO[TestExecutionMetaTagRowWrapper] = {
     def findQuery(comparator: TestExecutionMetaTagRowLike) = TestExecutionMetaTag.filter(t =>
       t.idTestExecutionTag === comparator.idTestExecutionTag && t.idTagName === comparator.idTagName
     )
 
     for {
       found: Option[TestExecutionMetaTagRow] <- findQuery(row).result.headOption
-      rowsAffected: Int <- found match {
+      _ <- found match {
         case Some(existingTag: TestExecutionMetaTagRow) =>
           findQuery(existingTag).map(_.value).update(row.value)
         case None =>
           this.writeTestExecutionMetaTagQuery(row)
       }
-    } yield rowsAffected
+      written <- findQuery(row).result.head
+    } yield written
   }
 
 
@@ -509,20 +511,22 @@ trait CoreQueries extends AbstractQueries {
    * @param row to be inserted
    * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionMetaTag]]
    */
-  override def insertOrUpdateTestDefinitionMetaTagValueQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Int] = {
+  override def insertOrUpdateTestDefinitionMetaTagValueQuery[T: TestDefinitionMetaTagRowLikeType](row: T)
+  : DBIO[TestDefinitionMetaTagRowWrapper] = {
     def findQuery (comparator: TestDefinitionMetaTagRowLike)= TestDefinitionMetaTag.filter(t =>
       t.idTestDefinitionTag === comparator.idTestDefinitionTag && t.idTagName === comparator.idTagName
     )
 
     for {
       found: Option[TestDefinitionMetaTagRow] <- findQuery(row).result.headOption
-      rowsAffected: Int <- found match {
+      _ <- found match {
         case Some(existingTag: TestDefinitionMetaTagRow) =>
           findQuery(existingTag).map(_.value).update(row.value)
         case None =>
           this.writeTestDefinitionMetaTagQuery(row)
       }
-    } yield rowsAffected
+      written <- findQuery(row).result.head
+    } yield written
   }
 
 

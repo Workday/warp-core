@@ -243,7 +243,10 @@ trait PersistenceAware {
       * @param value value of the tag.
       */
     @throws[WarpFieldPersistenceException]
-    def recordTestDefinitionMetaTag(idTestDefinitionTag: Int, name: String, value: String, isUserGenerated: Boolean = true): Unit
+    def recordTestDefinitionMetaTag(idTestDefinitionTag: Int,
+                                    name: String,
+                                    value: String,
+                                    isUserGenerated: Boolean = true): TestDefinitionMetaTagRowLike
 
 
     /**
@@ -263,7 +266,10 @@ trait PersistenceAware {
       * @param value value of the tag.
       */
     @throws[WarpFieldPersistenceException]
-    def recordTestExecutionMetaTag(idTestExecutionTag: Int, name: String, value: String, isUserGenerated: Boolean = true): Unit
+    def recordTestExecutionMetaTag(idTestExecutionTag: Int,
+                                   name: String,
+                                   value: String,
+                                   isUserGenerated: Boolean = true): TestExecutionMetaTagRowLike
 
 
     /**
