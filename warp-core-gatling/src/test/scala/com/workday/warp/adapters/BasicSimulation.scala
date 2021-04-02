@@ -10,6 +10,9 @@ import io.gatling.http.protocol.HttpProtocolBuilder
 @RunWith(classOf[GatlingJUnitRunner])
 @deprecated("use junit5", since = "4.4.0")
 class BasicSimulation extends WarpSimulation {
+
+  override val maybeDocumentation: Option[String] = Option("an example gatling simulation")
+
   val httpConf: HttpProtocolBuilder = http
     .baseUrl("http://google.com")
 
