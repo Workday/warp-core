@@ -72,7 +72,6 @@ allprojects {
         }
 
         api "org.scala-lang.modules:scala-collection-compat${scalaSuffix}:${versions.scalaCollectionCompat}"
-        scalafix "org.scala-lang.modules:scala-collection-migrations_2.12:${versions.scalaCollectionCompat}"
     }
 }
 
