@@ -193,7 +193,9 @@ subprojects {
                 '-language:postfixOps',
                 // needed for "Collection213CrossCompat" scalafix
                 '-Yrangepos',
-                '-P:semanticdb:synthetics:on'
+                '-P:semanticdb:synthetics:on',
+                // gets rid of "Static methods in interface require -target:jvm-1.8" error
+                '-target:jvm-1.8'
         ]
     }
 
