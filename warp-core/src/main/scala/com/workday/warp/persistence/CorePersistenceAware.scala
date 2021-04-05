@@ -295,9 +295,9 @@ trait CorePersistenceAware extends PersistenceAware {
     override def recordTestDefinitionMetaTag(idTestDefinitionTag: Int,
                                              name: String,
                                              value: String,
-                                             isUserGenerated: Boolean = true): Unit = {
+                                             isUserGenerated: Boolean = true): TestDefinitionMetaTagRowLike = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val dbAction: DBIO[Int] = this.insertOrUpdateTestDefinitionMetaTagValueQuery(
+      val dbAction: DBIO[TestDefinitionMetaTagRowWrapper] = this.insertOrUpdateTestDefinitionMetaTagValueQuery(
         TestDefinitionMetaTagRow(idTestDefinitionTag, nameRow.idTagName, value)
       )
 
@@ -323,9 +323,9 @@ trait CorePersistenceAware extends PersistenceAware {
     override def recordTestExecutionMetaTag(idTestExecutionTag: Int,
                                             name: String,
                                             value: String,
-                                            isUserGenerated: Boolean = true): Unit = {
+                                            isUserGenerated: Boolean = true): TestExecutionMetaTagRowLike = {
       val nameRow: TagNameRowLike = this.findOrCreateTagName(name, isUserGenerated = isUserGenerated)
-      val dbAction: DBIO[Int] = this.insertOrUpdateTestExecutionMetaTagValueQuery(
+      val dbAction: DBIO[TestExecutionMetaTagRowWrapper] = this.insertOrUpdateTestExecutionMetaTagValueQuery(
         TestExecutionMetaTagRow(idTestExecutionTag, nameRow.idTagName, value)
       )
 

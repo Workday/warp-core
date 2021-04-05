@@ -284,7 +284,7 @@ trait AbstractQueries {
    * @param row to be inserted
    * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestExecutionMetaTag]]
    */
-  def insertOrUpdateTestExecutionMetaTagValueQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[Int]
+  def insertOrUpdateTestExecutionMetaTagValueQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[TestExecutionMetaTagRowLike]
 
 
   /**
@@ -313,7 +313,7 @@ trait AbstractQueries {
    * @param row to be inserted
    * @return a [[DBIO]] (not yet executed) for inserting or updating `row` into [[TestDefinitionMetaTag]]
    */
-  def insertOrUpdateTestDefinitionMetaTagValueQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[Int]
+  def insertOrUpdateTestDefinitionMetaTagValueQuery[T: TestDefinitionMetaTagRowLikeType](row: T): DBIO[TestDefinitionMetaTagRowLike]
 
 
   /**
