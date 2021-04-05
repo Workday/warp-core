@@ -1,9 +1,11 @@
 package com.workday.warp.adapters.gatling
 
-import com.workday.warp.TestId
+import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.inject.WarpGuicer
 import io.gatling.core.Predef.Simulation
+
+import scala.util.Success
 
 /**
   * Created by ruiqi.wang
@@ -13,6 +15,9 @@ import io.gatling.core.Predef.Simulation
 abstract class WarpSimulation(val testId: TestId) extends Simulation with HasDefaultTestName with HasWarpHooks {
 
   def this() = this(TestId.undefined)
+
+  // override this field to set documentation at the test definition level
+  val maybeDocumentation: Option[String] = None
 
   val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(this.testId, tags = List.empty)
 
@@ -24,7 +29,8 @@ abstract class WarpSimulation(val testId: TestId) extends Simulation with HasDef
 
   after {
     beforeEnd()
-    controller.endMeasurementCollection()
+    val trial: TrialResult[Unit] = TrialResult(maybeDocumentation = this.maybeDocumentation)
+    controller.endMeasurementCollection(Success(trial))
     afterEnd()
   }
 
