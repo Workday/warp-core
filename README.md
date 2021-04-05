@@ -88,7 +88,7 @@ We use [gradle-scala-multiversion-plugin](https://github.com/ADTRAN/gradle-scala
 to cross-compile the project with different scala-lang major versions and publish artifacts with scala version suffixes.
 The versions are defined in gradle.properties, however you can also override from the command line:
 ```
-$ ./gradlew -PscalaVersions=2.11.8,2.12.6 test
+$ ./gradlew -PscalaVersions=2.11.8,2.12.6,2.13.5 test
 ```
 This plugin works by repeatedly invoking the gradle task graph with each different scala version specified.
 Without any version specified, gradle will use the defaultScalaVersion from gradle.properties. This means local IDE builds
@@ -96,7 +96,8 @@ will use just one scala version. If you need to run with all configured scala ve
 ```
 $ ./gradlew -PallScalaVersions test
 ```
-Since some of our dependencies are not cross-compiled, currently we only build for 2.12.
+
+We support Scala cross-compilation for 2.11, 2.12, and 2.13, with the only caveat being the `warp-core-gatling` submodule. This is due to Gatling's choice to only compile with one (usually the latest) Scala version.
 
 
 ## Versioning
@@ -127,14 +128,18 @@ under the wrong version.
 ## Dependencies
 
 To enforce repeatable builds while allowing developers to use the flexibility of dynamic dependency ranges, we use the
-gradle's native dependency-locking mechanism. Note, gradle creates a separate lockfile per *configuration*. 
+gradle's native dependency-locking mechanism. 
 
 We create/update lock files as follows:
 ```
 ./gradlew resolveAndLockAll --write-locks
 ```
 
-Note that this locks all configurations in one single build execution. If you have updated `versionInfo.gradle`, you probably need to recreate the lock files as well. If any configuration needs to be excluded/filtered, you can do so in the `resolveAndLockAll` step. Please see https://docs.gradle.org/6.2.1/userguide/dependency_locking.html#generating_and_updating_dependency_locks for more detailed usage.
+Note that you may need to run this task for other scala versions besides the base version 
+
+`./gradlew resolveAnLockAll --write-locks -PallScalaVersions`
+
+Also note that this locks all configurations in one single build execution. If you have updated `versionInfo.gradle`, you probably need to recreate the lock files as well. If any configuration needs to be excluded/filtered, you can do so in the `resolveAndLockAll` step. Please see https://docs.gradle.org/6.2.1/userguide/dependency_locking.html#generating_and_updating_dependency_locks for more detailed usage.
 
 Please avoid using global locks. We have noticed behavior where this can override the version of scala-library used by the
 zinc compiler.
