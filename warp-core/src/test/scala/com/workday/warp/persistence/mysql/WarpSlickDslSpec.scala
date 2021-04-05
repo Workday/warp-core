@@ -18,7 +18,6 @@ import slick.lifted.Query
 import TablesLike.{TestDefinitionRowLike, TestExecutionRowLike}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.junit.jupiter.api.parallel.Isolated
-import scala.language.postfixOps
 
 /**
   * Created by ruiqi.wang

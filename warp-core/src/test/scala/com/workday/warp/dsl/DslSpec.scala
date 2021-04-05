@@ -16,8 +16,6 @@ import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
-import scala.language.postfixOps
-import scala.language._
 
 import scala.util.Try
 

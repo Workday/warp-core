@@ -7,7 +7,6 @@ import Implicits._
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.junit.jupiter.api.{TestInfo, Timeout}
-import scala.language.postfixOps
 
 /**
   * Created by tomas.mccandless on 6/8/18.

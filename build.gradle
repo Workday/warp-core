@@ -70,6 +70,9 @@ allprojects {
         testRuntimeOnly("org.junit.platform:junit-platform-launcher:${versions.junit5PlatformLauncher}") {
             because 'allows tests to run from IDEs that bundle older version of launcher'
         }
+
+        api "org.scala-lang.modules:scala-collection-compat${scalaSuffix}:${versions.scalaCollectionCompat}"
+        scalafix "org.scala-lang.modules:scala-collection-migrations_2.12:${versions.scalaCollectionCompat}"
     }
 }
 
