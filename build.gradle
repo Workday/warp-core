@@ -190,7 +190,10 @@ subprojects {
         scalaCompileOptions.additionalParameters = [
                 // needed for "RemoveUnused" scalafix rule
                 '-Ywarn-unused',
-                '-language:postfixOps'
+                '-language:postfixOps',
+                // needed for "Collection213CrossCompat" scalafix
+                '-Yrangepos',
+                '-P:semanticdb:synthetics:on'
         ]
     }
 

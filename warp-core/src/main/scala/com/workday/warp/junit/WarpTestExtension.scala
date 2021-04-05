@@ -7,7 +7,7 @@ import com.workday.warp.TestIdImplicits.extensionContext2TestId
 import org.junit.jupiter.api.extension.{ExtensionContext, TestTemplateInvocationContext, TestTemplateInvocationContextProvider}
 import org.junit.platform.commons.util.{AnnotationUtils, Preconditions}
 
-import scala.jdk.StreamConverters._
+import scala.collection.convert._
 
 /** TestTemplate for running and measuring WarpTests.
   *
