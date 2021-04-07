@@ -135,9 +135,9 @@ We create/update lock files as follows:
 ./gradlew resolveAndLockAll --write-locks
 ```
 
-Note that you may need to run this task for other scala versions besides the base version 
+Note that you may need to run this task for other scala versions besides the project default scala version 
 
-`./gradlew resolveAnLockAll --write-locks -PallScalaVersions`
+`./gradlew resolveAndLockAll --write-locks -PallScalaVersions`
 
 Also note that this locks all configurations in one single build execution. If you have updated `versionInfo.gradle`, you probably need to recreate the lock files as well. If any configuration needs to be excluded/filtered, you can do so in the `resolveAndLockAll` step. Please see https://docs.gradle.org/6.2.1/userguide/dependency_locking.html#generating_and_updating_dependency_locks for more detailed usage.
 

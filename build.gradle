@@ -20,7 +20,8 @@ buildscript {
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
         classpath "io.github.cosmicsilence:gradle-scalafix:${versions.scalafix}"
         classpath "org.ajoberstar.grgit:grgit-gradle:${versions.gradleGit}"
-        classpath "com.github.alisiikh:gradle-scalastyle-plugin:${versions.scalaStyle}"
+        // not cross compiled for 2.13 available as of 4/6/21, but works on 2.13 source code
+        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.12:${versions.scalaStyle}"
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
     }
@@ -39,7 +40,7 @@ allprojects {
     apply plugin: 'scala'
     // apply multiversion to individual projects
     apply plugin: 'com.adtran.scala-multiversion-plugin'
-    apply plugin: 'com.github.alisiikh.scalastyle'
+    apply plugin: 'scalaStyle'
     apply plugin: 'idea'
     apply plugin: 'org.ajoberstar.grgit'
     apply plugin: 'nebula.gradle-git-scm'
@@ -197,6 +198,7 @@ subprojects {
         scalaCompileOptions.additionalParameters = [
                 // needed for "RemoveUnused" scalafix rule
                 '-Ywarn-unused',
+                // so we can avoid importing scala.language.postfixOps in multiple source files
                 '-language:postfixOps',
                 // gets rid of "Static methods in interface require -target:jvm-1.8" error
                 '-target:jvm-1.8'
@@ -231,9 +233,11 @@ subprojects {
         }
     }
 
-    scalastyle {
-        scalaVersion = "2.13"
-        config = config = file("${rootDir}/scalastyle_config.xml")
+    scalaStyle {
+        configLocation = "${rootDir}/scalastyle.xml"
+        includeTestSourceDirectory = true
+        source = "src/main/scala"
+        testSource = "src/test/scala"
     }
 
     checkstyle {
@@ -250,7 +254,7 @@ subprojects {
         if (project.hasProperty("shouldDeleteSchema") && Boolean.valueOf(project.shouldDeleteSchema.toString())) {
             task.dependsOn(deleteSchema)
         }
-        //task.finalizedBy(scalastyleCheck)
+        task.finalizedBy(scalaStyle)
         task.finalizedBy(checkstyleMain)
         task.finalizedBy(checkstyleTest)
 
