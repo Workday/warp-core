@@ -72,7 +72,7 @@ allprojects {
             because 'allows tests to run from IDEs that bundle older version of launcher'
         }
 
-        api "org.scala-lang.modules:scala-collection-compat${scalaSuffix}:${versions.scalaCollectionCompat}"
+        api "org.scala-lang.modules:scala-collection-compat_%%:${versions.scalaCollectionCompat}"
     }
 }
 
