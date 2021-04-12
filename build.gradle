@@ -1,6 +1,6 @@
 buildscript {
     // set a valid scala suffix for the buildscript itself
-    project.ext.scalaSuffix = '_2.13'
+    project.ext.scalaSuffix = '_2.12'
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
@@ -21,7 +21,7 @@ buildscript {
         classpath "io.github.cosmicsilence:gradle-scalafix:${versions.scalafix}"
         classpath "org.ajoberstar.grgit:grgit-gradle:${versions.gradleGit}"
         // not cross compiled for 2.13 available as of 4/6/21, but works on 2.13 source code
-        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.12:${versions.scalaStyle}"
+        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin${project.scalaSuffix}:${versions.scalaStyle}"
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
     }
