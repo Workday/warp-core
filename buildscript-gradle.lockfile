@@ -2,7 +2,7 @@
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
 ch.epfl.scala:scalafix-interfaces:0.9.26=classpath
-com.adtran:scala-multiversion-plugin:1.0.37=classpath
+com.adtran:scala-multiversion-plugin:1.0.38-main-SNAPSHOT=classpath
 com.fasterxml.jackson:jackson-bom:2.11.0=classpath
 com.github.zafarkhaja:java-semver:0.9.0=classpath
 com.googlecode.javaewah:JavaEWAH:1.1.7=classpath
