@@ -7,7 +7,7 @@ dependencies {
 }
 
 afterEvaluate {
-    if (project.scalaSuffix != "_2.12") {
+    if (project.scalaSuffix != "_2.13") {
         println("disabling all tasks for ${project.name} (scala ${project.scalaVersion})")
         project.tasks.each {
             it.enabled = false

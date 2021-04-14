@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        scala: [2.11.11, 2.12.12]
+        scala: [2.11.12, 2.12.12, 2.13.5]
         # see build.gradle copy template tasks
         db: [MySQL, H2]
 

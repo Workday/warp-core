@@ -6,7 +6,6 @@ import slick.ast.TypedType
 import slick.lifted.FunctionSymbolExtensionMethods._
 import slick.lifted.{Query, Rep}
 
-import scala.language.higherKinds
 
 /**
   * Created by ruiqi.wang

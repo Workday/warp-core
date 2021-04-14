@@ -7,7 +7,7 @@ import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
 import org.pmw.tinylog.Logger
-import com.workday.warp.dsl.using._
+import com.workday.warp.dsl.using.measuring
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.{DistributionLike, GaussianDistribution}

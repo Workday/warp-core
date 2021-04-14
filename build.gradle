@@ -20,6 +20,7 @@ buildscript {
         classpath "com.netflix.nebula:nebula-publishing-plugin:${versions.nebulaPublish}"
         classpath "io.github.cosmicsilence:gradle-scalafix:${versions.scalafix}"
         classpath "org.ajoberstar.grgit:grgit-gradle:${versions.gradleGit}"
+        // not cross compiled for 2.13 available as of 4/6/21, but works on 2.13 source code
         classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin${project.scalaSuffix}:${versions.scalaStyle}"
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
@@ -70,6 +71,8 @@ allprojects {
         testRuntimeOnly("org.junit.platform:junit-platform-launcher:${versions.junit5PlatformLauncher}") {
             because 'allows tests to run from IDEs that bundle older version of launcher'
         }
+
+        api "org.scala-lang.modules:scala-collection-compat_%%:${versions.scalaCollectionCompat}"
     }
 }
 
@@ -194,7 +197,11 @@ subprojects {
     tasks.withType(ScalaCompile) {
         scalaCompileOptions.additionalParameters = [
                 // needed for "RemoveUnused" scalafix rule
-                '-Ywarn-unused'
+                '-Ywarn-unused',
+                // so we can avoid importing scala.language.postfixOps in multiple source files
+                '-language:postfixOps',
+                // gets rid of "Static methods in interface require -target:jvm-1.8" error
+                '-target:jvm-1.8'
         ]
     }
 
@@ -281,7 +288,7 @@ subprojects {
     }
 
     afterEvaluate {
-        if (project.scalaSuffix != "_2.12") {
+        if (project.scalaSuffix != "_2.13") {
             tasks.withType(ScalafixTask) {
                 enabled = false
             }
@@ -296,7 +303,7 @@ subprojects {
 
     dependencyLocking {
         lockAllConfigurations()
-        if (project.scalaSuffix == "_2.12") {
+        if (project.scalaSuffix == "_2.13") {
             lockMode = LockMode.STRICT
         }
         lockFile = file("$projectDir/locking/${project.name}${scalaSuffix}.lockfile")

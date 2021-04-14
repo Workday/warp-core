@@ -1,6 +1,6 @@
 package com.workday.warp.persistence.mysql
 
-import scala.language.{higherKinds, implicitConversions}
+import scala.language.implicitConversions
 import slick.ast.BaseTypedType
 import slick.lifted.{Query, Rep}
 

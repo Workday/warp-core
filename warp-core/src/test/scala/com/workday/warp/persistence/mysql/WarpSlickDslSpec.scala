@@ -53,7 +53,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware with Skip
   def returnQuoted(): Unit = skipIfH2 {
     val testDefinition: TestDefinitionRowLike = this.persistenceUtils.findOrCreateTestDefinition(methodSignature3)
     val cast: Rep[String] = testDefinition.methodSignature
-    val test: Rep[String] = cast quote()
+    val test: Rep[String] = (cast).quote()
     val query1 = this.persistenceUtils.runWithRetries(test.result)
 
     val addBackSlash = testDefinition.methodSignature.replaceAll("\'", "\\\\\'")
@@ -83,7 +83,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware with Skip
   def returnYearString(): Unit = {
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val currentTimestamp: Rep[String] = TimeStampExtensions.now()
-    val query1: Rep[Int] = currentTimestamp.year()
+    val query1: Rep[Int] = (currentTimestamp).year()
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual Year.now.getValue
 
   }
@@ -94,7 +94,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware with Skip
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val query1: Rep[Int] = timeStamp year()
+    val query1: Rep[Int] = timeStamp.year()
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldEqual Year.now.getValue
   }
 
@@ -102,7 +102,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware with Skip
   @UnitTest
   def returnUNIXTimeStampDate(): Unit = skipIfH2 {
     val date: Rep[java.sql.Date] = new sql.Date(Instant.now.toEpochMilli)
-    val query: Rep[Long] = date unixTimestamp()
+    val query: Rep[Long] = (date).unixTimestamp()
     val result: Long = this.persistenceUtils.runWithRetries(query.result, 5)
 
     val cal: Calendar = Calendar.getInstance()
@@ -275,7 +275,7 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware with Skip
   def returnUNIXTimeStamp(): Unit = skipIfH2 {
     val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     val timeStamp: Rep[Timestamp] = testExecution.startTime
-    val query: Rep[Long] = timeStamp unixTimestamp()
+    val query: Rep[Long] = (timeStamp).unixTimestamp()
     val result: Long = this.persistenceUtils.runWithRetries(query.result)
     val unixTimestamp: Long = Instant.now.getEpochSecond()
     result shouldEqual unixTimestamp +- 2
