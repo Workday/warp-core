@@ -4,6 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Workday/warp-core/badge.svg?branch=master)](https://coveralls.io/github/Workday/warp-core?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.11/badge.svg?subject=scala+2.11)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.11)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.12/badge.svg?subject=scala+2.12)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.12)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.13/badge.svg?subject=scala+2.13)](https://maven-badges.herokuapp.com/maven-central/com.workday.warp/warp-core_2.13)
 
 WARP (Workday Automated Regression Platform) is a flexible, lightweight, (mostly) functional Scala framework for collecting performance metrics and conducting sound experimental benchmarking.
 
