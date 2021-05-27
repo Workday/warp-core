@@ -18,11 +18,11 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
   /** Checks usage of the public rpca method. */
   @UnitTest
   def robustPca(): Unit = {
-    val ballot: Ballot = Ballot("com.workday.warp.test.test1")
+    val ballot: Ballot = new Ballot("com.workday.warp.test.test1")
     // use an empty list of response times and take the minimum number from configuration
-    RobustPcaRunner().robustPca(List.empty[Double], ballot.testId) shouldBe None
+    RobustPcaRunner().robustPca(List.empty[Double], ballot.getId) shouldBe None
     // override minimum number of required measurements
-    RobustPcaRunner(requiredMeasurements = 1).robustPca(List(1.5, 2.0, 3.14), ballot.testId) shouldBe defined
+    RobustPcaRunner(requiredMeasurements = 1).robustPca(List(1.5, 2.0, 3.14), ballot.getId) shouldBe defined
   }
 
 

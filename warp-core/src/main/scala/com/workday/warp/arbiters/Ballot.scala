@@ -11,6 +11,9 @@ import scala.collection.mutable
   */
 class Ballot(testId: TestId) extends StackTraceFilter {
 
+  /** returns test Id of ballot */
+  def getId: TestId = this.testId
+
   /** holds any throwables created by arbiters */
   private val errors: mutable.ListBuffer[Throwable] = mutable.ListBuffer[Throwable]()
 
@@ -25,7 +28,6 @@ class Ballot(testId: TestId) extends StackTraceFilter {
       case None =>
     }
   }
-
 
   /** Throws an exception if any arbiters voted to fail the test.
     *

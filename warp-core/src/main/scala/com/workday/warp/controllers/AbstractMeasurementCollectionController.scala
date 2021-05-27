@@ -58,7 +58,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
   def arbiters: List[ArbiterLike] = this._arbiters
 
   /** ballot that holds votes from the arbiters */
-  protected val ballotBox: Ballot = new Ballot(this.testId)
+  val ballotBox: Ballot = new Ballot(this.testId)
 
   /** time at which this test was invoked */
   protected var timeStarted: Instant = _
