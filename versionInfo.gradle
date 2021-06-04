@@ -43,4 +43,6 @@ project.ext.versions = [
         , tinylogSlf4jBinding: '1.3.6'
         , tinylog: '1.3.6'
         , typesafeConfig: '1.3.+'
+        , scalalogging: '3.9.3'
+        , slf4j: '1.7.30'
 ]
