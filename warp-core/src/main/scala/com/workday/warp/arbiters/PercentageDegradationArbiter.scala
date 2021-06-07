@@ -5,7 +5,7 @@ import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.math.truncatePercent
 import com.workday.warp.utils.AnnotationReader
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 /**
   * Arbiter that checks whether the response time for this test was within an acceptable percentage of the historical
@@ -13,7 +13,7 @@ import org.pmw.tinylog.Logger
   *
   * Created by tomas.mccandless on 5/13/16.
   */
-class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
+class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike with WarpLogging {
 
   /**
     * Checks that the measured test passed its performance requirement. If the requirement is failed, constructs an
@@ -47,7 +47,7 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
 
     // we don't have enough historical data yet
     if (responseTimes.size < minimumHistoricalData) {
-      Logger.warn(s"not enough historical measurements for ${ballot.testId.id}. (found ${responseTimes.size}, we require " +
+      logger.warn(s"not enough historical measurements for ${ballot.testId.id}. (found ${responseTimes.size}, we require " +
         s"$minimumHistoricalData.) percentage threshold processing will not continue.")
       None
     }
