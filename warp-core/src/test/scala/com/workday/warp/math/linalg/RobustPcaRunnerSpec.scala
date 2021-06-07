@@ -6,14 +6,14 @@ import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.arbiters.Ballot
 import com.workday.warp.utils.Implicits.{DecoratedDuration, DecoratedInt}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 import scala.util.Random
 
 /**
   * Created by tomas.mccandless on 9/14/16.
   */
-class RobustPcaRunnerSpec extends WarpJUnitSpec {
+class RobustPcaRunnerSpec extends WarpJUnitSpec with WarpLogging {
 
   /** Checks usage of the public rpca method. */
   @UnitTest
@@ -62,6 +62,6 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
     }
 
     result should not exceed (45 seconds)
-    Logger.debug(s"processed $dataSize in ${result.head.maybeResponseTime.get.humanReadable}")
+    logger.debug(s"processed $dataSize in ${result.head.maybeResponseTime.get.humanReadable}")
   }
 }
