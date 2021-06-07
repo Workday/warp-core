@@ -22,12 +22,12 @@
 
 package com.workday.warp.adapters.gatling
 
+import com.workday.warp.logger.WarpLogging
 import io.gatling.app.Gatling
 import io.gatling.core.Predef.Simulation
 import io.gatling.core.config.GatlingPropertiesBuilder
 import org.junit.runner.{Description, Runner}
 import org.junit.runner.notification.{RunNotifier, Failure => JUnitFailure}
-import org.pmw.tinylog.Logger
 
 import scala.util.{Failure, Success, Try}
 
@@ -38,7 +38,7 @@ import scala.util.{Failure, Success, Try}
   * @param simulationClass
   */
 @deprecated("use junit5", since = "4.4.0")
-final class GatlingJUnitRunner(simulationClass: Class[_ <: Simulation]) extends Runner {
+final class GatlingJUnitRunner(simulationClass: Class[_ <: Simulation]) extends Runner with WarpLogging {
 
   /**
     * JUnit Description to Identify Tests
@@ -61,12 +61,12 @@ final class GatlingJUnitRunner(simulationClass: Class[_ <: Simulation]) extends 
       Gatling.fromMap(properties.build)
     } match {
       case Success(0) =>
-        Logger.debug("Test succeeded!")
+        logger.debug("GatlingJUnitRunner test succeeded!")
       case Success(nonZero) =>
         notifier.fireTestFailure(new JUnitFailure(getDescription, new RuntimeException(s"Simulation ended with result code $nonZero")))
       case Failure(e) =>
         notifier.fireTestFailure(new JUnitFailure(getDescription, e))
-        Logger.error(e)
+        logger.error("GatlingJUnitRunner test succeeded!", e)
     }
     notifier.fireTestFinished(getDescription)
   }
