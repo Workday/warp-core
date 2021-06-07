@@ -6,7 +6,7 @@ import com.workday.warp.collectors.AbstractMeasurementCollector
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.dsl.using.measuring
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
@@ -23,7 +23,7 @@ import scala.util.Try
   * Created by tomas.mccandless on 3/25/16.
   */
 @Isolated
-class DslSpec extends WarpJUnitSpec with HasRandomTestId {
+class DslSpec extends WarpJUnitSpec with HasRandomTestId with WarpLogging {
 
   @UnitTest
   def dsl(): Unit = {
@@ -101,8 +101,8 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   @UnitTest
   def dslDistribution(): Unit = {
     val normal: DistributionLike = GaussianDistribution(50, 10)
-    using no collectors invocations 8 distribution normal measure { Logger.trace("i'm being measured") }
-    using no collectors invocations 8 distribution normal threads 8 measure { Logger.trace("i'm being measured on multiple threads") }
+    using no collectors invocations 8 distribution normal measure { logger.trace("i'm being measured") }
+    using no collectors invocations 8 distribution normal threads 8 measure { logger.trace("i'm being measured on multiple threads") }
 
     // check using the default distribution -- the overall time should be very short since there is no delay
     val config: ExecutionConfig = using no collectors invocations 8 threads 2 mode single
@@ -464,14 +464,14 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   // some dummy arbiters and collectors to use in testing
   class SomeArbiter extends ArbiterLike with CorePersistenceAware {
     override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-      Logger.debug("some arbiter voting")
+      logger.debug("some arbiter voting")
       None
     }
   }
 
   class SomeOtherArbiter extends ArbiterLike with CorePersistenceAware {
     override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-      Logger.debug("some other arbiter voting")
+      logger.debug("some other arbiter voting")
       None
     }
   }
@@ -486,7 +486,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     /**
       * Called prior to starting an individual test invocation.
       */
-    override def startMeasurement(): Unit = Logger.debug("starting measurement")
+    override def startMeasurement(): Unit = logger.debug("starting measurement")
 
     /**
       * Called after finishing an individual test invocation.
@@ -495,7 +495,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
       *                          not attempt to write out to the database.
       */
     override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-      Logger.debug("stopping measurement")
+      logger.debug("stopping measurement")
     }
   }
 
@@ -503,7 +503,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     /**
       * Called prior to starting an individual test invocation.
       */
-    override def startMeasurement(): Unit = Logger.debug("starting measurement")
+    override def startMeasurement(): Unit = logger.debug("starting measurement")
 
     /**
       * Called after finishing an individual test invocation.
@@ -512,7 +512,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
       *                          not attempt to write out to the database.
       */
     override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-      Logger.debug("stopping measurement")
+      logger.debug("stopping measurement")
     }
   }
 }
