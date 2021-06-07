@@ -1,12 +1,11 @@
 package com.workday.warp
 
 import java.lang.reflect.Method
-
 import com.workday.warp.config.CoreConstants
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.utils.Implicits.{DecoratedOption, DecoratedOptional}
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtensionContext
-import org.pmw.tinylog.Logger
 
 import scala.util.{Failure, Success, Try}
 
@@ -57,7 +56,7 @@ case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
 }
 
 
-object TestId {
+object TestId extends WarpLogging {
 
   /** A default undefined [[TestId]]. */
   lazy val undefined: TestId = new TestId(Failure(new ClassNotFoundException), Failure(new NoSuchMethodException)) {
@@ -100,7 +99,7 @@ object TestId {
       cls <- maybeTestClass
       methods: Array[Method] = cls.getMethods.filter(_.getName == methodName)
       _ = if (methods.length > 1) {
-        Logger.warn(s"detected overloaded methods for signature $str, annotation processing may not work as expected.")
+        logger.warn(s"detected overloaded methods for signature $str, annotation processing may not work as expected.")
       }
       method <- methods.headOption.toTry
     } yield method
