@@ -14,7 +14,6 @@ import com.workday.warp.utils.Implicits._
 import com.workday.warp.utils.{AnnotationReader, FutureUtils, TimeUtils}
 import com.workday.warp.{TestId, TrialResult}
 import org.junit.jupiter.api.TestInfo
-import org.pmw.tinylog.Logger
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -111,11 +110,11 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
     * will be started in parallel.
     */
   def startCollectors(): Unit = {
-    Logger.debug(s"starting concurrent measurement collection for ${this.testId}")
+    logger.debug(s"starting concurrent measurement collection for ${this.testId}")
 
     // create a list of tuples of (priority, collector list) for each enabled priority level
     this.collectorSchedule foreach { case (priority: Int, scheduledCollectors: List[AbstractMeasurementCollector]) =>
-      Logger.debug(s"starting concurrent collectors for priority level $priority: $scheduledCollectors")
+      logger.debug(s"starting concurrent collectors for priority level $priority: $scheduledCollectors")
 
       val measurementTasks: Seq[Future[Unit]] = for (collector <- scheduledCollectors) yield Future {
         collector.tryStartMeasurement()
@@ -352,20 +351,20 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
       case PersistTagResult(outerTag, tryOuterTag) =>
         tryOuterTag match {
           case (Success(_), _) =>
-            Logger.debug(s"OuterTag $outerTag persisted... testing MetaTags")
+            logger.debug(s"OuterTag $outerTag persisted... testing MetaTags")
           case (Failure(pte: WarpFieldPersistenceException), _) =>
             throw pte
           case (Failure(exception), _) =>
-            Logger.error(s"OuterTag $outerTag failed to persist with exception: $exception")
+            logger.error(s"OuterTag $outerTag failed to persist with exception: $exception")
         }
 
         // loop on metatags
         tryOuterTag._2 foreach {
           case PersistMetaTagResult(metaTag, triedMetaTag) =>
             triedMetaTag match {
-              case Success(_) => Logger.debug(s"MetaTag $metaTag persisted")
+              case Success(_) => logger.debug(s"MetaTag $metaTag persisted")
               case Failure(wfpe: WarpFieldPersistenceException) => throw wfpe
-              case Failure(exception) => Logger.error(s"MetaTag $metaTag failed to persist with exception: $exception")
+              case Failure(exception) => logger.error(s"MetaTag $metaTag failed to persist with exception: $exception")
             }
         }
     }
@@ -378,11 +377,11 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
     * @param maybeTestExecution an [[Option]] of type [[TestExecutionRowLike]]
     */
   private def stopCollectors(maybeTestExecution: Option[TestExecutionRowLike]): Unit = {
-    Logger.debug(s"stopping concurrent measurement collection for ${this.testId}")
+    logger.debug(s"stopping concurrent measurement collection for ${this.testId}")
 
     // create a list of tuples of (priority, collector list) for each enabled priority level
     this.collectorSchedule.reverse foreach { case (priority: Int, scheduledCollectors: List[AbstractMeasurementCollector]) =>
-      Logger.debug(s"stopping concurrent collectors for priority level $priority: $scheduledCollectors")
+      logger.debug(s"stopping concurrent collectors for priority level $priority: $scheduledCollectors")
 
       val measurementTasks: Seq[Future[Unit]] = for (collector <- scheduledCollectors) yield Future {
         collector.tryStopMeasurement(maybeTestExecution)
@@ -418,7 +417,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
   def registerArbiter(arbiter: ArbiterLike): Boolean = {
     this.synchronized {
       if (this._measurementInProgress) {
-        Logger.warn(s"measurement in progress. arbiter ${arbiter.getClass.getCanonicalName} will not be registered.")
+        logger.warn(s"measurement in progress. arbiter ${arbiter.getClass.getCanonicalName} will not be registered.")
         false
       }
       else {
@@ -452,7 +451,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
   // TODO consider changing this return type to unit
   def registerCollector(collector: AbstractMeasurementCollector): Boolean = {
     if (this._measurementInProgress) {
-      Logger.warn(s"measurement in progress. collector ${collector.getClass.getCanonicalName} will not be registered.")
+      logger.warn(s"measurement in progress. collector ${collector.getClass.getCanonicalName} will not be registered.")
       false
     }
     else {
