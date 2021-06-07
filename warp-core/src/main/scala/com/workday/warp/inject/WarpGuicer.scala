@@ -1,7 +1,6 @@
 package com.workday.warp.inject
 
 import java.lang.reflect.Constructor
-
 import com.google.inject.{AbstractModule, Guice, Injector}
 import com.workday.warp.{TestId, TestIdImplicits}
 import com.workday.warp.config.{PropertyEntry, WarpPropertyLike}
@@ -10,8 +9,8 @@ import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.inject.modules.{DefaultWarpModule, HasWarpBindings}
 import com.workday.warp.persistence.influxdb.InfluxDBClient
 import com.workday.warp.persistence.{PersistenceAware, Tag}
+import com.workday.warp.logger.WarpLogging
 import org.junit.jupiter.api.TestInfo
-import org.pmw.tinylog.Logger
 
 import scala.util.{Failure, Try}
 
@@ -28,7 +27,7 @@ import scala.util.{Failure, Try}
   *
   * Created by tomas.mccandless on 11/6/17.
   */
-object WarpGuicer {
+object WarpGuicer extends WarpLogging {
 
   type WarpModule = AbstractModule with HasWarpBindings
 
@@ -41,11 +40,11 @@ object WarpGuicer {
 
   private val moduleClass: Class[WarpModule] = maybeModuleClass match {
     case Some(className) =>
-      Logger.info(s"will attempt using module class $className")
+      logger.info(s"will attempt using module class $className")
       Class.forName(className).asInstanceOf[Class[WarpModule]]
     case None =>
       val module: Class[WarpModule] = classOf[DefaultWarpModule].asInstanceOf[Class[WarpModule]]
-      Logger.info(s"no system property set for ${this.moduleProp}. using default module ${module.getCanonicalName}")
+      logger.info(s"no system property set for ${this.moduleProp}. using default module ${module.getCanonicalName}")
       module
   }
 
