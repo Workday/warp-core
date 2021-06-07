@@ -1,13 +1,13 @@
 package com.workday.warp.config
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.logger.WarpLogging
 import org.junit.jupiter.api.Disabled
-import org.pmw.tinylog.Logger
 
 /**
   * Created by tomas.mccandless on 11/15/17.
   */
-class PropertyInspectorSpec extends WarpJUnitSpec {
+class PropertyInspectorSpec extends WarpJUnitSpec with WarpLogging {
 
 
   /** Checks that we can use reflection to read all the property values. */
@@ -15,7 +15,7 @@ class PropertyInspectorSpec extends WarpJUnitSpec {
   def valuesTest(): Unit = {
     CoreWarpProperty.values should not be empty
     val level: String = CoreWarpProperty.WARP_CONSOLE_LOG_LEVEL.value
-    Logger.info(s"console log level set to $level")
+    logger.info(s"console log level set to $level")
     PropertyInspector.values(CoreWarpProperty.getClass) should not be empty
   }
 
