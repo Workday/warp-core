@@ -1,8 +1,11 @@
 <configuration>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+<!--        <encoder>-->
+<!--            <pattern>%level - %logger - %message%n%xException</pattern>-->
+<!--        </encoder>-->
         <encoder>
-            <pattern>%level - %logger - %message%n%xException</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -17,6 +20,7 @@
 
     <logger name="com.zaxxer.hikari" level="INFO"/>
     <logger name="slick" level="INFO"/>
+    <logger name="com.workday.warp" level="DEBUG" />
 
 
 

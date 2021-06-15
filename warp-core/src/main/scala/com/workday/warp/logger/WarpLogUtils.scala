@@ -2,8 +2,11 @@ package com.workday.warp.logger
 
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.inject.WarpGuicer
+import org.slf4j.event.Level
 import org.pmw.tinylog.writers.{ConsoleWriter, FileWriter}
-import org.pmw.tinylog.{Configurator, Level, Logger}
+import org.slf4j.Logger
+// import org.pmw.tinylog.Configurator
+import org.slf4j.LoggerFactory
 
 import scala.util.{Failure, Success, Try}
 
@@ -12,12 +15,13 @@ import scala.util.{Failure, Success, Try}
  *
  * Created by tomas.mccandless on 10/19/15.
  */
-object WarpLogUtils {
+object WarpLogUtils extends WarpLogging {
 
   // set the format to include class and method
   val LOG_FORMAT: String = "{date} {level}: {class_name}.{method}:{line} \t{message}"
 
 
+  // TODO: consider another logging property/name, but keep this one around (give new one precedence)
   /**
    * Reads the value of wd.warp.log.level, attempt to parse as a valid logging level,
    * and set log level of our Logger to that level. If tinylog.level is set as a system property, we'll use that.
@@ -26,7 +30,7 @@ object WarpLogUtils {
     val consoleLogLevel: String = Option(System.getProperty("tinylog.level")) match {
       // try to use the system property
       case Some(level) =>
-        Logger.debug(s"The value of the system property tinylog.level ($level) will be used.")
+        logger.debug(s"The value of the system property tinylog.level ($level) will be used.")
         level
       // otherwise fall back on the warp property
       case None =>
@@ -55,8 +59,12 @@ object WarpLogUtils {
     val consoleLevel: Level = this.parseLevel(consoleLogLevel, WARP_CONSOLE_LOG_LEVEL.defaultValue)
     val fileLevel: Level = this.parseLevel(fileLogLevel, WARP_FILE_LOG_LEVEL.defaultValue)
 
-    Logger.debug(s"WarpLogUtils: setting log levels: console=$consoleLevel, file=$fileLevel")
+    logger.warn(s"WarpLogUtils: setting log levels: console=$consoleLevel, file=$fileLevel")
 
+//    LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME)
+
+
+    /*
     val buffer: Boolean = true
     val append: Boolean = true
 
@@ -81,6 +89,7 @@ object WarpLogUtils {
       .level("com.zaxxer.hikari", hikariLevel)
       .level("org.flywaydb.core.internal.util.logging.slf4j", flywayLevel)
       .activate()
+     */
   }
 
 
@@ -97,7 +106,7 @@ object WarpLogUtils {
       case Success(logLevel: Level) =>
         logLevel
       case Failure(exception) =>
-        Logger.error(exception, s"unable to parse $level as a valid logging level, using $default")
+        logger.error(s"unable to parse $level as a valid logging level, using $default", exception)
 
         val maybeLevel: Option[Level] = for {
           d <- default

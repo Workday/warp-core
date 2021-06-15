@@ -22,6 +22,7 @@ dependencies {
     api "com.typesafe.scala-logging:scala-logging_%%:${versions.scalalogging}"
     api "org.slf4j:slf4j-api:${versions.slf4j}"
     api "org.slf4j:slf4j-simple:${versions.slf4j}"
+    api "ch.qos.logback:logback-classic:${versions.logback}"
 
     api "org.flywaydb:flyway-core:${versions.flyway}"
     // used for custom rules and runners

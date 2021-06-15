@@ -1,7 +1,7 @@
 package com.workday.warp.logger
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import org.pmw.tinylog.Level
+import org.slf4j.event.Level
 
 /**
   * Created by tomas.mccandless on 6/8/18.

@@ -45,4 +45,5 @@ project.ext.versions = [
         , typesafeConfig: '1.3.+'
         , scalalogging: '3.9.3'
         , slf4j: '1.7.30'
+        , logback: '1.2.3'
 ]
