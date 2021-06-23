@@ -57,13 +57,10 @@ allprojects {
 
     // we want uniform explicit control over scala version rather than potentially transitively pulling a different version
     dependencies {
-        api ("org.scala-lang:scala-library:%scala-version%") {
-            /**
+        api ("org.scala-lang:scala-library") {
             version {
                 strictly "%scala-version%"
             }
-             */
-            force = true
         }
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${versions.junit5}"
         testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${versions.junit5}") {
@@ -79,7 +76,7 @@ allprojects {
 
     scalastyle {
         scalaVersion = '2.13'
-        config = file("${rootDir}/scalastyle.xml") // path to scalastyle config xml file
+        config = file("${rootDir}/scalastyle.xml")
     }
 
 
