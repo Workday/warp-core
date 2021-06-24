@@ -1,12 +1,12 @@
 package com.workday.warp.logger
 
+import ch.qos.logback.classic.LoggerContext
 import com.workday.warp.config.CoreWarpProperty._
-import com.workday.warp.inject.WarpGuicer
 import org.slf4j.event.Level
 import org.pmw.tinylog.writers.{ConsoleWriter, FileWriter}
-import org.slf4j.Logger
-// import org.pmw.tinylog.Configurator
 import org.slf4j.LoggerFactory
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder
+import ch.qos.logback.core.ConsoleAppender
 
 import scala.util.{Failure, Success, Try}
 
@@ -56,40 +56,23 @@ object WarpLogUtils extends WarpLogging {
     */
   private[this] def configureLogger(consoleLogLevel: String, fileLogLevel: String): Unit = {
     // default to INFO for console log, TRACE for file log
-    val consoleLevel: Level = this.parseLevel(consoleLogLevel, WARP_CONSOLE_LOG_LEVEL.defaultValue)
-    val fileLevel: Level = this.parseLevel(fileLogLevel, WARP_FILE_LOG_LEVEL.defaultValue)
+//    val consoleLevel: Level = this.parseLevel(consoleLogLevel, WARP_CONSOLE_LOG_LEVEL.defaultValue)
+//    val fileLevel: Level = this.parseLevel(fileLogLevel, WARP_FILE_LOG_LEVEL.defaultValue)
 
-    logger.warn(s"WarpLogUtils: setting log levels: console=$consoleLevel, file=$fileLevel")
+    val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
 
-//    LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME)
+    val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
+    logEncoder.setContext(context)
+    logEncoder.setPattern("%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n")
+    logEncoder.start()
+
+    val logConsoleAppender: ConsoleAppender[_] = new ConsoleAppender[_]
+    logConsoleAppender.setContext(context)
+    logConsoleAppender.setName("console")
+    logConsoleAppender.setEncoder(logEncoder)
+    logConsoleAppender.start()
 
 
-    /*
-    val buffer: Boolean = true
-    val append: Boolean = true
-
-    val newConfig = Configurator.currentConfig
-        // no limit on stack traces
-        .maxStackTraceElements(-1)
-        // write log entries to console
-        .writer(new ConsoleWriter, consoleLevel, this.LOG_FORMAT)
-        // write log entries to a file
-        .addWriter(new FileWriter(WARP_LOG_FILE.value, buffer, append), fileLevel, this.LOG_FORMAT)
-
-    // add all our new configured writers
-    val writers: Seq[WriterConfig] = WarpGuicer.baseModule.getExtraWriters
-    writers foreach { writer: WriterConfig => newConfig.addWriter(writer.writer, writer.level, writer.format)}
-
-    val slickLevel: Level = this.parseLevel(WARP_SLF4J_SLICK_LOG_LEVEL.value, WARP_SLF4J_SLICK_LOG_LEVEL.defaultValue)
-    val hikariLevel: Level = this.parseLevel(WARP_SLF4J_HIKARI_LOG_LEVEL.value, WARP_SLF4J_HIKARI_LOG_LEVEL.defaultValue)
-    val flywayLevel: Level = this.parseLevel(WARP_SLF4J_FLYWAY_LOG_LEVEL.value, WARP_SLF4J_FLYWAY_LOG_LEVEL.defaultValue)
-    // set custom logging levels
-    newConfig.writingThread(true)
-      .level("slick", slickLevel)
-      .level("com.zaxxer.hikari", hikariLevel)
-      .level("org.flywaydb.core.internal.util.logging.slf4j", flywayLevel)
-      .activate()
-     */
   }
 
 
