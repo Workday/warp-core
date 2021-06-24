@@ -87,7 +87,7 @@ object WarpLogUtils extends WarpLogging {
     logFileAppender.setName("logFile")
     logFileAppender.setEncoder(logEncoder2)
     logFileAppender.setAppend(true)
-    logFileAppender.setFile("logs/logfile.log")
+    logFileAppender.setFile(WARP_LOG_FILE.value)
 
     // TODO: Is this the right type parameter?
     val logFilePolicy = new TimeBasedRollingPolicy[ILoggingEvent]
