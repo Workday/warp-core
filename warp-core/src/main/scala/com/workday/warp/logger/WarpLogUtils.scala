@@ -1,12 +1,13 @@
 package com.workday.warp.logger
 
-import ch.qos.logback.classic.LoggerContext
+import ch.qos.logback.classic.{Level, Logger, LoggerContext}
 import com.workday.warp.config.CoreWarpProperty._
-import org.slf4j.event.Level
 import org.pmw.tinylog.writers.{ConsoleWriter, FileWriter}
 import org.slf4j.LoggerFactory
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
+import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.ConsoleAppender
+import ch.qos.logback.core.rolling.{RollingFileAppender, TimeBasedRollingPolicy}
 
 import scala.util.{Failure, Success, Try}
 
@@ -59,20 +60,51 @@ object WarpLogUtils extends WarpLogging {
 //    val consoleLevel: Level = this.parseLevel(consoleLogLevel, WARP_CONSOLE_LOG_LEVEL.defaultValue)
 //    val fileLevel: Level = this.parseLevel(fileLogLevel, WARP_FILE_LOG_LEVEL.defaultValue)
 
+//    val pattern: String = "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n"
+    // TODO: weird, this isn't uptaken
+    val pattern: String = "%d%line - %msg%n"
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
 
     val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
     logEncoder.setContext(context)
-    logEncoder.setPattern("%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n")
+    logEncoder.setPattern(pattern)
     logEncoder.start()
 
-    val logConsoleAppender: ConsoleAppender[_] = new ConsoleAppender[_]
+    val logConsoleAppender= new ConsoleAppender[ILoggingEvent]
     logConsoleAppender.setContext(context)
     logConsoleAppender.setName("console")
     logConsoleAppender.setEncoder(logEncoder)
     logConsoleAppender.start()
 
+    val logEncoder2 = new PatternLayoutEncoder
+    logEncoder2.setContext(context)
+    logEncoder2.setPattern(pattern)
+    logEncoder2.start()
 
+    // TODO: Is this the right type parameter?
+    val logFileAppender = new RollingFileAppender[ILoggingEvent]
+    logFileAppender.setContext(context)
+    logFileAppender.setName("logFile")
+    logFileAppender.setEncoder(logEncoder2)
+    logFileAppender.setAppend(true)
+    logFileAppender.setFile("logs/logfile.log")
+
+    // TODO: Is this the right type parameter?
+    val logFilePolicy = new TimeBasedRollingPolicy[ILoggingEvent]
+    logFilePolicy.setContext(context)
+    logFilePolicy.setParent(logFileAppender)
+    logFilePolicy.setFileNamePattern("logs/logfile-%d{yyyy-MM-dd_HH}.log")
+    logFilePolicy.setMaxHistory(7)
+    logFilePolicy.start()
+
+    logFileAppender.setRollingPolicy(logFilePolicy)
+    logFileAppender.start()
+
+    val log: Logger = context.getLogger("Main")
+    log.setAdditive(false)
+    log.setLevel(Level.INFO)
+    log.addAppender(logConsoleAppender)
+    log.addAppender(logFileAppender)
   }
 
 
