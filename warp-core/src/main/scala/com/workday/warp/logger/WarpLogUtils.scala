@@ -2,7 +2,6 @@ package com.workday.warp.logger
 
 import ch.qos.logback.classic.{Level, Logger, LoggerContext}
 import com.workday.warp.config.CoreWarpProperty._
-import org.pmw.tinylog.writers.{ConsoleWriter, FileWriter}
 import org.slf4j.LoggerFactory
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
@@ -60,11 +59,10 @@ object WarpLogUtils extends WarpLogging {
 //    val consoleLevel: Level = this.parseLevel(consoleLogLevel, WARP_CONSOLE_LOG_LEVEL.defaultValue)
 //    val fileLevel: Level = this.parseLevel(fileLogLevel, WARP_FILE_LOG_LEVEL.defaultValue)
 
-//    val pattern: String = "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n"
-    // TODO: weird, this isn't uptaken
-    val pattern: String = "%d%line - %msg%n"
+    val pattern: String = "~~~~ %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n"
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
 
+    // via https://akhikhl.wordpress.com/2013/07/11/programmatic-configuration-of-slf4jlogback/
     val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
     logEncoder.setContext(context)
     logEncoder.setPattern(pattern)
@@ -76,12 +74,12 @@ object WarpLogUtils extends WarpLogging {
     logConsoleAppender.setEncoder(logEncoder)
     logConsoleAppender.start()
 
+    /*
     val logEncoder2 = new PatternLayoutEncoder
     logEncoder2.setContext(context)
     logEncoder2.setPattern(pattern)
     logEncoder2.start()
 
-    // TODO: Is this the right type parameter?
     val logFileAppender = new RollingFileAppender[ILoggingEvent]
     logFileAppender.setContext(context)
     logFileAppender.setName("logFile")
@@ -89,7 +87,8 @@ object WarpLogUtils extends WarpLogging {
     logFileAppender.setAppend(true)
     logFileAppender.setFile(WARP_LOG_FILE.value)
 
-    // TODO: Is this the right type parameter?
+    // TODO: logfile pattern?
+    // TODO: Remove warp log entirely!
     val logFilePolicy = new TimeBasedRollingPolicy[ILoggingEvent]
     logFilePolicy.setContext(context)
     logFilePolicy.setParent(logFileAppender)
@@ -99,12 +98,16 @@ object WarpLogUtils extends WarpLogging {
 
     logFileAppender.setRollingPolicy(logFilePolicy)
     logFileAppender.start()
+    */
 
-    val log: Logger = context.getLogger("Main")
+    // TODO: set console level different from file level
+    val log: Logger = context.getLogger("ROOT")
     log.setAdditive(false)
     log.setLevel(Level.INFO)
     log.addAppender(logConsoleAppender)
-    log.addAppender(logFileAppender)
+//    log.addAppender(logFileAppender)
+
+    logger.warn("test")
   }
 
 
