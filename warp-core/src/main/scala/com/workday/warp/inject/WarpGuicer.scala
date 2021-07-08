@@ -12,6 +12,8 @@ import com.workday.warp.persistence.Tag
 import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 
+import scala.util.{Failure, Try}
+
 /**
   * Centralized location for dependency injection.
   *
@@ -111,7 +113,11 @@ object WarpGuicer {
   def getController(module: WarpModule): AbstractMeasurementCollectionController = {
     // TODO measure the performance of creating this injector. it may be necessary to use assisted injection instead.
     val injector: Injector = Guice.createInjector(module)
-    injector.getInstance(classOf[AbstractMeasurementCollectionController])
+    Try(injector.getInstance(classOf[AbstractMeasurementCollectionController])).recoverWith {
+      case e =>
+        Logger.error(e)
+        Failure(e)
+    }.get
   }
 
 
