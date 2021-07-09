@@ -57,6 +57,9 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
   /** @return arbiters that will impose requirements on this test. */
   def arbiters: List[ArbiterLike] = this._arbiters
 
+  /** ballot that holds votes from the arbiters */
+  val ballotBox: Ballot = new Ballot(this.testId)
+
   /** time at which this test was invoked */
   protected var timeStarted: Instant = _
 
@@ -260,20 +263,19 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
 
     maybeTestExecution match {
       case Some(testExecution) =>
-        val ballotBox: Ballot = new Ballot(this.testId)
 
         // read all tried outer tags
         this.logTagErrors(this.recordTags(this.tags, testExecution))
 
         this.enabledArbiters foreach {
-          _.collectVote(ballotBox, testExecution)
+          _.collectVote(this.ballotBox, testExecution)
         }
 
         // finalize any persistence. note that we do this before arbiter votes are evaluated
         this.finalizePersistence(testExecution.idTestExecution)
 
         // throw an error if we need to
-        ballotBox.checkAndThrow()
+        this.ballotBox.checkAndThrow()
 
         trial.copy(maybeResponseTime = Option(responseTime), maybeTestExecution = maybeTestExecution)
       case None =>

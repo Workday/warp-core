@@ -14,7 +14,7 @@ jobs:
     # Service containers to run with `container-job`
     services:
       mysql:
-        image: mysql:5.7.24
+        image: mysql:5.7.30
         ports:
           - 3307:3306
         env:
@@ -43,4 +43,4 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-${{ matrix.scala }}
 
       - name: Build with Gradle
-        run: ./gradlew copy${{ matrix.db }}ConfigTemplate test checkScalafix -PscalaVersion=${{ matrix.scala }}
+        run: ./gradlew copy${{ matrix.db }}ConfigTemplate test checkScalafix -PscalaVersion=${{ matrix.scala }} --stacktrace

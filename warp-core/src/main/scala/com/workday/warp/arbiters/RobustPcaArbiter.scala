@@ -31,13 +31,13 @@ class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     // incorrect.
     // we need to ensure the response time for this test execution is the final entry in this list.
     val rawResponseTimes: Iterable[Double] = this.responseTimes(
-      ballot.testId.id,
+      ballot.getId.id,
       testExecution.idTestExecution
     ) ++ List(testExecution.responseTime)
 
     val runner: RobustPcaRunner = RobustPcaRunner(this.lPenalty, this.sPenaltyNumerator)
 
-    runner.robustPca(rawResponseTimes, ballot.testId) flatMap { rpca: RobustPca =>
+    runner.robustPca(rawResponseTimes, ballot.getId) flatMap { rpca: RobustPca =>
       val responseTime: Double = rawResponseTimes.last
       val isAnomaly: Boolean = rpca.isAnomaly
       val errorComponent: Double = rpca.error.getData.head.last

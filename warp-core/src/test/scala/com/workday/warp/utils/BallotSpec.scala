@@ -12,7 +12,7 @@ class BallotSpec extends WarpJUnitSpec {
   /** Checks that passing votes do not fail the test */
   @UnitTest
   def passed(): Unit = {
-    val ballot: Ballot = Ballot(TestId.undefined)
+    val ballot: Ballot = new Ballot(TestId.undefined)
 
     // simulate recording some votes
     ballot.registerVote(None)
@@ -27,7 +27,7 @@ class BallotSpec extends WarpJUnitSpec {
   def failed(): Unit = {
     val failure1: String = "failed heap delta requirement"
     val failure2: String = "failed cumulative probability threshold requirement"
-    val ballot: Ballot = Ballot(TestId.undefined)
+    val ballot: Ballot = new Ballot(TestId.undefined)
 
     // simulate recording some votes
     ballot.registerVote(None)
