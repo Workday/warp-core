@@ -26,7 +26,7 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike {
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     this.vote(
-      this.responseTimes(ballot.getId.id, testExecution.idTestExecution),
+      this.responseTimes(ballot.testId.id, testExecution.idTestExecution),
       ballot,
       testExecution,
       WARP_ARBITER_MINIMUM_N.value.toInt
@@ -51,7 +51,7 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike {
 
     // we don't have enough historical data yet
     if (responseTimes.size < minimumHistoricalData) {
-      Logger.warn(s"not enough historical measurements for ${ballot.getId}. (found ${responseTimes.size}, we require " +
+      Logger.warn(s"not enough historical measurements for ${ballot.testId}. (found ${responseTimes.size}, we require " +
         s"$minimumHistoricalData.) percentile threshold processing will not continue.")
       None
     }
@@ -63,13 +63,13 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike {
       // convert cdf value to a percentile
       val percentile: Double = 100 * new NormalDistribution(mean, stdDev).cumulativeProbability(measuredResponseTime)
 
-      val maybePercentileRequirement: Option[Double] = AnnotationReader.getZScoreRequirement(ballot.getId).map(truncatePercent)
+      val maybePercentileRequirement: Option[Double] = AnnotationReader.getZScoreRequirement(ballot.testId).map(truncatePercent)
 
       for {
         percentileRequirement <- maybePercentileRequirement
         if percentile >= percentileRequirement
       } yield new RequirementViolationException(
-        s"${ballot.getId} failed requirement imposed by ${this.getClass.getName}. expected response time (measured " +
+        s"${ballot.testId} failed requirement imposed by ${this.getClass.getName}. expected response time (measured " +
           s"$measuredResponseTime sec) percentile <= $percentileRequirement, but was $percentile")
     }
   }

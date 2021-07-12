@@ -26,7 +26,7 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     val minimumHistoricalData: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt
-    this.vote(this.responseTimes(ballot.getId.id, testExecution.idTestExecution), ballot, testExecution, minimumHistoricalData)
+    this.vote(this.responseTimes(ballot.testId.id, testExecution.idTestExecution), ballot, testExecution, minimumHistoricalData)
   }
 
 
@@ -47,7 +47,7 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
 
     // we don't have enough historical data yet
     if (responseTimes.size < minimumHistoricalData) {
-      Logger.warn(s"not enough historical measurements for ${ballot.getId.id}. (found ${responseTimes.size}, we require " +
+      Logger.warn(s"not enough historical measurements for ${ballot.testId.id}. (found ${responseTimes.size}, we require " +
         s"$minimumHistoricalData.) percentage threshold processing will not continue.")
       None
     }
@@ -58,13 +58,13 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike {
       // compute the percentage amount that measured response time is above the mean
       val percentage: Double = (measuredResponseTime / mean - 1) * 100.0
 
-      val maybePercentageRequirement: Option[Double] = AnnotationReader.getPercentageDegradationRequirement(ballot.getId)
+      val maybePercentageRequirement: Option[Double] = AnnotationReader.getPercentageDegradationRequirement(ballot.testId)
         .map(truncatePercent)
 
       maybePercentageRequirement.flatMap { percentageRequirement =>
         if (percentage <= percentageRequirement) None
         else Option(new RequirementViolationException(
-          this.failureMessage(ballot.getId) +
+          this.failureMessage(ballot.testId) +
             s"response time ($measuredResponseTime sec) was $percentage% greater than historical average. " +
             s"should have been <= $percentageRequirement%")
         )

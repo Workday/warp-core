@@ -9,10 +9,7 @@ import scala.collection.mutable
   *
   * Created by tomas.mccandless on 1/27/16.
   */
-class Ballot(testId: TestId) extends StackTraceFilter {
-
-  /** returns test Id of ballot */
-  def getId: TestId = this.testId
+class Ballot(val testId: TestId) extends StackTraceFilter {
 
   /** holds any throwables created by arbiters */
   private val errors: mutable.ListBuffer[Throwable] = mutable.ListBuffer[Throwable]()
