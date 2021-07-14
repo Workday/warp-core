@@ -7,6 +7,7 @@ import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.ConsoleAppender
 import ch.qos.logback.core.rolling.{RollingFileAppender, TimeBasedRollingPolicy}
+import org.slf4j
 
 import scala.util.{Failure, Success, Try}
 
@@ -56,10 +57,10 @@ object WarpLogUtils extends WarpLogging {
     */
   private[this] def configureLogger(consoleLogLevel: String, fileLogLevel: String): Unit = {
     // default to INFO for console log, TRACE for file log
-//    val consoleLevel: Level = this.parseLevel(consoleLogLevel, WARP_CONSOLE_LOG_LEVEL.defaultValue)
+    val consoleLevel: Level = this.parseLevel(consoleLogLevel, WARP_CONSOLE_LOG_LEVEL.defaultValue)
 //    val fileLevel: Level = this.parseLevel(fileLogLevel, WARP_FILE_LOG_LEVEL.defaultValue)
 
-    val pattern: String = "~~~~ %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n"
+    val pattern: String = "~> %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n"
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
 
     // via https://akhikhl.wordpress.com/2013/07/11/programmatic-configuration-of-slf4jlogback/
@@ -68,11 +69,13 @@ object WarpLogUtils extends WarpLogging {
     logEncoder.setPattern(pattern)
     logEncoder.start()
 
+    /*
     val logConsoleAppender= new ConsoleAppender[ILoggingEvent]
     logConsoleAppender.setContext(context)
     logConsoleAppender.setName("console")
     logConsoleAppender.setEncoder(logEncoder)
     logConsoleAppender.start()
+    */
 
     /*
     val logEncoder2 = new PatternLayoutEncoder
@@ -100,14 +103,31 @@ object WarpLogUtils extends WarpLogging {
     logFileAppender.start()
     */
 
-    // TODO: set console level different from file level
     val log: Logger = context.getLogger("ROOT")
     log.setAdditive(false)
-    log.setLevel(Level.INFO)
-    log.addAppender(logConsoleAppender)
+    // TODO: This is probably fine to set the same as the warp logger
+    log.setLevel(Level.WARN)
+//    log.detachAndStopAllAppenders()
+//    log.addAppender(logConsoleAppender)
 //    log.addAppender(logFileAppender)
 
-    logger.warn("test")
+    val hikariLog: Logger = context.getLogger("com.zaxxer.hikari")
+    // TODO: get warp property for this log level
+    hikariLog.setLevel(Level.WARN)
+
+    val slickLog: Logger = context.getLogger("slick")
+    // TODO: get warp property for this log level
+    slickLog.setLevel(Level.WARN)
+
+    val flywayLog: Logger = context.getLogger("org.flyway")
+    // TODO: get warp property for this log level
+    flywayLog.setLevel(Level.DEBUG)
+
+    val warpLog: Logger = context.getLogger("com.workday.warp")
+    // TODO: get warp property for this log level
+    warpLog.setLevel(Level.WARN)
+
+    log.getAppender("console").asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
   }
 
 
