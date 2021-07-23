@@ -4,6 +4,7 @@ buildscript {
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
+        mavenCentral()
 		jcenter()
         maven {
             url "https://plugins.gradle.org/m2/"
@@ -52,6 +53,7 @@ allprojects {
 
     repositories {
         mavenLocal()
+        mavenCentral()
         jcenter()
     }
 

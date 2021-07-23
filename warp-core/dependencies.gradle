@@ -42,6 +42,8 @@ dependencies {
     implementation "commons-io:commons-io:${versions.commonsIo}"
     implementation "org.scala-lang.modules:scala-java8-compat_%%:${versions.scalaJava8Compat}"
 
+    implementation "org.scalaz:scalaz-core_%%:${versions.scalaz}"
+
     // TODO tools.jar was removed in jdk9
     implementation files(org.gradle.internal.jvm.Jvm.current().toolsJar)
 
