@@ -16,4 +16,10 @@ class WarpLogUtilsSpec extends WarpJUnitSpec with WarpLogging {
     WarpLogUtils.parseLevel("ERROR") should be (Level.ERROR)
     WarpLogUtils.parseLevel("NOT_VALID_LEVEL") should be (Level.DEBUG)
   }
+
+  @UnitTest
+  def addFileWriter(): Unit = {
+    WarpLogUtils.addFileWriter(WriterConfig("UnitTest.log", "com.workday.warp.logger", Level.DEBUG))
+    logger.debug("foobar")
+  }
 }

@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.ConsoleAppender
+import ch.qos.logback.core.rolling.{RollingFileAppender, TimeBasedRollingPolicy}
+import com.workday.warp.inject.WarpGuicer
 
 /**
  * Provides utility methods to set log level and format at runtime based on warp properties.
@@ -52,6 +54,10 @@ object WarpLogUtils extends WarpLogging {
     warpLog.setLevel(consoleLevel)
 
     log.getAppender("console").asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
+
+    // add all our new configured writers
+    val writers: Seq[WriterConfig] = WarpGuicer.baseModule.getExtraWriters
+    writers foreach addFileWriter
   }
 
 
@@ -66,5 +72,36 @@ object WarpLogUtils extends WarpLogging {
   private[logger] def parseLevel(level: String, default: Option[String] = None): Level = {
     // ch.qos.logback.classic.Level.valueOf defaults to Level.DEBUG
     Level.toLevel(level, Level valueOf default.getOrElse(""))
+  }
+
+  def addFileWriter(writerConfig: WriterConfig): Unit = {
+    val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
+
+    // Create a logEncoder for the logFileAppender
+    val logEncoder2 = new PatternLayoutEncoder
+    logEncoder2.setContext(context)
+    logEncoder2.setPattern(LOG_FORMAT)
+    logEncoder2.start()
+
+    val logFileAppender = new RollingFileAppender[ILoggingEvent]
+    logFileAppender.setContext(context)
+    logFileAppender.setName(writerConfig.fileName)
+    logFileAppender.setEncoder(logEncoder2)
+    logFileAppender.setAppend(true)
+    logFileAppender.setFile(writerConfig.fileName)
+
+    val logFilePolicy = new TimeBasedRollingPolicy[ILoggingEvent]
+    logFilePolicy.setContext(context)
+    logFilePolicy.setParent(logFileAppender)
+    logFilePolicy.setFileNamePattern(s"${writerConfig.fileName}-%d{yyyy-MM-dd_HH}.log")
+    logFilePolicy.setMaxHistory(7)
+    logFilePolicy.start()
+
+    logFileAppender.setRollingPolicy(logFilePolicy)
+    logFileAppender.start()
+
+    val log: Logger = context.getLogger(writerConfig.packageName)
+    log.addAppender(logFileAppender)
+    log.setLevel(writerConfig.level)
   }
 }
