@@ -42,6 +42,7 @@ dependencies {
     implementation "commons-io:commons-io:${versions.commonsIo}"
     implementation "org.scala-lang.modules:scala-java8-compat_%%:${versions.scalaJava8Compat}"
 
+    implementation 'com.github.dwickern:scala-nameof_%%:3.0.0'
     implementation "org.scalaz:scalaz-core_%%:${versions.scalaz}"
 
     // TODO tools.jar was removed in jdk9

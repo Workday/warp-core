@@ -15,6 +15,7 @@ com.fasterxml.jackson.core:jackson-core:2.12.1=compileClasspath,default,runtimeC
 com.fasterxml.jackson.core:jackson-databind:2.12.1=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.fasterxml.jackson:jackson-bom:2.12.1=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.github.ben-manes.caffeine:caffeine:2.8.8=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+com.github.dwickern:scala-nameof_2.13:3.0.0=default,runtimeClasspath,testRuntimeClasspath
 com.github.scopt:scopt_2.13:3.7.1=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.google.code.findbugs:jsr305:3.0.2=checkstyle,compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.google.code.gson:gson:2.8.5=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath

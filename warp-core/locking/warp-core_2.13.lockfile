@@ -7,6 +7,7 @@ com.beautiful-scala:scalastyle_2.13:1.2.0=scalastyle
 com.eed3si9n:shaded-scalajson_2.12:1.0.0-M4=zinc
 com.eed3si9n:sjson-new-core_2.12:0.8.3=zinc
 com.eed3si9n:sjson-new-scalajson_2.12:0.8.3=zinc
+com.github.dwickern:scala-nameof_2.13:3.0.0=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.google.code.findbugs:jsr305:3.0.2=checkstyle,compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.google.code.gson:gson:2.8.5=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.google.errorprone:error_prone_annotations:2.1.3=checkstyle
