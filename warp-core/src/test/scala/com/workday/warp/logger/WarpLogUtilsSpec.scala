@@ -19,7 +19,7 @@ class WarpLogUtilsSpec extends WarpJUnitSpec with WarpLogging {
 
   @UnitTest
   def addFileWriter(): Unit = {
-    WarpLogUtils.addFileWriter(WriterConfig("UnitTest.log", "com.workday.warp.logger", Level.DEBUG))
+    WarpLogUtils.addFileWriter(WriterConfig("build/UnitTest.log", "com.workday.warp.logger", Level.DEBUG))
     logger.debug("foobar")
   }
 }

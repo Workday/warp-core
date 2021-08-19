@@ -2,12 +2,14 @@ package com.workday.warp.logger
 
 import ch.qos.logback.classic.{Level, Logger, LoggerContext}
 import com.workday.warp.config.CoreWarpProperty._
-import org.slf4j.LoggerFactory
+import org.slf4j.{ILoggerFactory, LoggerFactory}
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.ConsoleAppender
 import ch.qos.logback.core.rolling.{RollingFileAppender, TimeBasedRollingPolicy}
 import com.workday.warp.inject.WarpGuicer
+
+import scala.util.{Failure, Try}
 
 /**
  * Provides utility methods to set log level and format at runtime based on warp properties.
@@ -20,6 +22,7 @@ object WarpLogUtils extends WarpLogging {
   val LOG_FORMAT: String = "[%d{yyyy-MM-dd HH:mm:ss}] %-5level %logger.%method:%line - %msg%n"
 
   /**
+   * TODO: Docs
    * Reads the value of wd.warp.log.level, attempt to parse as a valid logging level,
    * and set log level of our Logger to that level. If tinylog.level is set as a system property, we'll use that.
    */
@@ -29,35 +32,41 @@ object WarpLogUtils extends WarpLogging {
     val slickLevel: Level = this.parseLevel(WARP_SLF4J_SLICK_LOG_LEVEL.value, WARP_SLF4J_SLICK_LOG_LEVEL.defaultValue)
     val flywayLevel: Level = this.parseLevel(WARP_SLF4J_FLYWAY_LOG_LEVEL.value, WARP_SLF4J_FLYWAY_LOG_LEVEL.defaultValue)
 
-    val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
+    val maybeContext: Try[LoggerContext] = Try(LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext])
+      .recoverWith { case e =>
+        logger.error("Could not cast to LoggerContext at runtime, logger may be misconfigured", e)
+        Failure(e)
+      }
 
-    // via https://akhikhl.wordpress.com/2013/07/11/programmatic-configuration-of-slf4jlogback/
-    val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
-    logEncoder.setContext(context)
-    logEncoder.setPattern(LOG_FORMAT)
-    logEncoder.start()
+    maybeContext.map { case context =>
+      // via https://akhikhl.wordpress.com/2013/07/11/programmatic-configuration-of-slf4jlogback/
+      val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
+      logEncoder.setContext(context)
+      logEncoder.setPattern(LOG_FORMAT)
+      logEncoder.start()
 
-    val log: Logger = context.getLogger("ROOT")
-    log.setAdditive(true)
-    log.setLevel(consoleLevel)
+      val log: Logger = context.getLogger("ROOT")
+      log.setAdditive(true)
+      log.setLevel(consoleLevel)
 
-    val hikariLog: Logger = context.getLogger("com.zaxxer.hikari")
-    hikariLog.setLevel(hikariLevel)
+      val hikariLog: Logger = context.getLogger("com.zaxxer.hikari")
+      hikariLog.setLevel(hikariLevel)
 
-    val slickLog: Logger = context.getLogger("slick")
-    slickLog.setLevel(slickLevel)
+      val slickLog: Logger = context.getLogger("slick")
+      slickLog.setLevel(slickLevel)
 
-    val flywayLog: Logger = context.getLogger("org.flywaydb")
-    flywayLog.setLevel(flywayLevel)
+      val flywayLog: Logger = context.getLogger("org.flywaydb")
+      flywayLog.setLevel(flywayLevel)
 
-    val warpLog: Logger = context.getLogger("com.workday.warp")
-    warpLog.setLevel(consoleLevel)
+      val warpLog: Logger = context.getLogger("com.workday.warp")
+      warpLog.setLevel(consoleLevel)
 
-    log.getAppender("console").asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
+      log.getAppender("console").asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
 
-    // add all our new configured writers
-    val writers: Seq[WriterConfig] = WarpGuicer.baseModule.getExtraWriters
-    writers foreach addFileWriter
+      // add all our new configured writers
+      val writers: Seq[WriterConfig] = WarpGuicer.baseModule.getExtraWriters
+      writers foreach addFileWriter
+    }
   }
 
 
@@ -75,33 +84,40 @@ object WarpLogUtils extends WarpLogging {
   }
 
   def addFileWriter(writerConfig: WriterConfig): Unit = {
-    val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
+    val maybeContext: Try[LoggerContext] = Try(LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext])
+      .recoverWith { case e =>
+        logger.error("Could not cast to LoggerContext at runtime, logger may be misconfigured", e)
+        Failure(e)
+      }
 
-    // Create a logEncoder for the logFileAppender
-    val logEncoder2 = new PatternLayoutEncoder
-    logEncoder2.setContext(context)
-    logEncoder2.setPattern(LOG_FORMAT)
-    logEncoder2.start()
+    maybeContext.map { case context =>
+      // Create a logEncoder for the logFileAppender
+      val logEncoder2 = new PatternLayoutEncoder
+      logEncoder2.setContext(context)
+      logEncoder2.setPattern(LOG_FORMAT)
+      logEncoder2.start()
 
-    val logFileAppender = new RollingFileAppender[ILoggingEvent]
-    logFileAppender.setContext(context)
-    logFileAppender.setName(writerConfig.fileName)
-    logFileAppender.setEncoder(logEncoder2)
-    logFileAppender.setAppend(true)
-    logFileAppender.setFile(writerConfig.fileName)
+      val logFileAppender = new RollingFileAppender[ILoggingEvent]
+      logFileAppender.setContext(context)
+      logFileAppender.setName(writerConfig.fileName)
+      logFileAppender.setEncoder(logEncoder2)
+      logFileAppender.setAppend(true)
+      logFileAppender.setFile(writerConfig.fileName)
 
-    val logFilePolicy = new TimeBasedRollingPolicy[ILoggingEvent]
-    logFilePolicy.setContext(context)
-    logFilePolicy.setParent(logFileAppender)
-    logFilePolicy.setFileNamePattern(s"${writerConfig.fileName}-%d{yyyy-MM-dd_HH}.log")
-    logFilePolicy.setMaxHistory(7)
-    logFilePolicy.start()
+      val logFilePolicy = new TimeBasedRollingPolicy[ILoggingEvent]
+      logFilePolicy.setContext(context)
+      logFilePolicy.setParent(logFileAppender)
+      logFilePolicy.setFileNamePattern(s"${writerConfig.fileName}-%d{yyyy-MM-dd_HH}.log")
+      logFilePolicy.setMaxHistory(7)
+      logFilePolicy.start()
 
-    logFileAppender.setRollingPolicy(logFilePolicy)
-    logFileAppender.start()
+      logFileAppender.setRollingPolicy(logFilePolicy)
+      logFileAppender.start()
 
-    val log: Logger = context.getLogger(writerConfig.packageName)
-    log.addAppender(logFileAppender)
-    log.setLevel(writerConfig.level)
+      val log: Logger = context.getLogger(writerConfig.packageName)
+      log.addAppender(logFileAppender)
+      log.setLevel(writerConfig.level)
+    }
+
   }
 }
