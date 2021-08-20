@@ -3,9 +3,12 @@ package com.workday.warp.dsl
 import java.time.Duration
 
 import com.workday.warp.TrialResult
-import com.workday.warp.collectors.ResponseTimeCollector
+import com.workday.warp.inject.WarpGuicer
+import com.workday.warp.persistence.TablesLike
+import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import com.workday.warp.utils.Implicits.DecoratedDuration
 import com.workday.warp.math.linalg.RobustPcaRunner
+import com.workday.warp.config.CoreWarpProperty.WARP_INFLUXDB_HEAPHISTO_DB
 import org.scalatest.Assertion
 import org.scalatest.matchers.{BeMatcher, MatchResult, Matcher}
 import org.scalatest.matchers.dsl.ResultOfNotWordForAny
@@ -45,7 +48,7 @@ trait WarpMatchers {
 
     /** Updates thresholds in mysql and influxdb, and creates a [[MatchResult]] */
     override def apply(left: Seq[TrialResult[_]]): MatchResult = {
-      ResponseTimeCollector.updateThresholds(left, this.threshold)
+      updateThresholds(left, threshold)
       matchResult(this.threshold, left.flatMap(_.maybeResponseTime))
     }
   }
@@ -104,6 +107,19 @@ trait WarpMatchers {
   }
 
 
+  /**
+   * Updates thresholds in relational db and influxdb.
+   *
+   * @param results a [[Seq]] containing test results.
+   * @param threshold maximum response time threshold.
+   */
+  private def updateThresholds(results: Seq[TrialResult[_]], threshold: Duration): Unit = {
+    val testExecutions: Seq[TablesLike.TestExecutionRowLike] = results.flatMap(_.maybeTestExecution)
+    WarpGuicer.getPersistence.persistenceUtils.updateTestExecutionThresholds(testExecutions, threshold.doubleSeconds)
+    WarpGuicer.getInfluxDb.persistThresholds(WARP_INFLUXDB_HEAPHISTO_DB.value, "responseTimes", testExecutions, Option(threshold))
+  }
+
+
   /** [[BeMatcher]] for anomaly detection */
   class AnomalyMatcher extends BeMatcher[Seq[TrialResult[_]]] {
     def apply(left: Seq[TrialResult[_]]): MatchResult = {
@@ -143,7 +159,7 @@ trait WarpMatchers {
 
       this.negated be BeMatcher[T] { left: T =>
         val trials: Seq[TrialResult[_]] = left.toSeq
-        ResponseTimeCollector.updateThresholds(trials, threshold)
+        updateThresholds(trials, threshold)
         val measuredResponseTimes: Seq[Duration] = trials.flatMap(_.maybeResponseTime)
         matchResult(threshold, measuredResponseTimes, negate = true)
       }

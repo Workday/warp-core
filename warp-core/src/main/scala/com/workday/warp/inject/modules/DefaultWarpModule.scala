@@ -5,7 +5,8 @@ import com.workday.warp.TestId
 import com.workday.warp.config.{CoreWarpProperty, WarpPropertyLike}
 import com.workday.warp.controllers.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
 import com.workday.warp.logger.WriterConfig
-import com.workday.warp.persistence.Tag
+import com.workday.warp.persistence.influxdb.InfluxDBClient
+import com.workday.warp.persistence.{CorePersistenceUtils, PersistenceAware, Tag}
 
 /**
   * Defines default dependency injection bindings for [[DefaultMeasurementCollectionController]] based on the values
@@ -31,4 +32,10 @@ class DefaultWarpModule(override val testId: TestId,
 
   /** @return a [[Seq]] of additional log [[Writer]] that should be enabled. */
   @Provides override def getExtraWriters: Seq[WriterConfig] = Seq.empty
+
+  /** @return a persistence class [[PersistenceAware]]. */
+  @Provides override def getPersistence: PersistenceAware = CorePersistenceUtils
+
+  /** @return a client for InfluxDb. */
+  @Provides override def getInfluxDb: InfluxDBClient = new InfluxDBClient { }
 }

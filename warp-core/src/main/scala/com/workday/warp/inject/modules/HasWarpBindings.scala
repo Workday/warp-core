@@ -5,7 +5,8 @@ import com.workday.warp.TestId
 import com.workday.warp.config.WarpPropertyLike
 import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.logger.WriterConfig
-import com.workday.warp.persistence.Tag
+import com.workday.warp.persistence.influxdb.InfluxDBClient
+import com.workday.warp.persistence.{PersistenceAware, Tag}
 
 /**
   * This trait should be mixed in and overridden with values that can be passed to create instances of
@@ -29,4 +30,10 @@ trait HasWarpBindings {
 
   /** @return a [[Seq]] of additional log [[Writer]] that should be enabled. */
   @Provides def getExtraWriters: Seq[WriterConfig]
+
+  /** @return a persistence class [[PersistenceAware]]. */
+  @Provides def getPersistence: PersistenceAware
+
+  /** @return a client for InfluxDb. */
+  @Provides def getInfluxDb: InfluxDBClient
 }
