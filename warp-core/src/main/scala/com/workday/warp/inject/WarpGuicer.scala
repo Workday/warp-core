@@ -115,7 +115,7 @@ object WarpGuicer extends WarpLogging {
     val injector: Injector = Guice.createInjector(module)
     Try(injector.getInstance(classOf[AbstractMeasurementCollectionController])).recoverWith {
       case e =>
-        Logger.error(e)
+        logger.error(s"${e.getMessage}", e)
         Failure(e)
     }.get
   }
