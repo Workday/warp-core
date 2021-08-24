@@ -37,7 +37,7 @@ object WarpLogUtils extends WarpLogging {
       CustomLoggerLevels("org.flywaydb", this.parseLevel(WARP_SLF4J_FLYWAY_LOG_LEVEL.value, WARP_SLF4J_FLYWAY_LOG_LEVEL.defaultValue))
     )
 
-    getLoggerContext.map { context =>
+    getLoggerContext.foreach { context =>
       val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
       logEncoder.setContext(context)
       logEncoder.setPattern(LOG_FORMAT)

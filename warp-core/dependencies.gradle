@@ -19,7 +19,6 @@ dependencies {
     api "com.typesafe.slick:slick_%%:${versions.slick}"
     api "com.typesafe.slick:slick-hikaricp_%%:${versions.slick}"
 
-    api "com.typesafe.scala-logging:scala-logging_%%:${versions.scalalogging}"
     api "org.slf4j:slf4j-api:${versions.slf4j}"
     api "ch.qos.logback:logback-classic:${versions.logback}"
     api "ch.qos.logback:logback-core:${versions.logback}"
@@ -39,8 +38,6 @@ dependencies {
     api "org.scalatest:scalatest_%%:${versions.scalatest}"
     api "org.scalatestplus:junit-4-12_%%:${versions.scalatestplusjunit4}"
     api "org.scalatestplus:scalatestplus-junit_%%:${versions.scalatestplusjunit5}"
-    // used for custom log writers
-    api "org.tinylog:tinylog:${versions.tinylog}"
 
     implementation "com.google.guava:guava:${versions.guava}"
     implementation "com.typesafe:config:${versions.typesafeConfig}"
