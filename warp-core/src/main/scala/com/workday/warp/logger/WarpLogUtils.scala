@@ -25,7 +25,6 @@ object WarpLogUtils extends WarpLogging {
   /**
    * Reads the value of wd.warp.log.level and other properties, attempt to parse as a valid logging level,
    * and set log level to that.
-   *
    */
   def setLogLevelFromWarpProperties(): Unit = {
     case class CustomLoggerLevels(id: String, level: Level)
@@ -78,8 +77,11 @@ object WarpLogUtils extends WarpLogging {
 
 
   /**
-   * Retrieve the LoggerContext as a Try from the ILoggerFactory. Requires a cast which may fail if there are multiple
-   * slf4j implementations in use
+   * Retrieve the LoggerContext as a Try from the ILoggerFactory.
+   *
+   * Because we want to programmatically configure the logger, we need some methods only available via logback rather
+   * than slf4j. This necessitates a cast, however if slf4j is bound at runtime to some concrete implementation other
+   * than logback (e.g., slf4j-simple), this fails. Configuration will fallback to the default for that implementation.
    *
    * @return Try[LoggerContext]
    */
