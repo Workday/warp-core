@@ -2,7 +2,7 @@ package com.workday.warp.logger
 
 import ch.qos.logback.classic.{Level, Logger, LoggerContext}
 import com.workday.warp.config.CoreWarpProperty._
-import org.slf4j.{ILoggerFactory, LoggerFactory}
+import org.slf4j.LoggerFactory
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.ConsoleAppender
@@ -18,21 +18,25 @@ import scala.util.{Failure, Try}
  */
 object WarpLogUtils extends WarpLogging {
 
-  // set the format to include class and method
+  // Defaulting to a log format that includes class, method, and line of message origin
   val LOG_FORMAT: String = "[%d{yyyy-MM-dd HH:mm:ss}] %-5level %logger.%method:%line - %msg%n"
 
+
   /**
-   * TODO
+   * Reads the value of wd.warp.log.level and other properties, attempt to parse as a valid logging level,
+   * and set log level to that.
    *
-   * Reads the value of wd.warp.log.level, attempt to parse as a valid logging level,
-   * and set log level of our Logger to that level. If tinylog.level is set as a system property, we'll use that.
-   * Following pattern set out by https://akhikhl.wordpress.com/2013/07/11/programmatic-configuration-of-slf4jlogback/
    */
   def setLogLevelFromWarpProperties(): Unit = {
+    case class CustomLoggerLevels(id: String, level: Level)
+
     val consoleLevel: Level = this.parseLevel(WARP_CONSOLE_LOG_LEVEL.value, WARP_CONSOLE_LOG_LEVEL.defaultValue)
-    val hikariLevel: Level = this.parseLevel(WARP_SLF4J_HIKARI_LOG_LEVEL.value, WARP_SLF4J_HIKARI_LOG_LEVEL.defaultValue)
-    val slickLevel: Level = this.parseLevel(WARP_SLF4J_SLICK_LOG_LEVEL.value, WARP_SLF4J_SLICK_LOG_LEVEL.defaultValue)
-    val flywayLevel: Level = this.parseLevel(WARP_SLF4J_FLYWAY_LOG_LEVEL.value, WARP_SLF4J_FLYWAY_LOG_LEVEL.defaultValue)
+
+    val customLoggingLevels: List[CustomLoggerLevels] = List(
+      CustomLoggerLevels("com.zaxxer.hikari", this.parseLevel(WARP_SLF4J_HIKARI_LOG_LEVEL.value, WARP_SLF4J_HIKARI_LOG_LEVEL.defaultValue)),
+      CustomLoggerLevels("slick", this.parseLevel(WARP_SLF4J_SLICK_LOG_LEVEL.value, WARP_SLF4J_SLICK_LOG_LEVEL.defaultValue)),
+      CustomLoggerLevels("org.flywaydb", this.parseLevel(WARP_SLF4J_FLYWAY_LOG_LEVEL.value, WARP_SLF4J_FLYWAY_LOG_LEVEL.defaultValue))
+    )
 
     getLoggerContext.map { context =>
       val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
@@ -45,21 +49,14 @@ object WarpLogUtils extends WarpLogging {
       log.setAdditive(true)
       log.setLevel(consoleLevel)
 
-      val hikariLog: Logger = context.getLogger("com.zaxxer.hikari")
-      hikariLog.setLevel(hikariLevel)
-
-      val slickLog: Logger = context.getLogger("slick")
-      slickLog.setLevel(slickLevel)
-
-      val flywayLog: Logger = context.getLogger("org.flywaydb")
-      flywayLog.setLevel(flywayLevel)
-
-      val warpLog: Logger = context.getLogger("com.workday.warp")
-      warpLog.setLevel(consoleLevel)
+      // Configure other loggers
+      customLoggingLevels.foreach { loggingLevels =>
+        context.getLogger(loggingLevels.id).setLevel(loggingLevels.level)
+      }
 
       log.getAppender("console").asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
 
-      // Add all our new configured writers
+      // Add all our new configured file writers
       val writers: Seq[WriterConfig] = WarpGuicer.baseModule.getExtraWriters
       writers foreach addFileWriter
     }
@@ -79,6 +76,13 @@ object WarpLogUtils extends WarpLogging {
     Level.toLevel(level, Level valueOf default.getOrElse(""))
   }
 
+
+  /**
+   * Retrieve the LoggerContext as a Try from the ILoggerFactory. Requires a cast which may fail if there are multiple
+   * slf4j implementations in use
+   *
+   * @return Try[LoggerContext]
+   */
   private def getLoggerContext: Try[LoggerContext] = {
     Try(LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]).recoverWith { case e =>
         logger.error("Could not cast to LoggerContext at runtime, logger may not be configured", e)
@@ -86,6 +90,13 @@ object WarpLogUtils extends WarpLogging {
       }
   }
 
+
+  /**
+   * For log writer configuration, following pattern set out by:
+   * https://akhikhl.wordpress.com/2013/07/11/programmatic-configuration-of-slf4jlogback/
+   *
+   * @param writerConfig - configuration properties for each new fileWriter
+   */
   def addFileWriter(writerConfig: WriterConfig): Unit = {
     getLoggerContext.map { context =>
       // Create a logEncoder for the logFileAppender
