@@ -22,9 +22,11 @@ object WarpLogUtils extends WarpLogging {
   val LOG_FORMAT: String = "[%d{yyyy-MM-dd HH:mm:ss}] %-5level %logger.%method:%line - %msg%n"
 
   /**
-   * TODO: Docs
+   * TODO
+   *
    * Reads the value of wd.warp.log.level, attempt to parse as a valid logging level,
    * and set log level of our Logger to that level. If tinylog.level is set as a system property, we'll use that.
+   * Following pattern set out by https://akhikhl.wordpress.com/2013/07/11/programmatic-configuration-of-slf4jlogback/
    */
   def setLogLevelFromWarpProperties(): Unit = {
     val consoleLevel: Level = this.parseLevel(WARP_CONSOLE_LOG_LEVEL.value, WARP_CONSOLE_LOG_LEVEL.defaultValue)
@@ -32,19 +34,13 @@ object WarpLogUtils extends WarpLogging {
     val slickLevel: Level = this.parseLevel(WARP_SLF4J_SLICK_LOG_LEVEL.value, WARP_SLF4J_SLICK_LOG_LEVEL.defaultValue)
     val flywayLevel: Level = this.parseLevel(WARP_SLF4J_FLYWAY_LOG_LEVEL.value, WARP_SLF4J_FLYWAY_LOG_LEVEL.defaultValue)
 
-    val maybeContext: Try[LoggerContext] = Try(LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext])
-      .recoverWith { case e =>
-        logger.error("Could not cast to LoggerContext at runtime, logger may be misconfigured", e)
-        Failure(e)
-      }
-
-    maybeContext.map { case context =>
-      // via https://akhikhl.wordpress.com/2013/07/11/programmatic-configuration-of-slf4jlogback/
+    getLoggerContext.map { context =>
       val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
       logEncoder.setContext(context)
       logEncoder.setPattern(LOG_FORMAT)
       logEncoder.start()
 
+      // Configure ROOT logger
       val log: Logger = context.getLogger("ROOT")
       log.setAdditive(true)
       log.setLevel(consoleLevel)
@@ -63,7 +59,7 @@ object WarpLogUtils extends WarpLogging {
 
       log.getAppender("console").asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
 
-      // add all our new configured writers
+      // Add all our new configured writers
       val writers: Seq[WriterConfig] = WarpGuicer.baseModule.getExtraWriters
       writers foreach addFileWriter
     }
@@ -83,14 +79,15 @@ object WarpLogUtils extends WarpLogging {
     Level.toLevel(level, Level valueOf default.getOrElse(""))
   }
 
-  def addFileWriter(writerConfig: WriterConfig): Unit = {
-    val maybeContext: Try[LoggerContext] = Try(LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext])
-      .recoverWith { case e =>
-        logger.error("Could not cast to LoggerContext at runtime, logger may be misconfigured", e)
+  private def getLoggerContext: Try[LoggerContext] = {
+    Try(LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]).recoverWith { case e =>
+        logger.error("Could not cast to LoggerContext at runtime, logger may not be configured", e)
         Failure(e)
       }
+  }
 
-    maybeContext.map { case context =>
+  def addFileWriter(writerConfig: WriterConfig): Unit = {
+    getLoggerContext.map { context =>
       // Create a logEncoder for the logFileAppender
       val logEncoder2 = new PatternLayoutEncoder
       logEncoder2.setContext(context)
