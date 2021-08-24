@@ -22,7 +22,6 @@ dependencies {
     // TODO: decide if these `api' should be runtimeOnly
     api "com.typesafe.scala-logging:scala-logging_%%:${versions.scalalogging}"
     api "org.slf4j:slf4j-api:${versions.slf4j}"
-//    api "org.slf4j:slf4j-simple:${versions.slf4j}"
     api "ch.qos.logback:logback-classic:${versions.logback}"
     api "ch.qos.logback:logback-core:${versions.logback}"
 
