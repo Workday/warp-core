@@ -8,7 +8,8 @@ import com.workday.warp.config.{PropertyEntry, WarpPropertyLike}
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.inject.modules.{DefaultWarpModule, HasWarpBindings}
-import com.workday.warp.persistence.Tag
+import com.workday.warp.persistence.influxdb.InfluxDBClient
+import com.workday.warp.persistence.{PersistenceAware, Tag}
 import org.junit.jupiter.api.TestInfo
 import org.pmw.tinylog.Logger
 
@@ -123,4 +124,10 @@ object WarpGuicer {
 
   /** @return object with warp configuration [[com.workday.warp.config.PropertyEntry]]. */
   def getProperty: WarpPropertyLike = this.baseInjector.getInstance(classOf[WarpPropertyLike])
+
+  /** @return a persistence class [[PersistenceAware]]. */
+  def getPersistence: PersistenceAware = this.baseInjector.getInstance(classOf[PersistenceAware])
+
+  /** @return an influxdb client [[InfluxDBClient]]. */
+  def getInfluxDb: InfluxDBClient = this.baseInjector.getInstance(classOf[InfluxDBClient])
 }

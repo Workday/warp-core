@@ -1,16 +1,9 @@
 package com.workday.warp.collectors
 
-import java.time.Duration
-
 import com.workday.warp.config.CoreWarpProperty._
-import com.workday.warp.TrialResult
-import com.workday.warp.utils.Implicits._
+import com.workday.warp.inject.WarpGuicer
 import com.workday.warp.persistence.TablesLike._
-import com.workday.warp.persistence.TablesLike.RowTypeClasses._
-import com.workday.warp.persistence.Tables._
-import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.influxdb.InfluxDBClient
-import com.workday.warp.utils.StackTraceFilter
 
 /**
   * Writes test response time thresholds to influxdb, and updates them in MySql.
@@ -21,6 +14,10 @@ import com.workday.warp.utils.StackTraceFilter
   * Created by tomas.mccandless on 7/12/16.
   */
 class ResponseTimeCollector extends AbstractMeasurementCollector {
+
+  private val dbName: String = WARP_INFLUXDB_HEAPHISTO_DB.value
+  private val seriesName: String = "responseTimes"
+
   /**
     * Called prior to starting an individual test invocation.
     */
@@ -38,37 +35,7 @@ class ResponseTimeCollector extends AbstractMeasurementCollector {
     *                      not attempt to write out to the database.
     */
   override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-    maybeTestExecution foreach { testExecution => ResponseTimeCollector.persistThresholdInflux(List(testExecution)) }
-  }
-}
-
-
-object ResponseTimeCollector extends InfluxDBClient with CorePersistenceAware with StackTraceFilter {
-
-  private val dbName: String = WARP_INFLUXDB_HEAPHISTO_DB.value
-  private val seriesName: String = "responseTimes"
-
-
-  /**
-    * Persists response time and threshold of `testExecution` to influxdb.
-    *
-    * @param testExecutions [[Iterable]] of [[TestExecutionRow]] to persist details of.
-    * @param maybeThreshold Optional [[Duration]] to override the `responseTimeRequirement` field of `testExecutions`.
-    */
-  def persistThresholdInflux(testExecutions: Iterable[TestExecutionRowLike], maybeThreshold: Option[Duration] = None): Unit = {
-    this.persistThresholds(this.dbName, this.seriesName, testExecutions, maybeThreshold)
-  }
-
-
-  /**
-    * Updates thresholds in MySql, and also persists them in influxdb.
-    *
-    * @param results [[Iterable]] of [[com.workday.warp.TrialResult]] to persist details of.
-    * @param threshold [[Duration]] to override the `responseTimeRequirement` field of `testExecutions`.
-    */
-  def updateThresholds(results: Iterable[TrialResult[_]], threshold: Duration): Unit = {
-    val testExecutions: Iterable[TestExecutionRowLike] = results flatMap { _.maybeTestExecution }
-    this.persistenceUtils.updateTestExecutionThresholds(testExecutions, threshold.doubleSeconds)
-    this.persistThresholdInflux(testExecutions, Option(threshold))
+    val influx: InfluxDBClient = WarpGuicer.getInfluxDb
+    maybeTestExecution foreach { testExecution => influx.persistThresholds(this.dbName, this.seriesName, Seq(testExecution)) }
   }
 }
