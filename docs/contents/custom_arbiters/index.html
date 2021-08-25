@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Custom Arbiters :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/custom_arbiters/">
+  <body data-url="https://workday.github.io/warp-core/contents/custom_arbiters/">
     
       <header>
   <div class="logo">
@@ -245,15 +245,41 @@
     
     
     
-    
-
-<p>An <code>Arbiter</code> defines a <code>vote</code> method that allows us to implement custom failure criteria for a given test execution.</p>
-
+    <p>An <code>Arbiter</code> defines a <code>vote</code> method that allows us to implement custom failure criteria for a given test execution.</p>
 <p>For example, the following <code>Arbiter</code> implementation fails a test if it took longer than 5 seconds:
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.arbiters.ArbiterLike</span>
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.CorePersistenceAware</span>
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.TablesLike._</span>
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.Tables._</span>
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.arbiters.ArbiterLike</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.persistence.CorePersistenceAware</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.persistence.TablesLike._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.persistence.Tables._</span>
 
 <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ResponseTimeArbiter</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">ArbiterLike</span> <span style="color:#8b008b;font-weight:bold">with</span> <span style="color:#008b45;font-weight:bold">CorePersistenceAware</span> {
 
@@ -274,16 +300,15 @@
       <span style="color:#008b45;font-weight:bold">None</span>
     }
   }
-}</code></pre></div></p>
-
+}</code></pre></td></tr></table>
+</div>
+</div></p>
 <p>Some arbiters may want access to historical data in order to make an informed decision about the most recent test invocation.
 To easily access historical data, mix in the trait <code>CanReadHistory</code>. For example, using this mechanism, we can
 implement an arbiter that votes based on the z-score of the most recently test execution. Using such an arbiter,
 for example, we can fail any test whose recorded measurement value is greater standard deviations away from the
 historical mean.</p>
-
 <h2 id="anomaly-detection">Anomaly Detection</h2>
-
 <p>WARP includes an arbiter that uses machine learning to cast votes.
 The <code>RobustPcaArbiter</code> votes based on the results of an anomaly detection algorithm,
 Robust Principal Component Analysis (RPCA).

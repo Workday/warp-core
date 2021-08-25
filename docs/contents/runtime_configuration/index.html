@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Runtime Property Configuration :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/runtime_configuration/">
+  <body data-url="https://workday.github.io/warp-core/contents/runtime_configuration/">
     
       <header>
   <div class="logo">
@@ -247,27 +247,20 @@
     
     <p>WARP has many runtime configuration options. For example, one can set the log level, or override default JDBC persistence
 properties.</p>
-
 <p>Configuration properties can be set (in order of decreasing precedence) using environment variables, JVM system properties, or by creating a configuration file.</p>
-
 <p>For example, the default database we write to is an in-memory H2 database, however the following minimal <code>warp.properties</code>
 file can be used as a starting point to write results to MySQL:</p>
-
 <pre><code>wd.warp.jdbc.url=jdbc:mysql://localhost:3307/warp?createDatabaseIfNotExist=true&amp;zeroDateTimeBehavior=convertToNull
 wd.warp.jdbc.password=1234
 wd.warp.jdbc.user=root
 wd.warp.jdbc.driver=com.mysql.jdbc.Driver
 
 wd.warp.log.level=info
-</code></pre>
-
-<p>In general, the environment variable form of a warp property is capitalized, with underscores instead of periods. For example, to
+</code></pre><p>In general, the environment variable form of a warp property is capitalized, with underscores instead of periods. For example, to
 set the log level property, one could pass a JVM system property <code>-Dwd.warp.log.level=debug</code>, or set an environment variable
 <code>WD_WARP_LOG_LEVEL=debug</code>.</p>
-
 <p>By default, WARP will search for a <code>warp.properties</code> file in the current working directory and in <code>~/.warp/</code>, however the
 expected location of the properties file can be overridden using the JVM system property <code>wd.warp.config.directory</code>.</p>
-
 <p>There are many tunable knobs; for more detail, see <code>WarpPropertyManager</code>, <code>CoreWarpProperty</code>, and <code>PropertyEntry</code></p>
 
 

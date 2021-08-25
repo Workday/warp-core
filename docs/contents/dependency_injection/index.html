@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Dependency Injection :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/dependency_injection/">
+  <body data-url="https://workday.github.io/warp-core/contents/dependency_injection/">
     
       <header>
   <div class="logo">
@@ -246,15 +246,12 @@
     
     
     <p>WARP uses <a href="https://github.com/google/guice">Guice</a> for some dependency bindings.</p>
-
 <p>In particular, we bind a concrete implementation of <code>AbstractMeasurementCollectionController</code>,
 an implementation of <code>WarpPropertyLike</code> (which enumerates all the available runtime configuration parameters),
 and provide an extension hook for users to bind additional <a href="https://github.com/pmwmedia/tinylog">tinylog</a> Writers.</p>
-
 <p>The binding module we provide out of the box in <code>DefaultWarpModule</code> should be fine for most use cases.
 However, advanced users can implement their own bindings in a new module and set the system property <code>wd.warp.inject.module</code>
 with the fully qualified value of their module class.</p>
-
 <p>Internally, we use an augmented <code>MeasurementCollectionController</code>, a slightly different schema with different implementations for <code>PersistenceUtils</code>, and an extended version of <code>CoreWarpPropery</code>.</p>
 
 

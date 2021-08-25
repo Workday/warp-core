@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Collecting Custom Measurements :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/custom_collectors/">
+  <body data-url="https://workday.github.io/warp-core/contents/custom_collectors/">
     
       <header>
   <div class="logo">
@@ -247,22 +247,45 @@
     
     <p>The <code>AbstractMeasurementCollector</code> class defines two side-effecting functions: <code>startMeasurement</code> and
 <code>stopMeasurement</code>, that are invoked, respectively, before and after a test execution.</p>
-
 <p>Implementations of a measurement or measurement collection should extend this class, and probably mix in
 the <code>CorePersistenceAware</code> trait. Note that the collection of a measurement may
 encompass a number of different types of operations. It may include such activities as collecting
 from JMX, scraping server logs, or as simple as starting and stopping a clock.</p>
-
 <p>Out of the box, WARP includes a default minimal set of measurement collectors for measuring elapsed
 wall-clock time and heap usage. Internally, our engineers have developed many additional collectors
 for instrumenting their code.</p>
-
 <p>For example, the following class records elapsed wall clock time as a measurement:</p>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.collectors.AbstractMeasurementCollector</span>
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.CorePersistenceAware</span>
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.TablesLike._</span>
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.persistence.Tables._</span>
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.collectors.AbstractMeasurementCollector</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.persistence.CorePersistenceAware</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.persistence.TablesLike._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.persistence.Tables._</span>
 
 <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">WallClockTimeCollector</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">AbstractMeasurementCollector</span> <span style="color:#8b008b;font-weight:bold">with</span> <span style="color:#008b45;font-weight:bold">CorePersistenceAware</span> {
 
@@ -281,14 +304,14 @@ for instrumenting their code.</p>
       <span style="color:#8b008b;font-weight:bold">this</span>.persistenceUtils.recordMeasurement(testExecution.idTestExecution, <span style="color:#cd5555">&#34;wall clock time&#34;</span>, durationMs)
     }
   }
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <p>In some cases it may be desirable to instead record measurements at a periodic interval
 throughout the duration of a test. The trait <code>ContinuousMeasurement</code> implements this functionality
 by spawning a separate thread that can run arbitrary code. To create a continuous measurement collector,
 subclass <code>AbstractMeasurementCollector</code>, mix in the <code>ContinuousMeasurement</code> trait, and override the method
 <code>collectMeasurement()</code>.</p>
-
 <p><code>AbstractMeasurementCollector</code> provides a flexible interface for extending the core framework with
 additional measurements.</p>
 
