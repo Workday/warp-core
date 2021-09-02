@@ -102,19 +102,19 @@ object WarpLogUtils extends WarpLogging {
   def addFileWriter(writerConfig: WriterConfig): Unit = {
     getLoggerContext.map { context =>
       // Create a logEncoder for the logFileAppender
-      val logEncoder2 = new PatternLayoutEncoder
+      val logEncoder2: PatternLayoutEncoder = new PatternLayoutEncoder
       logEncoder2.setContext(context)
       logEncoder2.setPattern(LOG_FORMAT)
       logEncoder2.start()
 
-      val logFileAppender = new RollingFileAppender[ILoggingEvent]
+      val logFileAppender: RollingFileAppender[ILoggingEvent] = new RollingFileAppender[ILoggingEvent]
       logFileAppender.setContext(context)
       logFileAppender.setName(writerConfig.fileName)
       logFileAppender.setEncoder(logEncoder2)
       logFileAppender.setAppend(true)
       logFileAppender.setFile(writerConfig.fileName)
 
-      val logFilePolicy = new TimeBasedRollingPolicy[ILoggingEvent]
+      val logFilePolicy: TimeBasedRollingPolicy[ILoggingEvent] = new TimeBasedRollingPolicy[ILoggingEvent]
       logFilePolicy.setContext(context)
       logFilePolicy.setParent(logFileAppender)
       logFilePolicy.setFileNamePattern(s"${writerConfig.fileName}-%d{yyyy-MM-dd_HH}.log")
