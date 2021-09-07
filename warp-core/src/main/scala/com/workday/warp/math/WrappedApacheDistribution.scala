@@ -1,9 +1,9 @@
 package com.workday.warp.math
 
-import java.lang.reflect.InvocationTargetException
+import com.workday.warp.logger.WarpLogging
 
+import java.lang.reflect.InvocationTargetException
 import org.apache.commons.math3.distribution.AbstractRealDistribution
-import org.pmw.tinylog.Logger
 
 /**
   * Trait providing a thin wrapper around an Apache distribution.
@@ -11,7 +11,7 @@ import org.pmw.tinylog.Logger
   * Created by leslie.lam on 12/18/17.
   * Based on abstract java class created by tomas.mccandless.
   */
-trait WrappedApacheDistribution extends DistributionLike {
+trait WrappedApacheDistribution extends DistributionLike with WarpLogging {
   protected val distribution: AbstractRealDistribution
 
   protected def getApacheDistribution(distributionClass: Class[_ <: AbstractRealDistribution],
@@ -29,7 +29,7 @@ trait WrappedApacheDistribution extends DistributionLike {
     val boxedParameters: Array[java.lang.Double] = parameters.map(java.lang.Double.valueOf)
 
     try {
-      Logger.debug(s"creating new WrappedApacheDistribution ${this.getClass.getCanonicalName} with parameters ${parameters mkString ","}\n")
+      logger.debug(s"creating new WrappedApacheDistribution ${this.getClass.getCanonicalName} with parameters ${parameters mkString ","}\n")
       // Use reflection to instantiate proper distribution
       distributionClass.getDeclaredConstructor(parameterTypes: _*).newInstance(boxedParameters: _*)
     }

@@ -1,13 +1,12 @@
 package com.workday.warp.persistence
 
 import java.time.{Instant, LocalDate}
-
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty.WARP_DATABASE_URL
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.utils.TimeUtils
-import org.pmw.tinylog.Logger
 
 import scala.annotation.tailrec
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -19,7 +18,7 @@ import scala.util.{Failure, Success, Try}
   *
   * Created by leslie.lam on 2/9/18.
   */
-trait PersistenceAware {
+trait PersistenceAware extends WarpLogging {
 
   /** [[AbstractPersistenceUtils]] to allow for db interaction */
   val persistenceUtils: AbstractPersistenceUtils
@@ -422,7 +421,7 @@ trait MigrateSchemaLike extends PersistenceAware {
           flyway.migrate()
           flyway.validate()
           val after: Long = System.currentTimeMillis()
-          Logger.info(s"migrated schema in ${TimeUtils.millisToHumanReadable(after - before)}")
+          logger.info(s"migrated schema in ${TimeUtils.millisToHumanReadable(after - before)}")
         })
       case None =>
         val error: String = s"schema migration is only supported for mysql. check the value of ${WARP_DATABASE_URL.propertyName}"

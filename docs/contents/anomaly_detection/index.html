@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Case Study: RPCA Anomaly Detection :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/anomaly_detection/">
+  <body data-url="https://workday.github.io/warp-core/contents/anomaly_detection/">
     
       <header>
   <div class="logo">
@@ -245,91 +245,78 @@
     
     
     
-    
-
-<p>One of the arbiters included with WARP is the <code>RobustPcaArbiter</code>.</p>
-
+    <p>One of the arbiters included with WARP is the <code>RobustPcaArbiter</code>.</p>
 <p>This arbiter is based on an anomaly detection algorithm called Robust Principal Component Analysis.
 (RPCA). RPCA is a matrix decomposition algorithm that decomposes a measurement matrix <code>M</code> into the sum
 <code>L + S + E</code>. <code>L</code> is a low-rank matrix that represents the &ldquo;normal&rdquo; component of <code>M</code>. <code>S</code> is a sparse matrix that
 represents the anomalies in <code>M</code>, and <code>E</code> is an error term representing random noise.</p>
-
 <p>RPCA has other applications besides anomaly detection. For example, it can be used
 to segment foreground/background in a surveillance video stream. <code>L</code> naturally corresponds to the static background,
 while <code>S</code> captures objects moving in the foreground. Similarly, RPCA can be used to remove specularities, shadows,
 or other irregular artifacts
 from photos as a preprocessing step to facial recognition; and to find irregular words as part of a spam detection
 or web indexing pipeline.</p>
-
 <p>More detailed information can be found in the <a href="https://arxiv.org/abs/0912.3599">Candes09</a> and <a href="https://arxiv.org/abs/1001.2363">Zhou10</a> papers.</p>
-
 <p>We use this arbiter internally to detect anomalies in recorded test measurements.</p>
-
 <p>For example, a test suddenly running much slower may signify a performance regression that needs to be
 further investigated.</p>
-
 <h2 id="background">Background</h2>
-
 <p>In our internal legacy pipeline, test owners would set static thresholds on their tests
 for the purpose of detecting regressions due to degraded performance.
 This led to several problems:</p>
-
 <ul>
 <li>predicting the expected performance on production hardware is difficult <em>a priori</em>.</li>
 <li>updating thresholds over time puts onerous requirements on test owners.</li>
 </ul>
-
 <p>We wanted to retain these threshold semantics because they are easy to reason about,
 but we wanted to remove the requirement of manual input from developers.</p>
-
 <p>What if we could <em>learn</em> a suitable threshold, given the historic measurements for a test?</p>
-
 <p>The <code>SmartNumberArbiter</code> combines the bisection method with RPCA to efficiently find the <em>minimum</em> measurement
 value that would be flagged as anomalous. This derived threshold is recorded as additional test metadata
 (using a <a href="https://workday.github.io/warp-core/contents/tags/">tag</a>),
 making the arbitration process easier to reason about than using a raw <code>RobustPcaArbiter</code>.</p>
-
 <p>Internally, we use RPCA daily to detect anomalies in an online manner for test executions.
 This chart is taken from an internal dashboard and illustrates how the detected anomalies can look over time:
-
-<figure>
-    
-        <img src="https://workday.github.io/warp-core/images/rpca.png" />
-    
-    
+<figure><img src="https://workday.github.io/warp-core/images/rpca.png"/>
 </figure>
 </p>
-
 <p>This code snippet illustrates how the <code>RobustPcaArbiter</code> can be used with an experiment:</p>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@Test</span>
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@Test</span>
 <span style="color:#8b008b;font-weight:bold">def</span> rpcaExample()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
   using invocations <span style="color:#b452cd">20</span> arbiters { 
     <span style="color:#8b008b;font-weight:bold">new</span> <span style="color:#008b45;font-weight:bold">RobustPcaArbiter</span> 
   } measure { 
     someExperiment()
   }
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="tuning">Tuning</h2>
-
 <p>RPCA has several parameters that can be tuned for modifying the sensitivity of the algorithm.
 We use the defaults described in the <a href="https://arxiv.org/abs/1001.2363">Zhou10</a> paper as much as possible,
 however one parameter we encourage developers to experiment with is called <code>tolerance factor</code>. This
 is essentially a threshold in the normalized space of <code>S</code>, and directly controls how sensitive the algorithm
 is. Smaller values are more sensitive, while larger values give the algorithm more slack in determining
 whether a new test is anomalous. The tolerance factor is controlled via the property <code>wd.warp.anomaly.rpca.s.threshold</code>.</p>
-
 <h2 id="double-rpca">Double RPCA</h2>
-
 <p>However, one weakness of Robust PCA is that the system has a &ldquo;short memory&rdquo;. In other words,
 a sustained performance degradation will quickly be considered normal.</p>
-
 <p>To remedy this, we developed a novel extension to RPCA called Double RPCA. This algorithm
 features an &ldquo;extended training phase&rdquo; where only past normal measurements are used to determine
 the current threshold value. One intuitive way to grasp the effects of this modification is to say
 that it, roughly speaking, &ldquo;prevents Stockholm Syndrome&rdquo;.</p>
-
 <p>This variant is more strict with respect to sustained test performance degradation,
 and can lead to increased false positive rates over extended periods of time. This algorithm is a good fit
 for strictly judging the performance of some core functionality, especially code with constant-time

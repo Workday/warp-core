@@ -7,7 +7,7 @@ import com.workday.warp.math.truncatePercent
 import com.workday.warp.utils.AnnotationReader
 import org.apache.commons.math3.distribution.NormalDistribution
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 /**
   * Arbiter that checks whether the response time for this test was within an acceptable percentile.
@@ -17,7 +17,7 @@ import org.pmw.tinylog.Logger
   *
   * Created by tomas.mccandless on 1/25/16.
   */
-class ZScoreArbiter extends CanReadHistory with ArbiterLike {
+class ZScoreArbiter extends CanReadHistory with ArbiterLike with WarpLogging {
 
   /**
     * Reads historical response times for this test.
@@ -51,7 +51,7 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike {
 
     // we don't have enough historical data yet
     if (responseTimes.size < minimumHistoricalData) {
-      Logger.warn(s"not enough historical measurements for ${ballot.testId}. (found ${responseTimes.size}, we require " +
+      logger.warn(s"not enough historical measurements for ${ballot.testId}. (found ${responseTimes.size}, we require " +
         s"$minimumHistoricalData.) percentile threshold processing will not continue.")
       None
     }

@@ -1,9 +1,9 @@
 package com.workday.warp.config
 
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 import scala.reflect.runtime.universe
-import scala.reflect.runtime.universe.{Mirror, ModuleSymbol, MethodSymbolApi, Type}
+import scala.reflect.runtime.universe.{MethodSymbolApi, Mirror, ModuleSymbol, Type}
 
 /**
   * Marker trait for property singletons.
@@ -20,7 +20,7 @@ trait WarpPropertyLike {
   def values: Seq[PropertyEntry] = PropertyInspector.values(this.getClass)
 }
 
-object PropertyInspector {
+object PropertyInspector extends WarpLogging {
 
   // expected return type of all the members we'll analyze
   private val entryType: Type = universe.typeOf[PropertyEntry]
@@ -44,7 +44,7 @@ object PropertyInspector {
     * @return all [[PropertyEntry]] vals defined on `class`.
     */
   def values[T <: WarpPropertyLike](`class`: Class[T]): Seq[PropertyEntry] = {
-    Logger.debug(s"getting property values for ${`class`.getCanonicalName}")
+    logger.debug(s"getting property values for ${`class`.getCanonicalName}")
     val mirror: Mirror = universe.runtimeMirror(`class`.getClassLoader)
 
     // concrete type of the property holder class

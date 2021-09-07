@@ -2,13 +2,11 @@ package com.workday.warp.config
 
 import java.io.File
 import java.util.Properties
-
 import com.workday.warp.inject.WarpGuicer
-import com.workday.warp.logger.WarpLogUtils
+import com.workday.warp.logger.{WarpLogUtils, WarpLogging}
 import org.apache.commons.configuration2.PropertiesConfiguration
 import org.apache.commons.configuration2.builder.fluent.Configurations
 import org.apache.commons.configuration2.ex.ConfigurationException
-import org.pmw.tinylog.Logger
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
@@ -24,7 +22,7 @@ import scala.util.{Failure, Success, Try}
   * Created by tomas.mccandless on 10/21/15.
   * Based on a class created by michael.ottati on 3/29/13
   */
-object WarpPropertyManager {
+object WarpPropertyManager extends WarpLogging {
 
   /**
     * Properties containing this prefix will be passed through as system properties with this
@@ -48,13 +46,13 @@ object WarpPropertyManager {
   // if there is an unrecoverable exception from configuration library, we'll throw that exception
   val configuration: PropertiesConfiguration = Try(new Configurations().properties(propertyFile)).recoverWith {
     case _: ConfigurationException if !new File(propertyFile).exists() =>
-      Logger.warn(s"$propertyFile does not exist!" +
+      logger.warn(s"$propertyFile does not exist!" +
         "\n    Be aware that if the property values you require have not been passed in as Java System properties" +
         "\n    this program is very likely to fail when an unset required property is accessed.\n")
       // fall back on empty config
       Success(new PropertiesConfiguration)
     case exception: Exception =>
-      Logger.error(exception, s"Error loading WARP Configuration file: $propertyFile \n\n")
+      logger.error(s"Error loading WARP Configuration file: $propertyFile \n\n", exception)
       Failure(exception)
   }.get
 
@@ -145,7 +143,7 @@ object WarpPropertyManager {
       banner ++= s"\n    $name=$redactedValue"
     }
 
-    Logger.info(banner.toString)
+    logger.info(banner.toString)
   }
 
 

@@ -1,15 +1,15 @@
 package com.workday.warp.junit
 
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 /**
   * Created by tomas.mccandless on 6/17/20.
   */
-class ParsesTestIdSpec extends WarpJUnitSpec with ParsesTestId {
+class ParsesTestIdSpec extends WarpJUnitSpec with ParsesTestId with WarpLogging {
 
   @WarpTest(warmups = 2, trials = 5)
   def testIdFromUniqueId(): Unit = {
-    Logger.info("running test!")
+    logger.info("running test!")
     // scalastyle:off
     fromUniqueId("[engine:junit-jupiter]/[class:com.workday.warp.junit.MeasurementCallbacksSpec]/[method:foo()]") should
       be (Some("com.workday.warp.junit.MeasurementCallbacksSpec.foo"))

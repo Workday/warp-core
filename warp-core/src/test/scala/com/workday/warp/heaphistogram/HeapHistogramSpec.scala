@@ -1,7 +1,6 @@
 package com.workday.warp.heaphistogram
 
 import java.io.InputStream
-
 import com.workday.warp.{HasRandomTestId, TestId}
 import com.workday.warp.collectors._
 import com.workday.warp.controllers.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}

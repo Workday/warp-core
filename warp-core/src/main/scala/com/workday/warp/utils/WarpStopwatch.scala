@@ -1,16 +1,15 @@
 package com.workday.warp.utils
 
 import java.util.concurrent.TimeUnit
-
 import com.google.common.base.Stopwatch
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 /**
   * A simple wrapper around the guava [[Stopwatch]] class.
   *
   * Created by tomas.mccandless on 10/13/15.
   */
-class WarpStopwatch private(private[this] val logMessage: String) {
+class WarpStopwatch private(private[this] val logMessage: String) extends WarpLogging {
   private[this] var isTiming: Boolean = true // scalastyle:ignore
   private[this] val stopwatch: Stopwatch = Stopwatch.createStarted()
 
@@ -26,7 +25,7 @@ class WarpStopwatch private(private[this] val logMessage: String) {
       throw new IllegalStateException("Stopwatch must be started before it can be stopped.")
     }
 
-    Logger.trace(s"WarpStopwatch: ${this.logMessage} ${this.stopwatch.stop()}")
+    logger.trace(s"WarpStopwatch: ${this.logMessage} ${this.stopwatch.stop()}")
     this.isTiming = false
   }
 

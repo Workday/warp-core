@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Measuring Gatling Simulations :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/gatling/">
+  <body data-url="https://workday.github.io/warp-core/contents/gatling/">
     
       <header>
   <div class="logo">
@@ -248,8 +248,25 @@
     <p>&ldquo;warp-core-gatling&rdquo; is published as a separate jar and includes a base class &ldquo;WarpSimulation&rdquo; that add warp measurements to existing simulations
 as before/after gatling hooks. This module also includes a (now deprecated) vintage JUnit4 runner that allows for easily executing gatling simulations along with
 the rest of your JUnit test suite. In the future, we plan to develop a tighter integration between gatling and JUnit5</p>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.adapters.gatling.</span>{<span style="color:#008b45;font-weight:bold">GatlingJUnitRunner</span>, <span style="color:#008b45;font-weight:bold">WarpSimulation</span>}
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.adapters.gatling.</span>{<span style="color:#008b45;font-weight:bold">GatlingJUnitRunner</span>, <span style="color:#008b45;font-weight:bold">WarpSimulation</span>}
 
 <span style="color:#707a7c">@RunWith</span>(classOf[<span style="color:#00688b;font-weight:bold">GatlingJUnitRunner</span>])
 <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">BasicSimulation</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">WarpSimulation</span> {
@@ -262,7 +279,9 @@ the rest of your JUnit test suite. In the future, we plan to develop a tighter i
     )
 
   setUp(scn.inject(atOnceUsers(<span style="color:#b452cd">1</span>)).protocols(httpConf))
-}</code></pre></div>
+}</code></pre></td></tr></table>
+</div>
+</div>
 
 
     

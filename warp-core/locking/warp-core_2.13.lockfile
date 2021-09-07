@@ -3,6 +3,8 @@
 # This file is expected to be part of source control.
 antlr:antlr:2.7.7=checkstyle
 aopalliance:aopalliance:1.0=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+ch.qos.logback:logback-classic:1.2.3=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+ch.qos.logback:logback-core:1.2.3=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 com.beautiful-scala:scalastyle_2.13:1.2.0=scalastyle
 com.eed3si9n:shaded-scalajson_2.12:1.0.0-M4=zinc
 com.eed3si9n:sjson-new-core_2.12:0.8.3=zinc
@@ -112,7 +114,6 @@ org.scalatestplus:junit-4-12_2.13:3.1.1.0=compileClasspath,default,runtimeClassp
 org.scalatestplus:scalatestplus-junit_2.13:1.0.0-SNAP9=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.scoverage:scalac-scoverage-plugin_2.13:1.4.1=scoverage
 org.scoverage:scalac-scoverage-runtime_2.13:1.4.1=scoverage
-org.slf4j:slf4j-api:1.7.25=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
+org.slf4j:slf4j-api:1.7.30=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
 org.spire-math:jawn-parser_2.12:0.10.4=zinc
-org.tinylog:tinylog:1.3.6=compileClasspath,default,runtimeClasspath,testCompileClasspath,testRuntimeClasspath
-empty=annotationProcessor,archives,compile,compileOnly,generatedAnnotationProcessor,generatedCompile,generatedCompileClasspath,generatedCompileOnly,generatedRuntime,generatedRuntimeClasspath,incrementalScalaAnalysisForgenerated,incrementalScalaAnalysisFormain,incrementalScalaAnalysisForscoverage,incrementalScalaAnalysisFortest,runtime,scalaCompilerPlugins,scalaStyle,scalafix,scoverageAnnotationProcessor,scoverageCompile,scoverageCompileClasspath,scoverageCompileOnly,scoverageRuntime,scoverageRuntimeClasspath,signatures,testAnnotationProcessor,testCompile,testCompileOnly,testRuntime
+empty=annotationProcessor,archives,compile,compileOnly,incrementalScalaAnalysisFormain,incrementalScalaAnalysisForscoverage,incrementalScalaAnalysisFortest,runtime,scalaCompilerPlugins,scalafix,scoverageAnnotationProcessor,scoverageCompile,scoverageCompileClasspath,scoverageCompileOnly,scoverageRuntime,scoverageRuntimeClasspath,signatures,testAnnotationProcessor,testCompile,testCompileOnly,testRuntime

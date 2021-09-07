@@ -1,11 +1,11 @@
 package com.workday.warp.math.stats
 
+import com.workday.warp.logger.WarpLogging
 import org.apache.commons.math3.distribution.{FDistribution, NormalDistribution, TDistribution}
 import org.apache.commons.math3.stat.StatUtils
 import org.apache.commons.math3.stat.descriptive.moment.Variance
 import org.apache.commons.math3.stat.descriptive.rank.Percentile
 import org.apache.commons.math3.stat.inference.{KolmogorovSmirnovTest, TTest}
-import org.pmw.tinylog.Logger
 
 sealed abstract class TestType(val name: String, val referenceUrl: String)
 case object KsTest extends TestType(name = "Kolmogorov-Smirnov Normality Test",
@@ -74,7 +74,7 @@ case class AllRegressionStatTestResults(baselineNormalityTest: StatTestResult,
   }
 }
 
-object TwoSampleRegressionTest {
+object TwoSampleRegressionTest extends WarpLogging {
   private val SAMPLE_SIZE_LOWER_BOUND: Int = 5
   // sample size cutoff pertaining to the Central Limit Theorem
   private val CLT_N: Int = 30
@@ -123,7 +123,7 @@ object TwoSampleRegressionTest {
 
     val fDistribution: FDistribution = new FDistribution(k-1, N-k)
     val fStatistic: Double = numerator / denominator
-    Logger.trace(s"F-Statistic for equal variance test: $fStatistic")
+    logger.trace(s"F-Statistic for equal variance test: $fStatistic")
     1 - fDistribution.cumulativeProbability(fStatistic)
   }
 
@@ -161,7 +161,7 @@ object TwoSampleRegressionTest {
     val z: Double = (UStatistic - mu) / Math.sqrt(variance)
     val normalDistribution: NormalDistribution = new NormalDistribution(0, 1)
 
-    Logger.trace(s"approximated z-value: $z")
+    logger.trace(s"approximated z-value: $z")
     1 - normalDistribution.cumulativeProbability(z)
   }
 
@@ -179,13 +179,13 @@ object TwoSampleRegressionTest {
     val mannWhitneyUStatistic: Double = calculateMannWhitneyUStatisticOneSided(baselineSeries, newSeries)
     val mannWhitneyUTestPValue: Double = mannWhitneyUNormalApproximationPValue(mannWhitneyUStatistic, baselineSeriesSize,
                                                                                newSeriesSize)
-    Logger.trace(s"Mann-Whitney U-Test statistic: $mannWhitneyUStatistic, p-value: $mannWhitneyUTestPValue")
+    logger.trace(s"Mann-Whitney U-Test statistic: $mannWhitneyUStatistic, p-value: $mannWhitneyUTestPValue")
 
     if (mannWhitneyUTestPValue < alpha) {
-      Logger.trace("A significant regression has been detected")
+      logger.trace("A significant regression has been detected")
     }
     else {
-      Logger.trace("There is no significant regression detected")
+      logger.trace("There is no significant regression detected")
     }
 
     StatTestResult(MannWhitneyUTest, mannWhitneyUTestPValue)
@@ -303,7 +303,7 @@ object TwoSampleRegressionTest {
                                                                                                  newSeries,
                                                                                                  isHomoscedastic,
                                                                                                  isTwoSided)
-    Logger.trace(s"T-Test Statistic: $tTestStatistic, p-value: $tTestPValue")
+    logger.trace(s"T-Test Statistic: $tTestStatistic, p-value: $tTestPValue")
 
     // calculate confidence interval
     val baselineSeriesVariance: Double = StatUtils.variance(baselineSeries)
@@ -315,13 +315,13 @@ object TwoSampleRegressionTest {
 
     val differenceInMeans: Double = StatUtils.mean(baselineSeries) - StatUtils.mean(newSeries)
     val upperBound: Double = differenceInMeans + criticalTValue * standardError
-    Logger.trace(s"one-sided T-Test Confidence Interval: (-inf, $upperBound)")
+    logger.trace(s"one-sided T-Test Confidence Interval: (-inf, $upperBound)")
 
     if (tTestPValue < alpha) {
-      Logger.trace("A significant regression has been detected")
+      logger.trace("A significant regression has been detected")
     }
     else {
-      Logger.trace("There is no significant regression detected")
+      logger.trace("There is no significant regression detected")
     }
 
     TTestResult(testType, tTestPValue, upperBound)
@@ -356,21 +356,21 @@ object TwoSampleRegressionTest {
     val (equalVariancePValue, testType): (Double, TestType) =
       if (normalityCheck(baselineSeriesNormalityPValue, baselineSeries.length, newSeriesNormalityPValue, newSeries.length,
                          WEAK_NORMALITY_PVALUE_CUTOFF)) {
-        Logger.trace("Somewhat weak normality; Using Browns-Forsythe test for variance equality")
+        logger.trace("Somewhat weak normality; Using Browns-Forsythe test for variance equality")
         val brownForsythePValue: Double = equalVarianceTestProbability(baselineSeries, newSeries, weakNormality = true)
         (brownForsythePValue, BrownForsytheTest)
       }
       else {
-        Logger.trace("Somewhat strong normality present; Using Levene's test for variance equality")
+        logger.trace("Somewhat strong normality present; Using Levene's test for variance equality")
         val levenePValue: Double = equalVarianceTestProbability(baselineSeries, newSeries, weakNormality = false)
         (levenePValue, LevenesVarienceHomogenietyTest)
       }
-    Logger.trace(s"p-value: $equalVariancePValue")
+    logger.trace(s"p-value: $equalVariancePValue")
     val homoVarianceTest: StatTestResult = StatTestResult(testType, equalVariancePValue)
 
     // if equal variance assumed, use homoscedastic t-test; else uses Welch's t-test
     val regressionTest: GenericStatTestResult = if (equalVariancePValue < alpha) {
-      Logger.trace("equal variances rejected; using Welch's t-test")
+      logger.trace("equal variances rejected; using Welch's t-test")
       conductTTest(
         baselineSeries,
         newSeries,
@@ -380,7 +380,7 @@ object TwoSampleRegressionTest {
       )
     }
     else {
-      Logger.trace("equal variances detected; using Student's t-test")
+      logger.trace("equal variances detected; using Student's t-test")
       conductTTest(
         baselineSeries,
         newSeries,
@@ -405,10 +405,10 @@ object TwoSampleRegressionTest {
   private def normalityCheck(baselineSeriesNormalityPValue: Double, baselineSeriesSize: Int, newSeriesNormalityPValue: Double,
                              newSeriesSize: Int, pValueCutoff: Double): Boolean = {
     if (baselineSeriesSize >= CLT_N) {
-      Logger.trace("baseline group fulfills CLT; can disregard normality tests.")
+      logger.trace("baseline group fulfills CLT; can disregard normality tests.")
     }
     if (newSeriesSize >= CLT_N) {
-      Logger.trace("new group fulfills CLT; can disregard normality tests.")
+      logger.trace("new group fulfills CLT; can disregard normality tests.")
     }
 
     (baselineSeriesSize < CLT_N && baselineSeriesNormalityPValue < pValueCutoff) ||
@@ -463,16 +463,16 @@ object TwoSampleRegressionTest {
 
     // somewhat arbitrary cutoff; mann whitney U test normal approximation does require that n1*n2>20 though
     if (baselineSeriesSize < SAMPLE_SIZE_LOWER_BOUND || newSeriesSize < SAMPLE_SIZE_LOWER_BOUND) {
-      Logger.trace("Not enough sample data in either/both sets, exiting")
+      logger.trace("Not enough sample data in either/both sets, exiting")
       None
     }
     else {
-      Logger.trace(s"Alpha level of $alpha used.")
+      logger.trace(s"Alpha level of $alpha used.")
 
       // test for normality of the samples
       val baselineSeriesNormalityPValue: Double = normalityKSTest(baselineSeries)
       val newSeriesNormalityPValue: Double = normalityKSTest(newSeries)
-      Logger.trace(s"baseline group normality p-value: $baselineSeriesNormalityPValue, " +
+      logger.trace(s"baseline group normality p-value: $baselineSeriesNormalityPValue, " +
         s"new group normality p-value: $newSeriesNormalityPValue")
 
       val baselineNormalityTest: StatTestResult = StatTestResult(KsTest, baselineSeriesNormalityPValue, baselineSeriesLabel)
@@ -483,16 +483,16 @@ object TwoSampleRegressionTest {
         (normalityCheck(baselineSeriesNormalityPValue, baselineSeriesSize, newSeriesNormalityPValue, newSeriesSize, alpha)
           || isBothZeroVariance(baselineSeries, newSeries)) match {
           case true =>
-            Logger.trace("cannot use t-test either because normality assumptions failed or both series variances are zero, " +
+            logger.trace("cannot use t-test either because normality assumptions failed or both series variances are zero, " +
               "using mann-whitney U Test")
             (None, conductOneSidedMannWhitneyUTest(baselineSeries, baselineSeriesSize, newSeries, newSeriesSize, alpha))
 
           // t-test normality condition satisfied
           case false if checkVarianceHomogeneity =>
-            Logger.trace("Normality assumption satisfied with variance homogeneity; proceeding with t-test.")
+            logger.trace("Normality assumption satisfied with variance homogeneity; proceeding with t-test.")
             chooseAndConductTTest(baselineSeries, baselineSeriesNormalityPValue, newSeries, newSeriesNormalityPValue, alpha, isTwoSided)
           case false =>
-            Logger.trace("Normality assumption satisfied without variance homogeneity; proceeding with t-test.")
+            logger.trace("Normality assumption satisfied without variance homogeneity; proceeding with t-test.")
             (None, conductTTest(baselineSeries, newSeries, alpha, isHomoscedastic = false, isTwoSided))
       }
 

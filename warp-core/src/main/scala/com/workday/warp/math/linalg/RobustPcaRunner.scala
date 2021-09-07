@@ -2,9 +2,9 @@ package com.workday.warp.math.linalg
 
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.math.standardize
 import com.workday.warp.utils.WarpStopwatch
-import org.pmw.tinylog.Logger
 
 import scala.collection.mutable
 
@@ -26,7 +26,7 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
                            requiredMeasurements: Int = WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt,
                            useSlidingWindow: Boolean = WARP_ARBITER_SLIDING_WINDOW.value.toBoolean,
                            useDoubleRpca: Boolean = WARP_ANOMALY_DOUBLE_RPCA.value.toBoolean,
-                           useDiff: Option[Boolean] = Option(WARP_ANOMALY_USE_DIFF.value).map(_.toBoolean)) {
+                           useDiff: Option[Boolean] = Option(WARP_ANOMALY_USE_DIFF.value).map(_.toBoolean)) extends WarpLogging {
 
   /**
     * Attempts to run robust principal component analysis on the provided list of response times. Today's measurement should
@@ -42,7 +42,7 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
                 testId: TestId = TestId.undefined): Option[RobustPca] = {
 
     if (rawResponseTimes.size < this.requiredMeasurements) {
-      Logger.debug(s"insufficient historical data for ${testId.id} (found ${rawResponseTimes.size} but we require " +
+      logger.debug(s"insufficient historical data for ${testId.id} (found ${rawResponseTimes.size} but we require " +
         s"${this.requiredMeasurements}). rpca anomaly detection will not be performed.")
       None
     }
@@ -87,17 +87,17 @@ case class RobustPcaRunner(lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     val testedData: Iterable[Double] = this.useDiff match {
       // check user overrides
       case Some(true) =>
-        Logger.debug(s"override in place (useDiff=true). time series will be treated as non-stationary and trending down.")
+        logger.debug(s"override in place (useDiff=true). time series will be treated as non-stationary and trending down.")
         dickeyFuller.zeroPaddedDiff
       case Some(false) =>
-        Logger.debug(s"override in place (useDiff=false). time series will be treated as stationary.")
+        logger.debug(s"override in place (useDiff=false). time series will be treated as stationary.")
         truncatedData
       // check actual results of the test
       case _ if !dickeyFuller.isStationary && trend < 0.0 =>
-        Logger.debug(s"dickey-fuller test result: not stationary and trending down. global trend will be smoothed")
+        logger.debug(s"dickey-fuller test result: not stationary and trending down. global trend will be smoothed")
         dickeyFuller.zeroPaddedDiff
       case _ =>
-        Logger.debug(s"dickey-fuller test result: stationary or trending up. global trend will not be smoothed")
+        logger.debug(s"dickey-fuller test result: stationary or trending up. global trend will not be smoothed")
         truncatedData
     }
 

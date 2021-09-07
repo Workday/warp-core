@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Introduction :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/intro/">
+  <body data-url="https://workday.github.io/warp-core/contents/intro/">
     
       <header>
   <div class="logo">
@@ -248,37 +248,28 @@
     <p>We&rsquo;ve all been there before: struggling to reason about why a function is not performing the way we expect,
 and whether a candidate replacement that may appear faster actually bring a statistically significant
 improvement to the table.</p>
-
 <p>We on the performance-test-frameworks team have noticed that engineers often reason about the performance
 of their code in a very informal way.</p>
-
 <p>Academic papers published in other scientific fields, such as biology, place an emphasis on
 obtaining statistically significant results and sound experimental design. Unfortunately, the field of computer
 science tends to not place such importance on statistical rigor.
 This can make it difficult to draw meaningful conclusions, or even worse, can lead us to arrive at misleading or
 downright incorrect conclusions.</p>
-
 <p>To help engineers reason about performance in a more scientific way,
 We&rsquo;re proud to introduce WARP (Workday Automated Regression Platform): a flexible, lightweight, (mostly) functional Scala framework for measuring and comparing
 the performance of arbitrary code blocks.</p>
-
 <p>The goal of this library is to make it easier to apply the scientific method to the performance testing process.
 Our intended user audience consists of perforrmance optimization engineers, test engineers, and ML researchers.
 We at Workday believe engineers should reason scientifically about code performance.</p>
-
 <p>This library is inspired in part by <a href="https://dl.acm.org/citation.cfm?id=1297033">this</a> research on
 statistically rigorous performance evaluation techniques for Java.</p>
-
 <p>WARP features a DSL for describing experimental designs (conducting repeated trials for different experimental
 groups).
 Additionally, we support collecting custom measurements, expressing custom performance requirements,
 and conducting statistical significance tests on history of two tests.</p>
-
 <p>Collected measurements are written to a relational database for subsequent view and analysis.
 WARP has been tested on both H2 and MySQL.</p>
-
 <p>WARP framework includes features that make it simple to:</p>
-
 <ul>
 <li>collect arbitrary custom measurements for a test invocation.</li>
 <li>repeatedly invoke a test, collecting measurements for each invocation.</li>
@@ -289,15 +280,27 @@ WARP has been tested on both H2 and MySQL.</p>
 <li>tag test invocations with custom identifiers (JIRA ticket, A/B testing).</li>
 <li>define custom failure conditions (Arbiters)</li>
 </ul>
-
 <p>The general WARP framework has two supported frontends:</p>
-
 <ul>
 <li>JUnit annotations and extensions (for Java or Scala users)</li>
 </ul>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpTest</span>;
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.Assertions</span>;
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.junit.WarpTest</span>;
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">org.junit.jupiter.api.Assertions</span>;
 
 <span style="color:#8b008b;font-weight:bold">public</span> <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleTest</span> {
 
@@ -306,15 +309,32 @@ WARP has been tested on both H2 and MySQL.</p>
         Logger.<span style="color:#658b00">info</span>(<span style="color:#cd5555">&#34;hello, world!&#34;</span>);
         Assertions.<span style="color:#658b00">assertEquals</span>(2, 1 + 1);
     }
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>DSL (for Scala users only)</li>
 </ul>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Test</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.dsl._</span>
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.junit.WarpJUnitSpec</span>
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Test</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.dsl._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.junit.WarpJUnitSpec</span>
 
 <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">WarpJUnitSpec</span> {
 
@@ -324,22 +344,19 @@ WARP has been tested on both H2 and MySQL.</p>
       someExperiment() 
     } should not exceed (<span style="color:#b452cd">1</span> second)
   }
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <p>The above DSL example creates a pool of 4 threads, invokes the given test 8 times, collects a default set of measurements
 from each invocation, and writes the results to a relational database.</p>
-
 <p>WARP includes many features that make it easy to reason scientifically about your performance tests,
 such as statistical significance tests and anomaly detection to help find performance regressions.</p>
-
 <p>Internally, we use WARP in several different ways:</p>
-
 <ul>
 <li>detecting performance regressions in test suites in our CI environment</li>
 <li>ad-hoc performance testing in response to reported performance issues</li>
 <li>statistically evaluating multiple method implementations (A/B testing)</li>
 </ul>
-
 <p>We are excited to provide a platform to help engineers reason about their code performance in a more principled manner.</p>
 
 

@@ -6,13 +6,13 @@ import java.time.Instant
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.WarpPropertyManager
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.Tables.profile.api._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.IdentifierSyntax._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
-import org.pmw.tinylog.Logger
 import slick.jdbc.TransactionIsolation
 
 import scala.util.{Failure, Success}
@@ -24,7 +24,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
   *
   * Created by leslie.lam on 2/9/18.
   */
-trait CorePersistenceAware extends PersistenceAware {
+trait CorePersistenceAware extends PersistenceAware with WarpLogging {
 
   /** [[CorePersistenceUtils]] to allow for db interaction */
   val persistenceUtils: CorePersistenceUtils = new CorePersistenceUtils
@@ -348,7 +348,7 @@ trait CorePersistenceAware extends PersistenceAware {
         case 1 => responseTimes(numResponseTimes / 2)
       }
 
-      Logger.trace(s"Median of test: ${identifier.methodSignature} is $median")
+      logger.trace(s"Median of test: ${identifier.methodSignature} is $median")
       median
     }
 
@@ -399,11 +399,11 @@ object CorePersistenceUtils extends Connection with CorePersistenceAware with Mi
     Tables.profile match {
       // migrate the schema if we're using mysql and the migration property is set
       case _: slick.jdbc.MySQLProfile if WARP_MIGRATE_SCHEMA.value.toBoolean =>
-        Logger.info(s"migrating mysql schema using flyway")
+        logger.info(s"migrating mysql schema using flyway")
         this.migrate()
       // if we're using mysql but the migration property is not set, just log a message
       case _: slick.jdbc.MySQLProfile =>
-        Logger.info(
+        logger.info(
           s"""
              |mysql is being used, but ${WARP_MIGRATE_SCHEMA.propertyName}=${WARP_MIGRATE_SCHEMA.value}.
              |warp framework will assume the schema exists and has already been brought up to date
@@ -411,13 +411,13 @@ object CorePersistenceUtils extends Connection with CorePersistenceAware with Mi
         )
       // otherwise just use the generated classes. be aware that views won't exist.
       case _ =>
-        Logger.info("creating schema from generated slick classes. views will not exist.")
+        logger.info("creating schema from generated slick classes. views will not exist.")
         val action = Tables.schema.create.transactionally.withTransactionIsolation(TransactionIsolation.Serializable)
         this.trySynchronously(action) match {
           case Success(_) =>
-            Logger.info("initialized schema")
+            logger.info("initialized schema")
           case Failure(exception) if exception.getMessage matches "Table .* already exists[\\S\\s]*" =>
-            Logger.trace("schema already exists")
+            logger.trace("schema already exists")
           case Failure(exception) =>
             throw exception
         }
@@ -474,7 +474,7 @@ object CorePersistenceUtils extends Connection with CorePersistenceAware with Mi
           //  +-------------------------------------------------------------------------------------------------------------------+
           //  2 rows in set (0.00 sec)
           // scalastyle:on
-          Logger.error(exception.getMessage)
+          logger.error(exception.getMessage)
       }
     case _ =>
   }

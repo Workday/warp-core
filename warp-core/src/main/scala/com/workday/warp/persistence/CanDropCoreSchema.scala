@@ -1,7 +1,7 @@
 package com.workday.warp.persistence
 
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.persistence.Tables.profile.api._
-import org.pmw.tinylog.Logger
 
 import scala.util.{Failure, Success}
 
@@ -12,7 +12,7 @@ import scala.util.{Failure, Success}
   *
   * Created by tomas.mccandless on 2/9/18.
   */
-trait CanDropCoreSchema extends Connection {
+trait CanDropCoreSchema extends Connection with WarpLogging {
 
   /**
     * Drops the schema, if it exists.
@@ -31,14 +31,14 @@ trait CanDropCoreSchema extends Connection {
 
     this.trySynchronously(action) match {
       case Success(_) =>
-        Logger.info("dropped schema")
+        logger.info("dropped schema")
       // if we get errors about tables not existing, its likely because the schema doesn't exist to begin with.
       // the exception messages for mysql and h2 are slightly different and we need to match both.
       case Failure(exception) if exception.getMessage matches "Table '.*' doesn't exist" =>
-        Logger.trace("schema does not exist")
+        logger.trace("schema does not exist")
       // note that java regex .* won't match line terminators
       case Failure(exception) if exception.getMessage matches "Table \".*\" not found; SQL statement:\n.*" =>
-        Logger.trace("schema does not exist")
+        logger.trace("schema does not exist")
       case Failure(exception) =>
         throw exception
     }

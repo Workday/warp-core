@@ -6,18 +6,18 @@ import com.workday.warp.TestIdImplicits._
 import com.workday.warp.junit.{Measure, WarpInfo, WarpJUnitSpec, WarpTest}
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.{Test, TestInfo}
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 
 /**
   * Created by tomas.mccandless on 2/9/21.
   */
-class ExampleSpec extends WarpJUnitSpec {
+class ExampleSpec extends WarpJUnitSpec with WarpLogging {
 
   /** A plain vanilla junit test with no extensions. */
   @Test
   def vanilla(): Unit = {
-    Logger.trace("only plain junit infra")
+    logger.trace("only plain junit infra")
   }
 
 
@@ -32,14 +32,14 @@ class ExampleSpec extends WarpJUnitSpec {
   @Test
   @Measure
   def measuredOnly(): Unit = {
-    Logger.trace("we are being measured but not repeated")
+    logger.trace("we are being measured but not repeated")
   }
 
 
   /** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials. */
   @WarpTest(warmups = 1, trials = 2)
   def measured(): Unit = {
-    Logger.trace("we are being measured")
+    logger.trace("we are being measured")
   }
 
 
