@@ -87,7 +87,7 @@ object WarpLogUtils extends WarpLogging {
    */
   private def getLoggerContext: Try[LoggerContext] = {
     Try(LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]).recoverWith { case e =>
-        logger.error("Could not cast to LoggerContext at runtime, logger may not be configured", e)
+        logger.warn("Could not cast to LoggerContext at runtime, logger may not be configured", e)
         Failure(e)
       }
   }
