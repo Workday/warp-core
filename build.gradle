@@ -360,6 +360,11 @@ subprojects {
                             name = 'richie wang'
                             email = 'wang.ruiqi.94@gmail.com'
                         }
+                        developer {
+                            id = 'sarcasticsimba'
+                            name = 'vignesh kalidas'
+                            email = 'vignesh10010@gmail.com'
+                        }
                     }
                     scm {
                         connection = 'scm:git:git://github.com/Workday/warp-core.git'
