@@ -9,8 +9,8 @@ import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.inject.modules.{DefaultWarpModule, HasWarpBindings}
 import com.workday.warp.persistence.influxdb.InfluxDBClient
 import com.workday.warp.persistence.{PersistenceAware, Tag}
-import com.workday.warp.logger.WarpLogging
 import org.junit.jupiter.api.TestInfo
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.{Failure, Try}
 
@@ -27,9 +27,12 @@ import scala.util.{Failure, Try}
   *
   * Created by tomas.mccandless on 11/6/17.
   */
-object WarpGuicer extends WarpLogging {
+object WarpGuicer {
 
   type WarpModule = AbstractModule with HasWarpBindings
+
+  @transient
+  protected lazy val logger: Logger = LoggerFactory.getLogger(getClass.getName)
 
   private val moduleProp: String = "wd.warp.inject.module"
   private[inject] val moduleEnvVar: String = PropertyEntry(moduleProp).envVarName
