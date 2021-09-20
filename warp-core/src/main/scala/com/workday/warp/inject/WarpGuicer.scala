@@ -31,6 +31,23 @@ object WarpGuicer {
 
   type WarpModule = AbstractModule with HasWarpBindings
 
+  // Note: we DON'T extend WarpLogging here, because it needs WarpGuicer to be initialized,
+  // and we don't want a circular dependency here. For a model of what happens, consider this:
+  // object A {
+  //   val b: String = B.a
+  // }
+  // object B {
+  //   val a: String = A.b
+  // }
+  //
+  // Which evaluates to this in the REPL:
+  // scala> A.b
+  // res0: String = null
+  //
+  // scala> B.a
+  // res1: String = null
+  //
+  // Logging levels set via warp properties won't be applied to log entries emitted by this.
   @transient
   protected lazy val logger: Logger = LoggerFactory.getLogger(getClass.getName)
 
