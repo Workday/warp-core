@@ -2,8 +2,6 @@ package com.workday.warp
 
 import java.lang.reflect.Method
 import com.workday.warp.config.CoreConstants
-import com.workday.warp.config.WarpPropertyManager.getClass
-import com.workday.warp.logger.WarpLogging
 import com.workday.warp.utils.Implicits.{DecoratedOption, DecoratedOptional}
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtensionContext

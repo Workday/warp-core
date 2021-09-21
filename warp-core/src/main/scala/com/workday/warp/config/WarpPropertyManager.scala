@@ -3,7 +3,7 @@ package com.workday.warp.config
 import java.io.File
 import java.util.Properties
 import com.workday.warp.inject.WarpGuicer
-import com.workday.warp.logger.{WarpLogUtils, WarpLogging}
+import com.workday.warp.logger.WarpLogUtils
 import org.apache.commons.configuration2.PropertiesConfiguration
 import org.apache.commons.configuration2.builder.fluent.Configurations
 import org.apache.commons.configuration2.ex.ConfigurationException
