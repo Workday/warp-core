@@ -9,8 +9,8 @@ import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.inject.modules.{DefaultWarpModule, HasWarpBindings}
 import com.workday.warp.persistence.influxdb.InfluxDBClient
 import com.workday.warp.persistence.{PersistenceAware, Tag}
-import com.workday.warp.logger.WarpLogging
 import org.junit.jupiter.api.TestInfo
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.{Failure, Try}
 
@@ -27,9 +27,29 @@ import scala.util.{Failure, Try}
   *
   * Created by tomas.mccandless on 11/6/17.
   */
-object WarpGuicer extends WarpLogging {
+object WarpGuicer {
 
   type WarpModule = AbstractModule with HasWarpBindings
+
+  // Note: we DON'T extend WarpLogging here, because it needs WarpGuicer to be initialized,
+  // and we don't want a circular dependency here. For a model of what happens, consider this:
+  // object A {
+  //   val b: String = B.a
+  // }
+  // object B {
+  //   val a: String = A.b
+  // }
+  //
+  // Which evaluates to this in the REPL:
+  // scala> A.b
+  // res0: String = null
+  //
+  // scala> B.a
+  // res1: String = null
+  //
+  // Logging levels set via warp properties won't be applied to log entries emitted by this.
+  @transient
+  protected lazy val logger: Logger = LoggerFactory.getLogger(getClass.getName)
 
   private val moduleProp: String = "wd.warp.inject.module"
   private[inject] val moduleEnvVar: String = PropertyEntry(moduleProp).envVarName

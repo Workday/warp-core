@@ -2,10 +2,10 @@ package com.workday.warp
 
 import java.lang.reflect.Method
 import com.workday.warp.config.CoreConstants
-import com.workday.warp.logger.WarpLogging
 import com.workday.warp.utils.Implicits.{DecoratedOption, DecoratedOptional}
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtensionContext
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.{Failure, Success, Try}
 
@@ -56,12 +56,15 @@ case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
 }
 
 
-object TestId extends WarpLogging {
+object TestId {
 
   /** A default undefined [[TestId]]. */
   lazy val undefined: TestId = new TestId(Failure(new ClassNotFoundException), Failure(new NoSuchMethodException)) {
     override lazy val maybeId: Try[String] = Success(CoreConstants.UNDEFINED_TEST_ID)
   }
+
+  @transient
+  protected lazy val logger: Logger = LoggerFactory.getLogger(getClass.getName)
 
   /**
     * Constructs a [[TestId]] from a [[TestInfo]], usually obtained from a junit test method parameter.
