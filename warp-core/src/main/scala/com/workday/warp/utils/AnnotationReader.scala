@@ -3,7 +3,7 @@ package com.workday.warp.utils
 import java.lang.annotation.Annotation
 import java.lang.reflect.Method
 import java.time.Duration
-import scala.reflect.{ClassTag, classTag}
+import scala.reflect.ClassTag
 
 import Implicits._
 import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}
@@ -27,9 +27,10 @@ object AnnotationReader extends StackTraceFilter {
     * @return an Option containing the annotation annotationClass from the current WARP Junit method
     */
   def getWarpTestAnnotation[T <: Annotation: ClassTag](annotationClass: Class[T], testId: TestId): Option[T] = {
+    val clazz = implicitly[ClassTag[T]].runtimeClass
     for {
       m: Method <- testId.maybeTestMethod.toOption
-      a: T <- AnnotationUtils.findAnnotation(m, annotationClass).toOption if classTag[T].isInstanceOf[T]
+      a: T <- AnnotationUtils.findAnnotation(m, annotationClass).toOption if clazz.isInstance(a)
     } yield a
   }
 

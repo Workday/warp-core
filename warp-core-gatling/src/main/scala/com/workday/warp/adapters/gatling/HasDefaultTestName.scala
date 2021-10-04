@@ -17,7 +17,7 @@ trait HasDefaultTestName extends HasBasePackageName {
    */
   def canonicalName: TestId = {
     val currentTestId: String = this.testId.id
-    if (currentTestId == TestId.undefined) new TestId(testId.maybeTestClass, testId.maybeTestMethod) {
+    if (currentTestId == TestId.undefined.id) new TestId(testId.maybeTestClass, testId.maybeTestMethod) {
       override lazy val maybeId: Try[String] = Success(defaultName)
     }
     else if (currentTestId.startsWith(packageName)) testId
