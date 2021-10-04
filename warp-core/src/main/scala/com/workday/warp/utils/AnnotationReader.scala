@@ -3,6 +3,7 @@ package com.workday.warp.utils
 import java.lang.annotation.Annotation
 import java.lang.reflect.Method
 import java.time.Duration
+import scala.reflect.{ClassTag, classTag}
 
 import Implicits._
 import com.workday.warp.{PercentageDegradationRequirement, Required, TestId, ZScoreRequirement}
@@ -25,10 +26,10 @@ object AnnotationReader extends StackTraceFilter {
     * @tparam T a subtype of Annotation
     * @return an Option containing the annotation annotationClass from the current WARP Junit method
     */
-  def getWarpTestAnnotation[T <: Annotation](annotationClass: Class[T], testId: TestId): Option[T] = {
+  def getWarpTestAnnotation[T <: Annotation: ClassTag](annotationClass: Class[T], testId: TestId): Option[T] = {
     for {
       m: Method <- testId.maybeTestMethod.toOption
-      a: T <- AnnotationUtils.findAnnotation(m, annotationClass).toOption
+      a: T <- AnnotationUtils.findAnnotation(m, annotationClass).toOption if classTag[T].isInstanceOf[T]
     } yield a
   }
 
@@ -53,7 +54,7 @@ object AnnotationReader extends StackTraceFilter {
     */
   def getTimeoutValue(testId: TestId): Option[Duration] = {
     getWarpTestAnnotation(classOf[Timeout], testId).map { a: Timeout =>
-      TimeUtils.durationOf(a.value, a.unit)
+      TimeUtils.durationOf(a.value.toDouble, a.unit)
     }
   }
 

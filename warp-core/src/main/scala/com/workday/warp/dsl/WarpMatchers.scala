@@ -138,7 +138,7 @@ trait WarpMatchers {
     * @return an [[AnomalyMatcher]]
     */
   @DslApi
-  def anomalous(): AnomalyMatcher = {
+  def anomalous: AnomalyMatcher = {
     new AnomalyMatcher
   }
 

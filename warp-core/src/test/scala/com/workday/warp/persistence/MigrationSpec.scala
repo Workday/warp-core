@@ -21,7 +21,7 @@ class MigrationSpec extends WarpJUnitSpec with Connection with CorePersistenceAw
   /** Checks that schema migration works when multiple clients are attempting to migrate the schema. */
   @UnitTest
   def concurrentMigration(): Unit = {
-    using threads 8 invocations 32 invoke {
+    using threads 8 trials 32 invoke {
       if (this.maybeFlyway.isDefined) this.migrate()
       else logger.debug(s"migrations are only supported for mysql. check the value of ${WARP_DATABASE_URL.propertyName}")
     }

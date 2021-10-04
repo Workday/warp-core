@@ -13,7 +13,7 @@ import scala.collection.mutable
   */
 class HeapHistogramFilter(val persistedHistogram: HeapHistogram, val plottedHistogram: HeapHistogram) {
 
-  def this(persistedHistogram: Seq[HeapHistogramEntry], plottedHistogram: Seq[HeapHistogramEntry]) {
+  def this(persistedHistogram: Seq[HeapHistogramEntry], plottedHistogram: Seq[HeapHistogramEntry]) = {
     this(new HeapHistogram(persistedHistogram), new HeapHistogram(plottedHistogram))
   }
 }

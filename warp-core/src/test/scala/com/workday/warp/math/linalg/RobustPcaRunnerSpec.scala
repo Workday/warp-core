@@ -32,7 +32,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec with WarpLogging {
     val runner: RobustPcaRunner = RobustPcaRunner(requiredMeasurements = 1, useSlidingWindow = true)
     val dataSize: Int = 1000
     // create some dummy data, we don't care about the actual values, just the size
-    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
+    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble())
     runner.robustPca(dummyData) should not be empty
   }
 
@@ -43,7 +43,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec with WarpLogging {
     val runner: RobustPcaRunner = RobustPcaRunner(requiredMeasurements = 1000)
     val dataSize: Int = 100
     // create some dummy data, we don't care about the actual values, just the size
-    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
+    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble())
     runner.robustPca(dummyData) should be (None)
   }
 
@@ -55,7 +55,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec with WarpLogging {
 
     val dataSize: Int = 200
     // create some dummy data, we don't care about the actual values, just the size
-    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
+    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble())
 
     val result: Seq[TrialResult[_]] = using no collectors no arbiters measure {
       runner.robustPca(dummyData)

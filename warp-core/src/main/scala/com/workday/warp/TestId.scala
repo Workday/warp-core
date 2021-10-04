@@ -60,7 +60,7 @@ object TestId {
 
   /** A default undefined [[TestId]]. */
   lazy val undefined: TestId = new TestId(Failure(new ClassNotFoundException), Failure(new NoSuchMethodException)) {
-    override lazy val maybeId: Try[String] = Success(CoreConstants.UNDEFINED_TEST_ID)
+    override lazy val maybeId: Try[String] = Success("com.workday.warp.Undefined.undefined")
   }
 
   @transient

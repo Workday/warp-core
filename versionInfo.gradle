@@ -39,7 +39,7 @@ project.ext.versions = [
         , scalatestplusjunit5: '1.0.0-SNAP9'
         , scalaStyle: '3.4.1'
         , scalacScoverage: '1.4.1'
-        , semanticDb: '4.4.10'
+        , semanticDb: '4.4.28'
         , slf4j: '1.7.30'
         , slick: '3.3.3'
         , typesafeConfig: '1.3.+'
