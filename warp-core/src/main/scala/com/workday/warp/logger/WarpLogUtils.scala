@@ -53,7 +53,10 @@ object WarpLogUtils extends WarpLogging {
         context.getLogger(loggingLevels.id).setLevel(loggingLevels.level)
       }
 
-      log.getAppender("console").asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
+      Seq("console", "CONSOLE") find log.getAppender match {
+        case Some(appender) => appender.asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
+        case None => logger.warn("Could not find default console appenders by name, logger will run with default configuration")
+      }
 
       // Add all our new configured file writers
       val writers: Seq[WriterConfig] = WarpGuicer.baseModule.getExtraWriters
