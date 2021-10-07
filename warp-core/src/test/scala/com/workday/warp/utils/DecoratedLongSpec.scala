@@ -11,35 +11,36 @@ class DecoratedLongSpec extends WarpJUnitSpec {
   @UnitTest
   def decoratedLongSpec(): Unit = {
     val timeUnit: Long = 10000
+    val timeUnitDouble: Double = timeUnit.toDouble
 
-    val expectedNanoDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnit, TimeUnit.NANOSECONDS)
+    val expectedNanoDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnitDouble, TimeUnit.NANOSECONDS)
     timeUnit.nanoseconds should be (expectedNanoDuration)
     timeUnit.nanos should be (expectedNanoDuration)
     timeUnit.nano should be (expectedNanoDuration)
 
-    val expectedMicroDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnit, TimeUnit.MICROSECONDS)
+    val expectedMicroDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnitDouble, TimeUnit.MICROSECONDS)
     timeUnit.microseconds should be (expectedMicroDuration)
     timeUnit.micros should be (expectedMicroDuration)
     timeUnit.micro should be (expectedMicroDuration)
 
-    val expectedMilliDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnit, TimeUnit.MILLISECONDS)
+    val expectedMilliDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnitDouble, TimeUnit.MILLISECONDS)
     timeUnit.milliseconds should be (expectedMilliDuration)
     timeUnit.millis should be (expectedMilliDuration)
     timeUnit.milli should be (expectedMilliDuration)
 
-    val expectedSecondDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnit, TimeUnit.SECONDS)
+    val expectedSecondDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnitDouble, TimeUnit.SECONDS)
     timeUnit.seconds should be (expectedSecondDuration)
     timeUnit.second should be (expectedSecondDuration)
 
-    val expectedMinuteDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnit, TimeUnit.MINUTES)
+    val expectedMinuteDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnitDouble, TimeUnit.MINUTES)
     timeUnit.minutes should be (expectedMinuteDuration)
     timeUnit.minute should be (expectedMinuteDuration)
 
-    val expectedHourDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnit, TimeUnit.HOURS)
+    val expectedHourDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnitDouble, TimeUnit.HOURS)
     timeUnit.hours should be (expectedHourDuration)
     timeUnit.hour should be (expectedHourDuration)
 
-    val expectedDayDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnit, TimeUnit.DAYS)
+    val expectedDayDuration: Duration = Duration ofNanos TimeUtils.toNanos(timeUnitDouble, TimeUnit.DAYS)
     timeUnit.days should be (expectedDayDuration)
     timeUnit.day should be (expectedDayDuration)
   }

@@ -1,7 +1,6 @@
 package com.workday.warp
 
 import java.lang.reflect.Method
-import com.workday.warp.config.CoreConstants
 import com.workday.warp.utils.Implicits.{DecoratedOption, DecoratedOptional}
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtensionContext
@@ -60,7 +59,7 @@ object TestId {
 
   /** A default undefined [[TestId]]. */
   lazy val undefined: TestId = new TestId(Failure(new ClassNotFoundException), Failure(new NoSuchMethodException)) {
-    override lazy val maybeId: Try[String] = Success(CoreConstants.UNDEFINED_TEST_ID)
+    override lazy val maybeId: Try[String] = Success("com.workday.warp.Undefined.undefined")
   }
 
   @transient

@@ -74,7 +74,7 @@ case class ExecutionConfig(invocations: Int = 1,
 
 
   /**
-   * Part of the dsl. Sets number of invocations for the measured function. Enables syntax like 'using invocations 5'.
+   * Part of the dsl. Sets number of invocations for the measured function. Enables syntax like 'using trials 5'.
    * Equivalent to `iterations`
    *
    * @param newTrials [[Int]] specifying the number of times to invoke the measured function.

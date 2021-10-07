@@ -37,7 +37,7 @@ object HypothesisTestExample extends CorePersistenceAware {
     CorePersistenceUtils.dropSchema()
     CorePersistenceUtils.initSchema()
     Connection.refresh()
-    val baselineResults: Seq[TrialResult[_]] = using only defaults warmups 4 invocations 256 tags {
+    val baselineResults: Seq[TrialResult[_]] = using only defaults warmups 4 trials 256 tags {
       List(ExecutionTag("db-experiment", "baseline"))
     } measure {
       for (i <- 1 to 20) {
@@ -48,7 +48,7 @@ object HypothesisTestExample extends CorePersistenceAware {
     CorePersistenceUtils.dropSchema()
     CorePersistenceUtils.initSchema()
     Connection.refresh()
-    val newSeriesResults: Seq[TrialResult[_]] = using only defaults warmups 4 invocations 256 tags {
+    val newSeriesResults: Seq[TrialResult[_]] = using only defaults warmups 4 trials 256 tags {
       List(ExecutionTag("db-experiment", "newSeries"))
     } measure {
       for (i <- 1 to 20) {

@@ -291,7 +291,7 @@ object Implicits {
     def nanoseconds: Duration = Duration ofNanos this.n
     def nanos: Duration = this.nanoseconds
     def nano: Duration = this.nanoseconds
-    def microseconds: Duration = Duration ofNanos TimeUtils.toNanos(this.n, TimeUnit.MICROSECONDS)
+    def microseconds: Duration = Duration ofNanos TimeUtils.toNanos(this.n.toDouble, TimeUnit.MICROSECONDS)
     def micros: Duration = this.microseconds
     def micro: Duration = this.microseconds
     def milliseconds: Duration = Duration ofMillis this.n

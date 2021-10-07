@@ -25,7 +25,7 @@ class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
   /** Checks that we can concurrently find or create [[Tables.Build]]. */
   @UnitTest
   def concurrentBuild(): Unit = {
-    using threads 4 invocations 8 invoke {
+    using threads 4 trials 8 invoke {
       val id: Int = this.persistenceUtils.findOrCreateBuild(year = 2016, week = 1, buildNumber = 345).idBuild
       // id should be the same
       this.persistenceUtils.findOrCreateBuild(year = 2016, week = 1, buildNumber = 345).idBuild should be(id)
@@ -38,7 +38,7 @@ class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
   /** Checks that we can concurrently find or create [[Tables.TestDefinition]]. */
   @UnitTest
   def concurrentTestDefinition(): Unit = {
-    using threads 4 invocations 8 invoke {
+    using threads 4 trials 8 invoke {
       val id: Int = this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature).idTestDefinition
       // id should be the same
       this.persistenceUtils.findOrCreateTestDefinition(this.methodSignature).idTestDefinition should be(id)
@@ -50,7 +50,7 @@ class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
 
   @UnitTest
   def concurrentTestExecution(): Unit = {
-    using threads 8 invocations 32 invoke {
+    using threads 8 trials 32 invoke {
       val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.methodSignature,
         Instant.now(), responseTime = 5.0,
         maxResponseTime = 6.0)
@@ -64,7 +64,7 @@ class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
   /** Checks that we can concurrently find or create [[Tables.MeasurementName]]. */
   @UnitTest
   def concurrentMeasurementName(): Unit = {
-    using threads 4 invocations 8 invoke {
+    using threads 4 trials 8 invoke {
       val id: Int = this.persistenceUtils.findOrCreateMeasurementName("some description").idMeasurementName
       // id should be the same
       this.persistenceUtils.findOrCreateMeasurementName("some description").idMeasurementName should be(id)
@@ -77,7 +77,7 @@ class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
   /** Checks that we can concurrently find or create [[Tables.TagName]]. */
   @UnitTest
   def concurrentTagName(): Unit = {
-    using threads 4 invocations 8 invoke {
+    using threads 4 trials 8 invoke {
       val id: Int = this.persistenceUtils.findOrCreateTagName("some description").idTagName
       // id should be the same
       this.persistenceUtils.findOrCreateTagName("some description").idTagName should be(id)

@@ -31,7 +31,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware wit
     val arbiter: SmartNumberArbiter = new SmartNumberArbiter
     // create 1000 gaussian numbers with mean 50
     val random: Random = new Random(seed = 123456)
-    val responseTimes: List[Double] = List.fill(1000)(50 + (random.nextGaussian * 4))
+    val responseTimes: List[Double] = List.fill(1000)(50 + (random.nextGaussian() * 4))
     val smartNumber: Double = arbiter.smartNumber(responseTimes)
     logger.debug(s"detected smart number: $smartNumber")
 
@@ -67,10 +67,10 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware wit
 
     // create 90 test executions before date cutoff at ~50ms response time, then 10 test executions after cutoff at ~1000 ms
     for(_ <- 1 to 90) {
-      this.persistenceUtils.createTestExecution(testID, someDateBeforeCutoff, 50 + (Random.nextGaussian * 4), 10000.0)
+      this.persistenceUtils.createTestExecution(testID, someDateBeforeCutoff, 50 + (Random.nextGaussian() * 4), 10000.0)
     }
     for(_ <- 1 to 10) {
-      this.persistenceUtils.createTestExecution(testID, someDateAfterCutoff, 1000 + (Random.nextGaussian * 4), 10000.0)
+      this.persistenceUtils.createTestExecution(testID, someDateAfterCutoff, 1000 + (Random.nextGaussian() * 4), 10000.0)
     }
 
     // Create a test execution that occurs after the baseline date with some large, anomalous response time
@@ -197,7 +197,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware wit
 
     // Create historical values to read
     for (_ <- 1 to WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt) {
-      this.persistenceUtils.createTestExecution(testId, Instant.now(), 50 + (Random.nextGaussian * 4), 10000.0)
+      this.persistenceUtils.createTestExecution(testId, Instant.now(), 50 + (Random.nextGaussian() * 4), 10000.0)
     }
 
     // Create a test execution
@@ -293,7 +293,7 @@ object SmartNumberArbiterSpec extends CorePersistenceAware {
                                 range: Int,
                                 responseTime: Int): Iterable[Double] = {
     val responseTimes: Iterable[Double] = for (_ <- 1 to range) yield {
-      this.persistenceUtils.createTestExecution(testID, Instant.now(), responseTime + (Random.nextGaussian * 4), 10000.0).responseTime
+      this.persistenceUtils.createTestExecution(testID, Instant.now(), responseTime + (Random.nextGaussian() * 4), 10000.0).responseTime
     }
 
     responseTimes

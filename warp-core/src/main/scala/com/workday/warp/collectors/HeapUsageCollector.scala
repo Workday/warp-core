@@ -11,8 +11,8 @@ import com.workday.warp.persistence.Tables._
 class HeapUsageCollector extends AbstractMeasurementCollector with CorePersistenceAware {
 
   // scalastyle:off var.field
-  private var heapUsedBefore: Long = _
-  private var heapUsedAfter: Long = _
+  private var heapUsedBefore: Double = _
+  private var heapUsedAfter: Double = _
   // scalastyle:on
 
   private val beforeDescription: String = "heap used before"
@@ -49,8 +49,8 @@ class HeapUsageCollector extends AbstractMeasurementCollector with CorePersisten
   }
 
   /** @return number of bytes currently used on the heap. */
-  def heapUsedBytes(): Long = {
+  def heapUsedBytes(): Double = {
     val runtime: Runtime = Runtime.getRuntime
-    runtime.totalMemory() - runtime.freeMemory()
+    (runtime.totalMemory() - runtime.freeMemory()).toDouble
   }
 }

@@ -119,4 +119,4 @@ org.simpleflatmapper:sfm-util:8.2.3=compileClasspath,testCompileClasspath
 org.slf4j:slf4j-api:1.7.30=compileClasspath,testCompileClasspath
 org.typelevel:spire-macros_2.13:0.17.0=compileClasspath,testCompileClasspath
 org.unbescape:unbescape:1.1.6.RELEASE=compileClasspath,testCompileClasspath
-empty=generatedCompileClasspath
+empty=
