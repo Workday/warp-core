@@ -5,7 +5,7 @@ import com.workday.warp.config.CoreWarpProperty._
 import org.slf4j.LoggerFactory
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
-import ch.qos.logback.core.ConsoleAppender
+import ch.qos.logback.core.{Appender, ConsoleAppender}
 import ch.qos.logback.core.rolling.{RollingFileAppender, TimeBasedRollingPolicy}
 import com.workday.warp.inject.WarpGuicer
 
@@ -53,10 +53,11 @@ object WarpLogUtils extends WarpLogging {
         context.getLogger(loggingLevels.id).setLevel(loggingLevels.level)
       }
 
-      Seq("console", "CONSOLE") find log.getAppender match {
-        case Some(appender) => appender.asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder)
-        case None => logger.warn("Could not find default console appenders by name, logger will run with default configuration")
-      }
+      for {
+        maybeAppenders: Appender[ILoggingEvent] <- Seq("console", "CONSOLE") map log.getAppender
+        nonNullAppenders = maybeAppenders if maybeAppenders != null
+        castedAppender = Try(nonNullAppenders.asInstanceOf[ConsoleAppender[ILoggingEvent]].setEncoder(logEncoder))
+      } yield castedAppender
 
       // Add all our new configured file writers
       val writers: Seq[WriterConfig] = WarpGuicer.baseModule.getExtraWriters
