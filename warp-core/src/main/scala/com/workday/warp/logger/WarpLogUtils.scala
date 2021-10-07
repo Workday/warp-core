@@ -5,7 +5,7 @@ import com.workday.warp.config.CoreWarpProperty._
 import org.slf4j.LoggerFactory
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
-import ch.qos.logback.core.{Appender, ConsoleAppender}
+import ch.qos.logback.core.ConsoleAppender
 import ch.qos.logback.core.rolling.{RollingFileAppender, TimeBasedRollingPolicy}
 import com.workday.warp.inject.WarpGuicer
 
