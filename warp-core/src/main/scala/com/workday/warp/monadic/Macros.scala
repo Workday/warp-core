@@ -9,7 +9,8 @@ import scala.reflect.macros.blackbox
 /**
  * Created by tomas.mccandless on 8/16/21.
  */
-object Macros extends WarpLogging {
+// TODO this means we need to have logging (and thus property etc in scope at compile time)
+object Macros extends {
 
 
   def add(a: Int, b: Int): Int = macro addImpl
@@ -32,7 +33,7 @@ object Macros extends WarpLogging {
   def generateTestIdsImpl[T: c.WeakTypeTag](c: blackbox.Context)(s: c.Expr[WarpScript[T]]): c.Expr[WarpScript[T]] = {
     import c.universe.reify
 
-    logger.info(s.tree.toString)
+    println(s.tree.toString)
 
 //    s.tree.c
 
