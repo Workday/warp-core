@@ -4,7 +4,7 @@ import com.workday.warp.TestId
 import com.workday.warp.inject.WarpGuicer
 import scalaz._
 import Free._
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 
 /**
@@ -45,7 +45,7 @@ case class Exec[A](f: () => A) extends WarpAlgebra[A]
 
 
 
-object WarpAlgebra {
+object WarpAlgebra extends WarpLogging {
 
   /**
    * the Free monad allows us to build a Monad (~programmable semicolon) from any Functor (mapping between categories).
@@ -79,10 +79,10 @@ object WarpAlgebra {
    */
   def interpretImpure[A](s: WarpScript[A]): A = s.go {
     case Exec(f) =>
-      Logger.info("impure monadic exec")
+      logger.info("impure monadic exec")
       f()
     case Measure(testId, f) =>
-      Logger.info(s"impure monadic measuring ${testId.id}")
+      logger.info(s"impure monadic measuring ${testId.id}")
       val mcc = WarpGuicer.getController(testId)
       mcc.beginMeasurementCollection()
       val r: WarpScript[A] = f()

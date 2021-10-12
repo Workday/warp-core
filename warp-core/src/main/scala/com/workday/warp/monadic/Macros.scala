@@ -1,7 +1,7 @@
 package com.workday.warp.monadic
 
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.monadic.WarpAlgebra.WarpScript
-import org.pmw.tinylog.Logger
 
 import language.experimental.macros
 import scala.reflect.macros.blackbox
@@ -9,7 +9,7 @@ import scala.reflect.macros.blackbox
 /**
  * Created by tomas.mccandless on 8/16/21.
  */
-object Macros {
+object Macros extends WarpLogging {
 
 
   def add(a: Int, b: Int): Int = macro addImpl
@@ -32,9 +32,9 @@ object Macros {
   def generateTestIdsImpl[T: c.WeakTypeTag](c: blackbox.Context)(s: c.Expr[WarpScript[T]]): c.Expr[WarpScript[T]] = {
     import c.universe.reify
 
-    Logger.info(s.tree)
+    logger.info(s.tree.toString)
 
-    s.tree.c
+//    s.tree.c
 
     s
   }

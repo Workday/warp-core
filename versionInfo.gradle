@@ -8,7 +8,7 @@ group = 'com.workday.warp'
 project.ext.versions = [
         beanUtils: '1.9.3'
         , checkstyle: '8.11'
-        , commonsConfiguration2: '2.4'
+        , commonsConfiguration2: '2.7'
         , commonsIo: '2.6'
         , coveralls: '2.8.2'
         , flyway: '5.2.1'
