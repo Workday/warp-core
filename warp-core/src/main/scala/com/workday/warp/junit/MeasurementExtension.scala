@@ -4,9 +4,9 @@ import com.workday.warp.{TestId, TrialResult}
 import com.workday.warp.TestIdImplicits.extensionContext2TestId
 import com.workday.warp.controllers.AbstractMeasurementCollectionController
 import com.workday.warp.inject.WarpGuicer
+import com.workday.warp.logger.WarpLogging
 import org.junit.jupiter.api.extension.ExtensionContext.{Namespace, Store}
 import org.junit.jupiter.api.extension.{AfterEachCallback, BeforeEachCallback, ExtensionContext}
-import org.pmw.tinylog.Logger
 
 import scala.compat.java8.OptionConverters._
 import scala.util.{Failure, Success, Try}
@@ -18,7 +18,7 @@ import scala.util.{Failure, Success, Try}
   *
   * Created by tomas.mccandless on 6/17/20.
   */
-trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback {
+trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback with WarpLogging {
   import MeasurementExtensionLike._
 
   /**
@@ -29,8 +29,8 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
   override def beforeEach(context: ExtensionContext): Unit = {
     // we would rather throw an exception here than record meaningless info under a default or undefined testId
     val testId: TestId = context
-    Logger.info(s"measuring junit: ${context.getUniqueId}")
-    Logger.debug(s"test id: $testId")
+    logger.info(s"measuring junit: ${context.getUniqueId}")
+    logger.debug(s"test id: $testId")
     // TODO this adds some latency on the first run should be warmed up somehow
     val controller: AbstractMeasurementCollectionController = WarpGuicer.getController(testId)
     this.getStore(context).put(controllerKey, controller)
@@ -52,7 +52,7 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
       case Some(throwable) => Failure(throwable)
       case None => Success(TrialResult.empty)
     }
-    Logger.info(s"end measuring junit: ${context.getUniqueId}")
+    logger.info(s"end measuring junit: ${context.getUniqueId}")
     controller.endMeasurementCollection(testResult)
   }
 

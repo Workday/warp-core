@@ -25,8 +25,8 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def regressionSpec(): Unit = {
-    val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian * 3))
-    val regressedNormalResponseTimes: Array[Double] = Array.fill(50)(54 + (Random.nextGaussian * 4))
+    val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian() * 3))
+    val regressedNormalResponseTimes: Array[Double] = Array.fill(50)(54 + (Random.nextGaussian() * 4))
 
     val regressedTTestStatResults: AllRegressionStatTestResults =
       TwoSampleRegressionTest.testDifferenceOfMeans(baselineNormalResponseTimes, "", regressedNormalResponseTimes, "", alpha).get
@@ -42,8 +42,8 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def noRegressionSpec(): Unit = {
-    val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian * 3))
-    val improvedNormalResponseTimes: Array[Double] = Array.fill(50)(46 + (Random.nextGaussian * 4))
+    val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian() * 3))
+    val improvedNormalResponseTimes: Array[Double] = Array.fill(50)(46 + (Random.nextGaussian() * 4))
 
     val improvedTTestStatResults: AllRegressionStatTestResults =
       TwoSampleRegressionTest.testDifferenceOfMeans(baselineNormalResponseTimes, "", improvedNormalResponseTimes, "", alpha).get
@@ -61,9 +61,9 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
     // Test U-Test used appropriately; total samples has to be less than 30 as well to not fulfill CLT
     // Adding an outlier group separate from the main group makes the normality test fail
     val baselineNonNormalResponseTimes: Array[Double] =
-      Array.fill(18)(50 + (Random.nextDouble * 3)) ++ Array.fill(8)(60 + (Random.nextDouble * 7))
+      Array.fill(18)(50 + (Random.nextDouble() * 3)) ++ Array.fill(8)(60 + (Random.nextDouble() * 7))
     val improvedNonNormalResponseTimes: Array[Double] =
-      Array.fill(18)(47 + (Random.nextDouble * 3)) ++ Array.fill(8)(57 + (Random.nextDouble * 7))
+      Array.fill(18)(47 + (Random.nextDouble() * 3)) ++ Array.fill(8)(57 + (Random.nextDouble() * 7))
     val improvedUTestStatResults: AllRegressionStatTestResults =
       TwoSampleRegressionTest.testDifferenceOfMeans(baselineNonNormalResponseTimes, "",
                                                     improvedNonNormalResponseTimes, "",
@@ -81,9 +81,9 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   @UnitTest
   def uTestNoRegressionSpec(): Unit = {
     val baselineNonNormalResponseTimes: Array[Double] =
-      Array.fill(18)(50 + (Random.nextDouble * 3)) ++ Array.fill(8)(60 + (Random.nextDouble * 7))
+      Array.fill(18)(50 + (Random.nextDouble() * 3)) ++ Array.fill(8)(60 + (Random.nextDouble() * 7))
     val regressedNonNormalResponseTimes: Array[Double] =
-      Array.fill(18)(53 + (Random.nextDouble * 3)) ++ Array.fill(8)(63 + (Random.nextDouble * 7))
+      Array.fill(18)(53 + (Random.nextDouble() * 3)) ++ Array.fill(8)(63 + (Random.nextDouble() * 7))
     val regressedUTestStatResults: AllRegressionStatTestResults =
       TwoSampleRegressionTest.testDifferenceOfMeans(baselineNonNormalResponseTimes, "",
                                                     regressedNonNormalResponseTimes, "",
@@ -100,8 +100,8 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
     */
   @UnitTest
   def twoSidedRegressionSpec(): Unit = {
-    val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian * 3))
-    val regressedNormalResponseTimes: Array[Double] = Array.fill(50)(54 + (Random.nextGaussian * 4))
+    val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian() * 3))
+    val regressedNormalResponseTimes: Array[Double] = Array.fill(50)(54 + (Random.nextGaussian() * 4))
 
     val twoSided: AllRegressionStatTestResults =
       TwoSampleRegressionTest.testDifferenceOfMeans(baselineNormalResponseTimes, "", regressedNormalResponseTimes, "",

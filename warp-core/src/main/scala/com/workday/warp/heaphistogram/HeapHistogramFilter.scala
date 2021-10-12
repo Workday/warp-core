@@ -1,7 +1,7 @@
 package com.workday.warp.heaphistogram
 
 import com.workday.warp.config.CoreWarpProperty._
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 import scala.collection.mutable
 
@@ -13,13 +13,13 @@ import scala.collection.mutable
   */
 class HeapHistogramFilter(val persistedHistogram: HeapHistogram, val plottedHistogram: HeapHistogram) {
 
-  def this(persistedHistogram: Seq[HeapHistogramEntry], plottedHistogram: Seq[HeapHistogramEntry]) {
+  def this(persistedHistogram: Seq[HeapHistogramEntry], plottedHistogram: Seq[HeapHistogramEntry]) = {
     this(new HeapHistogram(persistedHistogram), new HeapHistogram(plottedHistogram))
   }
 }
 
 
-object HeapHistogramFilter {
+object HeapHistogramFilter extends WarpLogging {
 
   /**
    * Constructs a HeapHistogramFilter given a List of HeapHistogramEntry objects.
@@ -52,11 +52,11 @@ object HeapHistogramFilter {
     // usage to obtain two separate orderings of the histogram entries. we then union the top n classes from both
     // orderings to determine the final list of classes that will be stored as part of this histogram.
     val processingLimit: Int = WARP_HEAPHISTO_PROCESSING_LIMIT.value.toInt
-    Logger.debug(s"heap histogram processing limit: $processingLimit")
+    logger.debug(s"heap histogram processing limit: $processingLimit")
 
     // limit on the top n classes to be persisted in a separate smaller series suitable for graphing in grafana
     val plotLimit: Int = WARP_HEAPHISTO_GRAFANA_LIMIT.value.toInt
-    Logger.debug(s"heap histogram grafana plot limit: $plotLimit")
+    logger.debug(s"heap histogram grafana plot limit: $plotLimit")
 
     val sortedByInstances: Seq[HeapHistogramEntry] = histogramEntries sorted InstancesOrdering
     val sortedByBytes: Seq[HeapHistogramEntry] = histogramEntries sorted BytesOrdering

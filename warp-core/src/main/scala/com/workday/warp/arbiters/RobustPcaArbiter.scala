@@ -1,10 +1,10 @@
 package com.workday.warp.arbiters
 
 import com.workday.warp.config.CoreWarpProperty._
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.math.linalg.{RobustPca, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.persistence.Tables._
-import org.pmw.tinylog.Logger
 
 /**
   * Arbiter that performs robust principal component analysis (RPCA) for anomaly detection
@@ -17,7 +17,7 @@ import org.pmw.tinylog.Logger
   */
 class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,
                        val sPenaltyNumerator: Double = WARP_ANOMALY_RPCA_S_PENALTY_NUMERATOR.value.toDouble)
-      extends CanReadHistory with ArbiterLike {
+      extends CanReadHistory with ArbiterLike with WarpLogging {
 
   /**
     * Checks that the measured test passed its performance requirement.
@@ -57,7 +57,7 @@ class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
         val errorMessage: String = s"test anomaly detected (rpca): name=$methodSignature, " +
           s"id=${testExecution.idTestExecution}. responseTime=$responseTime, lowRank=${lowRankComponent.formatted("%.2f")}, " +
           s"sparse=${sparseComponent.formatted("%.2f")}"
-        Logger.warn(errorMessage)
+        logger.warn(errorMessage)
         Option(new RequirementViolationException(errorMessage))
       }
       else {

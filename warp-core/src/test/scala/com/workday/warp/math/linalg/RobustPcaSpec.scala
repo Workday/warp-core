@@ -2,7 +2,7 @@ package com.workday.warp.math.linalg
 
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.linalg.RobustPcaSpec.{Matrix, Vec}
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 
 /**
@@ -10,7 +10,7 @@ import org.pmw.tinylog.Logger
   *
   * Created by tomas.mccandless on 9/8/16.
   */
-class RobustPcaSpec extends WarpJUnitSpec {
+class RobustPcaSpec extends WarpJUnitSpec with WarpLogging {
 
   /**
     * Converts an array to a matrix with the given dimensions.
@@ -65,7 +65,7 @@ class RobustPcaSpec extends WarpJUnitSpec {
     */
   private def matrixApproximatelyEquals(left: Matrix, right: Matrix, epsilon: Double): Boolean = {
     if (!hasSameDimensions(left, right)) {
-      Logger.error("Left and Right matrices had differing dimensions.")
+      logger.error("Left and Right matrices had differing dimensions.")
       false
     }
     else {
@@ -74,7 +74,7 @@ class RobustPcaSpec extends WarpJUnitSpec {
         row <- left.indices
         if Math.abs(left(row)(col) - right(row)(col)) > epsilon
       } yield {
-        Logger.error(s"($row, $col) Left: ${left(row)(col)} Right: ${right(row)(col)}")
+        logger.error(s"($row, $col) Left: ${left(row)(col)} Right: ${right(row)(col)}")
         (row, col)
       }
 

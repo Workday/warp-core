@@ -1,6 +1,6 @@
 package com.workday.warp.junit
 
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 import scala.util.matching.Regex
 
@@ -8,7 +8,7 @@ import scala.util.matching.Regex
   *
   * Created by tomas.mccandless on 6/17/20.
   */
-trait ParsesTestId {
+trait ParsesTestId extends WarpLogging {
   import ParsesTestId._
 
   /**
@@ -22,7 +22,7 @@ trait ParsesTestId {
     case uidPattern(_, clazz, _, methodName, _) =>
       Option(s"$clazz.$methodName")
     case _ =>
-      Logger.debug(s"unable to parse testId from $uid")
+      logger.debug(s"unable to parse testId from $uid")
       None
   }
 }

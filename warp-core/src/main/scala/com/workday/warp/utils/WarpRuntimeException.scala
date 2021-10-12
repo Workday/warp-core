@@ -1,6 +1,6 @@
 package com.workday.warp.utils
 
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 /**
   * Common Warp RuntimeException that all other named runtime exceptions are derived from.
@@ -9,9 +9,10 @@ import org.pmw.tinylog.Logger
   *
   * Created by michael.ottati on 5/12/15.
   */
-class WarpRuntimeException(val message: String, val cause: Throwable) extends RuntimeException(message, cause) {
+class WarpRuntimeException(val message: String, val cause: Throwable) extends RuntimeException(message, cause)
+                                                                      with WarpLogging {
 
-  Logger.error(this.message)
+  logger.error(this.message)
 
   def this(message: String) = this(message, None.orNull)
 }

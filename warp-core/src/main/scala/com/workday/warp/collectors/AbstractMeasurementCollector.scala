@@ -4,7 +4,7 @@ import com.workday.warp.config.CoreWarpProperty.WARP_LOG_MC_STACKTRACES
 import com.workday.warp.persistence.TablesLike.TestExecutionRowLikeType
 import com.workday.warp.utils.{MeasurementUtils, WarpStopwatch}
 import org.apache.commons.io.FileUtils.byteCountToDisplaySize
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 import scala.util.Try
 
@@ -21,7 +21,7 @@ import scala.util.Try
   *
   * @constructor create a new measurement collector with a test id.
   */
-abstract class AbstractMeasurementCollector {
+abstract class AbstractMeasurementCollector extends WarpLogging {
 
   // TODO consider adding a separate persist method, so measurements can be obtained and then persisted separately
 
@@ -64,12 +64,12 @@ abstract class AbstractMeasurementCollector {
    * Simple error handling around `startMeasurement`. Sets enabled=false if there is an error.
    */
   final def tryStartMeasurement(shouldLogStacktrace: Boolean = WARP_LOG_MC_STACKTRACES.value.toBoolean): Unit = {
-    Logger.trace(s"starting collector ${this.name}")
+    logger.trace(s"starting collector ${this.name}")
 
     Try(this.startMeasurement()) recover { case exception: Exception =>
       this.isEnabled = false
-      if (shouldLogStacktrace) Logger.error(this.filterStackTrace(exception), s"error starting collector: ${this.toString}:")
-      else Logger.error(s"error starting collector: ${this.toString}: ${exception.getMessage}")
+      if (shouldLogStacktrace) logger.error(s"error starting collector: ${this.toString}:", this.filterStackTrace(exception))
+      else logger.error(s"error starting collector: ${this.toString}: ${exception.getMessage}")
     }
   }
 
@@ -93,7 +93,7 @@ abstract class AbstractMeasurementCollector {
                                                              maybeTestExecution: Option[T],
                                                              shouldLogStacktrace: Boolean = WARP_LOG_MC_STACKTRACES.value.toBoolean
                                                            ): Unit = {
-    Logger.trace(s"stopping collector ${this.name}")
+    logger.trace(s"stopping collector ${this.name}")
 
     Try {
       val initialHeap: Long = MeasurementUtils.heapUsed
@@ -101,12 +101,12 @@ abstract class AbstractMeasurementCollector {
       this.stopMeasurement(maybeTestExecution)
       stopwatch.stop()
       val endHeap: Long = MeasurementUtils.heapUsed
-      Logger.trace(s"Initial heap usage: ${byteCountToDisplaySize(initialHeap)}, " +
+      logger.trace(s"Initial heap usage: ${byteCountToDisplaySize(initialHeap)}, " +
         s"Resulting heap usage: ${byteCountToDisplaySize(endHeap)}, " +
         s"Difference: ${byteCountToDisplaySize(endHeap-initialHeap)}")
     } recover { case exception: Exception =>
-      if (shouldLogStacktrace) Logger.error(this.filterStackTrace(exception), s"error stopping collector: ${this.toString}:")
-      else Logger.error(s"error stopping collector: ${this.toString}: ${exception.getMessage}")
+      if (shouldLogStacktrace) logger.error(s"error stopping collector: ${this.toString}:", this.filterStackTrace(exception))
+      else logger.error(s"error stopping collector: ${this.toString}: ${exception.getMessage}")
     }
   }
 

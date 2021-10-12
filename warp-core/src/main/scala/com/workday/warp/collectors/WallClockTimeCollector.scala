@@ -35,7 +35,7 @@ class WallClockTimeCollector extends AbstractMeasurementCollector with CorePersi
     val durationMs: Long = this.timeAfterMs - this.timeBeforeMs
 
     maybeTestExecution foreach { testExecution: T =>
-      this.persistenceUtils.recordMeasurement(testExecution.idTestExecution, this.description, durationMs)
+      this.persistenceUtils.recordMeasurement(testExecution.idTestExecution, this.description, durationMs.toDouble)
     }
   }
 }

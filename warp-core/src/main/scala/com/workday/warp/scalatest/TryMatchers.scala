@@ -39,7 +39,7 @@ trait TryMatchers {
     */
   class SuccessMatcherWithHold[T](val held: T) extends Matcher[Try[T]] {
     override def apply(left: Try[T]): MatchResult = {
-      MatchResult(left.isSuccess && left.get.equals(held), s"$left did not hold $held", s"$left held $held")
+      MatchResult(left.isSuccess && left.get == held, s"$left did not hold $held", s"$left held $held")
     }
   }
 

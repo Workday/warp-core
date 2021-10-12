@@ -6,14 +6,14 @@ import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.arbiters.Ballot
 import com.workday.warp.utils.Implicits.{DecoratedDuration, DecoratedInt}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 import scala.util.Random
 
 /**
   * Created by tomas.mccandless on 9/14/16.
   */
-class RobustPcaRunnerSpec extends WarpJUnitSpec {
+class RobustPcaRunnerSpec extends WarpJUnitSpec with WarpLogging {
 
   /** Checks usage of the public rpca method. */
   @UnitTest
@@ -32,7 +32,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
     val runner: RobustPcaRunner = RobustPcaRunner(requiredMeasurements = 1, useSlidingWindow = true)
     val dataSize: Int = 1000
     // create some dummy data, we don't care about the actual values, just the size
-    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
+    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble())
     runner.robustPca(dummyData) should not be empty
   }
 
@@ -43,7 +43,7 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
     val runner: RobustPcaRunner = RobustPcaRunner(requiredMeasurements = 1000)
     val dataSize: Int = 100
     // create some dummy data, we don't care about the actual values, just the size
-    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
+    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble())
     runner.robustPca(dummyData) should be (None)
   }
 
@@ -55,13 +55,13 @@ class RobustPcaRunnerSpec extends WarpJUnitSpec {
 
     val dataSize: Int = 200
     // create some dummy data, we don't care about the actual values, just the size
-    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble)
+    val dummyData: List[Double] = List.fill(dataSize)(Random.nextDouble())
 
     val result: Seq[TrialResult[_]] = using no collectors no arbiters measure {
       runner.robustPca(dummyData)
     }
 
     result should not exceed (45 seconds)
-    Logger.debug(s"processed $dataSize in ${result.head.maybeResponseTime.get.humanReadable}")
+    logger.debug(s"processed $dataSize in ${result.head.maybeResponseTime.get.humanReadable}")
   }
 }

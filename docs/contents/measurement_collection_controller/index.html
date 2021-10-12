@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Measurement Collection Controller :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/measurement_collection_controller/">
+  <body data-url="https://workday.github.io/warp-core/contents/measurement_collection_controller/">
     
       <header>
   <div class="logo">
@@ -248,25 +248,43 @@
     <p>The <code>MeasurementCollectionController</code> (often called <code>MCC</code>) is the central &ldquo;overlord&rdquo; class responsible for tracking all
 registered collectors and arbiters, wrapping collectors around measured tests in the correct order,
 and invoking the measured code block.</p>
-
 <p>Note that all collectors must be stopped in the reverse order from which they were started to maximize
 measurement accuracy and avoid mistakenly capturing any overheard from other collectors.</p>
-
 <p>The multiple circles of hell serve as a useful mental model: each circle represents a collector
 that is started/stopped in a specific order.
-
-<figure>
-    
-        <img src="https://workday.github.io/warp-core/images/circles_of_hell.png" />
-    
-    
+<figure><img src="https://workday.github.io/warp-core/images/circles_of_hell.png"/>
 </figure>
 </p>
-
 <p><code>MCC</code> is the lowest-level api we provide, and it is possible to use this class directly:</p>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">com.workday.warp.controllers.DefaultMeasurementCollectionController</span>
-<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Test</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.controllers.DefaultMeasurementCollectionController</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">org.junit.jupiter.api.</span>{<span style="color:#008b45;font-weight:bold">Test</span>, <span style="color:#008b45;font-weight:bold">TestInfo</span>}
 
 <span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">ExampleSpec</span> {
 
@@ -287,8 +305,9 @@ that is started/stopped in a specific order.
     <span style="color:#228b22">// alternate signature that allows for manually specifying elapsed test time and a test timing threshold
 </span><span style="color:#228b22"></span>    <span style="color:#228b22">// mcc.endMeasurementCollection(elapsedTime = 5.seconds, threshold = 6.seconds)
 </span><span style="color:#228b22"></span>  }
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <p>The DSL encapsulates the above sequence of operations in a more convenient API and provides some higher-level
 configuration options, such as distributing multiple test invocations onto a threadpool.</p>
 

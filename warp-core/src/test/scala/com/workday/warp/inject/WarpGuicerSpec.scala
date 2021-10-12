@@ -6,6 +6,7 @@ import com.workday.warp.config.{CoreWarpProperty, WarpPropertyLike}
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.controllers.{AbstractMeasurementCollectionController, DefaultMeasurementCollectionController}
+import com.workday.warp.persistence.{CorePersistenceUtils, PersistenceAware}
 
 /**
   *
@@ -44,6 +45,14 @@ class WarpGuicerSpec extends WarpJUnitSpec {
   def injectCoreWarpProperty(): Unit = {
     WarpGuicer.getProperty.getClass should be (CoreWarpProperty.getClass)
     WarpGuicer.getInstance(classOf[WarpPropertyLike]).getClass should be (CoreWarpProperty.getClass)
+  }
+
+
+  /** Checks that we bind the correct runtime implementation for persistence. */
+  @UnitTest
+  def injectPersistence(): Unit = {
+    WarpGuicer.getPersistence.getClass should be (CorePersistenceUtils.getClass)
+    WarpGuicer.getInstance(classOf[PersistenceAware]).getClass should be (CorePersistenceUtils.getClass)
   }
 
 

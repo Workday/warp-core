@@ -1,17 +1,16 @@
 package com.workday.warp.persistence
 
 import java.net.URI
-
 import com.workday.warp.config.CoreWarpProperty._
 import Tables.profile.api._
 import Tables.profile.backend.DatabaseDef
 import com.typesafe.config.ConfigFactory
 import com.workday.warp.config.WarpConfigurationException
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
-import org.pmw.tinylog.Logger
 import slick.jdbc.{JdbcDataSource, TransactionIsolation}
 import slick.util.ClassLoaderUtil
 
@@ -23,7 +22,7 @@ import scala.util.{Failure, Success, Try}
 /**
   * Created by tomas.mccandless on 10/6/16.
   */
-trait Connection {
+trait Connection extends WarpLogging {
 
   /** @return name of the mysql database we will write to. */
   @throws[WarpConfigurationException]("when an invalid url is set as the value of javax.persistence.jdbc.url")
@@ -82,7 +81,7 @@ trait Connection {
       case Failure(exception) =>
         if (retries < 0) throw exception
         else {
-          Logger.trace(s"error in database operation: ${exception.getMessage}\n going to retry.")
+          logger.trace(s"error in database operation: ${exception.getMessage}\n going to retry.")
           // back off a bit before retrying
           Thread.sleep(50)
           this.runWithRetries(action, retries - 1)

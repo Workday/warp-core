@@ -2,19 +2,18 @@ package com.workday.warp.persistence.influxdb
 
 import java.time.Duration
 import java.util.concurrent.TimeUnit
-
 import com.workday.warp.TestId
 import com.workday.warp.config.WarpConfigurationException
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.heaphistogram.{HeapHistogram, HeapHistogramEntry}
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.utils.StackTraceFilter
 import org.influxdb.dto.{BatchPoints, Point, Pong, Query, QueryResult}
 import org.influxdb.{InfluxDB, InfluxDBFactory}
-import org.pmw.tinylog.Logger
 
 import scala.jdk.CollectionConverters._
 import scala.util.{Failure, Success, Try}
@@ -219,7 +218,7 @@ trait InfluxDBClient extends StackTraceFilter with CorePersistenceAware {
 }
 
 
-object InfluxDBClient {
+object InfluxDBClient extends WarpLogging {
 
   private val retentionPolicy: String = WARP_INFLUXDB_RETENTION_POLICY.value
   private val url: String = WARP_INFLUXDB_URL.value
@@ -252,7 +251,7 @@ object InfluxDBClient {
       case Failure(exception) =>
         val error: String =
           s"unable to connect to influxdb at $url using credentials (user = $user, password = $password)"
-        Logger.warn(error, exception.getMessage)
+        logger.warn(error, exception.getMessage)
         Left(error)
       case Success(_) =>
         Right(influx)

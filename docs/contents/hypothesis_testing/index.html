@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.38" />
+<meta name="generator" content="Hugo 0.87.0" />
 <title>Case Study: Hypothesis Testing :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     
   </head>
-  <body data-url="/contents/hypothesis_testing/">
+  <body data-url="https://workday.github.io/warp-core/contents/hypothesis_testing/">
     
       <header>
   <div class="logo">
@@ -245,157 +245,134 @@
     
     
     
-    
-
-<p>Two of the most challenging aspects of experimental design are the creation of a strong testable hypothesis
+    <p>Two of the most challenging aspects of experimental design are the creation of a strong testable hypothesis
 and devising an experiment to test it. This article will describe features in WARP designed to
 assist users in evaluating their experimental hypotheses.</p>
-
 <p>Thanks to Michael Ottati for writing the original form of this document.</p>
-
 <h2 id="the-hypothesis">The Hypothesis</h2>
-
 <p>A hypothesis is a theory or speculation typically originating from a question:</p>
-
 <blockquote>
 <p><em>If X changes, what happens to Y?</em></p>
 </blockquote>
-
 <p>A question can be converted into a hypothesis by reformulating it as a statement.</p>
-
 <blockquote>
 <p><em>A change in X causes a change in Y.</em></p>
 </blockquote>
-
 <p>A <a href="http://methods.sagepub.com/reference/encyc-of-research-design/n114.xml">directional hypothesis</a> is stronger form of hypothetical
 that predicts the relationship of the change in the variables, e.g. when X increases Y
 increases along with it, a direct relationship. An inverse relationship, the prediction
 that an increase in X causes a corresponding decrease in Y is another form of directional
 hypothesis.</p>
-
 <p>The remainder of this article will illustrate how an engineer might use WARP to validate the
 following (obvious) directional hypothesis:</p>
-
 <blockquote>
 <p><em>If we replace binary search on a sufficiently large <code>Vector[Int]</code> with linear search, performance will degrade.</em></p>
 </blockquote>
-
 <h2 id="the-null-hypothesis">The Null Hypothesis</h2>
-
 <p>A <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a> is a hypothesis that states
 there is no statistical significance between the two variables of the hypothesis. Hypothesis
 testing begins with disproving (falsifying) the null hypothesis. Once the null hypothesis has
 been disproven, the experimenter has grounds for concluding that a relationship exists between
 the variables. In our case, the null hypothesis states that there is no significant difference
 between linear search and binary search. Of course, we can never <em>accept</em> the null hypothesis, only fail to reject it.</p>
-
 <h2 id="the-test-environment">The Test Environment</h2>
-
 <p>In order to validate the assertion that: <em>A change in X causes a change in Y</em> one must first validate
 that: <em>Constant X yields constant Y</em>. Stated differently, the basis for any performance test
 must be a provably repeatable test.</p>
-
 <p>In cases where constant X does not yield constant Y, it may be due to noise in your test environment. There
 are many causes of noise in computer systems: unaccounted for background processing, periodic task execution, and
 many others.</p>
-
 <p>Performance tests should be based upon augmentations of demonstrably repeatable tests, and run in noise
 free environments. We will construct our experiment by constructing it on top of one such test.</p>
-
 <p>A repeatable test is a mandatory precondition upon which to
 test, and ideally validate, our hypothesis. No valid conclusion can be drawn from a test that is itself not repeatable.</p>
-
 <p>Idempotency is an important concept in computer science, much literature has been written on this topic. It is often
 difficult to design idempotent tests for systems that mutate state. It is sometimes impossible to
 design an idempotent test when the thing being tested mutates (or destroys) the underlying
 state necessary to rerun it. &ldquo;Fire all Employees&rdquo; is a hypothetical example of
 such a test, it can only be meaningfully run once. This <a href="http://www.restapitutorial.com/lessons/idempotency.html">What is idempotency?</a>
 article provides a short mildly humorous tutorial on the topic.</p>
-
 <h3 id="exogenous-factors-affecting-repeatability">Exogenous factors affecting repeatability</h3>
-
 <h4 id="warmups">Warmups</h4>
-
 <p>When running performance tests, it is almost always the case that the first invocation of a test behaves
 differently than all subsequent runs of the same test. This is a well known issue that has several common and well understood causes. It is nearly always the case that the first execution through any code path involves considerably
 more processing than subsequent invocations. The list below enumerates some common reasons for these differences,
 it is by no means exhaustive.</p>
-
 <ul>
 <li>Operating System Cache</li>
 <li>JVM Class Loading</li>
 <li>JIT Compilation</li>
 <li>Execution Code Path Differences the first time through. (lazy loading, application cache, &hellip;)</li>
 </ul>
-
 <p>The performance effects of first time execution are well known, well understood, and ubiquitous. Nearly every performance
 tool of any sophistication includes a &ldquo;warm up&rdquo; capability for this reason. WARP includes a simple mechanism
 within its test execution launcher to specify warmups and invocations. By manipulating these two properties you
 may specify how many unrecorded warmups will be run, as well as how many invocations should be recorded
 into your final results.</p>
-
 <h4 id="operating-system-drift">Operating System Drift</h4>
-
 <p>Performance tests are exquisitely sensitive to the environments they run in. A performance test run on your
 laptop will not yield the same performance on a standalone host in a data center. It is important to remain
 mindful of this when running tests on different platforms. The fact that the same test run on different hardware performs
 differently is intuitively obvious to most people.</p>
-
 <p>What is less obvious, is the fact that the same test run on the same machine may also perform differently over time. Internally,
 we saw an example of this recently after  <a href="https://meltdownattack.com/">Meltdown and Spectre</a> patches were applied to several systems in our lab.
 These patches caused an across the board performance degradation for all tests running in our labs.</p>
-
 <p>Machines can also degrade over time in unexpected ways. It is therefore important to periodically calibrate
 machines to ensure that their performance is comparable to other hosts that are thought to be identical. After
 the Meltdown patches were applied, some of the machines in our lab drifted apart from each other. They were brought back into
 sync with each other, only by re-imaging all of them.</p>
-
 <h2 id="change-one-parameter-measure-repeat">Change one parameter, measure, repeat.</h2>
-
 <p>If more than a single test parameter is changed between two test runs, no valid conclusion can be made about the result.
 In order to fully disambiguate the causality of a change, the experimenter
 must vary only a single parameter at a time. When more than one parameter is varied between two test
 runs, it is impossible to attribute back to either individual paramater what portion of the resulting change each individual parameter
 was responsible for.</p>
-
 <p>Imagine the experiment of switching gas brands to determine if the new brand provides better gas mileage. Your test
 design might be to drive along previously traveled route where you have recorded consistent gas mileage in the past. Prior to
 starting your test, your neighbor asks you to tow his boat to your destination. You agree since you are traveling there anyway.</p>
-
 <p>This experiment run without the boat may or may not have yielded better gas mileage. The second variable of extra weight
 so dominated the results however that it led to the (possibly) incorrect conclusion that gas mileage got worse. When multi
 variable changes are made it is impossible to amortize the effects of the individual changes or to even know if one
 of the changes leads to a worse result than would have been the case if it had not been changed at all.</p>
-
 <p>Changing a single thing at a time is the golden rule of hypothesis testing, it is also the rule most frequently
 violated, often leading to fallacious results.</p>
-
 <h2 id="test-design">Test Design</h2>
-
 <p>In order to test our hypothesis, we must vary a single parameter: using binary search vs linear search.
 We also know that it is good practice to run a series of invocations in each configuration to verify that results
 are repeatable in both configurations. Finally, it is a good practice to warm up the system by running a few test runs
 prior to recording the data we are going to analyze.</p>
-
 <p>In addition to running our test multiple times in each configuration, we need some way to record how the
 test was run so we can later understand our result data. WARP has several features that will assist
 us in this task. The most important of feature is tagging. Tags are attributes that can be configured, and recorded
 with each test run.</p>
-
 <p>Tags are simply key-value pairs that are recorded in the results database, and joined with the test execution. The easiest way
 to think about tags is that they are an extensible attribute set that allow the recording of variable state at the time
 your test is run. For this experiment, we can name our tag <em>search-type</em> and we can record two values for it
 to discriminate our series: <em>binary</em>|<em>linear</em></p>
-
 <h2 id="code-setup">Code Setup</h2>
-
 <p>Suppose we have the two following search implementations:</p>
-
 <ul>
 <li>Binary Search</li>
 </ul>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">def</span> binarySearch(numbers<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Vector</span>[<span style="color:#00688b;font-weight:bold">Int</span>], target<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span> = {
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">def</span> binarySearch(numbers<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Vector</span>[<span style="color:#00688b;font-weight:bold">Int</span>], target<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span> = {
 
   <span style="color:#707a7c">@tailrec</span> <span style="color:#8b008b;font-weight:bold">def</span> helper(left<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>, right<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span> = {
     <span style="color:#8b008b;font-weight:bold">val</span> mid<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span> = left + ((right - left) / <span style="color:#b452cd">2</span>)
@@ -408,22 +385,63 @@ to discriminate our series: <em>binary</em>|<em>linear</em></p>
   }
 
   helper(<span style="color:#b452cd">0</span>, numbers.length - <span style="color:#b452cd">1</span>)
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>Linear Search</li>
 </ul>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@tailrec</span> <span style="color:#8b008b;font-weight:bold">private</span> <span style="color:#8b008b;font-weight:bold">def</span> linearSearch(numbers<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Vector</span>[<span style="color:#00688b;font-weight:bold">Int</span>], target<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>, i<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span> = <span style="color:#b452cd">0</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span> = {
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@tailrec</span> <span style="color:#8b008b;font-weight:bold">private</span> <span style="color:#8b008b;font-weight:bold">def</span> linearSearch(numbers<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Vector</span>[<span style="color:#00688b;font-weight:bold">Int</span>], target<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span>, i<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Int</span> = <span style="color:#b452cd">0</span>)<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Boolean</span> = {
   <span style="color:#8b008b;font-weight:bold">if</span> (i == numbers.length) <span style="color:#8b008b;font-weight:bold">false</span>
   <span style="color:#8b008b;font-weight:bold">else</span> <span style="color:#8b008b;font-weight:bold">if</span> (numbers(i) == target) <span style="color:#8b008b;font-weight:bold">true</span>
   <span style="color:#8b008b;font-weight:bold">else</span> linearSearch(numbers, target, i + <span style="color:#b452cd">1</span>)
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <p>As good computer scientists, we know that binary search will significantly outperform the linear variant on sufficiently
 large datasets. Here is how we could elucidate that fact using WARP to capture test statistics:</p>
-
-<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@Test</span>
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#707a7c">@Test</span>
 <span style="color:#8b008b;font-weight:bold">def</span> hypothesisExample()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
   <span style="color:#228b22">// randomly generate a dataset, and a collection of numbers to search for.
 </span><span style="color:#228b22"></span>  <span style="color:#8b008b;font-weight:bold">val</span> dataset<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Vector</span>[<span style="color:#00688b;font-weight:bold">Int</span>] <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#008b45;font-weight:bold">Vector</span>.fill(<span style="color:#b452cd">10000000</span>)(<span style="color:#008b45;font-weight:bold">Random</span>.nextInt(<span style="color:#b452cd">100</span>)).sorted
@@ -450,34 +468,27 @@ large datasets. Here is how we could elucidate that fact using WARP to capture t
     binaryTimes, <span style="color:#cd5555">&#34;binary search&#34;</span>, linearTimes, <span style="color:#cd5555">&#34;linear search&#34;</span>
   )
   <span style="color:#8b008b;font-weight:bold">val</span> pValue<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Double</span> = statTestResult.get.regressionTest.pValue
-}</code></pre></div>
-
+}</code></pre></td></tr></table>
+</div>
+</div>
 <p>Our experiment creates a randomly generated collection of 10 million integers, each in the range (0, 99). We evaluate each search
 algorithm by repeatedly searching for elements in another randomly generated sequence. We tag invocations
 in each series with a value for <code>search-type</code>, given by the name of the algorithm. Tags are stored
 in our database as additional metadata for easier discrimination of series.</p>
-
 <p>On average, it takes 444ms to perform 10 searches using the linear algorithm. By contrast,
 the binary search algorithm takes only 1ms to perform the same task!</p>
-
 <p>We can confirm this difference by inspecting our p-value. A p-value gives the probability
 that we could observe the same data result <em>assuming</em> the truth of the null hypothesis.</p>
-
 <p>In our case, we obtain a very small p-value: <code>1.51E-37</code>. The decision to reject or fail to reject the null hypothesis
 hinges on our desired confidence value. At the 99% confidence level, since our p-value &lt; 0.01, we can successfully reject the
 null hypothesis and conclude that there is a significant difference between binary search and linear search!</p>
-
 <h2 id="summary">Summary</h2>
-
 <p>This article has demonstrated the use of existing features in WARP to quickly validate or repudiate an
 experimental hypothesis. The techniques described in this article can be can be adopted to test any well-formed hypothesis.</p>
-
 <p>Researchers wishing to conduct hypothesis testing are strongly advised to base their experimental setup on idempotent tests
 whenever possible.</p>
-
 <p>We have shown how to use WARP to collect measurements for experimental trials and perform some
 rudimentary statistical analysis to either reject or fail to reject our null hypothesis.</p>
-
 <p>The WARP DSL makes it simple to design and execute experiments, and includes features to assist with testing for statistical significance.</p>
 
 

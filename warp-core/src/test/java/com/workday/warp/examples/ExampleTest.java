@@ -4,22 +4,22 @@ import com.workday.warp.TestId;
 import com.workday.warp.junit.Measure;
 import com.workday.warp.junit.WarpInfo;
 import com.workday.warp.junit.WarpTest;
+import com.workday.warp.logger.WarpLoggingWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.pmw.tinylog.Logger;
 
 /**
  * Some examples of Java usage.
  *
  * Created by tomas.mccandless on 10/23/20.
  */
-public class ExampleTest {
+public class ExampleTest extends WarpLoggingWrapper {
 
     /** A plain vanilla junit test with no extensions. */
     @Test
     public void vanilla() {
-        Logger.trace("only plain junit infra");
+        logger().trace("only plain junit infra");
     }
 
 
@@ -33,14 +33,14 @@ public class ExampleTest {
     @Test
     @Measure
     public void measuredOnly() {
-        Logger.trace("we are being measured but not repeated");
+        logger().trace("we are being measured but not repeated");
     }
 
 
     /** A test that will be invoked a total of 6 times, 2 unmeasured warmups and 4 measured trials. */
     @WarpTest(warmups = 1, trials = 2)
     public void measured() {
-        Logger.trace("we are being measured");
+        logger().trace("we are being measured");
         Assertions.assertEquals(2, 1 + 1);
     }
 
@@ -50,4 +50,5 @@ public class ExampleTest {
     public void measuredWithInfo(final WarpInfo info) {
         Assertions.assertTrue(info.testId().equals("com.workday.warp.examples.ExampleTest.measuredWithInfo"));
     }
+
 }

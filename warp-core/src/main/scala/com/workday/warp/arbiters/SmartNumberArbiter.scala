@@ -2,16 +2,15 @@ package com.workday.warp.arbiters
 
 import java.time.{Duration, LocalDate}
 import java.util.concurrent.TimeUnit
-
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.CoreConstants
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.math.linalg.{CanSmoothTimeSeries, RobustPcaRunner}
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.utils.TimeUtils
-import org.pmw.tinylog.Logger
 
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
@@ -29,7 +28,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
                          val slidingWindowSize: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt,
                          val toleranceFactor: Double = WARP_ANOMALY_RPCA_S_THRESHOLD.value.toDouble,
                          val smartScalarNumber: Double = WARP_ANOMALY_SMART_SCALAR.value.toDouble)
-  extends CanReadHistory with CanSmoothTimeSeries with ArbiterLike {
+  extends CanReadHistory with CanSmoothTimeSeries with ArbiterLike with WarpLogging {
 
   /**
     * Persist smart threshold to the execution metatag table, associated to the TestDefinitionTag table by the rowID
@@ -69,12 +68,12 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     if (threshold.isPositive) {
       tryRecordSmartThreshold(threshold, testExecution) match {
         case Success(_) =>
-          Logger.trace("Smart threshold successfully persisted to TestExecutionMetaTag table")
+          logger.trace("Smart threshold successfully persisted to TestExecutionMetaTag table")
           this.vote(testExecution, responseTime, threshold)
 
         // fatal error threshold is value and try persistence fails
         case Failure(exception) =>
-          Logger.error(s"Smart threshold failed to persist to TestExecutionMetaTag table with exception $exception")
+          logger.error(s"Smart threshold failed to persist to TestExecutionMetaTag table with exception $exception")
           Option(new WarpFieldPersistenceException(s"Smart Threshold failed to persist", exception))
       }
     }
@@ -164,7 +163,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     val isAlmostMiddleAnomaly: Boolean = this.isAnomaly(rawResponseTimes, almostMiddle)
 
     if ((isMiddleAnomaly && !isAlmostMiddleAnomaly) || iterations > WARP_ANOMALY_SMART_MAX_ITERATIONS.value.toInt) {
-      Logger.trace(s"smart number calculation took $iterations iterations")
+      logger.trace(s"smart number calculation took $iterations iterations")
       middle * smartScalarNumber
     }
     else if (isMiddleAnomaly && isAlmostMiddleAnomaly) {

@@ -12,7 +12,7 @@ import scala.collection.mutable
 class Ballot(val testId: TestId) extends StackTraceFilter {
 
   /** holds any throwables created by arbiters */
-  private val errors: mutable.ListBuffer[Throwable] = mutable.ListBuffer[Throwable]()
+  val errors: mutable.ListBuffer[Throwable] = mutable.ListBuffer[Throwable]()
 
 
   /** Unboxes `maybeThrowable` and stores the boxed value if it is defined.

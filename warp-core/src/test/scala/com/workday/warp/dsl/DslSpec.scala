@@ -6,14 +6,13 @@ import com.workday.warp.collectors.AbstractMeasurementCollector
 import com.workday.warp.utils.Implicits._
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence._
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 import com.workday.warp.dsl.using.measuring
 import com.workday.warp.dsl.Implicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.math.{DistributionLike, GaussianDistribution}
 import com.workday.warp.TestIdImplicits.string2TestId
 import com.workday.warp.controllers.AbstractMeasurementCollectionController
-import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.parallel.Isolated
 import org.scalatest.exceptions.TestFailedException
 
@@ -23,7 +22,7 @@ import scala.util.Try
   * Created by tomas.mccandless on 3/25/16.
   */
 @Isolated
-class DslSpec extends WarpJUnitSpec with HasRandomTestId {
+class DslSpec extends WarpJUnitSpec with HasRandomTestId with WarpLogging {
 
   @UnitTest
   def dsl(): Unit = {
@@ -40,7 +39,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks usage of measuring multithreaded tests. */
   @UnitTest
   def dslThreads(): Unit = {
-    val results: Seq[TrialResult[_]] = using no collectors threads 5 invocations 5 measure someExperiment()
+    val results: Seq[TrialResult[_]] = using no collectors threads 5 trials 5 measure someExperiment()
     results should have length 5
     results foreach { _.maybeResponseTime.get should be (5 seconds) }
     results should not exceed (5 seconds)
@@ -52,22 +51,22 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   def dslThreadsException(): Unit = {
     // make sure we get back the right kind of exception, it shouldnt be a generic ExecutionException
     intercept[IllegalStateException] {
-      using threads 5 invocations 5 measure { throw new IllegalStateException }
+      using threads 5 trials 5 measure { throw new IllegalStateException }
     }
 
     // the same behavior should be present for warmup iterations
     intercept[IllegalStateException] {
-      using warmups 5 invocations 0 measure { throw new IllegalStateException }
+      using warmups 5 trials 0 measure { throw new IllegalStateException }
     }
 
     // the same behavior should be present in single mode when a measured trial fails
     intercept[IllegalStateException] {
-      using mode single threads 5 invocations 5 measure { throw new IllegalStateException }
+      using mode single threads 5 trials 5 measure { throw new IllegalStateException }
     }
 
     // the same behavior should be present for warmup iterations
     intercept[IllegalStateException] {
-      using mode single threads 5 warmups 5 invocations 0 measure { throw new IllegalStateException }
+      using mode single threads 5 warmups 5 trials 0 measure { throw new IllegalStateException }
     }
   }
 
@@ -75,7 +74,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks that we are only returned results for measured invocations. */
   @UnitTest
   def dslWarmups(): Unit = {
-    val results: Seq[TrialResult[_]] = using no collectors threads 5 warmups 3 invocations 10 measure someExperiment()
+    val results: Seq[TrialResult[_]] = using no collectors threads 5 warmups 3 trials 10 measure someExperiment()
     results should have length 10
     results foreach { _.maybeResponseTime.get should be (5 seconds) }
   }
@@ -85,12 +84,12 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   @UnitTest
   def dslMode(): Unit = {
     // running in multi mode (which is the default) should measure each invocation
-    using threads 8 invocations 8 mode multi measuring someExperiment() should have length 8
-    using threads 8 invocations 8 measuring someExperiment() should have length 8
-    using threads 8 invocations 8 warmups 8 measuring someExperiment() should have length 8
+    using threads 8 trials 8 mode multi measuring someExperiment() should have length 8
+    using threads 8 trials 8 measuring someExperiment() should have length 8
+    using threads 8 trials 8 warmups 8 measuring someExperiment() should have length 8
 
     // running in single mode should treat the entire schedule as a single logical test
-    val singleResult: Seq[TrialResult[Int]] = using threads 8 invocations 8 mode single measure someExperiment()
+    val singleResult: Seq[TrialResult[Int]] = using threads 8 trials 8 mode single measure someExperiment()
     singleResult should have length 1
     // even though the fake "experiment" we are measuring reports that it took 5 seconds, the overall time taken should be short
     singleResult should not exceed (500 milliseconds)
@@ -101,11 +100,11 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   @UnitTest
   def dslDistribution(): Unit = {
     val normal: DistributionLike = GaussianDistribution(50, 10)
-    using no collectors invocations 8 distribution normal measure { Logger.trace("i'm being measured") }
-    using no collectors invocations 8 distribution normal threads 8 measure { Logger.trace("i'm being measured on multiple threads") }
+    using no collectors trials 8 distribution normal measure { logger.trace("i'm being measured") }
+    using no collectors trials 8 distribution normal threads 8 measure { logger.trace("i'm being measured on multiple threads") }
 
     // check using the default distribution -- the overall time should be very short since there is no delay
-    val config: ExecutionConfig = using no collectors invocations 8 threads 2 mode single
+    val config: ExecutionConfig = using no collectors trials 8 threads 2 mode single
     config measuring { someExperiment() } should not exceed (100 millis)
 
     // using the above normal distribution should make the overall time a bit longer
@@ -221,7 +220,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks that we can use anomaly detection */
   @UnitTest
   def anomalies(): Unit = {
-    using iterations 5 measuring {
+    using trials 5 measuring {
       someExperiment()
     } should not be anomalous
 
@@ -306,12 +305,12 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   /** Checks that we can measure a function over multiple invocations. */
   @UnitTest
   def iterations(): Unit = {
-    using iterations 5 measuring {
+    using trials 5 measuring {
       someExperiment()
     } should have length 5
 
     // check that invocations are passed through when we set arbiters and collectors
-    using iterations 5 only these collectors {
+    using trials 5 only these collectors {
       new SomeMeasurementCollector
     } arbiters {
       new SomeArbiter
@@ -320,7 +319,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     } should have length 5
 
     // check that invocations are passed through when we disable arbiters and collectors
-    using iterations 5 no arbiters no collectors measuring {
+    using trials 5 no arbiters no collectors measuring {
       someExperiment()
     } should have length 5
   }
@@ -328,14 +327,14 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
 
   /** Checks that we can set test id manually. */
   @UnitTest
-  def testIdCheck(testInfo: TestInfo): Unit = {
+  def testIdCheck(): Unit = {
     // check that we can manually override the test id
     val someTestId: String = "com.workday.warp.dsl.test1"
     val config: ExecutionConfig = using testId someTestId
     Researcher(config).collectionController().testId.id should be (someTestId)
     config measure { 1 + 1 }
     ConfigStore.get(someTestId) should be (Some(config))
-    Researcher(using iterations 5 testId someTestId).collectionController().testId.id should be (someTestId)
+    Researcher(using trials 5 testId someTestId).collectionController().testId.id should be (someTestId)
 
     val randomTestId: TestId = this.randomTestId()
     Researcher(using testId randomTestId).collectionController().testId should be (randomTestId)
@@ -355,7 +354,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
 
     // the wrapped ExecutionConfig inside ResultOfOnlyThese should be the same as the one we started with
     (using only these).config should be (using)
-    val someConfig: ExecutionConfig = using testId "com.workday.warp.dsl" iterations 8
+    val someConfig: ExecutionConfig = using testId "com.workday.warp.dsl" trials 8
     (someConfig only these).config should be (someConfig)
 
     // check the actual dsl usage
@@ -464,14 +463,14 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
   // some dummy arbiters and collectors to use in testing
   class SomeArbiter extends ArbiterLike with CorePersistenceAware {
     override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-      Logger.debug("some arbiter voting")
+      logger.debug("some arbiter voting")
       None
     }
   }
 
   class SomeOtherArbiter extends ArbiterLike with CorePersistenceAware {
     override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-      Logger.debug("some other arbiter voting")
+      logger.debug("some other arbiter voting")
       None
     }
   }
@@ -486,7 +485,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     /**
       * Called prior to starting an individual test invocation.
       */
-    override def startMeasurement(): Unit = Logger.debug("starting measurement")
+    override def startMeasurement(): Unit = logger.debug("starting measurement")
 
     /**
       * Called after finishing an individual test invocation.
@@ -495,7 +494,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
       *                          not attempt to write out to the database.
       */
     override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-      Logger.debug("stopping measurement")
+      logger.debug("stopping measurement")
     }
   }
 
@@ -503,7 +502,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
     /**
       * Called prior to starting an individual test invocation.
       */
-    override def startMeasurement(): Unit = Logger.debug("starting measurement")
+    override def startMeasurement(): Unit = logger.debug("starting measurement")
 
     /**
       * Called after finishing an individual test invocation.
@@ -512,7 +511,7 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId {
       *                          not attempt to write out to the database.
       */
     override def stopMeasurement[T: TestExecutionRowLikeType](maybeTestExecution: Option[T]): Unit = {
-      Logger.debug("stopping measurement")
+      logger.debug("stopping measurement")
     }
   }
 }

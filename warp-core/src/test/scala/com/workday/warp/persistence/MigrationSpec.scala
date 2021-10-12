@@ -6,7 +6,7 @@ import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import org.flywaydb.core.Flyway
 import org.junit.jupiter.api.{AfterAll, BeforeAll}
 import org.junit.jupiter.api.parallel.Isolated
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 /**
   * Created by tomas.mccandless on 6/14/17.
@@ -14,16 +14,16 @@ import org.pmw.tinylog.Logger
   * // TODO refactor BeforeOnce and AfterOnce
   */
 @Isolated
-class MigrationSpec extends WarpJUnitSpec with Connection with CorePersistenceAware with MigrateSchemaLike {
+class MigrationSpec extends WarpJUnitSpec with Connection with CorePersistenceAware with MigrateSchemaLike with WarpLogging {
 
   val maybeFlyway: Option[Flyway] = this.persistenceUtils.maybeFlyway()
 
   /** Checks that schema migration works when multiple clients are attempting to migrate the schema. */
   @UnitTest
   def concurrentMigration(): Unit = {
-    using threads 8 invocations 32 invoke {
+    using threads 8 trials 32 invoke {
       if (this.maybeFlyway.isDefined) this.migrate()
-      else Logger.debug(s"migrations are only supported for mysql. check the value of ${WARP_DATABASE_URL.propertyName}")
+      else logger.debug(s"migrations are only supported for mysql. check the value of ${WARP_DATABASE_URL.propertyName}")
     }
   }
 }

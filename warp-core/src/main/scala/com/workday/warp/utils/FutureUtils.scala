@@ -1,9 +1,8 @@
 package com.workday.warp.utils
 
 import java.util.concurrent.Executors
-
 import com.workday.warp.config.CoreWarpProperty.WARP_NUM_COLLECTOR_THREADS
-import org.pmw.tinylog.Logger
+import com.workday.warp.logger.WarpLogging
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext, Future}
@@ -14,7 +13,7 @@ import scala.util.{Failure, Success, Try}
  *
  * Created by tomas.mccandless on 12/21/15.
  */
-object FutureUtils {
+object FutureUtils extends WarpLogging {
 
   // threadpool implicitly passed to Future functions
   implicit val executor: ExecutionContext = ExecutionContext.fromExecutor(
@@ -36,7 +35,7 @@ object FutureUtils {
     }
     catch {
       case e: NumberFormatException =>
-        Logger.error(s"error parsing ${WARP_NUM_COLLECTOR_THREADS.propertyName}=$threads. " +
+        logger.error(s"error parsing ${WARP_NUM_COLLECTOR_THREADS.propertyName}=$threads. " +
           s"using default value $defaultThreads", e)
         defaultThreads
     }

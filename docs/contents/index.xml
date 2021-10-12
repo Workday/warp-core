@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Contents on warp-core</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Contents on warp-core</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Apr 2018 13:38:13 -0700</lastBuildDate>
-    
-	<atom:link href="https://workday.github.io/warp-core/contents/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 08 Feb 2021 10:57:50 -0700</lastBuildDate><atom:link href="https://workday.github.io/warp-core/contents/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction</title>
       <link>https://workday.github.io/warp-core/contents/intro/</link>
@@ -29,7 +25,7 @@ Academic papers published in other scientific fields, such as biology, place an 
       
       <guid>https://workday.github.io/warp-core/contents/getting_started_java/</guid>
       <description>Warp-core allows users to instrument and persist measurements collected for their tests. The primary key warp-core uses to identify individual tests is a fully qualified test method signature. We refer to this as a TestId. To get started, add warp-core to your dependencies and ensure your build has a JUnit engine on the test runtime classpath:
-build.gradle: apply plugin: &amp;#39;scala&amp;#39; sourceCompatibility = 1.8 repositories { mavenCentral() } dependencies { testImplementation &amp;#39;com.</description>
+build.gradle: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23  apply plugin: &amp;#39;scala&amp;#39; sourceCompatibility = 1.</description>
     </item>
     
     <item>
@@ -59,7 +55,7 @@ Implementations of a measurement or measurement collection should extend this cl
       
       <guid>https://workday.github.io/warp-core/contents/custom_arbiters/</guid>
       <description>An Arbiter defines a vote method that allows us to implement custom failure criteria for a given test execution.
-For example, the following Arbiter implementation fails a test if it took longer than 5 seconds: import com.workday.warp.arbiters.ArbiterLike import com.workday.warp.persistence.CorePersistenceAware import com.workday.warp.persistence.TablesLike._ import com.workday.warp.persistence.Tables._ class ResponseTimeArbiter extends ArbiterLike with CorePersistenceAware { /** * Checks that the measured test took less than 5 seconds. * * @param ballot box used to register vote result.</description>
+For example, the following Arbiter implementation fails a test if it took longer than 5 seconds: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  import com.workday.warp.arbiters.ArbiterLike import com.workday.warp.persistence.CorePersistenceAware import com.workday.warp.persistence.TablesLike._ import com.workday.warp.persistence.Tables._ class ResponseTimeArbiter extends ArbiterLike with CorePersistenceAware { /** * Checks that the measured test took less than 5 seconds.</description>
     </item>
     
     <item>
@@ -125,7 +121,7 @@ The binding module we provide out of the box in DefaultWarpModule should be fine
       
       <guid>https://workday.github.io/warp-core/contents/gatling/</guid>
       <description>&amp;ldquo;warp-core-gatling&amp;rdquo; is published as a separate jar and includes a base class &amp;ldquo;WarpSimulation&amp;rdquo; that add warp measurements to existing simulations as before/after gatling hooks. This module also includes a (now deprecated) vintage JUnit4 runner that allows for easily executing gatling simulations along with the rest of your JUnit test suite. In the future, we plan to develop a tighter integration between gatling and JUnit5
-import com.workday.warp.adapters.gatling.{GatlingJUnitRunner, WarpSimulation} @RunWith(classOf[GatlingJUnitRunner]) class BasicSimulation extends WarpSimulation { val httpConf: HttpProtocolBuilder = http .</description>
+1 2 3 4 5 6 7 8 9 10 11 12 13 14  import com.</description>
     </item>
     
     <item>

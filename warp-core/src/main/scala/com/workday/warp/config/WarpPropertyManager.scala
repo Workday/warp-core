@@ -2,13 +2,12 @@ package com.workday.warp.config
 
 import java.io.File
 import java.util.Properties
-
 import com.workday.warp.inject.WarpGuicer
 import com.workday.warp.logger.WarpLogUtils
 import org.apache.commons.configuration2.PropertiesConfiguration
 import org.apache.commons.configuration2.builder.fluent.Configurations
 import org.apache.commons.configuration2.ex.ConfigurationException
-import org.pmw.tinylog.Logger
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
@@ -35,6 +34,9 @@ object WarpPropertyManager {
   private val WARP_PROPERTIES: String = "warp.properties"
   private val WARP_CONFIG_DIRECTORY_PROPERTY: String = "wd.warp.config.directory"
 
+  @transient
+  protected lazy val logger: Logger = LoggerFactory.getLogger(getClass.getName)
+
   // immutable copy of jvm system properties
   val systemProps: Map[String, String] = System.getProperties.asScala.toMap
   // determine the directory to search for warp configuration files
@@ -48,13 +50,13 @@ object WarpPropertyManager {
   // if there is an unrecoverable exception from configuration library, we'll throw that exception
   val configuration: PropertiesConfiguration = Try(new Configurations().properties(propertyFile)).recoverWith {
     case _: ConfigurationException if !new File(propertyFile).exists() =>
-      Logger.warn(s"$propertyFile does not exist!" +
+      logger.warn(s"$propertyFile does not exist!" +
         "\n    Be aware that if the property values you require have not been passed in as Java System properties" +
         "\n    this program is very likely to fail when an unset required property is accessed.\n")
       // fall back on empty config
       Success(new PropertiesConfiguration)
     case exception: Exception =>
-      Logger.error(exception, s"Error loading WARP Configuration file: $propertyFile \n\n")
+      logger.error(s"Error loading WARP Configuration file: $propertyFile \n\n", exception)
       Failure(exception)
   }.get
 
@@ -145,7 +147,7 @@ object WarpPropertyManager {
       banner ++= s"\n    $name=$redactedValue"
     }
 
-    Logger.info(banner.toString)
+    logger.info(banner.toString)
   }
 
 
