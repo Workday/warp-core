@@ -65,6 +65,8 @@ object WarpAlgebra extends WarpLogging {
   // lifting functions, we lift a call-by-name parameter into a WarpScript with a lambda
   // this is the api that will be used in for-comprehensions
   def measure[A](testId: TestId, f: => A): WarpScript[A] = liftF(Measure(testId, () => f))
+  def measure[A](testId: String, f: => A): WarpScript[A] = liftF(Measure(TestId.fromString(testId), () => f))
+  def measure[A](f: => A): WarpScript[A] = liftF(Measure(None.orNull, () => f))
   def exec[A](f: => A): WarpScript[A] = liftF(Exec(() => f))
 
 
@@ -87,6 +89,7 @@ object WarpAlgebra extends WarpLogging {
       mcc.beginMeasurementCollection()
       val r: WarpScript[A] = f()
       mcc.endMeasurementCollection()
+      logger.info(s"finished impure monadic measuring ${testId.id}")
       r
   }
 }

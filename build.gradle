@@ -211,7 +211,8 @@ subprojects {
                 // so we can avoid importing scala.language.postfixOps in multiple source files
                 '-language:postfixOps',
                 // gets rid of "Static methods in interface require -target:jvm-1.8" error
-                '-target:jvm-1.8'
+                '-target:jvm-1.8',
+//                '-Ymacro-debug-lite'
         ]
     }
 
@@ -257,9 +258,9 @@ subprojects {
         if (project.hasProperty("shouldDeleteSchema") && Boolean.valueOf(project.shouldDeleteSchema.toString())) {
             task.dependsOn(deleteSchema)
         }
-        task.finalizedBy(scalastyleCheck)
-        task.finalizedBy(checkstyleMain)
-        task.finalizedBy(checkstyleTest)
+//        task.finalizedBy(scalastyleCheck)
+//        task.finalizedBy(checkstyleMain)
+//        task.finalizedBy(checkstyleTest)
 
         task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"
