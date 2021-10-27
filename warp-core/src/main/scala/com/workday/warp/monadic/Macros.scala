@@ -57,28 +57,30 @@ object Macros {
       override def transform(tree: Tree): Tree = tree match {
         // capture arg here, but we dont need to transform
         case Apply(func, args) if show(func).startsWith("com.workday.warp.monadic.WarpAlgebra.measure")
-          && (func.symbol.toString == "method map" || func.symbol.toString == "method flatMap") =>
+            && (func.symbol.toString == "method map" || func.symbol.toString == "method flatMap") =>
           capturedArg = args.headOption
           super.transform(tree)
 
         // a `measure` call. use the identifier we previously parsed to expand into a TestId
         case Apply(func, _) if show(func).startsWith("com.workday.warp.monadic.WarpAlgebra.measure")
-          && func.symbol.toString == "method measure" =>
-
-          val testId: String = s"""$enclosingClass.${extractSyntheticMethodName(ctx)(capturedArg.get)}"""
-          capturedArg = None
-          println(s"""macro expansion: inserting testId "$testId" into expression "$tree"""")
-          // TODO needs to work for any type
-          val code = show(tree).replace(
-            "com.workday.warp.monadic.WarpAlgebra.measure[Int](",
-            s"""com.workday.warp.monadic.WarpAlgebra.measure[Int]("$testId", """
-          )
-          // println(s"code: $code")
-          // quasiquote the transformed and parsed tree https://docs.scala-lang.org/overviews/quasiquotes/intro.html
-          q"${ctx.parse(code)}"
+            && func.symbol.toString == "method measure" =>
+          rewriteNode(tree)
 
         case _ =>
           super.transform(tree)
+      }
+
+
+      def rewriteNode(tree: Tree): Tree = {
+        val testId: String = s"""$enclosingClass.${extractSyntheticMethodName(ctx)(capturedArg.get)}"""
+        capturedArg = None
+        println(s"""macro expansion: inserting testId "$testId" into expression "$tree"""")
+        val pattern: Regex = """com\.workday\.warp\.monadic\.WarpAlgebra\.measure\[(.+)\]\((.+)\)""".r
+        val pattern(typ, args) = show(tree)
+        println(s"""parsed $typ type and $args args from $tree""")
+        val newCode = s"""com.workday.warp.monadic.WarpAlgebra.measure[$typ]("$testId", $args)"""
+        // quasiquote the transformed and parsed tree https://docs.scala-lang.org/overviews/quasiquotes/intro.html
+        q"${ctx.parse(newCode)}"
       }
     }
   }
