@@ -305,13 +305,13 @@ subprojects {
         }
     }
 
-    dependencyLocking {
-        lockAllConfigurations()
-        if (project.scalaSuffix == "_2.13") {
-            lockMode = LockMode.STRICT
-        }
-        lockFile = file("$projectDir/locking/${project.name}${scalaSuffix}.lockfile")
-    }
+//    dependencyLocking {
+//        lockAllConfigurations()
+//        if (project.scalaSuffix == "_2.13") {
+//            lockMode = LockMode.STRICT
+//        }
+//        lockFile = file("$projectDir/locking/${project.name}${scalaSuffix}.lockfile")
+//    }
 
 
 // taken from https://docs.gradle.org/6.2.1/userguide/dependency_locking.html#generating_and_updating_dependency_locks

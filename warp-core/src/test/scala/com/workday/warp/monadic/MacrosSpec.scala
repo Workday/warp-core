@@ -20,19 +20,48 @@ class MacrosSpec extends WarpJUnitSpec {
   @UnitTest
   def genTestIds(): Unit = {
 
-//    val s: WarpScript[Int] =
-
-
-    val sPrime: WarpScript[Int] = Macros.generateTestIds(for {
+    val script: WarpScript[Int] = Macros.generateTestIds(for {
       a <- exec(1 + 1)
       b <- measure(a + 1)
       c <- measure(b + 1)
-    } yield c)
+      d <- measure(c + 1)
+    } yield d)
 
-    interpretImpure(sPrime)
+    interpretImpure(script)
   }
 
 
+//  @UnitTest
+//  def otherTypes(): Unit = {
+//    val script: WarpScript[Option[String]] = Macros.generateTestIds(for {
+//
+//      a <- exec(1 + 1)
+//      b <- measure(a.toString + "abcd")
+//      c <- measure("defg" :: List(b))
+////      d <- measure(c.headOption)
+//    } yield c)
+//
+//    interpretImpure(script)
+//  }
+
+
+//  @UnitTest
+//  def underscore(): Unit = {
+//    val script: WarpScript[Option[String]] = Macros.generateTestIds(for {
+//
+//      a <- exec(1 + 1)
+//      b <- measure(a.toString + "abcd")
+//      _ <- measure("defg" :: List(b))
+//      d <- measure(b + "hijk")
+//    } yield d)
+//
+//    interpretImpure(script)
+//  }
+
+  /**
+    * Pasted the output of our transformation, we get as far as fully transforming the tree before "error while emitting"
+    * compiler crash
+    */
   @UnitTest
   def transformed(): Unit = {
     val s = com.workday.warp.monadic.WarpAlgebra.exec[Int](2)
