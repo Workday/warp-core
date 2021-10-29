@@ -115,6 +115,7 @@ org.scalactic:scalactic_2.12:3.1.4=compileClasspath,testCompileClasspath
 org.scalatest:scalatest_2.12:3.1.4=compileClasspath,testCompileClasspath
 org.scalatestplus:junit-4-12_2.12:3.1.1.0=compileClasspath,testCompileClasspath
 org.scalatestplus:scalatestplus-junit_2.12:1.0.0-SNAP9=compileClasspath,testCompileClasspath
+org.scalaz:scalaz-core_2.12:7.3.4=compileClasspath
 org.scoverage:scalac-scoverage-plugin_2.13:1.4.1=scoverage
 org.scoverage:scalac-scoverage-runtime_2.13:1.4.1=scoverage
 org.simpleflatmapper:lightning-csv:8.2.3=compileClasspath,testCompileClasspath

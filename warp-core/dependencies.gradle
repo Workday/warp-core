@@ -38,6 +38,7 @@ dependencies {
     api "org.scalatest:scalatest_%%:${versions.scalatest}"
     api "org.scalatestplus:junit-4-12_%%:${versions.scalatestplusjunit4}"
     api "org.scalatestplus:scalatestplus-junit_%%:${versions.scalatestplusjunit5}"
+    api "org.scalaz:scalaz-core_%%:${versions.scalaz}"
 
     implementation "com.google.guava:guava:${versions.guava}"
     implementation "com.typesafe:config:${versions.typesafeConfig}"
@@ -46,7 +47,6 @@ dependencies {
 
     implementation 'com.github.dwickern:scala-nameof_%%:3.0.0'
     implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
-    implementation "org.scalaz:scalaz-core_%%:${versions.scalaz}"
 
     // TODO tools.jar was removed in jdk9
     implementation files(org.gradle.internal.jvm.Jvm.current().toolsJar)
