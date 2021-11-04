@@ -1,10 +1,9 @@
 package com.workday.warp.monadic
 
-import com.workday.warp.monadic.WarpAlgebra.{WarpScript, interpretImpure}
+import com.workday.warp.monadic.WarpAlgebra.WarpScript
 
 import language.experimental.macros
 import scala.reflect.macros.blackbox
-import scala.util.matching.Regex
 
 /**
  * Created by tomas.mccandless on 8/16/21.
@@ -16,7 +15,7 @@ object Macros {
     *
     * @param a
     * @param b
-    * @return
+    * @return the sum of `a` and `b`.
     */
   def add(a: Int, b: Int): Int = macro addImpl
 
@@ -29,9 +28,44 @@ object Macros {
     }
   }
 
-  def generateTestIds[T](script: WarpScript[T]): WarpScript[T] = macro generateTestIdsImpl[T]
 
-  def generateTestIdsImpl[T: ctx.WeakTypeTag](ctx: blackbox.Context)(script: ctx.Expr[WarpScript[T]]): ctx.Expr[WarpScript[T]] = {
+  /**
+    * Rewrites a WarpScript for-comprehension AST to automatically insert TestIds into the `measure` calls.
+    *
+    * Constructs a Test Id as the concatenation of the fully qualified enclosing class name with the name of the user-provided
+    * variable for that stage of the [[WarpScript]].
+    *
+    * For example, the following code snippet (assuming it is defined within a class named `com.workday.warp.Test`):
+    *
+    * {{{
+    *   for {
+    *     a <- exec(1 + 1)
+    *     b <- measure(a + 1)
+    *     c <- measure(b + 1)
+    *     d <- measure(c + 1)
+    *    } yield d
+    * }}}
+    *
+    * would be transformed to this snippet:
+    *
+    * {{{
+    *   for {
+    *     a <- exec(1 + 1)
+    *     b <- measure("com.workday.warp.Test.b", a + 1)
+    *     c <- measure("com.workday.warp.Test.c", b + 1)
+    *     d <- measure("com.workday.warp.Test.d", c + 1)
+    *    } yield d
+    * }}}
+    *
+    * This macro should be considered experimental.
+    *
+    * @param script [[WarpScript]] that will be rewritten.
+    * @tparam T underlying return type of `script`.
+    * @return
+    */
+  def deriveTestIds[T](script: WarpScript[T]): WarpScript[T] = macro deriveTestIdsImpl[T]
+
+  def deriveTestIdsImpl[T: ctx.WeakTypeTag](ctx: blackbox.Context)(script: ctx.Expr[WarpScript[T]]): ctx.Expr[WarpScript[T]] = {
     // this untypecheck call is crucial to avoid crashing the compiler with mysterious errors like
     // [Error] : Error while emitting MacrosSpec.scala
     // value c
@@ -41,11 +75,10 @@ object Macros {
 
 
   /**
-    * Creates a Tree transformer that traverses
-
+    * Creates a Tree transformer that traverses a [[WarpScript]] AST and inserts test Id into `measure` calls.
     *
-    * @param ctx blackbox macro Context
-    * @return a (path-dependent) Tree transformer
+    * @param ctx blackbox macro Context.
+    * @return a (path-dependent) Tree transformer.
     */
   def testIdTransformer(ctx: blackbox.Context): ctx.universe.Transformer = {
     import ctx.universe._
@@ -64,7 +97,8 @@ object Macros {
 
         // a `measure` call. use the identifier we previously parsed to expand into a TestId
         case Apply(func, args) if show(func).startsWith("com.workday.warp.monadic.WarpAlgebra.measure")
-            && func.symbol.toString == "method measure" =>
+            // TODO checking args length here is a suboptimal way to check whether a testId is already provided
+            && func.symbol.toString == "method measure" && args.length == 1 =>
           val testId: String = s"""$enclosingClass.${extractSyntheticMethodName(ctx)(capturedArg.get)}"""
           capturedArg = None
           println(s"""macro expansion: inserting testId "$testId" into expression "$tree"""")
@@ -81,21 +115,17 @@ object Macros {
 
 
   /**
+    * Reifies the enclosing runtime class and returns the name of that class.
     *
-    * @param ctx blackbox macro Context
-    * @return fully qualified class name of the enclosing runtime class.
+    * @param ctx blackbox macro Context.
+    * @return fully qualified name of the enclosing runtime class.
     */
+  @throws[MacroExpansionException]("when reifyEnclosingRuntimeClass does not return a Literal(Constant(_)) Tree node")
   def extractEnclosingClass(ctx: blackbox.Context): String = {
     import ctx.universe._
     ctx.reifyEnclosingRuntimeClass match {
-      // 2.13
       case Literal(Constant(className)) => className.toString
-      // 2.11, 2.12
-      case t@TypeApply(_, _) =>
-        val pattern: Regex = """(Predef\.this\.)?classOf\[(.+)\]""".r
-        val pattern(_, cls) = t.toString
-        cls
-      case other => throw new RuntimeException(s"""we can only extract a class name from a reified enclosing runtime class: ${showRaw(other)}""")
+      case other => throw new MacroExpansionException(s"""unable to extract class name from Tree node: ${showRaw(other)}""")
     }
   }
 
@@ -108,12 +138,12 @@ object Macros {
     * @param tree
     * @return
     */
+  @throws[MacroExpansionException]("when called with a Tree that is not a Function node.")
   def extractSyntheticMethodName(ctx: blackbox.Context)(tree: ctx.universe.Tree): String = {
     import ctx.universe._
-    // TODO check what happens when _ is used in WarpScript instead of a variable name
     tree match {
       case Function(List(ValDef(Modifiers(_), TermName(name), _, _)), _) => name
-      case _ => throw new RuntimeException("super hacky but we can only extract a test id from a function")
+      case other => throw new MacroExpansionException(s"""unable to extract variable name from Tree node: ${showRaw(other)}""")
     }
   }
 }

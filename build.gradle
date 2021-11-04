@@ -218,7 +218,8 @@ subprojects {
                 '-language:postfixOps',
                 // gets rid of "Static methods in interface require -target:jvm-1.8" error
                 '-target:jvm-1.8',
-//                '-Ymacro-debug-lite'
+                // uncomment to show emitted macro code (very noisy)
+                // '-Ymacro-debug-lite'
         ]
     }
 
@@ -264,9 +265,9 @@ subprojects {
         if (project.hasProperty("shouldDeleteSchema") && Boolean.valueOf(project.shouldDeleteSchema.toString())) {
             task.dependsOn(deleteSchema)
         }
-//        task.finalizedBy(scalastyleCheck)
-//        task.finalizedBy(checkstyleMain)
-//        task.finalizedBy(checkstyleTest)
+        task.finalizedBy(scalastyleCheck)
+        task.finalizedBy(checkstyleMain)
+        task.finalizedBy(checkstyleTest)
 
         task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"

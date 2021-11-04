@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="generator" content="Hugo 0.87.0" />
+<meta name="generator" content="Hugo 0.89.0" />
 <title>Runtime Property Configuration :: warp-core</title>
 <link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
 <link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
@@ -89,7 +89,14 @@
       <li data-nav-id="/contents/getting_started_scala/" class="dd-item">
         <div>
           <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
-            Scala DSL
+            Scala (DSL)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/warpscript/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/warpscript/">
+            Scala (WarpScript)
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -204,7 +211,8 @@
    Contents</option> 
       <option value="/contents/intro/" >- Introduction</option>
       <option value="/contents/getting_started_java/" >- Getting Started</option>
-      <option value="/contents/getting_started_scala/" >- Scala DSL</option>
+      <option value="/contents/getting_started_scala/" >- Scala (DSL)</option>
+      <option value="/contents/warpscript/" >- Scala (WarpScript)</option>
       <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
       <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
       <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
@@ -250,7 +258,7 @@ properties.</p>
 <p>Configuration properties can be set (in order of decreasing precedence) using environment variables, JVM system properties, or by creating a configuration file.</p>
 <p>For example, the default database we write to is an in-memory H2 database, however the following minimal <code>warp.properties</code>
 file can be used as a starting point to write results to MySQL:</p>
-<pre><code>wd.warp.jdbc.url=jdbc:mysql://localhost:3307/warp?createDatabaseIfNotExist=true&amp;zeroDateTimeBehavior=convertToNull
+<pre tabindex="0"><code>wd.warp.jdbc.url=jdbc:mysql://localhost:3307/warp?createDatabaseIfNotExist=true&amp;zeroDateTimeBehavior=convertToNull
 wd.warp.jdbc.password=1234
 wd.warp.jdbc.user=root
 wd.warp.jdbc.driver=com.mysql.jdbc.Driver
