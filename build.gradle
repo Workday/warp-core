@@ -81,7 +81,11 @@ allprojects {
         config = file("${rootDir}/scalastyle.xml")
     }
 
-
+    // avoid an error like:
+    // Execution failed for task ':warp-core-root_2.13.6:warp-core:clean'.
+    // > java.io.IOException: Unable to delete directory '/Users/tomas.mccandless/code/warp-core-tomnis/warp-core/build'
+    // New files were found. This might happen because a process is still writing to the target directory.
+    buildDir "$projectDir/build_$scalaVersion"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8

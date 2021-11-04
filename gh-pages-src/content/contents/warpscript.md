@@ -74,7 +74,7 @@ Here is a more complete example:
 
 {{< highlight scala "linenos=, style=perldoc" >}}
 import com.workday.warp.monadic.WarpAlgebra._
-import com.workday.warp.monadic.Macros.deriveTestIds
+import com.workday.warp.monadic.WarpMacros.deriveTestIds
 import org.junit.jupiter.api.Test
 
 class MacroExampleSpec {

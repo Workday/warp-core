@@ -8,7 +8,7 @@ import scala.reflect.macros.blackbox
 /**
  * Created by tomas.mccandless on 8/16/21.
  */
-object Macros {
+object WarpMacros {
 
   /**
     * A simple toy macro that adds 2 integers

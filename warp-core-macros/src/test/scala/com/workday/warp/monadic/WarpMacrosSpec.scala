@@ -3,14 +3,14 @@ package com.workday.warp.monadic
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.logger.WarpLogging
-import com.workday.warp.monadic.Macros.{add, deriveTestIds}
+import com.workday.warp.monadic.WarpMacros.{add, deriveTestIds}
 import com.workday.warp.monadic.WarpAlgebra._
 import org.junit.jupiter.api.{Test, TestInfo}
 
 /**
  * Created by tomas.mccandless on 8/16/21.
  */
-class MacrosSpec extends WarpJUnitSpec with WarpLogging {
+class WarpMacrosSpec extends WarpJUnitSpec with WarpLogging {
 
   @UnitTest
   def addMacro(): Unit = {
