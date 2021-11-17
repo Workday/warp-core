@@ -22,10 +22,12 @@ class WarpScriptSpec extends WarpJUnitSpec with WarpLogging {
     val demo: WarpScript[Int] = for {
       // exec is useful for setup test data
       a <- exec(1 + 1)
+      b <- exec("setup step creates b", a + 1)
+
       // measure takes a name and an expression, and measures that expression
-      b <- measure("com.workday.warp.MeasureSpec.b", { logger.info("computing b"); a + 1 })
-      c <- measure("com.workday.warp.MeasureSpec.c", a + b)
-    } yield c
+      c <- measure("com.workday.warp.MeasureSpec.c", { logger.info("computing b"); a + 1 })
+      d <- measure("com.workday.warp.MeasureSpec.d", a + b)
+    } yield d
 
     // run the script
     interpretImpure(demo) should be (5)

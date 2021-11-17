@@ -39,7 +39,7 @@ sealed abstract class WarpAlgebra[+A]
 // a measured expression
 case class Measure[A](testId: TestId, f: () => A) extends WarpAlgebra[A]
 // an unmeasured expression, useful for setup
-case class Exec[A](f: () => A) extends WarpAlgebra[A]
+case class Exec[A](maybeComment: Option[String], f: () => A) extends WarpAlgebra[A]
 
 
 
@@ -56,7 +56,7 @@ object WarpAlgebra extends WarpLogging {
 
     override def map[A, B](wm: WarpAlgebra[A])(f: A => B): WarpAlgebra[B] = wm match {
       case Measure(testId, g) => Measure(testId, () => f(g()))
-      case Exec(g) => Exec(() => f(g()))
+      case Exec(comment, g) => Exec(comment, () => f(g()))
     }
   }
 
@@ -67,7 +67,8 @@ object WarpAlgebra extends WarpLogging {
   def measure[A](testId: TestId, f: => A): WarpScript[A] = liftF(Measure(testId, () => f))
   def measure[A](testId: String, f: => A): WarpScript[A] = liftF(Measure(TestId.fromString(testId), () => f))
   def measure[A](f: => A): WarpScript[A] = liftF(Measure(None.orNull, () => f))
-  def exec[A](f: => A): WarpScript[A] = liftF(Exec(() => f))
+  def exec[A](f: => A): WarpScript[A] = liftF(Exec(None, () => f))
+  def exec[A](comment: String, f: => A): WarpScript[A] = liftF(Exec(Option(comment), () => f))
 
 
   /**
@@ -75,13 +76,14 @@ object WarpAlgebra extends WarpLogging {
    *
    * Runs the script to completion.
    *
-   * @param s
-   * @tparam A
-   * @return
+   * @param s script to run.
+   * @tparam A return type of `s`.
+   * @return the result of running `s`.
    */
   def interpretImpure[A](s: WarpScript[A]): A = s.go {
-    case Exec(f) =>
-      logger.info("impure monadic exec")
+    case Exec(maybeComment, f) =>
+      val comment: String = maybeComment.map(c => s": [$c]").getOrElse("")
+      logger.info(s"impure monadic exec$comment")
       f()
     case Measure(testId, f) =>
       logger.info(s"impure monadic measuring ${testId.id}")
