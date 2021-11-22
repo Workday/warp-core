@@ -122,6 +122,8 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
       useSlidingWindow = this.useSlidingWindow,
       useDoubleRpca = this.useDoubleRpca)
 
+    logger.info(s"smart number arbiter got ${rawResponseTimes.size} historical data points")
+
     if (rawResponseTimes.size >= WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt) {
       // if double rpca is enabled, then get all the normal historical measurements up front.
       // we'll use single rpca later to avoid repeating the same computation.

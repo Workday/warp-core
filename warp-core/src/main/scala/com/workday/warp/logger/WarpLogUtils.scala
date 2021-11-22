@@ -29,13 +29,13 @@ object WarpLogUtils extends WarpLogging {
   def setLogLevelFromWarpProperties(): Unit = {
     case class CustomLoggerLevels(id: String, level: Level)
 
-    val consoleLevel: Level = this.parseLevel(WARP_CONSOLE_LOG_LEVEL.value, WARP_CONSOLE_LOG_LEVEL.defaultValue)
-
     val customLoggingLevels: List[CustomLoggerLevels] = List(
       CustomLoggerLevels("com.zaxxer.hikari", this.parseLevel(WARP_SLF4J_HIKARI_LOG_LEVEL.value, WARP_SLF4J_HIKARI_LOG_LEVEL.defaultValue)),
       CustomLoggerLevels("slick", this.parseLevel(WARP_SLF4J_SLICK_LOG_LEVEL.value, WARP_SLF4J_SLICK_LOG_LEVEL.defaultValue)),
-      CustomLoggerLevels("org.flywaydb", this.parseLevel(WARP_SLF4J_FLYWAY_LOG_LEVEL.value, WARP_SLF4J_FLYWAY_LOG_LEVEL.defaultValue))
+      CustomLoggerLevels("org.flywaydb", this.parseLevel(WARP_SLF4J_FLYWAY_LOG_LEVEL.value, WARP_SLF4J_FLYWAY_LOG_LEVEL.defaultValue)),
+      CustomLoggerLevels("com.workday.warp", this.parseLevel(WARP_CONSOLE_LOG_LEVEL.value, WARP_CONSOLE_LOG_LEVEL.defaultValue)),
     )
+
 
     getLoggerContext.foreach { context =>
       val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
@@ -45,8 +45,7 @@ object WarpLogUtils extends WarpLogging {
 
       // Configure ROOT logger
       val log: Logger = context.getLogger("ROOT")
-      log.setAdditive(true)
-      log.setLevel(consoleLevel)
+      log.setLevel(Level.INFO)
 
       // Configure other loggers
       customLoggingLevels.foreach { loggingLevels =>

@@ -110,7 +110,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
     * will be started in parallel.
     */
   def startCollectors(): Unit = {
-    logger.debug(s"starting concurrent measurement collection for ${this.testId}")
+    logger.info(s"starting measurement collection for ${this.testId}")
 
     // create a list of tuples of (priority, collector list) for each enabled priority level
     this.collectorSchedule foreach { case (priority: Int, scheduledCollectors: List[AbstractMeasurementCollector]) =>
@@ -266,6 +266,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
         // read all tried outer tags
         this.logTagErrors(this.recordTags(this.tags, testExecution))
 
+        logger.info(s"checking arbiter votes for ${this.testId}")
         this.enabledArbiters foreach {
           _.collectVote(this.ballotBox, testExecution)
         }
@@ -377,7 +378,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
     * @param maybeTestExecution an [[Option]] of type [[TestExecutionRowLike]]
     */
   private def stopCollectors(maybeTestExecution: Option[TestExecutionRowLike]): Unit = {
-    logger.debug(s"stopping concurrent measurement collection for ${this.testId}")
+    logger.info(s"stopping concurrent measurement collection for ${this.testId}")
 
     // create a list of tuples of (priority, collector list) for each enabled priority level
     this.collectorSchedule.reverse foreach { case (priority: Int, scheduledCollectors: List[AbstractMeasurementCollector]) =>
