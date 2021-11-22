@@ -38,7 +38,7 @@ import com.workday.warp.logger.WarpLogging
 sealed abstract class WarpAlgebra[+A]
 // a measured expression
 case class Measure[A](testId: TestId, f: () => A) extends WarpAlgebra[A]
-// an unmeasured expression, useful for setup
+// an unmeasured expression, useful for setup. optionally takes a comment that will be logged as a sort of step marker
 case class Exec[A](maybeComment: Option[String], f: () => A) extends WarpAlgebra[A]
 
 

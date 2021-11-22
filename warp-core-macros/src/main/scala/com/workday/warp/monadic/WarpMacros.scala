@@ -83,6 +83,8 @@ object WarpMacros {
   def testIdTransformer(ctx: blackbox.Context): ctx.universe.Transformer = {
     import ctx.universe._
 
+    val measure: String = "com.workday.warp.monadic.WarpAlgebra.measure"
+
     new Transformer {
       val enclosingClass: String = extractEnclosingClass(ctx)
       // TODO try to avoid using a var here
@@ -90,13 +92,13 @@ object WarpMacros {
 
       override def transform(tree: Tree): Tree = tree match {
         // capture arg here, but we dont need to transform
-        case Apply(func, args) if show(func).startsWith("com.workday.warp.monadic.WarpAlgebra.measure")
+        case Apply(func, args) if show(func).startsWith(measure)
             && (func.symbol.toString == "method map" || func.symbol.toString == "method flatMap") =>
           capturedArg = args.headOption
           super.transform(tree)
 
         // a `measure` call. use the identifier we previously parsed to expand into a TestId
-        case Apply(func, args) if show(func).startsWith("com.workday.warp.monadic.WarpAlgebra.measure")
+        case Apply(func, args) if show(func).startsWith(measure)
             // TODO checking args length here is a suboptimal way to check whether a testId is already provided
             && func.symbol.toString == "method measure" && args.length == 1 =>
           val testId: String = s"""$enclosingClass.${extractSyntheticMethodName(ctx)(capturedArg.get)}"""
