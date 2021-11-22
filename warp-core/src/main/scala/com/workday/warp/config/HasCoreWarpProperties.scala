@@ -78,7 +78,15 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
 
 
   /**
-    * Controls log level for warp console logging.
+    * Controls log level for root logger.
+    *
+    * Required: No
+    * Default Value: info
+    */
+  val WARP_ROOT_LOG_LEVEL: PropertyEntry = PropertyEntry("wd.warp.root.log.level", isRequired = false, "info")
+
+  /**
+    * Controls log level for warp console logging for com.workday.warp loggers.
     *
     * Required: No
     * Default Value: info
