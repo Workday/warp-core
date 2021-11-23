@@ -52,6 +52,10 @@ case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
   override def equals(other: Any): Boolean = {
     other != None.orNull && other.isInstanceOf[TestId] && other.asInstanceOf[TestId].id == this.id
   }
+
+
+  // TODO unsafe
+  override def toString(): String = this.id
 }
 
 

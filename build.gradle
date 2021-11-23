@@ -78,8 +78,6 @@ allprojects {
         scalaVersion = '2.13'
         config = file("${rootDir}/scalastyle.xml")
     }
-
-
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -181,6 +179,7 @@ subprojects {
     }
 
     task sourcesJar(type: Jar) {
+//        duplicatesStrategy = 'include'
         archiveClassifier = 'sources'
         from sourceSets.main.allSource
     }
@@ -188,11 +187,13 @@ subprojects {
 // fake javadoc jar to pass sonatype rules
 // See https://central.sonatype.org/pages/requirements.html
     task javadocJar(type: Jar) {
+        duplicatesStrategy = 'include'
         archiveClassifier = 'javadoc'
         from new File("$rootDir/javadoc-fake")
     }
 
     task scaladocJar(type: Jar) {
+        duplicatesStrategy = 'include'
         archiveClassifier = 'scaladoc'
         from scaladoc.destinationDir
     }
