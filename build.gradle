@@ -179,7 +179,7 @@ subprojects {
     }
 
     task sourcesJar(type: Jar) {
-//        duplicatesStrategy = 'include'
+        duplicatesStrategy = 'include'
         archiveClassifier = 'sources'
         from sourceSets.main.allSource
     }
