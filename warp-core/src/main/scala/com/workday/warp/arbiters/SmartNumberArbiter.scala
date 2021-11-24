@@ -141,6 +141,9 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
       )
     }
     else {
+      logger.info(
+        s"not enough data points for smart threshold (got ${rawResponseTimes.size} but we require ${WARP_ANOMALY_RPCA_MINIMUM_N.value})"
+      )
       -1
     }
   }
