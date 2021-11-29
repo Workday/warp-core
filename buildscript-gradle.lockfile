@@ -62,5 +62,6 @@ org.slf4j:slf4j-api:1.7.2=classpath
 org.tmatesoft.sqljet:sqljet:1.1.10=classpath
 org.tmatesoft.svnkit:svnkit:1.8.12=classpath
 xerces:xercesImpl:2.9.1=classpath
+xml-apis:xml-apis:1.3.04=classpath
 xml-resolver:xml-resolver:1.2=classpath
 empty=

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>warp-core</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="generator" content="Hugo 0.89.0" />
+<title>Scala (WarpScript) :: warp-core</title>
+<link rel="shortcut icon" href="https://workday.github.io/warp-core/images/favicon.png" type="image/x-icon" />
+<link href="https://workday.github.io/warp-core/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/css/nucleus.css" rel="stylesheet">
+<link href="https://workday.github.io/warp-core/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://workday.github.io/warp-core/css/bootstrap.min.css">
+<script src="https://workday.github.io/warp-core/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+</script>
+<meta name="description" content="">
+
+
+    
+  </head>
+  <body data-url="https://workday.github.io/warp-core/contents/warpscript/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://workday.github.io/warp-core/">warp-core</a>
+  
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>Github Repo</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/releases"  rel="noopener">
+                  <i class='fa fa-cloud-download'></i> <label>Releases</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://workday.github.io/warp-core/scaladoc/warp-core/index.html"  rel="noopener">
+                  <i class='fa fa-bookmark'></i> <label>ScalaDoc</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/Workday/warp-core/blob/master/CONTRIBUTORS.md"  rel="noopener">
+                  <i class='fa fa-bullhorn'></i> <label>Contributors</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="https://workday.github.io/warp-core/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/contents/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="https://workday.github.io/warp-core/contents/">Contents</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/contents/intro/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/intro/">
+            Introduction
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_java/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_java/">
+            Getting Started
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/getting_started_scala/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/getting_started_scala/">
+            Scala (DSL)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/warpscript/" class="dd-item active">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/warpscript/">
+            Scala (WarpScript)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_collectors/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_collectors/">
+            Collecting Custom Measurements
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/custom_arbiters/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/custom_arbiters/">
+            Custom Arbiters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/measurement_collection_controller/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/measurement_collection_controller/">
+            Measurement Collection Controller
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/tags/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/tags/">
+            Tags
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/runtime_configuration/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/runtime_configuration/">
+            Runtime Property Configuration
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/persistence/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/persistence/">
+            Persistence
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/dependency_injection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/dependency_injection/">
+            Dependency Injection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/gatling/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/gatling/">
+            Measuring Gatling Simulations
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/anomaly_detection/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/anomaly_detection/">
+            Case Study: RPCA Anomaly Detection
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/hypothesis_testing/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/hypothesis_testing/">
+            Case Study: Hypothesis Testing
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/heap_histogram/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/heap_histogram/">
+            Case Study: Monitoring Heap Histogram
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/extension_advanced/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/extension_advanced/">
+            Extending the Schema (advanced)
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/contents/_footer/" class="dd-item">
+        <div>
+          <a href="https://workday.github.io/warp-core/contents/_footer/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/contents/" >
+   Contents</option> 
+      <option value="/contents/intro/" >- Introduction</option>
+      <option value="/contents/getting_started_java/" >- Getting Started</option>
+      <option value="/contents/getting_started_scala/" >- Scala (DSL)</option>
+      <option value="/contents/warpscript/"  selected>- Scala (WarpScript)</option>
+      <option value="/contents/custom_collectors/" >- Collecting Custom Measurements</option>
+      <option value="/contents/custom_arbiters/" >- Custom Arbiters</option>
+      <option value="/contents/measurement_collection_controller/" >- Measurement Collection Controller</option>
+      <option value="/contents/tags/" >- Tags</option>
+      <option value="/contents/runtime_configuration/" >- Runtime Property Configuration</option>
+      <option value="/contents/persistence/" >- Persistence</option>
+      <option value="/contents/dependency_injection/" >- Dependency Injection</option>
+      <option value="/contents/gatling/" >- Measuring Gatling Simulations</option>
+      <option value="/contents/anomaly_detection/" >- Case Study: RPCA Anomaly Detection</option>
+      <option value="/contents/hypothesis_testing/" >- Case Study: Hypothesis Testing</option>
+      <option value="/contents/heap_histogram/" >- Case Study: Monitoring Heap Histogram</option>
+      <option value="/contents/extension_advanced/" >- Extending the Schema (advanced)</option>
+      <option value="/contents/_footer/" >- </option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/lunr.min.js"></script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/auto-complete.js"></script>
+        <link href="https://workday.github.io/warp-core/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/workday.github.io\/warp-core\/";
+          
+        </script>
+        <script type="text/javascript" src="https://workday.github.io/warp-core/js/search.js"></script>
+      </div>
+    
+
+    <h1>Scala (WarpScript)</h1>
+    
+    
+    
+    <h2 id="warpscript">WarpScript</h2>
+<p>WarpScript is an experimental measurement API based on the Free Monad, allowing users to represent a measurement plan
+as a monadic pipeline of <code>exec</code> and <code>measure</code> operations. <code>exec</code> is a simple wrapper around a call-by-name parameter,
+useful for side effects or setup test data. <code>measure</code> is for measuring a call-by-name parameter.</p>
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.junit.WarpJUnitSpec</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.monadic.WarpAlgebra._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.logger.WarpLogging</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">org.junit.jupiter.api.Test</span>
+
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">WarpScriptSpec</span> <span style="color:#8b008b;font-weight:bold">extends</span> <span style="color:#008b45;font-weight:bold">WarpJUnitSpec</span> <span style="color:#8b008b;font-weight:bold">with</span> <span style="color:#008b45;font-weight:bold">WarpLogging</span> {
+
+  <span style="color:#707a7c">@Test</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> measureSpec()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+      <span style="color:#8b008b;font-weight:bold">val</span> demo<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">WarpScript</span>[<span style="color:#00688b;font-weight:bold">Int</span>] <span style="color:#8b008b;font-weight:bold">=</span> <span style="color:#8b008b;font-weight:bold">for</span> {
+        <span style="color:#228b22">// exec() is useful for setup test data
+</span><span style="color:#228b22"></span>        a <span style="color:#8b008b;font-weight:bold">&lt;-</span> exec(<span style="color:#b452cd">1</span> + <span style="color:#b452cd">1</span>)
+        <span style="color:#228b22">// measure() accepts a name and an expression, and measures that expression
+</span><span style="color:#228b22"></span>        b <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(<span style="color:#cd5555">&#34;com.workday.warp.MeasureSpec.a&#34;</span>, { logger.info(<span style="color:#cd5555">&#34;computing a&#34;</span>); a + <span style="color:#b452cd">1</span> })
+        c <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(<span style="color:#cd5555">&#34;com.workday.warp.MeasureSpec.b&#34;</span>, a + b)
+      } <span style="color:#8b008b;font-weight:bold">yield</span> c
+
+      <span style="color:#228b22">// run the script
+</span><span style="color:#228b22"></span>      interpretImpure(demo) should be (<span style="color:#b452cd">5</span>)
+  }
+}</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="macros">Macros</h2>
+<p>In our own testing, we found it cumbersome to repeat variables and TestIds within a WarpScript, so we provide a macro that
+will rewrite a WarpScript and automatically derive a TestId for each measured section within the script. For example,
+a script such as this:
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">for</span> {
+  a <span style="color:#8b008b;font-weight:bold">&lt;-</span> exec(<span style="color:#b452cd">1</span> + <span style="color:#b452cd">1</span>)
+  b <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(a + <span style="color:#b452cd">1</span>)
+  c <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(b + <span style="color:#b452cd">1</span>)
+  d <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(c + <span style="color:#b452cd">1</span>)
+} <span style="color:#8b008b;font-weight:bold">yield</span> d</code></pre></td></tr></table>
+</div>
+</div></p>
+<p>will be macro-expanded into this (assuming it is defined within a class called <code>com.workday.warp.MacroExampleSpec</code>):</p>
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">for</span> {
+  a <span style="color:#8b008b;font-weight:bold">&lt;-</span> exec(<span style="color:#b452cd">1</span> + <span style="color:#b452cd">1</span>)
+  b <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(<span style="color:#cd5555">&#34;com.workday.warp.MacroExampleSpec.b&#34;</span>, a + <span style="color:#b452cd">1</span>)
+  c <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(<span style="color:#cd5555">&#34;com.workday.warp.MacroExampleSpec.c&#34;</span>, b + <span style="color:#b452cd">1</span>)
+  d <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(<span style="color:#cd5555">&#34;com.workday.warp.MacroExampleSpec.d&#34;</span>, c + <span style="color:#b452cd">1</span>)
+} <span style="color:#8b008b;font-weight:bold">yield</span> d</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note the match between the bound variable and the TestId on each line. We found it difficult to implement a macro that appropriately
+targets minor AST differences across different scala versions, so we publish macros as a separate artifact <code>com.workday.warp:warp-core-macros_2.13</code> that only targets
+scala 2.13.</p>
+<p>Here is a more complete example:</p>
+<div class="highlight"><div style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.monadic.WarpAlgebra._</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">com.workday.warp.monadic.WarpMacros.deriveTestIds</span>
+<span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45;text-decoration:underline">org.junit.jupiter.api.Test</span>
+
+<span style="color:#8b008b;font-weight:bold">class</span> <span style="color:#008b45;font-weight:bold">MacroExampleSpec</span> {
+
+  <span style="color:#707a7c">@Test</span>
+  <span style="color:#8b008b;font-weight:bold">def</span> macroExample()<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">Unit</span> = {
+    <span style="color:#8b008b;font-weight:bold">val</span> script<span style="color:#8b008b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">WarpScript</span>[<span style="color:#00688b;font-weight:bold">Option</span>[<span style="color:#00688b;font-weight:bold">String</span>]] <span style="color:#8b008b;font-weight:bold">=</span> deriveTestIds {
+      <span style="color:#8b008b;font-weight:bold">for</span> {
+        a <span style="color:#8b008b;font-weight:bold">&lt;-</span> exec(<span style="color:#b452cd">1</span> + <span style="color:#b452cd">1</span>)
+        b <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(a.toString + <span style="color:#cd5555">&#34;abcd&#34;</span>)
+        c <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(<span style="color:#cd5555">&#34;defg&#34;</span> <span style="color:#8b008b;font-weight:bold">:</span><span style="color:#00688b;font-weight:bold">:</span> <span style="color:#00688b;font-weight:bold">List</span>(<span style="color:#00688b;font-weight:bold">b</span>))
+        d <span style="color:#8b008b;font-weight:bold">&lt;-</span> measure(c.headOption)
+      } <span style="color:#8b008b;font-weight:bold">yield</span> d
+    }
+
+    interpretImpure(script)
+  }
+}</code></pre></td></tr></table>
+</div>
+</div>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="https://workday.github.io/warp-core/contents/getting_started_scala/" title="Scala (DSL)"> <i class="fa fa-chevron-left"></i><label>Scala (DSL)</label></a>
+    <a class="nav nav-next" href="https://workday.github.io/warp-core/contents/custom_collectors/" title="Collecting Custom Measurements" style="margin-right: 0px;"><label>Collecting Custom Measurements</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+  
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 02/04/2018
+    </div>
+    
+
+    <div class="github-link">
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/contents/warpscript.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="https://workday.github.io/warp-core/js/clipboard.min.js"></script>
+
+<link href="https://workday.github.io/warp-core/css/featherlight.min.css" rel="stylesheet">
+<script src="https://workday.github.io/warp-core/js/featherlight.min.js"></script>
+
+
+
+<script src="https://workday.github.io/warp-core/theme-flex/script.js"></script>
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

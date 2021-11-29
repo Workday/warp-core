@@ -1,5 +1,5 @@
 ---
-title: "Scala DSL"
+title: "Scala (DSL)"
 date: 2018-04-02T12:49:11-07:00
 draft: true
 weight: 30

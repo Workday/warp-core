@@ -29,13 +29,23 @@ build.gradle: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23  apply
     </item>
     
     <item>
-      <title>Scala DSL</title>
+      <title>Scala (DSL)</title>
       <link>https://workday.github.io/warp-core/contents/getting_started_scala/</link>
       <pubDate>Mon, 02 Apr 2018 12:49:11 -0700</pubDate>
       
       <guid>https://workday.github.io/warp-core/contents/getting_started_scala/</guid>
       <description>The recommended way to interact with WARP is through the Scala DSL. This API provides a richer feature set than the Java API, including the ability to register custom MeasurementCollector and Arbiter instances, and add new tags in the form of String metadata that will be persisted.
 The DSL is implemented by using an immutable case class, ExecutionConfig to hold all configuration parameters, such as number of invocations, warmups, threadpool size, etc.</description>
+    </item>
+    
+    <item>
+      <title>Scala (WarpScript)</title>
+      <link>https://workday.github.io/warp-core/contents/warpscript/</link>
+      <pubDate>Mon, 02 Apr 2018 12:49:11 -0700</pubDate>
+      
+      <guid>https://workday.github.io/warp-core/contents/warpscript/</guid>
+      <description>WarpScript WarpScript is an experimental measurement API based on the Free Monad, allowing users to represent a measurement plan as a monadic pipeline of exec and measure operations. exec is a simple wrapper around a call-by-name parameter, useful for side effects or setup test data. measure is for measuring a call-by-name parameter.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21  import com.</description>
     </item>
     
     <item>
