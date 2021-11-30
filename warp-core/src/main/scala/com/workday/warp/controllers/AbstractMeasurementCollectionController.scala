@@ -266,7 +266,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
         // read all tried outer tags
         this.logTagErrors(this.recordTags(this.tags, testExecution))
 
-        logger.info(s"checking arbiter votes for ${this.testId}")
+        logger.debug(s"checking arbiter votes for ${this.testId}")
         this.enabledArbiters foreach {
           _.collectVote(this.ballotBox, testExecution)
         }
