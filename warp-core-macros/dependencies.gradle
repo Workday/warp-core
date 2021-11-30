@@ -1,0 +1,13 @@
+// keep in alphabetical order
+dependencies {
+    println("warp-core-macros dependencies for: " + project.scalaVersion)
+}
+
+afterEvaluate {
+    if (project.scalaSuffix != "_2.13") {
+        println("disabling all tasks for ${project.name} (scala ${project.scalaVersion})")
+        project.tasks.each {
+            it.enabled = false
+        }
+    }
+}

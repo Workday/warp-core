@@ -4,6 +4,7 @@ buildscript {
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
+        mavenCentral()
 		jcenter()
         maven {
             url "https://plugins.gradle.org/m2/"
@@ -52,6 +53,7 @@ allprojects {
 
     repositories {
         mavenLocal()
+        mavenCentral()
         jcenter()
     }
 
@@ -78,6 +80,12 @@ allprojects {
         scalaVersion = '2.13'
         config = file("${rootDir}/scalastyle.xml")
     }
+
+    // avoid an error like:
+    // Execution failed for task ':warp-core-root_2.13.6:warp-core:clean'.
+    // > java.io.IOException: Unable to delete directory '~/code/warp-core-root/warp-core/build'
+    // New files were found. This might happen because a process is still writing to the target directory.
+    buildDir "$projectDir/build_$scalaVersion"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -90,6 +98,12 @@ project(':warp-core') {
 }
 
 project(':warp-core-gatling') {
+    dependencies {
+        api project(':warp-core')
+    }
+}
+
+project(':warp-core-macros') {
     dependencies {
         api project(':warp-core')
     }
@@ -210,7 +224,9 @@ subprojects {
                 // so we can avoid importing scala.language.postfixOps in multiple source files
                 '-language:postfixOps',
                 // gets rid of "Static methods in interface require -target:jvm-1.8" error
-                '-target:jvm-1.8'
+                '-target:jvm-1.8',
+                // uncomment to show emitted macro code (very noisy)
+                // '-Ymacro-debug-lite'
         ]
     }
 
