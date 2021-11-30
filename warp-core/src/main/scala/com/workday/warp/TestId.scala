@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.slf4j.{Logger, LoggerFactory}
 
+import scala.runtime.ScalaRunTime
 import scala.util.{Failure, Success, Try}
 
 /** Logic for constructing a testId given a testClass and testMethod.
@@ -52,6 +53,15 @@ case class TestId(maybeTestClass: Try[Class[_]], maybeTestMethod: Try[Method]) {
   override def equals(other: Any): Boolean = {
     other != None.orNull && other.isInstanceOf[TestId] && other.asInstanceOf[TestId].id == this.id
   }
+
+
+  /**
+    * We often construct a TestId directly from a String, and in these cases we want to print that string rather than
+    * the compiler-generated toString.
+    *
+    * @return a string representation of this [[TestId]].
+    */
+  override def toString: String = this.maybeId.map(id => s"TestId($id)").getOrElse(ScalaRunTime._toString(this))
 }
 
 

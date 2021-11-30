@@ -83,7 +83,7 @@ allprojects {
 
     // avoid an error like:
     // Execution failed for task ':warp-core-root_2.13.6:warp-core:clean'.
-    // > java.io.IOException: Unable to delete directory '/Users/tomas.mccandless/code/warp-core-tomnis/warp-core/build'
+    // > java.io.IOException: Unable to delete directory '~/code/warp-core-root/warp-core/build'
     // New files were found. This might happen because a process is still writing to the target directory.
     buildDir "$projectDir/build_$scalaVersion"
 }
@@ -193,6 +193,7 @@ subprojects {
     }
 
     task sourcesJar(type: Jar) {
+        duplicatesStrategy = 'include'
         archiveClassifier = 'sources'
         from sourceSets.main.allSource
     }
@@ -200,11 +201,13 @@ subprojects {
 // fake javadoc jar to pass sonatype rules
 // See https://central.sonatype.org/pages/requirements.html
     task javadocJar(type: Jar) {
+        duplicatesStrategy = 'include'
         archiveClassifier = 'javadoc'
         from new File("$rootDir/javadoc-fake")
     }
 
     task scaladocJar(type: Jar) {
+        duplicatesStrategy = 'include'
         archiveClassifier = 'scaladoc'
         from scaladoc.destinationDir
     }
