@@ -59,26 +59,34 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    // we don't care about today's response time for this
-    val rawResponseTimes: Iterable[Double] = this.responseTimes(ballot.testId.id, testExecution.idTestExecution,
-      startDateLowerBound, useSlidingWindow, slidingWindowSize)
-    val threshold: Duration = this.smartNumber(rawResponseTimes).seconds
-    val responseTime: Duration = TimeUtils.toNanos(testExecution.responseTime, TimeUnit.SECONDS).nanoseconds
-
-    if (threshold.isPositive) {
-      tryRecordSmartThreshold(threshold, testExecution) match {
-        case Success(_) =>
-          logger.trace("Smart threshold successfully persisted to TestExecutionMetaTag table")
-          this.vote(testExecution, responseTime, threshold)
-
-        // fatal error threshold is value and try persistence fails
-        case Failure(exception) =>
-          logger.error(s"Smart threshold failed to persist to TestExecutionMetaTag table with exception $exception")
-          Option(new WarpFieldPersistenceException(s"Smart Threshold failed to persist", exception))
-      }
+    if (useSlidingWindow && slidingWindowSize < WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt) {
+      Option(new IllegalArgumentException(
+          s"sliding window is enabled, but window size (${slidingWindowSize}) is less than " +
+            s"${WARP_ANOMALY_RPCA_MINIMUM_N.propertyName} (${WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt})"
+      ))
     }
     else {
-      None
+      // we don't care about today's response time for this
+      val rawResponseTimes: Iterable[Double] = this.responseTimes(ballot.testId.id, testExecution.idTestExecution,
+        startDateLowerBound, useSlidingWindow, slidingWindowSize)
+      val threshold: Duration = this.smartNumber(rawResponseTimes).seconds
+      val responseTime: Duration = TimeUtils.toNanos(testExecution.responseTime, TimeUnit.SECONDS).nanoseconds
+
+      if (threshold.isPositive) {
+        tryRecordSmartThreshold(threshold, testExecution) match {
+          case Success(_) =>
+            logger.trace("Smart threshold successfully persisted to TestExecutionMetaTag table")
+            this.vote(testExecution, responseTime, threshold)
+
+          // fatal error threshold is value and try persistence fails
+          case Failure(exception) =>
+            logger.error(s"Smart threshold failed to persist to TestExecutionMetaTag table with exception $exception")
+            Option(new WarpFieldPersistenceException(s"Smart Threshold failed to persist", exception))
+        }
+      }
+      else {
+        None
+      }
     }
   }
 
