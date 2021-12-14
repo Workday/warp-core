@@ -187,6 +187,20 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware wit
 
 
   /**
+    * Checks that `vote` returns an [[IllegalArgumentException]] when sliding window size is too small.
+    */
+  @UnitTest
+  def illegalState(): Unit = {
+    val testId: String = "u.v.w.x.y.z" + UUID.randomUUID().toString
+
+    val incomingTestExecution: TestExecutionRowLike = persistDummyTestExecution(testId, 50)
+    val arbiter: SmartNumberArbiter = new SmartNumberArbiter(useSlidingWindow = true, slidingWindowSize = 20)
+    arbiter.vote(new Ballot(testId), incomingTestExecution).get.getClass should be (classOf[IllegalArgumentException])
+  }
+
+
+
+  /**
    * Checks that the smart threshold is persisted
    */
   @UnitTest
