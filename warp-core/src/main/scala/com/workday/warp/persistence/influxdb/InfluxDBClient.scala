@@ -245,16 +245,16 @@ object InfluxDBClient extends WarpLogging {
 
   /** @return an InfluxDB connection based on the values set in WarpProperty. */
   protected[influxdb] def connect(url: String, user: String, password: String): Either[String, InfluxDB] = {
-    val influx: InfluxDB = InfluxDBFactory.connect(url, user, password)
+    val maybeInflux: Try[InfluxDB] = Try(InfluxDBFactory.connect(url, user, password))
 
-    Try(influx.ping) match {
+    maybeInflux.map(_.ping()) match {
       case Failure(exception) =>
         val error: String =
           s"unable to connect to influxdb at $url using credentials (user = $user, password = $password)"
         logger.warn(error, exception.getMessage)
         Left(error)
       case Success(_) =>
-        Right(influx)
+        Right(maybeInflux.get)
     }
   }
 }
