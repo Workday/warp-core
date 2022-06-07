@@ -67,10 +67,10 @@ object WarpPropertyManager {
   val overlayedProperties: Map[String, String] = overlayProperties
   // set jvm system properties based on configuration file properties beginning with "systemProp."
   propagateSystemProperties()
-  // log the configuration values to be used
-  logPropertyValues()
   // configure our logger
   WarpLogUtils.setLogLevelFromWarpProperties()
+  // log the configuration values to be used
+  logPropertyValues()
 
 
   /**
