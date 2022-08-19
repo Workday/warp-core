@@ -242,8 +242,7 @@ subprojects {
         maxHeapSize = "8g"
 
         testLogging {
-            events 'started', 'passed'
-            showStandardStreams = true
+            events 'failed'
         }
 
         useJUnitPlatform()
