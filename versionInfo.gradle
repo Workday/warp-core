@@ -16,7 +16,7 @@ project.ext.versions = [
         , gradleGit: '4.0.2'
         , gradleScoverage: '7.0.0'
         , guava: '29.0-jre'
-        , guice: '4.2.3'
+        , guice: '5.1.0'
         , gson: '2.8.5'
         , h2: '1.4.200'
         , influxDbClient: '2.15'
