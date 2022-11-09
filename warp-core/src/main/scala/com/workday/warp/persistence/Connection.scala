@@ -153,6 +153,7 @@ object Connection {
   val url: String = WARP_DATABASE_URL.value
   val user: String = WARP_DATABASE_USER.value
   val password: String = WARP_DATABASE_PASSWORD.value
+  val maxLifetime: Int = WARP_DATABASE_MAX_LIFETIME.value.toInt
 
   // scalastyle:off two.spaces
   val config: String =
@@ -163,6 +164,7 @@ object Connection {
       |  url = "$url"
       |  user = "$user"
       |  password = "$password"
+      |  maxLifetime = $maxLifetime
       |}
     """.stripMargin
   // scalastyle:on two.spaces

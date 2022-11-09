@@ -334,13 +334,16 @@ class DslSpec extends WarpJUnitSpec with HasRandomTestId with WarpLogging {
     Researcher(config).collectionController().testId.id should be (someTestId)
     config measure { 1 + 1 }
     ConfigStore.get(someTestId) should be (Some(config))
-    Researcher(using trials 5 testId someTestId).collectionController().testId.id should be (someTestId)
+    val c1: ExecutionConfig = using trials 5 testId someTestId
+    Researcher(c1).collectionController().testId.id should be (someTestId)
 
     val randomTestId: TestId = this.randomTestId()
-    Researcher(using testId randomTestId).collectionController().testId should be (randomTestId)
+    val c2: ExecutionConfig = using testId randomTestId
+    Researcher(c2).collectionController().testId should be (randomTestId)
 
     // check that we handle empty string correctly
-    Researcher(using testId "").collectionController().testId should be (TestId.undefined)
+    val c3: ExecutionConfig = using testId ""
+    Researcher(c3).collectionController().testId should be (TestId.undefined)
   }
 
 

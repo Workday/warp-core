@@ -139,6 +139,7 @@ task copyH2ConfigTemplate(type: Copy) {
     into "$rootDir/config/"
 }
 
+
 import org.apache.tools.ant.filters.ReplaceTokens
 import io.github.cosmicsilence.scalafix.ScalafixTask
 import org.scoverage.ScoverageAggregate
@@ -277,6 +278,7 @@ subprojects {
 
         task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"
+        task.systemProperty "jdk.attach.allowAttachSelf", "true"
     }
 
     coveralls {
@@ -286,6 +288,10 @@ subprojects {
     scalafix {
         excludes = ["**/persistence/model/**"]
         ignoreSourceSets = ["scoverage"]
+        semanticdb {
+            autoConfigure = true
+            version = '4.6.0'
+        }
     }
 
 

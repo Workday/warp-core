@@ -66,6 +66,15 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   val WARP_DATABASE_TIMEOUT: PropertyEntry = PropertyEntry("wd.warp.jdbc.timeout", isRequired = true, "90")
 
   /**
+    * hikariCP connection maxLifetime (millis).
+    * See https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby
+    *
+    * Required: Yes
+    * Default Value: 1800000
+    */
+  val WARP_DATABASE_MAX_LIFETIME: PropertyEntry = PropertyEntry("wd.warp.jdbc.max.lifetime", isRequired = true, defaultValue = "1800000")
+
+  /**
     * Whether or not we should apply flyway schema migrations.
     *
     * This should be disabled in the warp pipelines, where we want to manually run the schema migration jobs.
