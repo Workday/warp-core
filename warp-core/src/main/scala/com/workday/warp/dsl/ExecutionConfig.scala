@@ -58,7 +58,7 @@ case class ExecutionConfig(invocations: Int = 1,
     */
   @DslApi
   @deprecated("use trials(newInvocations) instead")
-  def iterations(newIterations: Int): ExecutionConfig = this.copy(invocations = newIterations)
+  def iterations(newIterations: Int): ExecutionConfig = this.trials(newIterations)
 
 
   /**
@@ -81,7 +81,7 @@ case class ExecutionConfig(invocations: Int = 1,
    * @return a new [[ExecutionConfig]] with the specified number of invocations.
    */
   @DslApi
-  def trials(newTrials: Int): ExecutionConfig = this.iterations(newTrials)
+  def trials(newTrials: Int): ExecutionConfig = this.copy(invocations = newTrials)
 
   /**
     * Part of the dsl. Sets number of warmup invocations for the measured function. Enables syntax like 'using warmups 5'.

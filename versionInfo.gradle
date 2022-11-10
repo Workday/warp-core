@@ -25,7 +25,7 @@ project.ext.versions = [
         , junit5PlatformLauncher: '1.7.0-M1'
         , logback: '1.2.3'
         , math3: '3.6.1'
-        , mysqlConnector: '8.0.16'
+        , mysqlConnector: '8.0.31'
         , nebulaGit: '4.2.0'
         , nebulaRelease: '15.0.3'
         , nebulaPublish: '17.3.0'
