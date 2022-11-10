@@ -285,12 +285,19 @@ subprojects {
         coberturaReportPath = "${buildDir}/reports/scoverage${scalaSuffix}/cobertura.xml"
     }
 
+
+    scoverage {
+        scoverageVersion = "${versions.scalacScoverage}"
+    }
+
+
+
     scalafix {
         excludes = ["**/persistence/model/**"]
         ignoreSourceSets = ["scoverage"]
         semanticdb {
             autoConfigure = true
-            version = '4.6.0'
+            version = "${versions.semanticDb}"
         }
     }
 

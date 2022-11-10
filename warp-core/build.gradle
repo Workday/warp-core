@@ -5,5 +5,4 @@ scoverage {
 
     // Default Coverage Type is "Statement"
     minimumRate = 0.92
-    scoverageVersion = "2.0.7"
 }
