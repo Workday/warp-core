@@ -7,7 +7,7 @@ import java.text.DecimalFormat
 import java.time._
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.{Calendar, TimeZone, Date => JUDate}
+import java.util.{Calendar, TimeZone}
 
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
