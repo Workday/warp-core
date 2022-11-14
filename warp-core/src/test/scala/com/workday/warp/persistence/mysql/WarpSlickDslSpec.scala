@@ -7,8 +7,7 @@ import java.text.DecimalFormat
 import java.time._
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.{Calendar, TimeZone}
-
+import java.util.{Calendar, GregorianCalendar, TimeZone}
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.mysql.WarpMySQLProfile.api._
 import com.workday.warp.TestIdImplicits.string2TestId
@@ -193,17 +192,17 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware with Skip
   /** Tests DATE(timestamp) dsl. */
   @UnitTest
   def returnDateTimestamp(): Unit = {
-    val format: SimpleDateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd")
-    val date: String = format.format(new java.util.Date())
+    val cal = new GregorianCalendar()
+    // month is 0-based
+    cal.set(2022, 9, 31)
+    cal.setTimeZone(TimeZone.getTimeZone("Etc/UTC"))
+    val time: Rep[sql.Timestamp] = sql.Timestamp.from(cal.getTime.toInstant)
+    val actualQueryDate: DBIO[sql.Date] = time.date().result
+    val actualResultDate: sql.Date = this.persistenceUtils.runWithRetries(actualQueryDate)
 
-    val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
-    val timeStamp: Rep[sql.Timestamp] = testExecution.startTime
-    val query1: Rep[sql.Date] = timeStamp.date()
-    this.persistenceUtils.runWithRetries(query1.result).toString shouldEqual date
-
-    val query2: Query[Rep[sql.Date], sql.Date, Seq] = TestExecution.map(_.startTime.date())
-    this.persistenceUtils.runWithRetries(query2.result).head.toString shouldEqual date
-
+    val expectedQueryDate: DBIO[sql.Date] = sql"""SELECT DATE('2022-10-31 00:00:00')""".as[sql.Date].head
+    val expectedResultDate: sql.Date = this.persistenceUtils.runWithRetries(expectedQueryDate)
+    expectedResultDate shouldEqual actualResultDate
   }
 
   /** Tests DATE(string) dsl. */
