@@ -46,4 +46,4 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-${{ matrix.scala }}
 
       - name: Build with Gradle
-        run: ./gradlew copy${{ matrix.db }}ConfigTemplate test checkScalafix checkScoverage aggregateScoverage publishToMavenLocal -PscalaVersion=${{ matrix.scala }} --stacktrace
+        run: ./gradlew copy${{ matrix.db }}ConfigTemplate test checkScalafix publishToMavenLocal -PscalaVersion=${{ matrix.scala }} --stacktrace
