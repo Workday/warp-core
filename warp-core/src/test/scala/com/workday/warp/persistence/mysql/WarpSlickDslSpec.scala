@@ -68,10 +68,10 @@ class WarpSlickDslSpec extends WarpJUnitSpec with CorePersistenceAware with Skip
     this.persistenceUtils.createTestExecution(methodSignature1, Instant.now(), 1.0, 10)
     Thread.sleep(2000)
 
-    val query1 = TestExecution.filter(_.endTime isWithinPast "1 SECOND")
+    val query1 = TestExecution.filter(_.endTime isWithinPast "'1' SECOND")
     this.persistenceUtils.runWithRetries(query1.result, 5) shouldBe empty
 
-    val query2 = TestExecution.filter(_.endTime isWithinPast "5 MINUTE")
+    val query2 = TestExecution.filter(_.endTime isWithinPast "'5' MINUTE")
     this.persistenceUtils.runWithRetries(query2.result, 5).size shouldEqual 3
 
   }
