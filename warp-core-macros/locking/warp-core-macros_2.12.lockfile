@@ -2,10 +2,10 @@
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
 aopalliance:aopalliance:1.0=compileClasspath
-ch.qos.logback:logback-classic:1.2.3=compileClasspath
-ch.qos.logback:logback-core:1.2.3=compileClasspath
+ch.qos.logback:logback-classic:1.2.11=compileClasspath
+ch.qos.logback:logback-core:1.2.11=compileClasspath
 com.google.code.findbugs:jsr305:3.0.2=compileClasspath
-com.google.code.gson:gson:2.8.5=compileClasspath
+com.google.code.gson:gson:2.8.9=compileClasspath
 com.google.errorprone:error_prone_annotations:2.3.4=compileClasspath
 com.google.guava:failureaccess:1.0.1=compileClasspath
 com.google.guava:guava:30.1-jre=compileClasspath
@@ -25,10 +25,10 @@ com.zaxxer:HikariCP:4.0.3=compileClasspath
 commons-logging:commons-logging:1.2=compileClasspath
 javax.inject:javax.inject:1=compileClasspath
 junit:junit:4.13.2=compileClasspath
-org.apache.commons:commons-configuration2:2.7=compileClasspath
-org.apache.commons:commons-lang3:3.9=compileClasspath
+org.apache.commons:commons-configuration2:2.8.0=compileClasspath
+org.apache.commons:commons-lang3:3.12.0=compileClasspath
 org.apache.commons:commons-math3:3.6.1=compileClasspath
-org.apache.commons:commons-text:1.8=compileClasspath
+org.apache.commons:commons-text:1.9=compileClasspath
 org.apiguardian:apiguardian-api:1.1.0=compileClasspath
 org.checkerframework:checker-qual:3.5.0=compileClasspath
 org.flywaydb:flyway-core:5.2.1=compileClasspath
