@@ -1,5 +1,5 @@
-val slickVersion = "3.3.3"
-val mysqlConnectorVersion = "5.1.27"
+val slickVersion = "3.4.1"
+val mysqlConnectorVersion = "8.0.31"
 val slf4jVersion = "1.7.10"
 
 /** main project containing main source code depending on slick and codegen project */
@@ -17,7 +17,7 @@ lazy val codegen = project
 
 
 lazy val sharedSettings = Seq(
-  scalaVersion := "2.11.8",
+  scalaVersion := "2.13.10",
   scalacOptions := Seq("-feature", "-unchecked", "-deprecation"),
   libraryDependencies ++= List(
     "com.typesafe.slick" %% "slick" % slickVersion,

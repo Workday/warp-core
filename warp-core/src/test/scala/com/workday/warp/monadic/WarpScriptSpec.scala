@@ -25,7 +25,7 @@ class WarpScriptSpec extends WarpJUnitSpec with WarpLogging {
       b <- exec("setup step creates b", a + 1)
 
       // measure takes a name and an expression, and measures that expression
-      c <- measure("com.workday.warp.MeasureSpec.c", { logger.info("computing b"); a + 1 })
+      _ <- measure("com.workday.warp.MeasureSpec.c", { logger.info("computing b"); a + 1 })
       d <- measure("com.workday.warp.MeasureSpec.d", a + b)
     } yield d
 

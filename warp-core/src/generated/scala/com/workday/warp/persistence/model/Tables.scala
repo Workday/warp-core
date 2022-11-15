@@ -178,7 +178,7 @@ trait Tables {
   }
   /** Table description of table Build. Objects of this class serve as prototypes for rows in queries. */
   class Build(_tableTag: Tag) extends profile.api.Table[BuildRow](_tableTag, None, "Build") with BuildLike {
-    def * = (idBuild, major, minor, patch, firstTested, lastTested) <> (BuildRow.tupled, BuildRow.unapply)
+    def * = (idBuild, major, minor, patch, firstTested, lastTested).<>(BuildRow.tupled, BuildRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idBuild), Rep.Some(major), Rep.Some(minor), Rep.Some(patch), Rep.Some(firstTested), Rep.Some(lastTested))).shaped.<>({r=>import r._; _1.map(_=> BuildRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -217,7 +217,7 @@ trait Tables {
   }
   /** Table description of table Measurement. Objects of this class serve as prototypes for rows in queries. */
   class Measurement(_tableTag: Tag) extends profile.api.Table[MeasurementRow](_tableTag, None, "Measurement") with MeasurementLike {
-    def * = (idTestExecution, idMeasurementName, result) <> (MeasurementRow.tupled, MeasurementRow.unapply)
+    def * = (idTestExecution, idMeasurementName, result).<>(MeasurementRow.tupled, MeasurementRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idTestExecution), Rep.Some(idMeasurementName), Rep.Some(result))).shaped.<>({r=>import r._; _1.map(_=> MeasurementRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -232,9 +232,9 @@ trait Tables {
     val pk = primaryKey("Measurement_PK", (idTestExecution, idMeasurementName))
 
     /** Foreign key referencing MeasurementName (database name idMeasurementDescription) */
-    lazy val measurementNameFk = foreignKey("idMeasurementDescription", idMeasurementName, MeasurementName)(r => r.idMeasurementName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val measurementNameFk = foreignKey("idMeasurementDescription", idMeasurementName, MeasurementName)(r => r.idMeasurementName, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
     /** Foreign key referencing TestExecution (database name idTestExecution_Measurement) */
-    lazy val testExecutionFk = foreignKey("idTestExecution_Measurement", idTestExecution, TestExecution)(r => r.idTestExecution, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val testExecutionFk = foreignKey("idTestExecution_Measurement", idTestExecution, TestExecution)(r => r.idTestExecution, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
   }
   /** Collection-like TableQuery object for table Measurement */
   lazy val Measurement = new TableQuery(tag => new Measurement(tag))
@@ -254,7 +254,7 @@ trait Tables {
   }
   /** Table description of table MeasurementName. Objects of this class serve as prototypes for rows in queries. */
   class MeasurementName(_tableTag: Tag) extends profile.api.Table[MeasurementNameRow](_tableTag, None, "MeasurementName") with MeasurementNameLike {
-    def * = (idMeasurementName, name) <> (MeasurementNameRow.tupled, MeasurementNameRow.unapply)
+    def * = (idMeasurementName, name).<>(MeasurementNameRow.tupled, MeasurementNameRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idMeasurementName), Rep.Some(name))).shaped.<>({r=>import r._; _1.map(_=> MeasurementNameRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -286,7 +286,7 @@ trait Tables {
   }
   /** Table description of table TagName. Objects of this class serve as prototypes for rows in queries. */
   class TagName(_tableTag: Tag) extends profile.api.Table[TagNameRow](_tableTag, None, "TagName") with TagNameLike {
-    def * = (idTagName, name, nameType, isUserGenerated) <> (TagNameRow.tupled, TagNameRow.unapply)
+    def * = (idTagName, name, nameType, isUserGenerated).<>(TagNameRow.tupled, TagNameRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idTagName), Rep.Some(name), Rep.Some(nameType), Rep.Some(isUserGenerated))).shaped.<>({r=>import r._; _1.map(_=> TagNameRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -326,7 +326,7 @@ trait Tables {
   }
   /** Table description of table TestDefinition. Objects of this class serve as prototypes for rows in queries. */
   class TestDefinition(_tableTag: Tag) extends profile.api.Table[TestDefinitionRow](_tableTag, None, "TestDefinition") with TestDefinitionLike {
-    def * = (idTestDefinition, methodSignature, active, productName, subProductName, className, methodName, documentation) <> (TestDefinitionRow.tupled, TestDefinitionRow.unapply)
+    def * = (idTestDefinition, methodSignature, active, productName, subProductName, className, methodName, documentation).<>(TestDefinitionRow.tupled, TestDefinitionRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idTestDefinition), Rep.Some(methodSignature), Rep.Some(active), Rep.Some(productName), Rep.Some(subProductName), Rep.Some(className), Rep.Some(methodName), documentation)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -371,7 +371,7 @@ trait Tables {
   }
   /** Table description of table TestDefinitionMetaTag. Objects of this class serve as prototypes for rows in queries. */
   class TestDefinitionMetaTag(_tableTag: Tag) extends profile.api.Table[TestDefinitionMetaTagRow](_tableTag, None, "TestDefinitionMetaTag") with TestDefinitionMetaTagLike {
-    def * = (idTestDefinitionTag, idTagName, value) <> (TestDefinitionMetaTagRow.tupled, TestDefinitionMetaTagRow.unapply)
+    def * = (idTestDefinitionTag, idTagName, value).<>(TestDefinitionMetaTagRow.tupled, TestDefinitionMetaTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idTestDefinitionTag), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -386,9 +386,9 @@ trait Tables {
     val pk = primaryKey("TestDefinitionMetaTag_PK", (idTestDefinitionTag, idTagName))
 
     /** Foreign key referencing TagName (database name idTagName_DefinitionMetaTag) */
-    lazy val tagNameFk = foreignKey("idTagName_DefinitionMetaTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val tagNameFk = foreignKey("idTagName_DefinitionMetaTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
     /** Foreign key referencing TestDefinitionTag (database name idTestDefinitionTag_DefinitionMetaTag) */
-    lazy val testDefinitionTagFk = foreignKey("idTestDefinitionTag_DefinitionMetaTag", idTestDefinitionTag, TestDefinitionTag)(r => r.idTestDefinitionTag, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val testDefinitionTagFk = foreignKey("idTestDefinitionTag_DefinitionMetaTag", idTestDefinitionTag, TestDefinitionTag)(r => r.idTestDefinitionTag, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
   }
   /** Collection-like TableQuery object for table TestDefinitionMetaTag */
   lazy val TestDefinitionMetaTag = new TableQuery(tag => new TestDefinitionMetaTag(tag))
@@ -410,7 +410,7 @@ trait Tables {
   }
   /** Table description of table TestDefinitionTag. Objects of this class serve as prototypes for rows in queries. */
   class TestDefinitionTag(_tableTag: Tag) extends profile.api.Table[TestDefinitionTagRow](_tableTag, None, "TestDefinitionTag") with TestDefinitionTagLike {
-    def * = (idTestDefinitionTag, idTestDefinition, idTagName, value) <> (TestDefinitionTagRow.tupled, TestDefinitionTagRow.unapply)
+    def * = (idTestDefinitionTag, idTestDefinition, idTagName, value).<>(TestDefinitionTagRow.tupled, TestDefinitionTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idTestDefinitionTag), Rep.Some(idTestDefinition), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -424,9 +424,9 @@ trait Tables {
     val value: Rep[String] = column[String]("value", O.Length(255,varying=true))
 
     /** Foreign key referencing TagName (database name idTagDescription_TestDefinitionTag) */
-    lazy val tagNameFk = foreignKey("idTagDescription_TestDefinitionTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val tagNameFk = foreignKey("idTagDescription_TestDefinitionTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
     /** Foreign key referencing TestDefinition (database name idTestDefinition_Tag) */
-    lazy val testDefinitionFk = foreignKey("idTestDefinition_Tag", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val testDefinitionFk = foreignKey("idTestDefinition_Tag", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
 
     /** Uniqueness Index over (idTagName,idTestDefinition) (database name idTestDefinition_TagName_unique) */
     val index1 = index("idTestDefinition_TagName_unique", (idTagName, idTestDefinition), unique=true)
@@ -455,7 +455,7 @@ trait Tables {
   }
   /** Table description of table TestExecution. Objects of this class serve as prototypes for rows in queries. */
   class TestExecution(_tableTag: Tag) extends profile.api.Table[TestExecutionRow](_tableTag, None, "TestExecution") with TestExecutionLike {
-    def * = (idTestExecution, idTestDefinition, idBuild, passed, responseTime, responseTimeRequirement, startTime, endTime) <> (TestExecutionRow.tupled, TestExecutionRow.unapply)
+    def * = (idTestExecution, idTestDefinition, idBuild, passed, responseTime, responseTimeRequirement, startTime, endTime).<>(TestExecutionRow.tupled, TestExecutionRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idTestExecution), Rep.Some(idTestDefinition), Rep.Some(idBuild), Rep.Some(passed), Rep.Some(responseTime), Rep.Some(responseTimeRequirement), Rep.Some(startTime), Rep.Some(endTime))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -477,9 +477,9 @@ trait Tables {
     val endTime: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("endTime")
 
     /** Foreign key referencing Build (database name idBuild) */
-    lazy val buildFk = foreignKey("idBuild", idBuild, Build)(r => r.idBuild, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val buildFk = foreignKey("idBuild", idBuild, Build)(r => r.idBuild, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
     /** Foreign key referencing TestDefinition (database name definition_TestExecution) */
-    lazy val testDefinitionFk = foreignKey("definition_TestExecution", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.Cascade)
+    lazy val testDefinitionFk = foreignKey("definition_TestExecution", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
   }
   /** Collection-like TableQuery object for table TestExecution */
   lazy val TestExecution = new TableQuery(tag => new TestExecution(tag))
@@ -500,7 +500,7 @@ trait Tables {
   }
   /** Table description of table TestExecutionMetaTag. Objects of this class serve as prototypes for rows in queries. */
   class TestExecutionMetaTag(_tableTag: Tag) extends profile.api.Table[TestExecutionMetaTagRow](_tableTag, None, "TestExecutionMetaTag") with TestExecutionMetaTagLike {
-    def * = (idTestExecutionTag, idTagName, value) <> (TestExecutionMetaTagRow.tupled, TestExecutionMetaTagRow.unapply)
+    def * = (idTestExecutionTag, idTagName, value).<>(TestExecutionMetaTagRow.tupled, TestExecutionMetaTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idTestExecutionTag), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -515,9 +515,9 @@ trait Tables {
     val pk = primaryKey("TestExecutionMetaTag_PK", (idTestExecutionTag, idTagName))
 
     /** Foreign key referencing TagName (database name idTagName_ExecutionMetaTag) */
-    lazy val tagNameFk = foreignKey("idTagName_ExecutionMetaTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val tagNameFk = foreignKey("idTagName_ExecutionMetaTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
     /** Foreign key referencing TestExecutionTag (database name idTestExecutionTag_ExecutionMetaTag) */
-    lazy val testExecutionTagFk = foreignKey("idTestExecutionTag_ExecutionMetaTag", idTestExecutionTag, TestExecutionTag)(r => r.idTestExecutionTag, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val testExecutionTagFk = foreignKey("idTestExecutionTag_ExecutionMetaTag", idTestExecutionTag, TestExecutionTag)(r => r.idTestExecutionTag, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
   }
   /** Collection-like TableQuery object for table TestExecutionMetaTag */
   lazy val TestExecutionMetaTag = new TableQuery(tag => new TestExecutionMetaTag(tag))
@@ -539,7 +539,7 @@ trait Tables {
   }
   /** Table description of table TestExecutionTag. Objects of this class serve as prototypes for rows in queries. */
   class TestExecutionTag(_tableTag: Tag) extends profile.api.Table[TestExecutionTagRow](_tableTag, None, "TestExecutionTag") with TestExecutionTagLike {
-    def * = (idTestExecutionTag, idTestExecution, idTagName, value) <> (TestExecutionTagRow.tupled, TestExecutionTagRow.unapply)
+    def * = (idTestExecutionTag, idTestExecution, idTagName, value).<>(TestExecutionTagRow.tupled, TestExecutionTagRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
     def ? = ((Rep.Some(idTestExecutionTag), Rep.Some(idTestExecution), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> TestExecutionTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
@@ -553,9 +553,9 @@ trait Tables {
     val value: Rep[String] = column[String]("value", O.Length(255,varying=true))
 
     /** Foreign key referencing TagName (database name idTagName_TestExecutionTag) */
-    lazy val tagNameFk = foreignKey("idTagName_TestExecutionTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val tagNameFk = foreignKey("idTagName_TestExecutionTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
     /** Foreign key referencing TestExecution (database name idTestExecution_Tag) */
-    lazy val testExecutionFk = foreignKey("idTestExecution_Tag", idTestExecution, TestExecution)(r => r.idTestExecution, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+    lazy val testExecutionFk = foreignKey("idTestExecution_Tag", idTestExecution, TestExecution)(r => r.idTestExecution, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
 
     /** Uniqueness Index over (idTagName,idTestExecution) (database name idTestExecution_TagName_unique) */
     val index1 = index("idTestExecution_TagName_unique", (idTagName, idTestExecution), unique=true)
