@@ -240,7 +240,7 @@ subprojects {
 
     test {
         minHeapSize = "500m"
-        maxHeapSize = "8g"
+        maxHeapSize = "12g"
 
         testLogging {
             events 'failed'
@@ -322,13 +322,18 @@ subprojects {
             tasks.withType(ScalafixTask) {
                 enabled = false
             }
-            tasks.withType(ScoverageReport) {
-                enabled = false
-            }
-            tasks.withType(ScoverageAggregate) {
-                enabled = false
-            }
         }
+        // TODO temporarily disabling scoverage until scalac-scoverage 2.x is supported
+        // see
+        // https://github.com/scoverage/gradle-scoverage/issues/185
+        // https://github.com/scoverage/gradle-scoverage/pull/188
+        tasks.withType(ScoverageReport) {
+            enabled = false
+        }
+        tasks.withType(ScoverageAggregate) {
+            enabled = false
+        }
+        tasks.compileScoverageScala.enabled = false
     }
 
     dependencyLocking {
