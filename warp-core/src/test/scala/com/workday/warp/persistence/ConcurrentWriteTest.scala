@@ -50,7 +50,7 @@ class ConcurrentWriteTest extends WarpJUnitSpec with CorePersistenceAware {
 
   @UnitTest
   def concurrentTestExecution(): Unit = {
-    using threads 8 trials 16 invoke {
+    using threads 4 trials 16 invoke {
       val testExecution: TestExecutionRowLike = this.persistenceUtils.createTestExecution(this.methodSignature,
         Instant.now(), responseTime = 5.0,
         maxResponseTime = 6.0)

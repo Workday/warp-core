@@ -1,4 +1,5 @@
 scoverage {
     // Default Coverage Type is "Statement"
     minimumRate = 0.75
+    scoverageVersion = "${versions.scalacScoverage}"
 }
