@@ -11,6 +11,7 @@ import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
+import slick.jdbc.hikaricp.HikariCPJdbcDataSource
 import slick.jdbc.{JdbcDataSource, TransactionIsolation}
 import slick.util.ClassLoaderUtil
 
@@ -145,7 +146,7 @@ trait Connection extends WarpLogging {
   def trySynchronously[Row](action: DBIO[Row]): Try[Row] = Try(Await.result(Connection.db.run(action), Connection.timeout))
 }
 
-object Connection {
+object Connection extends WarpLogging {
 
   val timeout: Duration = Duration(WARP_DATABASE_TIMEOUT.value.toInt, "seconds")
 
@@ -169,23 +170,34 @@ object Connection {
     """.stripMargin
   // scalastyle:on two.spaces
 
-  var db: DatabaseDef = this.connect // scalastyle:ignore
+  var resources: (DatabaseDef, Thread) = this.connect() // scalastyle:ignore
+
+  def db: DatabaseDef = resources._1
+  def shutdownThread: Thread = resources._2
 
   /** @return a synchronous database connection. */
-  def connect: DatabaseDef = {
+  def connect(): (DatabaseDef, Thread) = {
     val name: String = "db"
-    val source = JdbcDataSource.forConfig(ConfigFactory.parseString(this.config).getConfig(name),
+    val source = HikariCPJdbcDataSource.forConfig(ConfigFactory.parseString(this.config).getConfig(name),
                                             None.orNull,
                                             name,
                                             ClassLoaderUtil.defaultClassLoader)
     val executor = new SynchronousExecutor
 
-    Database.forSource(source, executor)
+    val db = Database.forSource(source, executor)
+    val shutdown = new Thread { () =>
+      logger.info("shutting down db pool")
+      Await.result(db.shutdown, timeout)
+    }
+
+    Runtime.getRuntime.addShutdownHook(shutdown)
+    (db, shutdown)
   }
 
   /** Shutdown and recreate our database connection. */
   def refresh(): Unit = {
-      Await.result(this.db.shutdown, this.timeout)
-      this.db = this.connect
+    Runtime.getRuntime.removeShutdownHook(this.shutdownThread)
+    Await.result(this.db.shutdown, this.timeout)
+    this.resources = this.connect()
   }
 }
