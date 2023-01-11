@@ -146,7 +146,7 @@ trait Connection extends WarpLogging {
   def trySynchronously[Row](action: DBIO[Row]): Try[Row] = Try(Await.result(Connection.db.run(action), Connection.timeout))
 }
 
-object Connection extends WarpLogging {
+object Connection {
 
   val timeout: Duration = Duration(WARP_DATABASE_TIMEOUT.value.toInt, "seconds")
 
@@ -155,11 +155,16 @@ object Connection extends WarpLogging {
   val user: String = WARP_DATABASE_USER.value
   val password: String = WARP_DATABASE_PASSWORD.value
   val maxLifetime: Int = WARP_DATABASE_MAX_LIFETIME.value.toInt
+  val numThreads: Int = WARP_DATABASE_NUM_THREADS.value.toInt
+  val leakDetectionThreshold: Int = WARP_DATABASE_LEAK_DETECTION_THRESHOLD.value.toInt
 
   // scalastyle:off two.spaces
   val config: String =
     s"""
       |db {
+      |  connectionPool = "HikariCP"
+      |  numThreads = $numThreads
+      |  leakDetectionThreshold = $leakDetectionThreshold
       |  connectionTimeout = 30000
       |  driver = "$driver"
       |  url = "$url"
@@ -170,34 +175,27 @@ object Connection extends WarpLogging {
     """.stripMargin
   // scalastyle:on two.spaces
 
-  var resources: (DatabaseDef, Thread) = this.connect() // scalastyle:ignore
+  var db: DatabaseDef = this.connect // scalastyle:ignore
 
-  def db: DatabaseDef = resources._1
-  def shutdownThread: Thread = resources._2
+  Runtime.getRuntime.addShutdownHook(new Thread {
+    override def run(): Unit = Await.result(db.shutdown, timeout)
+  })
 
   /** @return a synchronous database connection. */
-  def connect(): (DatabaseDef, Thread) = {
+  def connect: DatabaseDef = {
     val name: String = "db"
-    val source = HikariCPJdbcDataSource.forConfig(ConfigFactory.parseString(this.config).getConfig(name),
+    val source = JdbcDataSource.forConfig(ConfigFactory.parseString(this.config).getConfig(name),
                                             None.orNull,
                                             name,
                                             ClassLoaderUtil.defaultClassLoader)
     val executor = new SynchronousExecutor
 
-    val db = Database.forSource(source, executor)
-    val shutdown = new Thread { () =>
-      logger.info("shutting down db pool")
-      Await.result(db.shutdown, timeout)
-    }
-
-    Runtime.getRuntime.addShutdownHook(shutdown)
-    (db, shutdown)
+    Database.forSource(source, executor)
   }
 
   /** Shutdown and recreate our database connection. */
   def refresh(): Unit = {
-    Runtime.getRuntime.removeShutdownHook(this.shutdownThread)
-    Await.result(this.db.shutdown, this.timeout)
-    this.resources = this.connect()
+      Await.result(this.db.shutdown, this.timeout)
+      this.db = this.connect
   }
 }
