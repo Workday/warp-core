@@ -11,7 +11,6 @@ import com.workday.warp.persistence.exception.WarpFieldPersistenceException
 import com.workday.warp.utils.SynchronousExecutor
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
-import slick.jdbc.hikaricp.HikariCPJdbcDataSource
 import slick.jdbc.{JdbcDataSource, TransactionIsolation}
 import slick.util.ClassLoaderUtil
 
