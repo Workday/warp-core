@@ -79,9 +79,9 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     * See https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby
     *
     * Required: Yes
-    * Default Value: 8
+    * Default Value: 20
     */
-  val WARP_DATABASE_NUM_THREADS: PropertyEntry = PropertyEntry("wd.warp.jdbc.num.threads", isRequired = true, defaultValue = "8")
+  val WARP_DATABASE_NUM_THREADS: PropertyEntry = PropertyEntry("wd.warp.jdbc.num.threads", isRequired = true, defaultValue = "20")
 
   /**
     * The amount of time that a connection can be out of the pool before a message is logged indicating a possible connection leak.
