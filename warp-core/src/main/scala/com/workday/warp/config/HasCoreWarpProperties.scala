@@ -75,15 +75,6 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
   val WARP_DATABASE_MAX_LIFETIME: PropertyEntry = PropertyEntry("wd.warp.jdbc.max.lifetime", isRequired = true, defaultValue = "1800000")
 
   /**
-    * HikariCP thread pool size.
-    * See https://github.com/brettwooldridge/HikariCP#gear-configuration-knobs-baby
-    *
-    * Required: Yes
-    * Default Value: 20
-    */
-  val WARP_DATABASE_NUM_THREADS: PropertyEntry = PropertyEntry("wd.warp.jdbc.num.threads", isRequired = true, defaultValue = "20")
-
-  /**
     * The amount of time that a connection can be out of the pool before a message is logged indicating a possible connection leak.
     * A value of 0 means leak detection is disabled. Lowest acceptable value for enabling leak detection is 2000 (2 seconds).
     *

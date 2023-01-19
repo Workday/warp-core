@@ -154,7 +154,6 @@ object Connection {
   val user: String = WARP_DATABASE_USER.value
   val password: String = WARP_DATABASE_PASSWORD.value
   val maxLifetime: Int = WARP_DATABASE_MAX_LIFETIME.value.toInt
-  val numThreads: Int = WARP_DATABASE_NUM_THREADS.value.toInt
   val leakDetectionThreshold: Int = WARP_DATABASE_LEAK_DETECTION_THRESHOLD.value.toInt
 
   // scalastyle:off two.spaces
@@ -162,7 +161,6 @@ object Connection {
     s"""
       |db {
       |  connectionPool = "HikariCP"
-      |  numThreads = $numThreads
       |  leakDetectionThreshold = $leakDetectionThreshold
       |  connectionTimeout = 30000
       |  driver = "$driver"
