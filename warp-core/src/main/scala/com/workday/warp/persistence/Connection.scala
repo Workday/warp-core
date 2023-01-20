@@ -154,11 +154,14 @@ object Connection {
   val user: String = WARP_DATABASE_USER.value
   val password: String = WARP_DATABASE_PASSWORD.value
   val maxLifetime: Int = WARP_DATABASE_MAX_LIFETIME.value.toInt
+  val leakDetectionThreshold: Int = WARP_DATABASE_LEAK_DETECTION_THRESHOLD.value.toInt
 
   // scalastyle:off two.spaces
   val config: String =
     s"""
       |db {
+      |  connectionPool = "HikariCP"
+      |  leakDetectionThreshold = $leakDetectionThreshold
       |  connectionTimeout = 30000
       |  driver = "$driver"
       |  url = "$url"
@@ -170,6 +173,10 @@ object Connection {
   // scalastyle:on two.spaces
 
   var db: DatabaseDef = this.connect // scalastyle:ignore
+
+  Runtime.getRuntime.addShutdownHook(new Thread {
+    override def run(): Unit = Await.result(db.shutdown, timeout)
+  })
 
   /** @return a synchronous database connection. */
   def connect: DatabaseDef = {
