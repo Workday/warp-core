@@ -22,13 +22,22 @@ trait MeasurementExtensionLike extends BeforeEachCallback with AfterEachCallback
   import MeasurementExtensionLike._
 
   /**
+    * Consumers, especially in JUnit TestTemplate context, may find it useful to provide their own notion of a TestId.
+    * If this is not provided, we will try to parse a usable TestId from JUnit ExtensionContext.
+    *
+    * @return a TestId that will be used for this measured test.
+    */
+  def maybeTestIdOverride: Option[TestId] = None
+
+
+  /**
     * Begins measurement collection and stores controller in `context`.
     *
     * @param context
     */
   override def beforeEach(context: ExtensionContext): Unit = {
     // we would rather throw an exception here than record meaningless info under a default or undefined testId
-    val testId: TestId = context
+    val testId: TestId = maybeTestIdOverride.getOrElse(TestId.fromExtensionContext(context))
     logger.info(s"measuring junit: ${context.getUniqueId}")
     logger.debug(s"test id: $testId")
     // TODO this adds some latency on the first run should be warmed up somehow
