@@ -1,8 +1,10 @@
 package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
+import com.workday.warp.config.CoreWarpProperty.WARP_ARBITER_FLAPPING
 import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.persistence.Tables._
 
 /**
   * Represents a requirement imposed on a measured test.
@@ -23,6 +25,50 @@ trait ArbiterLike extends PersistenceAware {
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
   def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable]
+
+
+  final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
+    // get a vote
+    val maybeFailure = this.vote(ballot, testExecution)
+
+    // tag this execution with failure reason
+    // "failure-{class}", "message"
+    maybeFailure.foreach { f =>
+      val tagName: String = s"failure-${this.getClass.getCanonicalName}"
+      this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, tagName, f.getMessage)
+    }
+
+    // if flapping detection is enabled, check the prior execution to see if it has tag for same failure reason
+    val flappingDetectionEnabled: Boolean = isFlappingDetectionEnabled
+
+    // if the last execution has a tag of "failure reason"
+    // always need to write "failure-reason-{class}", message
+    // if the last execution passed, but this one failed, then write "flapped-{class}" tag
+    // only write "flapped-{class}", true, if the last execution doesnt have a failure reason-class
+
+
+    // if so, fail,
+    if (flappingDetectionEnabled) {
+      // check the last execution tag
+      val priorExecutionFlapped: Boolean = true // TODO
+      if (priorExecutionFlapped) {
+        None
+      }
+      else {
+        maybeFailure
+      }
+    }
+    else {
+      maybeFailure
+    }
+  }
+
+
+  def isFlappingDetectionEnabled: Boolean = {
+    WARP_ARBITER_FLAPPING.value.toBoolean
+    // check test definition table for a flapping tag?? TODO will come from notification settings table
+
+  }
 
 
   /**

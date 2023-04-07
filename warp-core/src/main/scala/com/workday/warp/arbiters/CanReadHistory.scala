@@ -40,6 +40,15 @@ trait CanReadHistory extends CorePersistenceAware {
     else responseTimes
   }
 
+
+  // check the timestamp and confidence level, its not guaranteed that the prior execution will
+  // have id decremented, and furthermore we need to make sure the confidence levels line up,
+  // ie make sure we read the prior execution at the same confidence level
+  def priorExecutionFlapped(idTestExecution: Int): Boolean = {
+    false
+
+  }
+
   /**
     * Reads historical training data. Returns all historical measurements except for `excludeIdTestExecution`.
     *
