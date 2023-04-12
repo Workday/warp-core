@@ -46,6 +46,7 @@ trait CanReadHistory extends CorePersistenceAware {
   // ie make sure we read the prior execution at the same confidence level
   def priorExecutionFlapped(idTestExecution: Int): Boolean = {
     false
+    // get the prior execution, then check if it has a "firstTimeFailure" (or "flapped") tag
 
   }
 
