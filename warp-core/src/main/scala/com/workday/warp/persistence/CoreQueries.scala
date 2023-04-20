@@ -562,4 +562,11 @@ trait CoreQueries extends AbstractQueries {
   override def updateTestExecutionThreshold[T: TestExecutionRowLikeType](testExecution: T, newThreshold: Double): DBIO[Int] = {
     TestExecution filter { _.idTestExecution === testExecution.idTestExecution } map { _.responseTimeRequirement } update newThreshold
   }
+
+
+  override def getPriorTestExecutionQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[TablesLike.TestExecutionRowLike]] = {
+    TestExecution
+      .filter(exec => exec.idTestDefinition === testExecution.idTestDefinition && exec.idTestExecution < testExecution.idTestExecution)
+      .sortBy(_.idTestExecution.desc).result.headOption
+  }
 }

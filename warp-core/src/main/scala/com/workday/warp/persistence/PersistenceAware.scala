@@ -375,6 +375,9 @@ trait PersistenceAware extends WarpLogging {
       * @return a [[TestExecutionTagRowLike]] with the id `idTestExecution` and `idTagName`.
       */
     def getTestExecutionTagsRow(idTestExecution: Int, idTagName: Int): TestExecutionTagRowLike
+
+    def getTestExecutionTagsRowSafe(idTestExecution: Int, idTagName: Int): Option[TestExecutionTagRowLike]
+    def getPriorTestExecutionRow[T: TestExecutionRowLikeType](testExecution: T): Option[TestExecutionRowLike]
   }
 }
 

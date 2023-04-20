@@ -2,7 +2,6 @@ package com.workday.warp.persistence
 
 import java.sql.Timestamp
 import java.time.Instant
-
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.WarpPropertyManager
@@ -378,6 +377,14 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       */
     override def getTestExecutionTagsRow(idTestExecution: Int, idTagName: Int): TestExecutionTagRowLike =
       this.synchronously(testExecutionTagsRowQuery(idTestExecution, idTagName)).head
+
+
+    override def getTestExecutionTagsRowSafe(idTestExecution: Int, idTagName: Int): Option[TestExecutionTagRowLike] =
+      this.synchronously(testExecutionTagsRowQuery(idTestExecution, idTagName))
+
+    override def getPriorTestExecutionRow[T: TestExecutionRowLikeType](testExecution: T): Option[TablesLike.TestExecutionRowLike] = {
+      this.synchronously(getPriorTestExecutionQuery(testExecution))
+    }
   }
 }
 

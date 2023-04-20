@@ -1,10 +1,12 @@
 package com.workday.warp.arbiters
 
 import java.time.LocalDate
-
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.CoreIdentifierType._
-import com.workday.warp.persistence.{CoreIdentifier, CorePersistenceAware}
+import com.workday.warp.persistence.{CoreIdentifier, CorePersistenceAware, TablesLike}
+import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.persistence.Tables._
+import slick.dbio.DBIO
 
 
 /**
@@ -44,10 +46,17 @@ trait CanReadHistory extends CorePersistenceAware {
   // check the timestamp and confidence level, its not guaranteed that the prior execution will
   // have id decremented, and furthermore we need to make sure the confidence levels line up,
   // ie make sure we read the prior execution at the same confidence level
-  def priorExecutionFlapped(idTestExecution: Int): Boolean = {
+  def priorExecutionFailed[T: TestExecutionRowLikeType](testExecution: T, tagName: String): Boolean = {
     false
-    // get the prior execution, then check if it has a "firstTimeFailure" (or "flapped") tag
+    // get the prior execution, then check if it has a tag matching tagName
+    val maybePriorExecution: Option[TablesLike.TestExecutionRowLike] = this.persistenceUtils.getPriorTestExecutionRow(testExecution)
 
+    maybePriorExecution match {
+      case None => false
+      case Some(execution) =>
+        val tag = this.persistenceUtils.getTagName(tagName)
+        this.persistenceUtils.getTestExecutionTagsRowSafe(execution.idTestExecution, tag.idTagName).nonEmpty
+    }
   }
 
   /**

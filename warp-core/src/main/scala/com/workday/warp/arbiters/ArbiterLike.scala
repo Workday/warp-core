@@ -11,7 +11,7 @@ import com.workday.warp.persistence.Tables._
   *
   * Created by tomas.mccandless on 1/25/16.
   */
-trait ArbiterLike extends PersistenceAware {
+trait ArbiterLike extends PersistenceAware with CanReadHistory {
 
   /** Whether this arbiter is enabled. */
   var isEnabled: Boolean = true // scalastyle:ignore
@@ -30,11 +30,11 @@ trait ArbiterLike extends PersistenceAware {
   final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     // get a vote
     val maybeFailure = this.vote(ballot, testExecution)
+    val tagName: String = s"failure-${this.getClass.getCanonicalName}"
 
     // tag this execution with failure reason
     // "failure-{class}", "message"
     maybeFailure.foreach { f =>
-      val tagName: String = s"failure-${this.getClass.getCanonicalName}"
       this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, tagName, f.getMessage)
     }
 
@@ -46,17 +46,13 @@ trait ArbiterLike extends PersistenceAware {
     // if the last execution passed, but this one failed, then write "flapped-{class}" tag
     // only write "flapped-{class}", true, if the last execution doesnt have a failure reason-class
 
-
     // if so, fail,
     if (flappingDetectionEnabled) {
-      // check the last execution tag
-      val priorExecutionFlapped: Boolean = true // TODO
-      if (priorExecutionFlapped) {
-        None
-      }
-      else {
-        maybeFailure
-      }
+      // check the last execution to see if it has a failure tag that matches
+      val priorExecutionHasFailureTag: Boolean = priorExecutionFailed(testExecution, tagName)
+      if (priorExecutionHasFailureTag) maybeFailure
+      // no failure tag on the last execution, (first time failure), don't vote as a failure
+      else None
     }
     else {
       maybeFailure
@@ -65,9 +61,7 @@ trait ArbiterLike extends PersistenceAware {
 
 
   def isFlappingDetectionEnabled: Boolean = {
-    WARP_ARBITER_FLAPPING.value.toBoolean
-    // check test definition table for a flapping tag?? TODO will come from notification settings table
-
+    WARP_ARBITER_FLAPPING.value.toBoolean // TODO also consider notification settings table
   }
 
 

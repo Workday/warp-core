@@ -342,4 +342,7 @@ trait AbstractQueries {
     * @return a [[DBIO]] (not yet executed) for updating the threshold of `testExecution`.
     */
   def updateTestExecutionThreshold[T: TestExecutionRowLikeType](testExecution: T, newThreshold: Double): DBIO[Int]
+
+
+  def getPriorTestExecutionQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[TestExecutionRowLike]]
 }
