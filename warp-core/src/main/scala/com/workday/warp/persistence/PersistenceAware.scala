@@ -376,8 +376,24 @@ trait PersistenceAware extends WarpLogging {
       */
     def getTestExecutionTagsRow(idTestExecution: Int, idTagName: Int): TestExecutionTagRowLike
 
+    /**
+      * Safe version of reading a TestExecutionTag.
+      *
+      * @param idTestExecution id of the [[TestExecutionRowLike]] to look up tags for.
+      * @param idTagName id of the [[TagNameRowLike]] to look up.
+      * @return a wrapped [[TestExecutionTagRowLike]] with the id `idTestExecution` and `idTagName`.
+      */
     def getTestExecutionTagsRowSafe(idTestExecution: Int, idTagName: Int): Option[TestExecutionTagRowLike]
-    def getPriorTestExecutionRow[T: TestExecutionRowLikeType](testExecution: T): Option[TestExecutionRowLike]
+
+    /**
+      * Reads prior test executions, subject to the provided limit.
+      *
+      * @param testExecution execution to look up history for.
+      * @param limit query row limit.
+      * @tparam T
+      * @return a collection of prior test executions.
+      */
+    def getPriorTestExecutions[T: TestExecutionRowLikeType](testExecution: T, limit: Int): Seq[TestExecutionRowLike]
   }
 }
 

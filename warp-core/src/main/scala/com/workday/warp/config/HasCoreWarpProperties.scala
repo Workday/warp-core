@@ -432,6 +432,10 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
 
   val WARP_ARBITER_FLAPPING: PropertyEntry = PropertyEntry("wd.warp.arbiter.flapping.detection.enabled", isRequired = false, "true")
 
+  val WARP_ARBITER_FLAPPING_NUM_EXCEED: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.flapping.detection.num.exceed", isRequired = false, "1"
+  )
+
   /**
     * Minimum number of recorded measurements necessary for historical arbiters. Applies to all arbiters that extend
     * the abstract class {@link com.workday.warp.arbiters.HistoricalArbiter}.

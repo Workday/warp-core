@@ -5,8 +5,6 @@ import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.CoreIdentifierType._
 import com.workday.warp.persistence.{CoreIdentifier, CorePersistenceAware, TablesLike}
 import com.workday.warp.persistence.TablesLike._
-import com.workday.warp.persistence.Tables._
-import slick.dbio.DBIO
 
 
 /**
@@ -43,19 +41,23 @@ trait CanReadHistory extends CorePersistenceAware {
   }
 
 
-  // check the timestamp and confidence level, its not guaranteed that the prior execution will
-  // have id decremented, and furthermore we need to make sure the confidence levels line up,
-  // ie make sure we read the prior execution at the same confidence level
-  def priorExecutionFailed[T: TestExecutionRowLikeType](testExecution: T, tagName: String): Boolean = {
-    false
+  /**
+    * Checks whether the last `numToExceed` executions failed with a message from the same arbiter.
+    *
+    * @param testExecution
+    * @param tagName
+    * @param numToExceed
+    * @return whether the last `numToExceed` consecutive executions failed for the same reason.
+    */
+  def priorExecutionsFailed[T: TestExecutionRowLikeType](testExecution: T, tagName: String, numToExceed: Int): Boolean = {
     // get the prior execution, then check if it has a tag matching tagName
-    val maybePriorExecution: Option[TablesLike.TestExecutionRowLike] = this.persistenceUtils.getPriorTestExecutionRow(testExecution)
+    val maybePriorExecutions: Seq[TablesLike.TestExecutionRowLike] =
+      this.persistenceUtils.getPriorTestExecutions(testExecution, numToExceed)
+    require(maybePriorExecutions.length <= numToExceed)
 
-    maybePriorExecution match {
-      case None => false
-      case Some(execution) =>
-        val tag = this.persistenceUtils.getTagName(tagName)
-        this.persistenceUtils.getTestExecutionTagsRowSafe(execution.idTestExecution, tag.idTagName).nonEmpty
+    maybePriorExecutions.length == numToExceed && maybePriorExecutions.forall { execution =>
+      val tag = this.persistenceUtils.getTagName(tagName)
+      this.persistenceUtils.getTestExecutionTagsRowSafe(execution.idTestExecution, tag.idTagName).nonEmpty
     }
   }
 

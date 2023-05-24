@@ -344,5 +344,5 @@ trait AbstractQueries {
   def updateTestExecutionThreshold[T: TestExecutionRowLikeType](testExecution: T, newThreshold: Double): DBIO[Int]
 
 
-  def getPriorTestExecutionQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[TestExecutionRowLike]]
+  def getPriorTestExecutionsQuery[T: TestExecutionRowLikeType](testExecution: T, limit: Int): DBIO[Seq[TestExecutionRowLike]]
 }

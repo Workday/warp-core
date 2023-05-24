@@ -1,7 +1,7 @@
 package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
-import com.workday.warp.config.CoreWarpProperty.WARP_ARBITER_FLAPPING
+import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_FLAPPING, WARP_ARBITER_FLAPPING_NUM_EXCEED}
 import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
@@ -27,7 +27,18 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
   def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable]
 
 
-  final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
+  /**
+    *
+    * @param ballot box used to register vote result.
+    * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
+    * @param flappingDetectionEnabled whether flapping detection is enabled.
+    * @param numToExceed exceed limit.
+    * @return
+    */
+  final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot,
+                                                                   testExecution: T,
+                                                                   flappingDetectionEnabled: Boolean,
+                                                                   numToExceed: Int): Option[Throwable] = {
     // get a vote
     val maybeFailure = this.vote(ballot, testExecution)
     val tagName: String = s"failure-${this.getClass.getCanonicalName}"
@@ -35,21 +46,13 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     // tag this execution with failure reason
     // "failure-{class}", "message"
     maybeFailure.foreach { f =>
-      this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, tagName, f.getMessage)
+      val msg: String = Option(f.getMessage).getOrElse("null")
+      this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, tagName, msg)
     }
 
-    // if flapping detection is enabled, check the prior execution to see if it has tag for same failure reason
-    val flappingDetectionEnabled: Boolean = isFlappingDetectionEnabled
-
-    // if the last execution has a tag of "failure reason"
-    // always need to write "failure-reason-{class}", message
-    // if the last execution passed, but this one failed, then write "flapped-{class}" tag
-    // only write "flapped-{class}", true, if the last execution doesnt have a failure reason-class
-
-    // if so, fail,
     if (flappingDetectionEnabled) {
-      // check the last execution to see if it has a failure tag that matches
-      val priorExecutionHasFailureTag: Boolean = priorExecutionFailed(testExecution, tagName)
+      // check the last executions to see if they have a failure tag that matches
+      val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, tagName, numToExceed)
       if (priorExecutionHasFailureTag) maybeFailure
       // no failure tag on the last execution, (first time failure), don't vote as a failure
       else None
@@ -60,8 +63,27 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
   }
 
 
-  def isFlappingDetectionEnabled: Boolean = {
-    WARP_ARBITER_FLAPPING.value.toBoolean // TODO also consider notification settings table
+  /**
+    * Wraps a vote with flapping detection based on notification settings.
+    *
+    * @param ballot box used to register vote result.
+    * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
+    * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
+    */
+  final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
+    val (flappingEnabled, numToExceed) = isFlappingDetectionEnabled
+    voteWithFlappingDetection(ballot, testExecution, flappingEnabled, numToExceed)
+  }
+
+
+  /**
+    * Whether flapping detection is enabled (notification settings).
+    * TODO should consult notification settings db table in addition to properties.
+    *
+    * @return notification settings.
+    */
+  def isFlappingDetectionEnabled: (Boolean, Int) = {
+    (WARP_ARBITER_FLAPPING.value.toBoolean, WARP_ARBITER_FLAPPING_NUM_EXCEED.value.toInt)
   }
 
 

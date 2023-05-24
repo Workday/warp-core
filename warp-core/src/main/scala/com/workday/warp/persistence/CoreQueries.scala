@@ -564,9 +564,12 @@ trait CoreQueries extends AbstractQueries {
   }
 
 
-  override def getPriorTestExecutionQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[TablesLike.TestExecutionRowLike]] = {
+  override def getPriorTestExecutionsQuery[T: TestExecutionRowLikeType](testExecution: T,
+                                                                        limit: Int): DBIO[Seq[TablesLike.TestExecutionRowLike]] = {
     TestExecution
       .filter(exec => exec.idTestDefinition === testExecution.idTestDefinition && exec.idTestExecution < testExecution.idTestExecution)
-      .sortBy(_.idTestExecution.desc).result.headOption
+      .sortBy(_.idTestExecution.desc)
+      .take(limit)
+      .result
   }
 }
