@@ -12,7 +12,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema = Array(Build.schema, Measurement.schema, MeasurementName.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
+  lazy val schema = Array(Build.schema, Measurement.schema, MeasurementName.schema, NotificationSettings.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -53,6 +53,21 @@ trait Tables {
     implicit object MeasurementNameRowWrapperTypeClassObject extends MeasurementNameRowLikeType[MeasurementNameRowWrapper] {
       def idMeasurementName(row: MeasurementNameRowWrapper): Int = row.idMeasurementName
       def name(row: MeasurementNameRowWrapper): String = row.name
+    }
+    implicit object NotificationSettingsRowTypeClassObject extends NotificationSettingsRowLikeType[NotificationSettingsRow] {
+      def idNotificationSettings(row: NotificationSettingsRow): Int = row.idNotificationSettings
+      def idTestDefinition(row: NotificationSettingsRow): Int = row.idTestDefinition
+      def flappingDetectionEnabled(row: NotificationSettingsRow): Boolean = row.flappingDetectionEnabled
+      def responseTimeRequirement(row: NotificationSettingsRow): Double = row.responseTimeRequirement
+      def alertOnNth(row: NotificationSettingsRow): Int = row.alertOnNth
+    }
+
+    implicit object NotificationSettingsRowWrapperTypeClassObject extends NotificationSettingsRowLikeType[NotificationSettingsRowWrapper] {
+      def idNotificationSettings(row: NotificationSettingsRowWrapper): Int = row.idNotificationSettings
+      def idTestDefinition(row: NotificationSettingsRowWrapper): Int = row.idTestDefinition
+      def flappingDetectionEnabled(row: NotificationSettingsRowWrapper): Boolean = row.flappingDetectionEnabled
+      def responseTimeRequirement(row: NotificationSettingsRowWrapper): Double = row.responseTimeRequirement
+      def alertOnNth(row: NotificationSettingsRowWrapper): Int = row.alertOnNth
     }
     implicit object TagNameRowTypeClassObject extends TagNameRowLikeType[TagNameRow] {
       def idTagName(row: TagNameRow): Int = row.idTagName
@@ -268,6 +283,48 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table MeasurementName */
   lazy val MeasurementName = new TableQuery(tag => new MeasurementName(tag))
+
+  /** Entity class storing rows of table NotificationSettings
+   *  @param idNotificationSettings Database column idNotificationSettings SqlType(INT), AutoInc, PrimaryKey
+   *  @param idTestDefinition Database column idTestDefinition SqlType(INT)
+   *  @param flappingDetectionEnabled Database column flappingDetectionEnabled SqlType(BIT), Default(false)
+   *  @param responseTimeRequirement Database column responseTimeRequirement SqlType(DOUBLE)
+   *  @param alertOnNth Database column alertOnNth SqlType(INT), Default(1) */
+  class NotificationSettingsRowWrapper(val idNotificationSettings: Int, val idTestDefinition: Int, val flappingDetectionEnabled: Boolean = false, val responseTimeRequirement: Double, val alertOnNth: Int = 1) extends NotificationSettingsRowLike
+  case class NotificationSettingsRow(override val idNotificationSettings: Int, override val idTestDefinition: Int, override val flappingDetectionEnabled: Boolean = false, override val responseTimeRequirement: Double, override val alertOnNth: Int = 1) extends NotificationSettingsRowWrapper(idNotificationSettings, idTestDefinition, flappingDetectionEnabled, responseTimeRequirement, alertOnNth)
+  implicit def NotificationSettingsRowWrapper2NotificationSettingsRow(x: NotificationSettingsRowWrapper): NotificationSettingsRow = NotificationSettingsRow(x.idNotificationSettings, x.idTestDefinition, x.flappingDetectionEnabled, x.responseTimeRequirement, x.alertOnNth)
+  implicit def NotificationSettingsRow2NotificationSettingsRowWrapper(x: NotificationSettingsRow): NotificationSettingsRowWrapper = new NotificationSettingsRowWrapper(x.idNotificationSettings, x.idTestDefinition, x.flappingDetectionEnabled, x.responseTimeRequirement, x.alertOnNth)
+  implicit def NotificationSettingsRowFromTypeClass[T: NotificationSettingsRowLikeType](x: T): NotificationSettingsRow = NotificationSettingsRow(implicitly[NotificationSettingsRowLikeType[T]].idNotificationSettings(x), implicitly[NotificationSettingsRowLikeType[T]].idTestDefinition(x), implicitly[NotificationSettingsRowLikeType[T]].flappingDetectionEnabled(x), implicitly[NotificationSettingsRowLikeType[T]].responseTimeRequirement(x), implicitly[NotificationSettingsRowLikeType[T]].alertOnNth(x))
+  /** GetResult implicit for fetching NotificationSettingsRow objects using plain SQL queries */
+  implicit def GetResultNotificationSettingsRow(implicit e0: GR[Int], e1: GR[Boolean], e2: GR[Double]): GR[NotificationSettingsRow] = GR{
+    prs => import prs._
+    NotificationSettingsRow.tupled((<<[Int], <<[Int], <<[Boolean], <<[Double], <<[Int]))
+  }
+  /** Table description of table NotificationSettings. Objects of this class serve as prototypes for rows in queries. */
+  class NotificationSettings(_tableTag: Tag) extends profile.api.Table[NotificationSettingsRow](_tableTag, None, "NotificationSettings") with NotificationSettingsLike {
+    def * = (idNotificationSettings, idTestDefinition, flappingDetectionEnabled, responseTimeRequirement, alertOnNth).<>(NotificationSettingsRow.tupled, NotificationSettingsRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = ((Rep.Some(idNotificationSettings), Rep.Some(idTestDefinition), Rep.Some(flappingDetectionEnabled), Rep.Some(responseTimeRequirement), Rep.Some(alertOnNth))).shaped.<>({r=>import r._; _1.map(_=> NotificationSettingsRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column idNotificationSettings SqlType(INT), AutoInc, PrimaryKey */
+    val idNotificationSettings: Rep[Int] = column[Int]("idNotificationSettings", O.AutoInc, O.PrimaryKey)
+    /** Database column idTestDefinition SqlType(INT) */
+    val idTestDefinition: Rep[Int] = column[Int]("idTestDefinition")
+    /** Database column flappingDetectionEnabled SqlType(BIT), Default(false) */
+    val flappingDetectionEnabled: Rep[Boolean] = column[Boolean]("flappingDetectionEnabled", O.Default(false))
+    /** Database column responseTimeRequirement SqlType(DOUBLE) */
+    val responseTimeRequirement: Rep[Double] = column[Double]("responseTimeRequirement")
+    /** Database column alertOnNth SqlType(INT), Default(1) */
+    val alertOnNth: Rep[Int] = column[Int]("alertOnNth", O.Default(1))
+
+    /** Foreign key referencing TestDefinition (database name definition_NotificationSettings) */
+    lazy val testDefinitionFk = foreignKey("definition_NotificationSettings", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
+
+    /** Uniqueness Index over (idTestDefinition) (database name definition_idx) */
+    val index1 = index("definition_idx", idTestDefinition, unique=true)
+  }
+  /** Collection-like TableQuery object for table NotificationSettings */
+  lazy val NotificationSettings = new TableQuery(tag => new NotificationSettings(tag))
 
   /** Entity class storing rows of table TagName
    *  @param idTagName Database column idTagName SqlType(INT), AutoInc, PrimaryKey
