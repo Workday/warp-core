@@ -27,7 +27,7 @@ class ArbiterSpikeFilteringSpec extends WarpJUnitSpec with CorePersistenceAware 
 
 
   @UnitTest
-  def spikeFilteringExceed5(): Unit = {
+  def spikeFilteringAlertOn6th(): Unit = {
     val testId: String = s"com.workday.warp.SpikeFiltering.${UUID.randomUUID().toString}"
     val ballot: Ballot = new Ballot(testId)
     val arbiter: AlwaysFailArbiter = new AlwaysFailArbiter
