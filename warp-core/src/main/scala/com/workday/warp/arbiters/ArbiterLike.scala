@@ -71,19 +71,29 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
   final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    val (flappingEnabled, numToExceed) = isFlappingDetectionEnabled
+    val (flappingEnabled, numToExceed) = isFlappingDetectionEnabled(testExecution)
     voteWithFlappingDetection(ballot, testExecution, flappingEnabled, numToExceed)
   }
 
 
   /**
     * Whether flapping detection is enabled (notification settings).
-    * TODO should consult notification settings db table in addition to properties.
+    *
+    * Order of precedence:
+    * - WarpProperties
+    * - DB
+    * - defaults to off
     *
     * @return notification settings.
     */
-  def isFlappingDetectionEnabled: (Boolean, Int) = {
-    (WARP_ARBITER_FLAPPING.value.toBoolean, WARP_ARBITER_FLAPPING_NUM_EXCEED.value.toInt)
+  def isFlappingDetectionEnabled[T: TestExecutionRowLikeType](testExecution: T): (Boolean, Int) = {
+    var settings: (Boolean, Int) = this.persistenceUtils.getNotificationSettings(testExecution)
+      .map(setting => (setting.flappingDetectionEnabled, setting.alertOnNth))
+      .getOrElse((false, 1))
+    // allow individual overrides from properties if they are present
+    Option(WARP_ARBITER_FLAPPING.value).foreach(f => settings = settings.copy(_1 = f.toBoolean))
+    Option(WARP_ARBITER_FLAPPING_NUM_EXCEED.value).foreach(f => settings = settings.copy(_2 = f.toInt))
+    settings
   }
 
 
@@ -94,7 +104,9 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     * @return true iff the test passed.
     */
-  def passed[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Boolean = this.vote(ballot, testExecution).isEmpty
+  def passed[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Boolean = {
+    this.voteWithFlappingDetection(ballot, testExecution).isEmpty
+  }
 
 
   /**
@@ -104,7 +116,9 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     */
   def collectVote[T: TestExecutionRowLikeType](ballot: Ballot,
-                                               testExecution: T): Unit = ballot.registerVote(this.vote(ballot, testExecution))
+                                               testExecution: T): Unit = {
+    ballot.registerVote(this.voteWithFlappingDetection(ballot, testExecution))
+  }
 
 
   /**
@@ -114,16 +128,13 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     */
   def voteAndThrow[T: TestExecutionRowLikeType](ballot: Ballot,
-                                                testExecution: T): Unit = this.maybeThrow(this.vote(ballot, testExecution))
+                                                testExecution: T): Unit = {
+    this.maybeThrow(this.voteWithFlappingDetection(ballot, testExecution))
+  }
 
 
   /** Throws an exception iff the measured test did not pass its requirement. */
-  def maybeThrow(maybeError: Option[Throwable]): Unit = {
-    maybeError match {
-      case Some(error) => throw error
-      case None =>
-    }
-  }
+  def maybeThrow(maybeError: Option[Throwable]): Unit = maybeError.foreach(throw _)
 
 
   /**

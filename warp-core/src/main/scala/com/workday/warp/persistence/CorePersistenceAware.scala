@@ -398,8 +398,31 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       * @tparam T
       * @return a collection of prior test executions.
       */
-    override def getPriorTestExecutions[T: TestExecutionRowLikeType](testExecution: T, limit: Int): Seq[TablesLike.TestExecutionRowLike] = {
+    override def getPriorTestExecutions[T: TestExecutionRowLikeType](testExecution: T, limit: Int): Seq[TestExecutionRowLike] = {
       this.synchronously(getPriorTestExecutionsQuery(testExecution, limit))
+    }
+
+    /**
+      * Reads notification settings for the given test execution.
+      *
+      * @param testExecution execution to look up notification settings for.
+      * @tparam T
+      * @return notification settings for the given test execution.
+      */
+    override def getNotificationSettings[T: TestExecutionRowLikeType](testExecution: T): Option[NotificationSettingsRowLike] = {
+      this.synchronously(getNotificationSettingsQuery(testExecution))
+    }
+
+
+    /**
+      * Writes a collection of notification settings.
+      *
+      * @param settings
+      * @tparam T
+      * @return number of rows affected.
+      */
+    override def writeNotificationSettings[T: NotificationSettingsRowLikeType](settings: Seq[T]): Int = {
+      this.synchronously(writeNotificationSettingsQuery(settings))
     }
   }
 }

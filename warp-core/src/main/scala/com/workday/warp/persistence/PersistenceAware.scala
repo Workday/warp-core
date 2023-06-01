@@ -394,6 +394,26 @@ trait PersistenceAware extends WarpLogging {
       * @return a collection of prior test executions.
       */
     def getPriorTestExecutions[T: TestExecutionRowLikeType](testExecution: T, limit: Int): Seq[TestExecutionRowLike]
+
+
+    /**
+      * Reads notification settings for the given test execution.
+      *
+      * @param testExecution execution to look up notification settings for.
+      * @tparam T
+      * @return notification settings for the given test execution.
+      */
+    def getNotificationSettings[T: TestExecutionRowLikeType](testExecution: T): Option[NotificationSettingsRowLike]
+
+
+    /**
+      * Writes a collection of notification settings.
+      *
+      * @param settings
+      * @tparam T
+      * @return number of rows affected.
+      */
+    def writeNotificationSettings[T: NotificationSettingsRowLikeType](settings: Seq[T]): Int
   }
 }
 

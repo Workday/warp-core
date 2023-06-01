@@ -8,7 +8,8 @@ import com.workday.warp.persistence.TablesLike._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import com.workday.warp.persistence.IdentifierSyntax._
-import slick.dbio.DBIO
+import slick.dbio.{DBIO, Effect}
+import slick.sql.FixedSqlAction
 
 /**
   * Defines functions for creating read and write [[Query]]. These queries can be composed, converted to [[DBIOAction]],
@@ -564,6 +565,14 @@ trait CoreQueries extends AbstractQueries {
   }
 
 
+  /**
+    * Creates a [[DBIO]] for reading test execution history.
+    *
+    * @param testExecution text execution to read history.
+    * @param limit history length.
+    * @tparam T
+    *  @return a [[DBIO]] (not yet executed) for reading test execution history.
+    */
   override def getPriorTestExecutionsQuery[T: TestExecutionRowLikeType](testExecution: T,
                                                                         limit: Int): DBIO[Seq[TablesLike.TestExecutionRowLike]] = {
     TestExecution
@@ -571,5 +580,35 @@ trait CoreQueries extends AbstractQueries {
       .sortBy(_.idTestExecution.desc)
       .take(limit)
       .result
+  }
+
+
+  /**
+    * Creates a [[DBIO]] for reading notification settings.
+    *
+    * @param testExecution test execution to read notification settings for.
+    * @tparam T
+    *  @return a [[DBIO]] (not yet executed) for reading notification settings for the given test execution.
+    */
+  override def getNotificationSettingsQuery[T: TestExecutionRowLikeType](testExecution: T):
+  DBIO[Option[NotificationSettingsRowLike]] = {
+    NotificationSettings
+      .filter(_.idTestDefinition === testExecution.idTestDefinition)
+      .result
+      .headOption
+  }
+
+
+  /**
+    * Creates a [[DBIO]] for writing notification settings.
+    *
+    * @param settings collection of settings to write.
+    * @tparam T
+    * @return a [[DBIO]] (not yet executed) for writing a collection of notification settings.
+    */
+  override def writeNotificationSettingsQuery[T: NotificationSettingsRowLikeType](settings: Seq[T]): DBIO[Int] = {
+    // TODO not efficient query
+    val dbios: Seq[DBIO[Int]] = settings.map(s => NotificationSettings += s)
+    DBIO.sequence(dbios).map(_.sum)
   }
 }
