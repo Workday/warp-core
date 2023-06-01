@@ -1,7 +1,7 @@
 package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
-import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_SPIKE_FILTERING_ENABLED, WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH}
+import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_SPIKE_FILTER_ENABLED, WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH}
 import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
@@ -32,14 +32,14 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     *
     * @param ballot box used to register vote result.
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
-    * @param spikeFilteringEnabled whether spike filtering is enabled.
+    * @param spikeFilterEnabled whether spike filtering is enabled.
     * @param alertOnNth exceed limit.
     * @return
     */
-  final def voteWithSpikeFiltering[T: TestExecutionRowLikeType](ballot: Ballot,
-                                                                testExecution: T,
-                                                                spikeFilteringEnabled: Boolean,
-                                                                alertOnNth: Int): Option[Throwable] = {
+  final def voteWithSpikeFilter[T: TestExecutionRowLikeType](ballot: Ballot,
+                                                             testExecution: T,
+                                                             spikeFilterEnabled: Boolean,
+                                                             alertOnNth: Int): Option[Throwable] = {
     // get a vote
     val maybeFailure = this.vote(ballot, testExecution)
     val tagName: String = s"failure-${this.getClass.getCanonicalName}"
@@ -51,7 +51,7 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
       this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, tagName, msg)
     }
 
-    if (spikeFilteringEnabled) {
+    if (spikeFilterEnabled) {
       // check the last executions to see if they have a failure tag that matches
       val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, tagName, alertOnNth)
       if (priorExecutionHasFailureTag) maybeFailure
@@ -71,9 +71,9 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
-  final def voteWithSpikeFiltering[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    val (spikeFilteringEnabled, alertOnNth) = isSpikeFilteringEnabled
-    voteWithSpikeFiltering(ballot, testExecution, spikeFilteringEnabled, alertOnNth)
+  final def voteWithSpikeFilter[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
+    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings
+    voteWithSpikeFilter(ballot, testExecution, spikeFilterEnabled, alertOnNth)
   }
 
 
@@ -83,8 +83,8 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     *
     * @return notification settings.
     */
-  def isSpikeFilteringEnabled: (Boolean, Int) = {
-    (WARP_ARBITER_SPIKE_FILTERING_ENABLED.value.toBoolean, WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH.value.toInt)
+  def spikeFilterSettings: (Boolean, Int) = {
+    (WARP_ARBITER_SPIKE_FILTER_ENABLED.value.toBoolean, WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH.value.toInt)
   }
 
 
