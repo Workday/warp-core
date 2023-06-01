@@ -42,22 +42,26 @@ trait CanReadHistory extends CorePersistenceAware {
 
 
   /**
-    * Checks whether the last `numToExceed` executions failed with a message from the same arbiter.
+    * Checks whether the last `alertOnNth - 1` executions failed with a message from the same arbiter.
     *
     * @param testExecution
     * @param tagName
-    * @param numToExceed
-    * @return whether the last `numToExceed` consecutive executions failed for the same reason.
+    * @param alertOnNth
+    * @return whether the last `alertOnNth - 1` consecutive executions failed for the same reason.
     */
-  def priorExecutionsFailed[T: TestExecutionRowLikeType](testExecution: T, tagName: String, numToExceed: Int): Boolean = {
+  def priorExecutionsFailed[T: TestExecutionRowLikeType](testExecution: T, tagName: String, alertOnNth: Int): Boolean = {
     // get the prior execution, then check if it has a tag matching tagName
-    val maybePriorExecutions: Seq[TablesLike.TestExecutionRowLike] =
-      this.persistenceUtils.getPriorTestExecutions(testExecution, numToExceed)
-    require(maybePriorExecutions.length <= numToExceed)
+    val historySize: Int = alertOnNth - 1
+    if (historySize == 0) true
+    else {
+      val maybePriorExecutions: Seq[TablesLike.TestExecutionRowLike] =
+        this.persistenceUtils.getPriorTestExecutions(testExecution, historySize)
+      require(maybePriorExecutions.length <= historySize)
 
-    maybePriorExecutions.length == numToExceed && maybePriorExecutions.forall { execution =>
-      val tag = this.persistenceUtils.getTagName(tagName)
-      this.persistenceUtils.getTestExecutionTagsRowSafe(execution.idTestExecution, tag.idTagName).nonEmpty
+      maybePriorExecutions.length == historySize && maybePriorExecutions.forall { execution =>
+        val tag = this.persistenceUtils.getTagName(tagName)
+        this.persistenceUtils.getTestExecutionTagsRowSafe(execution.idTestExecution, tag.idTagName).nonEmpty
+      }
     }
   }
 

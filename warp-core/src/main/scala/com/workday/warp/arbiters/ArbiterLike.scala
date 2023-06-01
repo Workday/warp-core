@@ -1,7 +1,7 @@
 package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
-import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_FLAPPING, WARP_ARBITER_FLAPPING_NUM_EXCEED}
+import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_SPIKE_FILTERING_ENABLED, WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH}
 import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
@@ -28,17 +28,18 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
 
 
   /**
+    * Wraps a vote with spike filtering.
     *
     * @param ballot box used to register vote result.
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
-    * @param flappingDetectionEnabled whether flapping detection is enabled.
-    * @param numToExceed exceed limit.
+    * @param spikeFilteringEnabled whether spike filtering is enabled.
+    * @param alertOnNth exceed limit.
     * @return
     */
-  final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot,
-                                                                   testExecution: T,
-                                                                   flappingDetectionEnabled: Boolean,
-                                                                   numToExceed: Int): Option[Throwable] = {
+  final def voteWithSpikeFiltering[T: TestExecutionRowLikeType](ballot: Ballot,
+                                                                testExecution: T,
+                                                                spikeFilteringEnabled: Boolean,
+                                                                alertOnNth: Int): Option[Throwable] = {
     // get a vote
     val maybeFailure = this.vote(ballot, testExecution)
     val tagName: String = s"failure-${this.getClass.getCanonicalName}"
@@ -50,9 +51,9 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
       this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, tagName, msg)
     }
 
-    if (flappingDetectionEnabled) {
+    if (spikeFilteringEnabled) {
       // check the last executions to see if they have a failure tag that matches
-      val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, tagName, numToExceed)
+      val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, tagName, alertOnNth)
       if (priorExecutionHasFailureTag) maybeFailure
       // no failure tag on the last execution, (first time failure), don't vote as a failure
       else None
@@ -64,26 +65,26 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
 
 
   /**
-    * Wraps a vote with flapping detection based on notification settings.
+    * Wraps a vote with spike filtering.
     *
     * @param ballot box used to register vote result.
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
-  final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    val (flappingEnabled, numToExceed) = isFlappingDetectionEnabled
-    voteWithFlappingDetection(ballot, testExecution, flappingEnabled, numToExceed)
+  final def voteWithSpikeFiltering[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
+    val (spikeFilteringEnabled, alertOnNth) = isSpikeFilteringEnabled
+    voteWithSpikeFiltering(ballot, testExecution, spikeFilteringEnabled, alertOnNth)
   }
 
 
   /**
-    * Whether flapping detection is enabled (notification settings).
+    * Whether spike filtering is enabled.
     * TODO should consult notification settings db table in addition to properties.
     *
     * @return notification settings.
     */
-  def isFlappingDetectionEnabled: (Boolean, Int) = {
-    (WARP_ARBITER_FLAPPING.value.toBoolean, WARP_ARBITER_FLAPPING_NUM_EXCEED.value.toInt)
+  def isSpikeFilteringEnabled: (Boolean, Int) = {
+    (WARP_ARBITER_SPIKE_FILTERING_ENABLED.value.toBoolean, WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH.value.toInt)
   }
 
 

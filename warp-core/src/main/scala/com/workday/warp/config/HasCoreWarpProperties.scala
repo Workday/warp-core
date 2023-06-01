@@ -430,10 +430,14 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     */
   val WARP_PERSISTENCE_RETRIES: PropertyEntry = PropertyEntry("wd.warp.persistence.retries", isRequired = false, "4")
 
-  val WARP_ARBITER_FLAPPING: PropertyEntry = PropertyEntry("wd.warp.arbiter.flapping.detection.enabled", isRequired = false, "true")
+  val WARP_ARBITER_SPIKE_FILTERING_ENABLED: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.spike.filtering.enabled",
+    isRequired = false,
+    "true"
+  )
 
-  val WARP_ARBITER_FLAPPING_NUM_EXCEED: PropertyEntry = PropertyEntry(
-    "wd.warp.arbiter.flapping.detection.num.exceed", isRequired = false, "1"
+  val WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.spike.filtering.alert.on.nth", isRequired = false, "1"
   )
 
   /**
