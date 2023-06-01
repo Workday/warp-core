@@ -571,7 +571,7 @@ trait CoreQueries extends AbstractQueries {
     * @param testExecution text execution to read history.
     * @param limit history length.
     * @tparam T
-    *  @return a [[DBIO]] (not yet executed) for reading test execution history.
+    * @return a [[DBIO]] (not yet executed) for reading test execution history.
     */
   override def getPriorTestExecutionsQuery[T: TestExecutionRowLikeType](testExecution: T,
                                                                         limit: Int): DBIO[Seq[TablesLike.TestExecutionRowLike]] = {
@@ -588,7 +588,7 @@ trait CoreQueries extends AbstractQueries {
     *
     * @param testExecution test execution to read notification settings for.
     * @tparam T
-    *  @return a [[DBIO]] (not yet executed) for reading notification settings for the given test execution.
+    * @return a [[DBIO]] (not yet executed) for reading notification settings for the given test execution.
     */
   override def getNotificationSettingsQuery[T: TestExecutionRowLikeType](testExecution: T):
   DBIO[Option[NotificationSettingsRowLike]] = {
