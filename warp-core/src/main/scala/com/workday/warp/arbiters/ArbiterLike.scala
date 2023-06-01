@@ -1,7 +1,7 @@
 package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
-import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_FLAPPING, WARP_ARBITER_FLAPPING_NUM_EXCEED}
+import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_SPIKE_FILTERING_ENABLED, WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH}
 import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
@@ -28,17 +28,18 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
 
 
   /**
+    * Wraps a vote with spike filtering.
     *
     * @param ballot box used to register vote result.
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
-    * @param flappingDetectionEnabled whether flapping detection is enabled.
-    * @param numToExceed exceed limit.
+    * @param spikeFilteringEnabled whether spike filtering is enabled.
+    * @param alertOnNth exceed limit.
     * @return
     */
-  final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot,
-                                                                   testExecution: T,
-                                                                   flappingDetectionEnabled: Boolean,
-                                                                   numToExceed: Int): Option[Throwable] = {
+  final def voteWithSpikeFiltering[T: TestExecutionRowLikeType](ballot: Ballot,
+                                                                testExecution: T,
+                                                                spikeFilteringEnabled: Boolean,
+                                                                alertOnNth: Int): Option[Throwable] = {
     // get a vote
     val maybeFailure = this.vote(ballot, testExecution)
     val tagName: String = s"failure-${this.getClass.getCanonicalName}"
@@ -50,9 +51,9 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
       this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, tagName, msg)
     }
 
-    if (flappingDetectionEnabled) {
+    if (spikeFilteringEnabled) {
       // check the last executions to see if they have a failure tag that matches
-      val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, tagName, numToExceed)
+      val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, tagName, alertOnNth)
       if (priorExecutionHasFailureTag) maybeFailure
       // no failure tag on the last execution, (first time failure), don't vote as a failure
       else None
@@ -64,35 +65,35 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
 
 
   /**
-    * Wraps a vote with flapping detection based on notification settings.
+    * Wraps a vote with spike filtering.
     *
     * @param ballot box used to register vote result.
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
-  final def voteWithFlappingDetection[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    val (flappingEnabled, numToExceed) = isFlappingDetectionEnabled(testExecution)
-    voteWithFlappingDetection(ballot, testExecution, flappingEnabled, numToExceed)
+  final def voteWithSpikeFiltering[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
+    val (spikeFilteringEnabled, alertOnNth) = isSpikeFilteringEnabled(testExecution)
+    voteWithSpikeFiltering(ballot, testExecution, spikeFilteringEnabled, alertOnNth)
   }
 
 
   /**
-    * Whether flapping detection is enabled (notification settings).
+    * Whether spike filtering is enabled (notification settings).
     *
     * Order of precedence:
     * - WarpProperties
     * - DB
     * - defaults to off
     *
-    * @return notification settings.
+    * @return spike filtering settings.
     */
-  def isFlappingDetectionEnabled[T: TestExecutionRowLikeType](testExecution: T): (Boolean, Int) = {
+  def isSpikeFilteringEnabled[T: TestExecutionRowLikeType](testExecution: T): (Boolean, Int) = {
     var settings: (Boolean, Int) = this.persistenceUtils.getNotificationSettings(testExecution)
       .map(setting => (setting.flappingDetectionEnabled, setting.alertOnNth))
       .getOrElse((false, 1))
     // allow individual overrides from properties if they are present
-    Option(WARP_ARBITER_FLAPPING.value).foreach(f => settings = settings.copy(_1 = f.toBoolean))
-    Option(WARP_ARBITER_FLAPPING_NUM_EXCEED.value).foreach(f => settings = settings.copy(_2 = f.toInt))
+    Option(WARP_ARBITER_SPIKE_FILTERING_ENABLED.value).foreach(f => settings = settings.copy(_1 = f.toBoolean))
+    Option(WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH.value).foreach(f => settings = settings.copy(_2 = f.toInt))
     settings
   }
 
@@ -105,7 +106,7 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @return true iff the test passed.
     */
   def passed[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Boolean = {
-    this.voteWithFlappingDetection(ballot, testExecution).isEmpty
+    this.voteWithSpikeFiltering(ballot, testExecution).isEmpty
   }
 
 
@@ -117,7 +118,7 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     */
   def collectVote[T: TestExecutionRowLikeType](ballot: Ballot,
                                                testExecution: T): Unit = {
-    ballot.registerVote(this.voteWithFlappingDetection(ballot, testExecution))
+    ballot.registerVote(this.voteWithSpikeFiltering(ballot, testExecution))
   }
 
 
@@ -129,7 +130,7 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     */
   def voteAndThrow[T: TestExecutionRowLikeType](ballot: Ballot,
                                                 testExecution: T): Unit = {
-    this.maybeThrow(this.voteWithFlappingDetection(ballot, testExecution))
+    this.maybeThrow(this.voteWithSpikeFiltering(ballot, testExecution))
   }
 
 

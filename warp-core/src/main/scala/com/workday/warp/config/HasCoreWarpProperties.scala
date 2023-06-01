@@ -435,7 +435,11 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     *
     * Required: No
     */
-  val WARP_ARBITER_FLAPPING: PropertyEntry = PropertyEntry("wd.warp.arbiter.flapping.detection.enabled")
+  val WARP_ARBITER_SPIKE_FILTERING_ENABLED: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.spike.filtering.enabled",
+    isRequired = false,
+    "true"
+  )
 
   /**
     * Arbiter flapping number of consecutive failures (depending on arbiter implementation votes)
@@ -443,7 +447,9 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     *
     * Required: No
     */
-  val WARP_ARBITER_FLAPPING_NUM_EXCEED: PropertyEntry = PropertyEntry("wd.warp.arbiter.flapping.detection.alert.on.nth")
+  val WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.spike.filtering.alert.on.nth", isRequired = false, "1"
+  )
 
   /**
     * Minimum number of recorded measurements necessary for historical arbiters. Applies to all arbiters that extend

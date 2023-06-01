@@ -3,7 +3,7 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 
-CREATE TABLE IF NOT EXISTS `NotificationSettings` (
+CREATE TABLE IF NOT EXISTS `SpikeFilterSettings` (
   `idNotificationSettings` INT(11) NOT NULL AUTO_INCREMENT,
   `idTestDefinition` INT(11) NOT NULL COMMENT 'Foreign key pointing to the test definition.',
   `flappingDetectionEnabled` TINYINT(1) NOT NULL DEFAULT FALSE COMMENT 'Whether arbiter flapping detection is enabled.',
