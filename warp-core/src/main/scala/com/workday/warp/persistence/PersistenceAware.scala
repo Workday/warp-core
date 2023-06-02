@@ -397,23 +397,23 @@ trait PersistenceAware extends WarpLogging {
 
 
     /**
-      * Reads notification settings for the given test execution.
+      * Reads spike filter settings for the given test execution.
       *
-      * @param testExecution execution to look up notification settings for.
+      * @param testExecution execution to look up spike filter settings for.
       * @tparam T
-      * @return notification settings for the given test execution.
+      * @return spike filter settings for the given test execution.
       */
-    def getNotificationSettings[T: TestExecutionRowLikeType](testExecution: T): Option[NotificationSettingsRowLike]
+    def getSpikeFilterSettings[T: TestExecutionRowLikeType](testExecution: T): Option[SpikeFilterSettingsRowLike]
 
 
     /**
-      * Writes a collection of notification settings.
+      * Writes a collection of spike filter settings.
       *
       * @param settings
       * @tparam T
       * @return number of rows affected.
       */
-    def writeNotificationSettings[T: NotificationSettingsRowLikeType](settings: Seq[T]): Int
+    def writeSpikeFilterSettings[T: SpikeFilterSettingsRowLikeType](settings: Seq[T]): Int
   }
 }
 

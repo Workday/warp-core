@@ -355,19 +355,19 @@ trait AbstractQueries {
 
 
   /**
-    * Creates a [[DBIO]] for reading notifications settings.
+    * Creates a [[DBIO]] for reading spike filter settings.
     *
-    * @param testExecution test execution to read notification settings for.
-    * @return a [[DBIO]] (not yet executed) for reading notification settings for the given test execution.
+    * @param testExecution test execution to read spike filter settings for.
+    * @return a [[DBIO]] (not yet executed) for reading spike filter settings for the given test execution.
     */
-  def getNotificationSettingsQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[NotificationSettingsRowLike]]
+  def getSpikeFilterSettingsQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[SpikeFilterSettingsRowLike]]
 
 
   /**
-    * Creates a [[DBIO]] for bulk writing notification settings.
+    * Creates a [[DBIO]] for bulk writing spike filter settings.
     *
     * @param settings collection of settings to write.
-    * @return a [[DBIO]] (not yet executed) for writing a collection of notification settings.
+    * @return a [[DBIO]] (not yet executed) for writing a collection of spike filter settings.
     */
-  def writeNotificationSettingsQuery[T: NotificationSettingsRowLikeType](settings: Seq[T]): DBIO[Int]
+  def writeSpikeFilterSettingsQuery[T: SpikeFilterSettingsRowLikeType](settings: Seq[T]): DBIO[Int]
 }

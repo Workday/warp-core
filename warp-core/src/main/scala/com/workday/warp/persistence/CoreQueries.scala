@@ -584,15 +584,15 @@ trait CoreQueries extends AbstractQueries {
 
 
   /**
-    * Creates a [[DBIO]] for reading notification settings.
+    * Creates a [[DBIO]] for reading spike filter settings.
     *
-    * @param testExecution test execution to read notification settings for.
+    * @param testExecution test execution to read spike filter settings for.
     * @tparam T
-    * @return a [[DBIO]] (not yet executed) for reading notification settings for the given test execution.
+    * @return a [[DBIO]] (not yet executed) for reading spike filter settings for the given test execution.
     */
-  override def getNotificationSettingsQuery[T: TestExecutionRowLikeType](testExecution: T):
-  DBIO[Option[NotificationSettingsRowLike]] = {
-    NotificationSettings
+  override def getSpikeFilterSettingsQuery[T: TestExecutionRowLikeType](testExecution: T):
+  DBIO[Option[SpikeFilterSettingsRowLike]] = {
+    SpikeFilterSettings
       .filter(_.idTestDefinition === testExecution.idTestDefinition)
       .result
       .headOption
@@ -600,15 +600,15 @@ trait CoreQueries extends AbstractQueries {
 
 
   /**
-    * Creates a [[DBIO]] for writing notification settings.
+    * Creates a [[DBIO]] for writing spike filter settings.
     *
     * @param settings collection of settings to write.
     * @tparam T
-    * @return a [[DBIO]] (not yet executed) for writing a collection of notification settings.
+    * @return a [[DBIO]] (not yet executed) for writing a collection of spike filter settings.
     */
-  override def writeNotificationSettingsQuery[T: NotificationSettingsRowLikeType](settings: Seq[T]): DBIO[Int] = {
+  override def writeSpikeFilterSettingsQuery[T: SpikeFilterSettingsRowLikeType](settings: Seq[T]): DBIO[Int] = {
     // TODO not efficient query
-    val dbios: Seq[DBIO[Int]] = settings.map(s => NotificationSettings += s)
+    val dbios: Seq[DBIO[Int]] = settings.map(s => SpikeFilterSettings += s)
     DBIO.sequence(dbios).map(_.sum)
   }
 }

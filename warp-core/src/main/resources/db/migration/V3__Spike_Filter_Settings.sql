@@ -4,14 +4,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 
 CREATE TABLE IF NOT EXISTS `SpikeFilterSettings` (
-  `idNotificationSettings` INT(11) NOT NULL AUTO_INCREMENT,
   `idTestDefinition` INT(11) NOT NULL COMMENT 'Foreign key pointing to the test definition.',
-  `flappingDetectionEnabled` TINYINT(1) NOT NULL DEFAULT FALSE COMMENT 'Whether arbiter flapping detection is enabled.',
+  `spikeFilterEnabled` TINYINT(1) NOT NULL DEFAULT FALSE COMMENT 'Whether arbiter spike filter is enabled.',
   `responseTimeRequirement` DOUBLE NOT NULL,
   `alertOnNth` INT(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`idNotificationSettings`),
-  UNIQUE INDEX `definition_idx` (`idTestDefinition` ASC),
-  CONSTRAINT `definition_NotificationSettings`
+  PRIMARY KEY (`idTestDefinition`),
+  CONSTRAINT `definition_SpikeFilterSettings`
     FOREIGN KEY (`idTestDefinition`)
     REFERENCES `TestDefinition` (`idTestDefinition`)
     ON DELETE CASCADE
