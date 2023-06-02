@@ -435,8 +435,8 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     *
     * Required: No
     */
-  val WARP_ARBITER_SPIKE_FILTERING_ENABLED: PropertyEntry = PropertyEntry(
-    "wd.warp.arbiter.spike.filtering.enabled",
+  val WARP_ARBITER_SPIKE_FILTER_ENABLED: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.spike.filter.enabled",
     isRequired = false,
     "true"
   )
@@ -447,8 +447,8 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     *
     * Required: No
     */
-  val WARP_ARBITER_SPIKE_FILTERING_ALERT_ON_NTH: PropertyEntry = PropertyEntry(
-    "wd.warp.arbiter.spike.filtering.alert.on.nth", isRequired = false, "1"
+  val WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.spike.filter.alert.on.nth", isRequired = false, "1"
   )
 
   /**

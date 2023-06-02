@@ -52,7 +52,7 @@ trait CanReadHistory extends CorePersistenceAware {
   def priorExecutionsFailed[T: TestExecutionRowLikeType](testExecution: T, tagName: String, alertOnNth: Int): Boolean = {
     // get the prior execution, then check if it has a tag matching tagName
     val historySize: Int = alertOnNth - 1
-    if (historySize == 0) true
+    if (historySize <= 0) true
     else {
       val maybePriorExecutions: Seq[TablesLike.TestExecutionRowLike] =
         this.persistenceUtils.getPriorTestExecutions(testExecution, historySize)
