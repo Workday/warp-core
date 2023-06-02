@@ -250,8 +250,7 @@ object InfluxDBClient extends WarpLogging {
     maybeInflux.map(_.ping()) match {
       case Failure(exception) =>
         val error: String =
-          s"unable to connect to influxdb at $url using credentials (user = $user, password = $password)"
-        logger.warn(error, exception.getMessage)
+          s"unable to connect to influxdb at $url using credentials (user = $user, password = $password): ${exception.getMessage}"
         Left(error)
       case Success(_) =>
         Right(maybeInflux.get)

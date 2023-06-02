@@ -430,6 +430,16 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     */
   val WARP_PERSISTENCE_RETRIES: PropertyEntry = PropertyEntry("wd.warp.persistence.retries", isRequired = false, "4")
 
+  val WARP_ARBITER_SPIKE_FILTER_ENABLED: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.spike.filter.enabled",
+    isRequired = false,
+    "true"
+  )
+
+  val WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH: PropertyEntry = PropertyEntry(
+    "wd.warp.arbiter.spike.filter.alert.on.nth", isRequired = false, "1"
+  )
+
   /**
     * Minimum number of recorded measurements necessary for historical arbiters. Applies to all arbiters that extend
     * the abstract class {@link com.workday.warp.arbiters.HistoricalArbiter}.

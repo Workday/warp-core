@@ -2,7 +2,6 @@ package com.workday.warp.persistence
 
 import java.sql.Timestamp
 import java.time.Instant
-
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.config.WarpPropertyManager
@@ -378,6 +377,30 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       */
     override def getTestExecutionTagsRow(idTestExecution: Int, idTagName: Int): TestExecutionTagRowLike =
       this.synchronously(testExecutionTagsRowQuery(idTestExecution, idTagName)).head
+
+
+    /**
+      * Safe version of reading a TestExecutionTag.
+      *
+      * @param idTestExecution id of the [[TestExecutionRow]] to look up tags for.
+      * @param idTagName id of the [[TagNameRow]] to look up.
+      * @return a [[TestExecutionTagRowLike]] with the id `idTestExecution` and `idTagName`.
+      */
+    override def getTestExecutionTagsRowSafe(idTestExecution: Int, idTagName: Int): Option[TestExecutionTagRowLike] =
+      this.synchronously(testExecutionTagsRowQuery(idTestExecution, idTagName))
+
+
+    /**
+      * Reads prior test executions, subject to the provided limit.
+      *
+      * @param testExecution execution to look up history for.
+      * @param limit query row limit.
+      * @tparam T
+      * @return a collection of prior test executions.
+      */
+    override def getPriorTestExecutions[T: TestExecutionRowLikeType](testExecution: T, limit: Int): Seq[TablesLike.TestExecutionRowLike] = {
+      this.synchronously(getPriorTestExecutionsQuery(testExecution, limit))
+    }
   }
 }
 

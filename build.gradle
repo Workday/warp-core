@@ -266,6 +266,7 @@ subprojects {
     tasks.withType(JavaExec).each { task ->
         task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"
+        task.jvmArgs = ["--add-exports=jdk.attach/sun.tools.attach=ALL-UNNAMED"]
     }
 
     tasks.withType(Test).each { task ->
@@ -279,6 +280,7 @@ subprojects {
         task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"
         task.systemProperty "jdk.attach.allowAttachSelf", "true"
+        task.jvmArgs = ["--add-exports=jdk.attach/sun.tools.attach=ALL-UNNAMED"]
     }
 
     coveralls {

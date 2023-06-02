@@ -1,10 +1,10 @@
 package com.workday.warp.arbiters
 
 import java.time.LocalDate
-
 import com.workday.warp.config.CoreWarpProperty._
 import com.workday.warp.persistence.CoreIdentifierType._
-import com.workday.warp.persistence.{CoreIdentifier, CorePersistenceAware}
+import com.workday.warp.persistence.{CoreIdentifier, CorePersistenceAware, TablesLike}
+import com.workday.warp.persistence.TablesLike._
 
 
 /**
@@ -38,6 +38,31 @@ trait CanReadHistory extends CorePersistenceAware {
     // check if we should use a sliding window, or return all historical data
     if (useSlidingWindow) responseTimes takeRight slidingWindowSize
     else responseTimes
+  }
+
+
+  /**
+    * Checks whether the last `alertOnNth - 1` executions failed with a message from the same arbiter.
+    *
+    * @param testExecution
+    * @param tagName
+    * @param alertOnNth
+    * @return whether the last `alertOnNth - 1` consecutive executions failed for the same reason.
+    */
+  def priorExecutionsFailed[T: TestExecutionRowLikeType](testExecution: T, tagName: String, alertOnNth: Int): Boolean = {
+    // get the prior execution, then check if it has a tag matching tagName
+    val historySize: Int = alertOnNth - 1
+    if (historySize <= 0) true
+    else {
+      val maybePriorExecutions: Seq[TablesLike.TestExecutionRowLike] =
+        this.persistenceUtils.getPriorTestExecutions(testExecution, historySize)
+      require(maybePriorExecutions.length <= historySize)
+
+      maybePriorExecutions.length == historySize && maybePriorExecutions.forall { execution =>
+        val tag = this.persistenceUtils.getTagName(tagName)
+        this.persistenceUtils.getTestExecutionTagsRowSafe(execution.idTestExecution, tag.idTagName).nonEmpty
+      }
+    }
   }
 
   /**
