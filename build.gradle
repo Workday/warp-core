@@ -244,6 +244,7 @@ subprojects {
 
         testLogging {
             events 'failed'
+            showStandardStreams = "$showStandardStreams"
         }
 
         useJUnitPlatform()
