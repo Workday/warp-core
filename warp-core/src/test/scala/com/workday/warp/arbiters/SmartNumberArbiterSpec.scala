@@ -100,7 +100,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware wit
   /**
     * Create 100 data points. 70 with 500ms response time and 30 with 100ms
     * Uses a sliding window size of 100, so the latest test execution with a
-    * response time of 600ms should NOT be flagged as an anomaly
+    * response time of 500ms should NOT be flagged as an anomaly
     */
   @UnitTest
   def usesLongSlidingWindow(): Unit = {
