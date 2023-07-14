@@ -108,7 +108,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware wit
     val allResponseTimes: Iterable[Double] =
       createDummyTestExecutions(testID, 70, 500) ++ createDummyTestExecutions(testID, 30, 100)
 
-    val incomingTestExecution: TestExecutionRowLike = persistDummyTestExecution(testID, 600)
+    val incomingTestExecution: TestExecutionRowLike = persistDummyTestExecution(testID, 500)
     val slidingWindowArbiter: SmartNumberArbiter = new SmartNumberArbiter(useSlidingWindow = true, slidingWindowSize = 100)
     val windowSmartNumber: Double = slidingWindowArbiter.smartNumber(allResponseTimes takeRight slidingWindowArbiter.slidingWindowSize)
     val allResponseTimesSmartNumber: Double = slidingWindowArbiter.smartNumber(allResponseTimes)
