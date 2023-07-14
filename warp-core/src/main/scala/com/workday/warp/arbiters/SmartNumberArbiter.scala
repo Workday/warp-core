@@ -60,10 +60,12 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     if (useSlidingWindow && slidingWindowSize < WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt) {
-      Option(new IllegalArgumentException(
+      val err: Exception = new IllegalArgumentException(
           s"sliding window is enabled, but window size (${slidingWindowSize}) is less than " +
             s"${WARP_ANOMALY_RPCA_MINIMUM_N.propertyName} (${WARP_ANOMALY_RPCA_MINIMUM_N.value.toInt})"
-      ))
+      )
+      logger.error(s"${this.getClass.getCanonicalName} could not finish voting: ", err)
+      None
     }
     else {
       // we don't care about today's response time for this
