@@ -26,7 +26,7 @@ class TwoSampleRegressionTestSpec extends WarpJUnitSpec {
   @UnitTest
   def regressionSpec(): Unit = {
     val baselineNormalResponseTimes: Array[Double] = Array.fill(50)(50 + (Random.nextGaussian() * 3))
-    val regressedNormalResponseTimes: Array[Double] = Array.fill(50)(54 + (Random.nextGaussian() * 4))
+    val regressedNormalResponseTimes: Array[Double] = Array.fill(50)(54 + (Random.nextGaussian() * 8))
 
     val regressedTTestStatResults: AllRegressionStatTestResults =
       TwoSampleRegressionTest.testDifferenceOfMeans(baselineNormalResponseTimes, "", regressedNormalResponseTimes, "", alpha).get
