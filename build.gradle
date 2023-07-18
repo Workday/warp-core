@@ -244,7 +244,7 @@ subprojects {
 
         testLogging {
             events 'failed'
-            showStandardStreams = "${showStandardStreams}".toBoolean()
+            showStandardStreams = "$showTestStandardStreams".toBoolean()
         }
 
         useJUnitPlatform()

@@ -22,12 +22,10 @@ class HeapHistogramSpec extends WarpJUnitSpec with HistogramIoLike with HasRando
   @UnitTest
   def getHeapHistogramSpec(): Unit = {
     case class Cat()
-    List.fill(1000)(new Cat)
-    // seems that sporadically, reading heap histogram will not reflect the changes of our Cat memory allocation
-    Thread.sleep(2000)
-
+    val cats = List.fill(1000)(new Cat)
     val histogram: Seq[HeapHistogramEntry] = getHeapHistogram
     histogram.find(_.className.contains("HeapHistogramSpec$Cat")).map(_.numInstances) should be (Some(1000))
+    cats.length should be (1000)
   }
 
   /**
