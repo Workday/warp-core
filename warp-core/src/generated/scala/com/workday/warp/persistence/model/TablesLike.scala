@@ -5,7 +5,7 @@ import slick.lifted.Rep
 import annotation.implicitNotFound
 
 trait TablesLike {
-  val CORE_TABLES: Map[String, String] = Map(("BuildRow","BuildRowWrapper(idBuild,major,minor,patch,firstTested,lastTested)"),("MeasurementRow","MeasurementRowWrapper(idTestExecution,idMeasurementName,result)"),("MeasurementNameRow","MeasurementNameRowWrapper(idMeasurementName,name)"),("TagNameRow","TagNameRowWrapper(idTagName,name,nameType,isUserGenerated)"),("TestDefinitionRow","TestDefinitionRowWrapper(idTestDefinition,methodSignature,active,productName,subProductName,className,methodName,documentation)"),("TestDefinitionMetaTagRow","TestDefinitionMetaTagRowWrapper(idTestDefinitionTag,idTagName,value)"),("TestDefinitionTagRow","TestDefinitionTagRowWrapper(idTestDefinitionTag,idTestDefinition,idTagName,value)"),("TestExecutionRow","TestExecutionRowWrapper(idTestExecution,idTestDefinition,idBuild,passed,responseTime,responseTimeRequirement,startTime,endTime)"),("TestExecutionMetaTagRow","TestExecutionMetaTagRowWrapper(idTestExecutionTag,idTagName,value)"),("TestExecutionTagRow","TestExecutionTagRowWrapper(idTestExecutionTag,idTestExecution,idTagName,value)"))
+  val CORE_TABLES: Map[String, String] = Map(("BuildRow","BuildRowWrapper(idBuild,major,minor,patch,firstTested,lastTested)"),("MeasurementRow","MeasurementRowWrapper(idTestExecution,idMeasurementName,result)"),("MeasurementNameRow","MeasurementNameRowWrapper(idMeasurementName,name)"),("SpikeFilterSettingsRow","SpikeFilterSettingsRowWrapper(idTestDefinition,spikeFilterEnabled,responseTimeRequirement,alertOnNth)"),("TagNameRow","TagNameRowWrapper(idTagName,name,nameType,isUserGenerated)"),("TestDefinitionRow","TestDefinitionRowWrapper(idTestDefinition,methodSignature,active,productName,subProductName,className,methodName,documentation)"),("TestDefinitionMetaTagRow","TestDefinitionMetaTagRowWrapper(idTestDefinitionTag,idTagName,value)"),("TestDefinitionTagRow","TestDefinitionTagRowWrapper(idTestDefinitionTag,idTestDefinition,idTagName,value)"),("TestExecutionRow","TestExecutionRowWrapper(idTestExecution,idTestDefinition,idBuild,passed,responseTime,responseTimeRequirement,startTime,endTime)"),("TestExecutionMetaTagRow","TestExecutionMetaTagRowWrapper(idTestExecutionTag,idTagName,value)"),("TestExecutionTagRow","TestExecutionTagRowWrapper(idTestExecutionTag,idTestExecution,idTagName,value)"))
   /** Supertrait for entity classes storing rows of table BuildLike
    *  
    *  idBuild: Database column idBuild SqlType(INT), AutoInc, PrimaryKey
@@ -84,6 +84,34 @@ trait TablesLike {
   trait MeasurementNameLike {
     val idMeasurementName: Rep[Int]
     val name: Rep[String]
+  }
+
+  /** Supertrait for entity classes storing rows of table SpikeFilterSettingsLike
+   *  
+   *  idTestDefinition: Database column idTestDefinition SqlType(INT), PrimaryKey
+   *  spikeFilterEnabled: Database column spikeFilterEnabled SqlType(BIT), Default(false)
+   *  responseTimeRequirement: Database column responseTimeRequirement SqlType(DOUBLE)
+   *  alertOnNth: Database column alertOnNth SqlType(INT), Default(1) */
+  trait SpikeFilterSettingsRowLike {
+    val idTestDefinition: Int
+    val spikeFilterEnabled: Boolean
+    val responseTimeRequirement: Double
+    val alertOnNth: Int
+  }
+  /** Type Class for SpikeFilterSettingsRowLike **/
+  @implicitNotFound("Could not find an implicit value for evidence of type class SpikeFilterSettingsRowLikeType[${T}]. You might pass an (implicit ev: SpikeFilterSettingsRowLikeType[${T}]) parameter to your method or import Tables.RowTypeClasses._")
+  trait SpikeFilterSettingsRowLikeType[T] {
+    def idTestDefinition(row: T): Int
+    def spikeFilterEnabled(row: T): Boolean
+    def responseTimeRequirement(row: T): Double
+    def alertOnNth(row: T): Int
+  }
+  /** Supertrait for Table descriptions of table SpikeFilterSettingsLike */
+  trait SpikeFilterSettingsLike {
+    val idTestDefinition: Rep[Int]
+    val spikeFilterEnabled: Rep[Boolean]
+    val responseTimeRequirement: Rep[Double]
+    val alertOnNth: Rep[Int]
   }
 
   /** Supertrait for entity classes storing rows of table TagNameLike
@@ -322,6 +350,12 @@ trait TablesLike {
     implicit object MeasurementNameRowLikeTypeClassObject extends MeasurementNameRowLikeType[MeasurementNameRowLike] {
       def idMeasurementName(row: MeasurementNameRowLike): Int = row.idMeasurementName
       def name(row: MeasurementNameRowLike): String = row.name
+    }
+    implicit object SpikeFilterSettingsRowLikeTypeClassObject extends SpikeFilterSettingsRowLikeType[SpikeFilterSettingsRowLike] {
+      def idTestDefinition(row: SpikeFilterSettingsRowLike): Int = row.idTestDefinition
+      def spikeFilterEnabled(row: SpikeFilterSettingsRowLike): Boolean = row.spikeFilterEnabled
+      def responseTimeRequirement(row: SpikeFilterSettingsRowLike): Double = row.responseTimeRequirement
+      def alertOnNth(row: SpikeFilterSettingsRowLike): Int = row.alertOnNth
     }
     implicit object TagNameRowLikeTypeClassObject extends TagNameRowLikeType[TagNameRowLike] {
       def idTagName(row: TagNameRowLike): Int = row.idTagName

@@ -430,12 +430,23 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
     */
   val WARP_PERSISTENCE_RETRIES: PropertyEntry = PropertyEntry("wd.warp.persistence.retries", isRequired = false, "4")
 
+  /**
+    * Whether arbiter flapping detection is enabled.
+    *
+    * Required: No
+    */
   val WARP_ARBITER_SPIKE_FILTER_ENABLED: PropertyEntry = PropertyEntry(
     "wd.warp.arbiter.spike.filter.enabled",
     isRequired = false,
     "true"
   )
 
+  /**
+    * Arbiter flapping number of consecutive failures (depending on arbiter implementation votes)
+    * required before failing a build.
+    *
+    * Required: No
+    */
   val WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH: PropertyEntry = PropertyEntry(
     "wd.warp.arbiter.spike.filter.alert.on.nth", isRequired = false, "1"
   )

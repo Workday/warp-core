@@ -344,5 +344,30 @@ trait AbstractQueries {
   def updateTestExecutionThreshold[T: TestExecutionRowLikeType](testExecution: T, newThreshold: Double): DBIO[Int]
 
 
+  /**
+    * Creates a [[DBIO]] for reading prior test executions.
+    *
+    * @param testExecution text execution to read history.
+    * @param limit history length.
+    * @return a [[DBIO]] (not yet executed) for reading test execution history.
+    */
   def getPriorTestExecutionsQuery[T: TestExecutionRowLikeType](testExecution: T, limit: Int): DBIO[Seq[TestExecutionRowLike]]
+
+
+  /**
+    * Creates a [[DBIO]] for reading spike filter settings.
+    *
+    * @param testExecution test execution to read spike filter settings for.
+    * @return a [[DBIO]] (not yet executed) for reading spike filter settings for the given test execution.
+    */
+  def getSpikeFilterSettingsQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[SpikeFilterSettingsRowLike]]
+
+
+  /**
+    * Creates a [[DBIO]] for bulk writing spike filter settings.
+    *
+    * @param settings collection of settings to write.
+    * @return a [[DBIO]] (not yet executed) for writing a collection of spike filter settings.
+    */
+  def writeSpikeFilterSettingsQuery[T: SpikeFilterSettingsRowLikeType](settings: Seq[T]): DBIO[Int]
 }

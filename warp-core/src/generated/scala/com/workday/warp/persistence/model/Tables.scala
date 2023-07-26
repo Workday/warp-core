@@ -12,7 +12,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema = Array(Build.schema, Measurement.schema, MeasurementName.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
+  lazy val schema = Array(Build.schema, Measurement.schema, MeasurementName.schema, SpikeFilterSettings.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -53,6 +53,19 @@ trait Tables {
     implicit object MeasurementNameRowWrapperTypeClassObject extends MeasurementNameRowLikeType[MeasurementNameRowWrapper] {
       def idMeasurementName(row: MeasurementNameRowWrapper): Int = row.idMeasurementName
       def name(row: MeasurementNameRowWrapper): String = row.name
+    }
+    implicit object SpikeFilterSettingsRowTypeClassObject extends SpikeFilterSettingsRowLikeType[SpikeFilterSettingsRow] {
+      def idTestDefinition(row: SpikeFilterSettingsRow): Int = row.idTestDefinition
+      def spikeFilterEnabled(row: SpikeFilterSettingsRow): Boolean = row.spikeFilterEnabled
+      def responseTimeRequirement(row: SpikeFilterSettingsRow): Double = row.responseTimeRequirement
+      def alertOnNth(row: SpikeFilterSettingsRow): Int = row.alertOnNth
+    }
+
+    implicit object SpikeFilterSettingsRowWrapperTypeClassObject extends SpikeFilterSettingsRowLikeType[SpikeFilterSettingsRowWrapper] {
+      def idTestDefinition(row: SpikeFilterSettingsRowWrapper): Int = row.idTestDefinition
+      def spikeFilterEnabled(row: SpikeFilterSettingsRowWrapper): Boolean = row.spikeFilterEnabled
+      def responseTimeRequirement(row: SpikeFilterSettingsRowWrapper): Double = row.responseTimeRequirement
+      def alertOnNth(row: SpikeFilterSettingsRowWrapper): Int = row.alertOnNth
     }
     implicit object TagNameRowTypeClassObject extends TagNameRowLikeType[TagNameRow] {
       def idTagName(row: TagNameRow): Int = row.idTagName
@@ -268,6 +281,42 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table MeasurementName */
   lazy val MeasurementName = new TableQuery(tag => new MeasurementName(tag))
+
+  /** Entity class storing rows of table SpikeFilterSettings
+   *  @param idTestDefinition Database column idTestDefinition SqlType(INT), PrimaryKey
+   *  @param spikeFilterEnabled Database column spikeFilterEnabled SqlType(BIT), Default(false)
+   *  @param responseTimeRequirement Database column responseTimeRequirement SqlType(DOUBLE)
+   *  @param alertOnNth Database column alertOnNth SqlType(INT), Default(1) */
+  class SpikeFilterSettingsRowWrapper(val idTestDefinition: Int, val spikeFilterEnabled: Boolean = false, val responseTimeRequirement: Double, val alertOnNth: Int = 1) extends SpikeFilterSettingsRowLike
+  case class SpikeFilterSettingsRow(override val idTestDefinition: Int, override val spikeFilterEnabled: Boolean = false, override val responseTimeRequirement: Double, override val alertOnNth: Int = 1) extends SpikeFilterSettingsRowWrapper(idTestDefinition, spikeFilterEnabled, responseTimeRequirement, alertOnNth)
+  implicit def SpikeFilterSettingsRowWrapper2SpikeFilterSettingsRow(x: SpikeFilterSettingsRowWrapper): SpikeFilterSettingsRow = SpikeFilterSettingsRow(x.idTestDefinition, x.spikeFilterEnabled, x.responseTimeRequirement, x.alertOnNth)
+  implicit def SpikeFilterSettingsRow2SpikeFilterSettingsRowWrapper(x: SpikeFilterSettingsRow): SpikeFilterSettingsRowWrapper = new SpikeFilterSettingsRowWrapper(x.idTestDefinition, x.spikeFilterEnabled, x.responseTimeRequirement, x.alertOnNth)
+  implicit def SpikeFilterSettingsRowFromTypeClass[T: SpikeFilterSettingsRowLikeType](x: T): SpikeFilterSettingsRow = SpikeFilterSettingsRow(implicitly[SpikeFilterSettingsRowLikeType[T]].idTestDefinition(x), implicitly[SpikeFilterSettingsRowLikeType[T]].spikeFilterEnabled(x), implicitly[SpikeFilterSettingsRowLikeType[T]].responseTimeRequirement(x), implicitly[SpikeFilterSettingsRowLikeType[T]].alertOnNth(x))
+  /** GetResult implicit for fetching SpikeFilterSettingsRow objects using plain SQL queries */
+  implicit def GetResultSpikeFilterSettingsRow(implicit e0: GR[Int], e1: GR[Boolean], e2: GR[Double]): GR[SpikeFilterSettingsRow] = GR{
+    prs => import prs._
+    SpikeFilterSettingsRow.tupled((<<[Int], <<[Boolean], <<[Double], <<[Int]))
+  }
+  /** Table description of table SpikeFilterSettings. Objects of this class serve as prototypes for rows in queries. */
+  class SpikeFilterSettings(_tableTag: Tag) extends profile.api.Table[SpikeFilterSettingsRow](_tableTag, None, "SpikeFilterSettings") with SpikeFilterSettingsLike {
+    def * = (idTestDefinition, spikeFilterEnabled, responseTimeRequirement, alertOnNth).<>(SpikeFilterSettingsRow.tupled, SpikeFilterSettingsRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = ((Rep.Some(idTestDefinition), Rep.Some(spikeFilterEnabled), Rep.Some(responseTimeRequirement), Rep.Some(alertOnNth))).shaped.<>({r=>import r._; _1.map(_=> SpikeFilterSettingsRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column idTestDefinition SqlType(INT), PrimaryKey */
+    val idTestDefinition: Rep[Int] = column[Int]("idTestDefinition", O.PrimaryKey)
+    /** Database column spikeFilterEnabled SqlType(BIT), Default(false) */
+    val spikeFilterEnabled: Rep[Boolean] = column[Boolean]("spikeFilterEnabled", O.Default(false))
+    /** Database column responseTimeRequirement SqlType(DOUBLE) */
+    val responseTimeRequirement: Rep[Double] = column[Double]("responseTimeRequirement")
+    /** Database column alertOnNth SqlType(INT), Default(1) */
+    val alertOnNth: Rep[Int] = column[Int]("alertOnNth", O.Default(1))
+
+    /** Foreign key referencing TestDefinition (database name definition_SpikeFilterSettings) */
+    lazy val testDefinitionFk = foreignKey("definition_SpikeFilterSettings", idTestDefinition, TestDefinition)(r => r.idTestDefinition, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
+  }
+  /** Collection-like TableQuery object for table SpikeFilterSettings */
+  lazy val SpikeFilterSettings = new TableQuery(tag => new SpikeFilterSettings(tag))
 
   /** Entity class storing rows of table TagName
    *  @param idTagName Database column idTagName SqlType(INT), AutoInc, PrimaryKey

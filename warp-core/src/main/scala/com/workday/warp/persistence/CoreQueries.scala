@@ -564,6 +564,14 @@ trait CoreQueries extends AbstractQueries {
   }
 
 
+  /**
+    * Creates a [[DBIO]] for reading test execution history.
+    *
+    * @param testExecution text execution to read history.
+    * @param limit history length.
+    * @tparam T
+    * @return a [[DBIO]] (not yet executed) for reading test execution history.
+    */
   override def getPriorTestExecutionsQuery[T: TestExecutionRowLikeType](testExecution: T,
                                                                         limit: Int): DBIO[Seq[TablesLike.TestExecutionRowLike]] = {
     TestExecution
@@ -571,5 +579,35 @@ trait CoreQueries extends AbstractQueries {
       .sortBy(_.idTestExecution.desc)
       .take(limit)
       .result
+  }
+
+
+  /**
+    * Creates a [[DBIO]] for reading spike filter settings.
+    *
+    * @param testExecution test execution to read spike filter settings for.
+    * @tparam T
+    * @return a [[DBIO]] (not yet executed) for reading spike filter settings for the given test execution.
+    */
+  override def getSpikeFilterSettingsQuery[T: TestExecutionRowLikeType](testExecution: T):
+  DBIO[Option[SpikeFilterSettingsRowLike]] = {
+    SpikeFilterSettings
+      .filter(_.idTestDefinition === testExecution.idTestDefinition)
+      .result
+      .headOption
+  }
+
+
+  /**
+    * Creates a [[DBIO]] for writing spike filter settings.
+    *
+    * @param settings collection of settings to write.
+    * @tparam T
+    * @return a [[DBIO]] (not yet executed) for writing a collection of spike filter settings.
+    */
+  override def writeSpikeFilterSettingsQuery[T: SpikeFilterSettingsRowLikeType](settings: Seq[T]): DBIO[Int] = {
+    // TODO not efficient query
+    val dbios: Seq[DBIO[Int]] = settings.map(s => SpikeFilterSettings += s)
+    DBIO.sequence(dbios).map(_.sum)
   }
 }

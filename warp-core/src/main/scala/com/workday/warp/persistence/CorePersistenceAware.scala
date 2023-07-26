@@ -398,8 +398,31 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       * @tparam T
       * @return a collection of prior test executions.
       */
-    override def getPriorTestExecutions[T: TestExecutionRowLikeType](testExecution: T, limit: Int): Seq[TablesLike.TestExecutionRowLike] = {
+    override def getPriorTestExecutions[T: TestExecutionRowLikeType](testExecution: T, limit: Int): Seq[TestExecutionRowLike] = {
       this.synchronously(getPriorTestExecutionsQuery(testExecution, limit))
+    }
+
+    /**
+      * Reads spike filter settings for the given test execution.
+      *
+      * @param testExecution execution to look up spike filter settings for.
+      * @tparam T
+      * @return spike filter settings for the given test execution.
+      */
+    override def getSpikeFilterSettings[T: TestExecutionRowLikeType](testExecution: T): Option[SpikeFilterSettingsRowLike] = {
+      this.synchronously(getSpikeFilterSettingsQuery(testExecution))
+    }
+
+
+    /**
+      * Writes a collection of spike filter settings.
+      *
+      * @param settings
+      * @tparam T
+      * @return number of rows affected.
+      */
+    override def writeSpikeFilterSettings[T: SpikeFilterSettingsRowLikeType](settings: Seq[T]): Int = {
+      this.synchronously(writeSpikeFilterSettingsQuery(settings))
     }
   }
 }

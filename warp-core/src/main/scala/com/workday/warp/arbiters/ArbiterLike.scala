@@ -72,19 +72,29 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
   final def voteWithSpikeFilter[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings
+    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings(testExecution)
     voteWithSpikeFilter(ballot, testExecution, spikeFilterEnabled, alertOnNth)
   }
 
 
   /**
-    * Whether spike filtering is enabled.
-    * TODO should consult notification settings db table in addition to properties.
+    * Whether spike filtering is enabled (notification settings).
     *
-    * @return notification settings.
+    * Order of precedence:
+    * - WarpProperties
+    * - DB
+    * - defaults to off
+    *
+    * @return spike filtering settings.
     */
-  def spikeFilterSettings: (Boolean, Int) = {
-    (WARP_ARBITER_SPIKE_FILTER_ENABLED.value.toBoolean, WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH.value.toInt)
+  def spikeFilterSettings[T: TestExecutionRowLikeType](testExecution: T): (Boolean, Int) = {
+    var settings: (Boolean, Int) = this.persistenceUtils.getSpikeFilterSettings(testExecution)
+      .map(setting => (setting.spikeFilterEnabled, setting.alertOnNth))
+      .getOrElse((false, 1))
+    // allow individual overrides from properties if they are present
+    Option(WARP_ARBITER_SPIKE_FILTER_ENABLED.value).foreach(f => settings = settings.copy(_1 = f.toBoolean))
+    Option(WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH.value).foreach(f => settings = settings.copy(_2 = f.toInt))
+    settings
   }
 
 
@@ -95,7 +105,9 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     * @return true iff the test passed.
     */
-  def passed[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Boolean = this.vote(ballot, testExecution).isEmpty
+  def passed[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Boolean = {
+    this.voteWithSpikeFilter(ballot, testExecution).isEmpty
+  }
 
 
   /**
@@ -105,7 +117,9 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     */
   def collectVote[T: TestExecutionRowLikeType](ballot: Ballot,
-                                               testExecution: T): Unit = ballot.registerVote(this.vote(ballot, testExecution))
+                                               testExecution: T): Unit = {
+    ballot.registerVote(this.voteWithSpikeFilter(ballot, testExecution))
+  }
 
 
   /**
@@ -115,16 +129,13 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     */
   def voteAndThrow[T: TestExecutionRowLikeType](ballot: Ballot,
-                                                testExecution: T): Unit = this.maybeThrow(this.vote(ballot, testExecution))
+                                                testExecution: T): Unit = {
+    this.maybeThrow(this.voteWithSpikeFilter(ballot, testExecution))
+  }
 
 
   /** Throws an exception iff the measured test did not pass its requirement. */
-  def maybeThrow(maybeError: Option[Throwable]): Unit = {
-    maybeError match {
-      case Some(error) => throw error
-      case None =>
-    }
-  }
+  def maybeThrow(maybeError: Option[Throwable]): Unit = maybeError.foreach(throw _)
 
 
   /**
