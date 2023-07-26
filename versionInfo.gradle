@@ -15,7 +15,7 @@ project.ext.versions = [
         , gatling: '3.8.4'
         , gradleGit: '4.0.2'
         , gradleScoverage: '7.0.1'
-        , guava: '29.0-jre'
+        , guava: '32.0.1-jre'
         , guice: '5.1.0'
         , gson: '2.8.9'
         , h2: '2.1.210'
