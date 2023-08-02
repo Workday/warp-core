@@ -331,12 +331,12 @@ subprojects {
         // https://github.com/scoverage/gradle-scoverage/issues/185
         // https://github.com/scoverage/gradle-scoverage/pull/188
         tasks.withType(ScoverageReport) {
-            enabled = false
+            enabled = true
         }
         tasks.withType(ScoverageAggregate) {
-            enabled = false
+            enabled = true
         }
-        tasks.compileScoverageScala.enabled = false
+        tasks.compileScoverageScala.enabled = true
     }
 
     dependencyLocking {
