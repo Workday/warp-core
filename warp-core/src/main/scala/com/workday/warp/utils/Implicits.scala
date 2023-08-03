@@ -333,16 +333,6 @@ object Implicits {
 
       this.aTry transform (cleanup, cleanup)
     }
-
-
-    /**
-      * Transforms this [[Try]] to an [[Either]].
-      * @return
-      */
-    def toEither: Either[Throwable, T] = aTry match {
-      case Success(value) => Right(value)
-      case Failure(err) => Left(err)
-    }
   }
 
 

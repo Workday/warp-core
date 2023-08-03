@@ -1,9 +1,10 @@
 package com.workday.warp.monadic
 
-import com.workday.warp.junit.WarpJUnitSpec
+import com.workday.warp.TestId
+import com.workday.warp.junit.{WarpJUnitSpec, WarpTest}
 import com.workday.warp.monadic.WarpAlgebra._
 import com.workday.warp.logger.WarpLogging
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInfo
 
 
 /**
@@ -16,8 +17,8 @@ import org.junit.jupiter.api.Test
  */
 class WarpScriptSpec extends WarpJUnitSpec with WarpLogging {
 
-  @Test
-  def measureSpec(): Unit = {
+  @WarpTest
+  def measureSpec(info: TestInfo): Unit = {
 
     val demo: WarpScript[Int] = for {
       // exec is useful for setup test data
@@ -26,6 +27,7 @@ class WarpScriptSpec extends WarpJUnitSpec with WarpLogging {
 
       // measure takes a name and an expression, and measures that expression
       _ <- measure("com.workday.warp.MeasureSpec.c", { logger.info("computing b"); a + 1 })
+      _ <- measure(TestId.fromTestInfo(info), a + b)
       d <- measure("com.workday.warp.MeasureSpec.d", a + b)
     } yield d
 

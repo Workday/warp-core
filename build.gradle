@@ -155,6 +155,7 @@ static boolean isSnapshot(String inferredVersion) {
 
 subprojects {
 
+    apply plugin: 'org.scoverage'
     apply from: file('dependencies.gradle')
 
 

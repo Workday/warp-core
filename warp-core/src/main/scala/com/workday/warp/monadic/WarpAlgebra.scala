@@ -66,7 +66,7 @@ object WarpAlgebra extends WarpLogging {
   // this is the api that will be used in for-comprehensions
   def measure[A](testId: TestId, f: => A): WarpScript[A] = liftF(Measure(testId, () => f))
   def measure[A](testId: String, f: => A): WarpScript[A] = liftF(Measure(TestId.fromString(testId), () => f))
-  def measure[A](f: => A): WarpScript[A] = liftF(Measure(None.orNull, () => f))
+  def measure[A](f: => A): WarpScript[A] = liftF(Measure(TestId.undefined, () => f))
   def exec[A](f: => A): WarpScript[A] = liftF(Exec(None, () => f))
   def exec[A](comment: String, f: => A): WarpScript[A] = liftF(Exec(Option(comment), () => f))
 
@@ -83,7 +83,7 @@ object WarpAlgebra extends WarpLogging {
   def interpretImpure[A](s: WarpScript[A]): A = s.go {
     case Exec(maybeComment, f) =>
       val comment: String = maybeComment.map(c => s": [$c]").getOrElse("")
-      logger.info(s"impure monadic exec$comment")
+      logger.info(s"impure monadic exec $comment")
       f()
     case Measure(testId, f) =>
       logger.info(s"impure monadic measuring ${testId.id}")

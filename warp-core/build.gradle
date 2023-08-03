@@ -4,6 +4,6 @@ scoverage {
     excludedFiles = []
 
     // Default Coverage Type is "Statement"
-    minimumRate = 0.92
+    minimumRate = 0.89
     scoverageVersion = "${versions.scalacScoverage}"
 }

@@ -22,5 +22,7 @@ class ParsesTestIdSpec extends WarpJUnitSpec with ParsesTestId with WarpLogging 
     fromUniqueId("[engine:junit-jupiter]/[class:com.workday.warp.junit.TestIdSupportSpec]/[test-template:testIdFromUniqueId()]/[test-template-invocation:#5]") should
       be (Some("com.workday.warp.junit.TestIdSupportSpec.testIdFromUniqueId"))
     // scalastyle:on
+
+    fromUniqueId("abcdefg") should be (None)
   }
 }
