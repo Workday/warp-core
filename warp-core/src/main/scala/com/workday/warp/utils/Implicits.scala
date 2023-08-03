@@ -11,7 +11,7 @@ import com.workday.warp.utils.TimeUtils.toNanos
 import com.workday.warp.Required
 import com.workday.warp.arbiters.RequirementViolationException
 
-import scala.util.{Failure, Success, Try}
+import scala.util.Try
 
 /**
   * Utility implicits.
