@@ -96,6 +96,16 @@ trait HasCoreWarpProperties extends WarpPropertyLike {
 
 
   /**
+    * Defaults to the relative path for build output. This is being introduced to accommodate Gradle builds.
+    *
+    * Required: No
+    * Default Value: build
+    */
+  val BUILD_OUTPUT_DIRECTORY: PropertyEntry = PropertyEntry(
+    "wd.warp.build.output.directory.path", isRequired = false, "build"
+  )
+
+  /**
     * Controls log level for root logger.
     *
     * Required: No
