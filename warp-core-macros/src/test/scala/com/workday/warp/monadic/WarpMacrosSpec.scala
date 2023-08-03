@@ -1,6 +1,5 @@
 package com.workday.warp.monadic
 
-import com.workday.warp.TestId
 import com.workday.warp.TestIdImplicits._
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.logger.WarpLogging
@@ -26,9 +25,9 @@ class WarpMacrosSpec extends WarpJUnitSpec with WarpLogging {
     val script: WarpScript[Int] = deriveTestIds {
       for {
         a <- exec(1 + 1)
-        b <- measure(TestId.undefined, a + 1)
-        c <- measure(TestId.undefined, b + 1)
-        d <- measure(TestId.undefined, c + 1)
+        b <- measure(a + 1)
+        c <- measure(b + 1)
+        d <- measure(c + 1)
       } yield d
     }
 
