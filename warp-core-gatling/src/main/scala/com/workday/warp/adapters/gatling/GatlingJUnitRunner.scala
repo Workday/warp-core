@@ -22,6 +22,7 @@
 
 package com.workday.warp.adapters.gatling
 
+import com.workday.warp.config.CoreWarpProperty.BUILD_OUTPUT_DIRECTORY
 import com.workday.warp.logger.WarpLogging
 import io.gatling.app.Gatling
 import io.gatling.core.Predef.Simulation
@@ -57,7 +58,7 @@ final class GatlingJUnitRunner(simulationClass: Class[_ <: Simulation]) extends 
       val properties: GatlingPropertiesBuilder = new GatlingPropertiesBuilder
       properties.simulationClass(simulationClass.getCanonicalName)
       properties.noReports()
-      properties.resultsDirectory("build/")
+      properties.resultsDirectory(BUILD_OUTPUT_DIRECTORY.value)
       Gatling.fromMap(properties.build)
     } match {
       case Success(0) =>

@@ -10,7 +10,7 @@ class WarpStopwatchSpec extends WarpJUnitSpec {
 
   @UnitTest
   def testAlreadyStopped(): Unit = {
-    val stopwatch: WarpStopwatch = WarpStopwatch.start("abcd")
+    val stopwatch: WarpStopwatch = WarpStopwatch.start()
     stopwatch.stop()
     intercept[IllegalStateException] {
       stopwatch.stop()
@@ -20,7 +20,7 @@ class WarpStopwatchSpec extends WarpJUnitSpec {
 
   @UnitTest
   def testNormalTiming(): Unit = {
-    val stopwatch = WarpStopwatch.start("")
+    val stopwatch = WarpStopwatch.start("abcd")
     Thread.sleep(5)
     stopwatch.stop()
     val elapsed: Long = stopwatch.elapsedMilliseconds()

@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        scala: [2.12.17, 2.13.10]
+        # change in sync with gradle.properties
+        scala: [2.12.18, 2.13.11]
         # see build.gradle copy template tasks
         db: [MySQL, H2]
 
@@ -46,4 +47,4 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-${{ matrix.scala }}
 
       - name: Build with Gradle
-        run: ./gradlew copy${{ matrix.db }}ConfigTemplate test checkScalafix publishToMavenLocal -PscalaVersion=${{ matrix.scala }} -PshowTestStandardStreams=true --stacktrace
+        run: ./gradlew copy${{ matrix.db }}ConfigTemplate :warp-core:checkScoverage aggregateScoverage checkScalafix publishToMavenLocal -PscalaVersion=${{ matrix.scala }} -PshowTestStandardStreams=true --stacktrace

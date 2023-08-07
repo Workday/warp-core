@@ -1,6 +1,7 @@
 package com.workday.warp.logger
 
 import ch.qos.logback.classic.Level
+import com.workday.warp.config.CoreWarpProperty.BUILD_OUTPUT_DIRECTORY
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 
 /**
@@ -19,7 +20,7 @@ class WarpLogUtilsSpec extends WarpJUnitSpec with WarpLogging {
 
   @UnitTest
   def addFileWriter(): Unit = {
-    WarpLogUtils.addFileWriter(WriterConfig("build/UnitTest.log", "com.workday.warp.logger", Level.DEBUG))
+    WarpLogUtils.addFileWriter(WriterConfig(s"${BUILD_OUTPUT_DIRECTORY.value}/UnitTest.log", "com.workday.warp.logger", Level.DEBUG))
     logger.debug("foobar")
   }
 }

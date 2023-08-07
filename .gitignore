@@ -9,6 +9,7 @@ build
 .idea
 */build
 */build_*
+build_*
 buildSrc/wrapper
 buildSrc/daemon
 **/project
