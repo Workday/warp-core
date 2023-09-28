@@ -221,14 +221,14 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware wit
     arbiter.voteAndThrow(ballot, testExecution)
 
     // read warp spec test execution tag
-    val tagDescriptionId: Int = this.persistenceUtils.getTagName(CoreConstants.WARP_SPECIFICATION_FIELDS_STRING).idTagName
+    val tagDescriptionId: Int = this.persistenceUtils.getTagName(CoreConstants.WARP_SPECIFICATION_FIELDS_STRING).get.idTagName
     val testExecutionTagId: Int = this.persistenceUtils.getTestExecutionTagsRow(
       testExecution.idTestExecution,
       tagDescriptionId
     ).idTestExecutionTag
 
     // read smart threshold test execution metatag
-    val metaTagDescriptionId: Int = this.persistenceUtils.getTagName(CoreConstants.SMART_THRESHOLD_STRING).idTagName
+    val metaTagDescriptionId: Int = this.persistenceUtils.getTagName(CoreConstants.SMART_THRESHOLD_STRING).get.idTagName
     this.persistenceUtils.synchronously(
       this.persistenceUtils.testExecutionMetaTagQuery(testExecutionTagId, metaTagDescriptionId)
     ).nonEmpty should be (true)

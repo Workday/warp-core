@@ -364,8 +364,8 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       * @param name [[String]] name of TagNameRow
       * @return a [[TagNameRowLike]] with the given name
       */
-    override def getTagName(name: String): TagNameRowLike =
-      this.synchronously(this.readTagNameQuery(name)).head
+    override def getTagName(name: String): Option[TagNameRowLike] =
+      this.synchronously(this.readTagNameQuery(name))
 
 
     /**

@@ -364,7 +364,7 @@ trait PersistenceAware extends WarpLogging {
       * @param name [[String]] name of TagNameRow
       * @return a [[TagNameRowLike]] with the given name
       */
-    def getTagName(name: String): TagNameRowLike
+    def getTagName(name: String): Option[TagNameRowLike]
 
 
     /**
