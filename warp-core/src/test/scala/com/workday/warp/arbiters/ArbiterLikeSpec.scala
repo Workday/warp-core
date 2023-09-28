@@ -5,7 +5,6 @@ import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.TablesLike._
-import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 
 import java.time.Instant
 import java.util.UUID
@@ -21,7 +20,7 @@ class ArbiterLikeSpec extends WarpJUnitSpec with ArbiterLike {
     val settingsRow = SpikeFilterSettingsRow(testExec.idTestDefinition, false, 10, 10)
     this.persistenceUtils.writeSpikeFilterSettings(Seq(settingsRow))
 
-    this.spikeFilterSettings(testExec) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
+    this.spikeFilterSettings(testExec.idTestDefinition) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
   }
 
   /**
