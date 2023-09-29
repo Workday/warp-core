@@ -59,8 +59,8 @@ trait CanReadHistory extends CorePersistenceAware {
       require(maybePriorExecutions.length <= historySize)
 
       maybePriorExecutions.length == historySize && maybePriorExecutions.forall { execution =>
-        val tag = this.persistenceUtils.getTagName(tagName)
-        this.persistenceUtils.getTestExecutionTagsRowSafe(execution.idTestExecution, tag.idTagName).nonEmpty
+        val maybeTag: Option[TagNameRowLike] = this.persistenceUtils.getTagName(tagName)
+        maybeTag.exists(tag => this.persistenceUtils.getTestExecutionTagsRowSafe(execution.idTestExecution, tag.idTagName).nonEmpty)
       }
     }
   }

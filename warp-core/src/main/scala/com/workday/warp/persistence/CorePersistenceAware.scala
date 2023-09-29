@@ -364,8 +364,8 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       * @param name [[String]] name of TagNameRow
       * @return a [[TagNameRowLike]] with the given name
       */
-    override def getTagName(name: String): TagNameRowLike =
-      this.synchronously(this.readTagNameQuery(name)).head
+    override def getTagName(name: String): Option[TagNameRowLike] =
+      this.synchronously(this.readTagNameQuery(name))
 
 
     /**
@@ -403,15 +403,13 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
     }
 
     /**
-      * Reads spike filter settings for the given test execution.
+      * Reads spike filter settings for the given test definition.
       *
-      * @param testExecution execution to look up spike filter settings for.
-      * @tparam T
+      * @param idTEstDefinition test definition to look up spike filter settings for.
       * @return spike filter settings for the given test execution.
       */
-    override def getSpikeFilterSettings[T: TestExecutionRowLikeType](testExecution: T): Option[SpikeFilterSettingsRowLike] = {
-      this.synchronously(getSpikeFilterSettingsQuery(testExecution))
-    }
+    override def getSpikeFilterSettings(idTestDefinition: Int): Option[SpikeFilterSettingsRowLike] =
+      this.synchronously(getSpikeFilterSettingsQuery(idTestDefinition))
 
 
     /**

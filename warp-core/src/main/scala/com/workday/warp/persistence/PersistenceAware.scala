@@ -364,7 +364,7 @@ trait PersistenceAware extends WarpLogging {
       * @param name [[String]] name of TagNameRow
       * @return a [[TagNameRowLike]] with the given name
       */
-    def getTagName(name: String): TagNameRowLike
+    def getTagName(name: String): Option[TagNameRowLike]
 
 
     /**
@@ -399,11 +399,10 @@ trait PersistenceAware extends WarpLogging {
     /**
       * Reads spike filter settings for the given test execution.
       *
-      * @param testExecution execution to look up spike filter settings for.
-      * @tparam T
+      * @param idTestDefinition test definition to look up spike filter settings for.
       * @return spike filter settings for the given test execution.
       */
-    def getSpikeFilterSettings[T: TestExecutionRowLikeType](testExecution: T): Option[SpikeFilterSettingsRowLike]
+    def getSpikeFilterSettings(idTestDefinition: Int): Option[SpikeFilterSettingsRowLike]
 
 
     /**

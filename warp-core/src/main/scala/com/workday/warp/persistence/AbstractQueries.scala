@@ -357,10 +357,10 @@ trait AbstractQueries {
   /**
     * Creates a [[DBIO]] for reading spike filter settings.
     *
-    * @param testExecution test execution to read spike filter settings for.
+    * @param idTestDefinition test definition to read spike filter settings for.
     * @return a [[DBIO]] (not yet executed) for reading spike filter settings for the given test execution.
     */
-  def getSpikeFilterSettingsQuery[T: TestExecutionRowLikeType](testExecution: T): DBIO[Option[SpikeFilterSettingsRowLike]]
+  def getSpikeFilterSettingsQuery(idTestDefinition: Int): DBIO[Option[SpikeFilterSettingsRowLike]]
 
 
   /**
