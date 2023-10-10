@@ -52,8 +52,9 @@ class ResponseTimeArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val vote: Option[Throwable] = arbiter.vote(ballot, testExecution)
     vote should not be empty
-    vote.get.getMessage should be (s"$testId violated response time requirement: expected 0:00:03.000 (3000 ms), but " +
-      "measured 0:00:04.000 (4000 ms)")
+    vote.get.getMessage should be (s"$testId violated response time requirement" +
+      " (imposed by com.workday.warp.arbiters.ResponseTimeArbiter):" +
+      " expected 0:00:03.000 (3000 ms), but measured 0:00:04.000 (4000 ms)")
   }
 
 
@@ -68,7 +69,8 @@ class ResponseTimeArbiterSpec extends WarpJUnitSpec with CorePersistenceAware {
 
     val vote: Option[Throwable] = arbiter.vote(ballot, testExecution)
     vote should not be empty
-    vote.get.getMessage should be (s"$testId violated response time requirement: expected 0:00:03.000 (3000 ms), but " +
-      "measured 0:00:04.000 (4000 ms)")
+    vote.get.getMessage should be (s"$testId violated response time requirement" +
+      " (imposed by com.workday.warp.arbiters.ResponseTimeArbiter):" +
+      " expected 0:00:03.000 (3000 ms), but measured 0:00:04.000 (4000 ms)")
   }
 }

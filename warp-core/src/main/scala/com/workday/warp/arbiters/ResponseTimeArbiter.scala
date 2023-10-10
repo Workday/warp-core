@@ -35,8 +35,9 @@ class ResponseTimeArbiter extends ArbiterLike with CorePersistenceAware {
 
     if (threshold.isPositive && responseTime > threshold) {
       Option(new RequirementViolationException(
-        s"$testId violated response time requirement: expected ${threshold.humanReadable} (${threshold.toMillis} ms)" +
-        s", but measured ${responseTime.humanReadable} (${responseTime.toMillis} ms)"
+        s"$testId violated response time requirement (imposed by ${this.getClass.getCanonicalName}): " +
+          s"expected ${threshold.humanReadable} (${threshold.toMillis} ms), " +
+        s"but measured ${responseTime.humanReadable} (${responseTime.toMillis} ms)"
       ))
     }
     else {
