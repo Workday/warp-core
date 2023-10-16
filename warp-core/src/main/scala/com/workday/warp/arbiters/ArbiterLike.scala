@@ -52,13 +52,21 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     }
 
     if (spikeFilterEnabled) {
+      logger.trace(s"voting, spike filter is enabled")
       // check the last executions to see if they have a failure tag that matches
       val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, tagName, alertOnNth)
-      if (priorExecutionHasFailureTag) maybeFailure
+      if (priorExecutionHasFailureTag) {
+        logger.trace(s"sufficient prior consecutive failures, vote=${maybeFailure.nonEmpty}")
+        maybeFailure
+      }
       // no failure tag on the last execution, (first time failure), don't vote as a failure
-      else None
+      else {
+        logger.trace(s"last executions did not fail, vote=false")
+        None
+      }
     }
     else {
+      logger.trace(s"spike filter is disabled, vote=${maybeFailure.nonEmpty}")
       maybeFailure
     }
   }
@@ -91,9 +99,16 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     var settings: (Boolean, Int) = this.persistenceUtils.getSpikeFilterSettings(idTestDefinition)
       .map(setting => (setting.spikeFilterEnabled, setting.alertOnNth))
       .getOrElse((false, 1))
+    logger.trace(s"base spike filter settings: $settings")
     // allow individual overrides from properties if they are present
-    Option(WARP_ARBITER_SPIKE_FILTER_ENABLED.value).foreach(f => settings = settings.copy(_1 = f.toBoolean))
-    Option(WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH.value).foreach(f => settings = settings.copy(_2 = f.toInt))
+    Option(WARP_ARBITER_SPIKE_FILTER_ENABLED.value).foreach { f =>
+      logger.trace(s"spike filter enabled override: $f")
+      settings = settings.copy(_1 = f.toBoolean)
+    }
+    Option(WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH.value).foreach { f =>
+      logger.trace(s"spike filter alert on nth override: $f")
+      settings = settings.copy(_2 = f.toInt)
+    }
     settings
   }
 
