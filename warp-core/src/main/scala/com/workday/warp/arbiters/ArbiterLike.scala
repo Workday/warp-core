@@ -47,7 +47,7 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     // tag this execution with failure reason
     // "failure-{class}", "message"
     maybeFailure.foreach { f =>
-      val msg: String = Option(f.getMessage).getOrElse("null")
+      val msg: String = Option(f.getMessage).getOrElse("null").take(255)
       this.persistenceUtils.recordTestExecutionTag(testExecution.idTestExecution, tagName, msg)
     }
 
