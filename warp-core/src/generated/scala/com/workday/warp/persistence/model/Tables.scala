@@ -83,16 +83,12 @@ trait Tables {
     implicit object TestDefinitionRowTypeClassObject extends TestDefinitionRowLikeType[TestDefinitionRow] {
       def idTestDefinition(row: TestDefinitionRow): Int = row.idTestDefinition
       def methodSignature(row: TestDefinitionRow): String = row.methodSignature
-      def className(row: TestDefinitionRow): String = row.className
-      def methodName(row: TestDefinitionRow): String = row.methodName
       def documentation(row: TestDefinitionRow): Option[String] = row.documentation
     }
 
     implicit object TestDefinitionRowWrapperTypeClassObject extends TestDefinitionRowLikeType[TestDefinitionRowWrapper] {
       def idTestDefinition(row: TestDefinitionRowWrapper): Int = row.idTestDefinition
       def methodSignature(row: TestDefinitionRowWrapper): String = row.methodSignature
-      def className(row: TestDefinitionRowWrapper): String = row.className
-      def methodName(row: TestDefinitionRowWrapper): String = row.methodName
       def documentation(row: TestDefinitionRowWrapper): Option[String] = row.documentation
     }
     implicit object TestDefinitionMetaTagRowTypeClassObject extends TestDefinitionMetaTagRowLikeType[TestDefinitionMetaTagRow] {
@@ -351,33 +347,27 @@ trait Tables {
   /** Entity class storing rows of table TestDefinition
    *  @param idTestDefinition Database column idTestDefinition SqlType(INT), AutoInc, PrimaryKey
    *  @param methodSignature Database column methodSignature SqlType(VARCHAR), Length(255,true)
-   *  @param className Database column className SqlType(VARCHAR), Length(255,true)
-   *  @param methodName Database column methodName SqlType(VARCHAR), Length(255,true)
    *  @param documentation Database column documentation SqlType(TEXT), Default(None) */
-  class TestDefinitionRowWrapper(val idTestDefinition: Int, val methodSignature: String, val className: String, val methodName: String, val documentation: Option[String] = None) extends TestDefinitionRowLike
-  case class TestDefinitionRow(override val idTestDefinition: Int, override val methodSignature: String, override val className: String, override val methodName: String, override val documentation: Option[String] = None) extends TestDefinitionRowWrapper(idTestDefinition, methodSignature, className, methodName, documentation)
-  implicit def TestDefinitionRowWrapper2TestDefinitionRow(x: TestDefinitionRowWrapper): TestDefinitionRow = TestDefinitionRow(x.idTestDefinition, x.methodSignature, x.className, x.methodName, x.documentation)
-  implicit def TestDefinitionRow2TestDefinitionRowWrapper(x: TestDefinitionRow): TestDefinitionRowWrapper = new TestDefinitionRowWrapper(x.idTestDefinition, x.methodSignature, x.className, x.methodName, x.documentation)
-  implicit def TestDefinitionRowFromTypeClass[T: TestDefinitionRowLikeType](x: T): TestDefinitionRow = TestDefinitionRow(implicitly[TestDefinitionRowLikeType[T]].idTestDefinition(x), implicitly[TestDefinitionRowLikeType[T]].methodSignature(x), implicitly[TestDefinitionRowLikeType[T]].className(x), implicitly[TestDefinitionRowLikeType[T]].methodName(x), implicitly[TestDefinitionRowLikeType[T]].documentation(x))
+  class TestDefinitionRowWrapper(val idTestDefinition: Int, val methodSignature: String, val documentation: Option[String] = None) extends TestDefinitionRowLike
+  case class TestDefinitionRow(override val idTestDefinition: Int, override val methodSignature: String, override val documentation: Option[String] = None) extends TestDefinitionRowWrapper(idTestDefinition, methodSignature, documentation)
+  implicit def TestDefinitionRowWrapper2TestDefinitionRow(x: TestDefinitionRowWrapper): TestDefinitionRow = TestDefinitionRow(x.idTestDefinition, x.methodSignature, x.documentation)
+  implicit def TestDefinitionRow2TestDefinitionRowWrapper(x: TestDefinitionRow): TestDefinitionRowWrapper = new TestDefinitionRowWrapper(x.idTestDefinition, x.methodSignature, x.documentation)
+  implicit def TestDefinitionRowFromTypeClass[T: TestDefinitionRowLikeType](x: T): TestDefinitionRow = TestDefinitionRow(implicitly[TestDefinitionRowLikeType[T]].idTestDefinition(x), implicitly[TestDefinitionRowLikeType[T]].methodSignature(x), implicitly[TestDefinitionRowLikeType[T]].documentation(x))
   /** GetResult implicit for fetching TestDefinitionRow objects using plain SQL queries */
   implicit def GetResultTestDefinitionRow(implicit e0: GR[Int], e1: GR[String], e2: GR[Option[String]]): GR[TestDefinitionRow] = GR{
     prs => import prs._
-    TestDefinitionRow.tupled((<<[Int], <<[String], <<[String], <<[String], <<?[String]))
+    TestDefinitionRow.tupled((<<[Int], <<[String], <<?[String]))
   }
   /** Table description of table TestDefinition. Objects of this class serve as prototypes for rows in queries. */
   class TestDefinition(_tableTag: Tag) extends profile.api.Table[TestDefinitionRow](_tableTag, None, "TestDefinition") with TestDefinitionLike {
-    def * = (idTestDefinition, methodSignature, className, methodName, documentation).<>(TestDefinitionRow.tupled, TestDefinitionRow.unapply)
+    def * = (idTestDefinition, methodSignature, documentation).<>(TestDefinitionRow.tupled, TestDefinitionRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = ((Rep.Some(idTestDefinition), Rep.Some(methodSignature), Rep.Some(className), Rep.Some(methodName), documentation)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionRow.tupled((_1.get, _2.get, _3.get, _4.get, _5)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(idTestDefinition), Rep.Some(methodSignature), documentation)).shaped.<>({r=>import r._; _1.map(_=> TestDefinitionRow.tupled((_1.get, _2.get, _3)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column idTestDefinition SqlType(INT), AutoInc, PrimaryKey */
     val idTestDefinition: Rep[Int] = column[Int]("idTestDefinition", O.AutoInc, O.PrimaryKey)
     /** Database column methodSignature SqlType(VARCHAR), Length(255,true) */
     val methodSignature: Rep[String] = column[String]("methodSignature", O.Length(255,varying=true))
-    /** Database column className SqlType(VARCHAR), Length(255,true) */
-    val className: Rep[String] = column[String]("className", O.Length(255,varying=true))
-    /** Database column methodName SqlType(VARCHAR), Length(255,true) */
-    val methodName: Rep[String] = column[String]("methodName", O.Length(255,varying=true))
     /** Database column documentation SqlType(TEXT), Default(None) */
     val documentation: Rep[Option[String]] = column[Option[String]]("documentation", O.Default(None))
 
