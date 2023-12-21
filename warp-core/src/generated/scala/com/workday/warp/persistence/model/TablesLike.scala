@@ -5,7 +5,7 @@ import slick.lifted.Rep
 import annotation.implicitNotFound
 
 trait TablesLike {
-  val CORE_TABLES: Map[String, String] = Map(("BuildRow","BuildRowWrapper(idBuild,major,minor,patch,firstTested,lastTested)"),("MeasurementRow","MeasurementRowWrapper(idTestExecution,idMeasurementName,result)"),("MeasurementNameRow","MeasurementNameRowWrapper(idMeasurementName,name)"),("SpikeFilterSettingsRow","SpikeFilterSettingsRowWrapper(idTestDefinition,spikeFilterEnabled,responseTimeRequirement,alertOnNth)"),("TagNameRow","TagNameRowWrapper(idTagName,name,nameType,isUserGenerated)"),("TestDefinitionRow","TestDefinitionRowWrapper(idTestDefinition,methodSignature,active,productName,subProductName,className,methodName,documentation)"),("TestDefinitionMetaTagRow","TestDefinitionMetaTagRowWrapper(idTestDefinitionTag,idTagName,value)"),("TestDefinitionTagRow","TestDefinitionTagRowWrapper(idTestDefinitionTag,idTestDefinition,idTagName,value)"),("TestExecutionRow","TestExecutionRowWrapper(idTestExecution,idTestDefinition,idBuild,passed,responseTime,responseTimeRequirement,startTime,endTime)"),("TestExecutionMetaTagRow","TestExecutionMetaTagRowWrapper(idTestExecutionTag,idTagName,value)"),("TestExecutionTagRow","TestExecutionTagRowWrapper(idTestExecutionTag,idTestExecution,idTagName,value)"))
+  val CORE_TABLES: Map[String, String] = Map(("BuildRow","BuildRowWrapper(idBuild,major,minor,patch,firstTested,lastTested)"),("MeasurementRow","MeasurementRowWrapper(idTestExecution,idMeasurementName,result)"),("MeasurementNameRow","MeasurementNameRowWrapper(idMeasurementName,name)"),("SpikeFilterSettingsRow","SpikeFilterSettingsRowWrapper(idTestDefinition,spikeFilterEnabled,responseTimeRequirement,alertOnNth)"),("TagNameRow","TagNameRowWrapper(idTagName,name,nameType,isUserGenerated)"),("TestDefinitionRow","TestDefinitionRowWrapper(idTestDefinition,methodSignature,documentation)"),("TestDefinitionMetaTagRow","TestDefinitionMetaTagRowWrapper(idTestDefinitionTag,idTagName,value)"),("TestDefinitionTagRow","TestDefinitionTagRowWrapper(idTestDefinitionTag,idTestDefinition,idTagName,value)"),("TestExecutionRow","TestExecutionRowWrapper(idTestExecution,idTestDefinition,idBuild,passed,responseTime,responseTimeRequirement,startTime,endTime)"),("TestExecutionMetaTagRow","TestExecutionMetaTagRowWrapper(idTestExecutionTag,idTagName,value)"),("TestExecutionTagRow","TestExecutionTagRowWrapper(idTestExecutionTag,idTestExecution,idTagName,value)"))
   /** Supertrait for entity classes storing rows of table BuildLike
    *  
    *  idBuild: Database column idBuild SqlType(INT), AutoInc, PrimaryKey
@@ -146,20 +146,10 @@ trait TablesLike {
    *  
    *  idTestDefinition: Database column idTestDefinition SqlType(INT), AutoInc, PrimaryKey
    *  methodSignature: Database column methodSignature SqlType(VARCHAR), Length(255,true)
-   *  active: Database column active SqlType(BIT)
-   *  productName: Database column productName SqlType(VARCHAR), Length(255,true)
-   *  subProductName: Database column subProductName SqlType(VARCHAR), Length(255,true)
-   *  className: Database column className SqlType(VARCHAR), Length(255,true)
-   *  methodName: Database column methodName SqlType(VARCHAR), Length(255,true)
    *  documentation: Database column documentation SqlType(TEXT), Default(None) */
   trait TestDefinitionRowLike {
     val idTestDefinition: Int
     val methodSignature: String
-    val active: Boolean
-    val productName: String
-    val subProductName: String
-    val className: String
-    val methodName: String
     val documentation: Option[String]
   }
   /** Type Class for TestDefinitionRowLike **/
@@ -167,22 +157,12 @@ trait TablesLike {
   trait TestDefinitionRowLikeType[T] {
     def idTestDefinition(row: T): Int
     def methodSignature(row: T): String
-    def active(row: T): Boolean
-    def productName(row: T): String
-    def subProductName(row: T): String
-    def className(row: T): String
-    def methodName(row: T): String
     def documentation(row: T): Option[String]
   }
   /** Supertrait for Table descriptions of table TestDefinitionLike */
   trait TestDefinitionLike {
     val idTestDefinition: Rep[Int]
     val methodSignature: Rep[String]
-    val active: Rep[Boolean]
-    val productName: Rep[String]
-    val subProductName: Rep[String]
-    val className: Rep[String]
-    val methodName: Rep[String]
     val documentation: Rep[Option[String]]
   }
 
@@ -366,11 +346,6 @@ trait TablesLike {
     implicit object TestDefinitionRowLikeTypeClassObject extends TestDefinitionRowLikeType[TestDefinitionRowLike] {
       def idTestDefinition(row: TestDefinitionRowLike): Int = row.idTestDefinition
       def methodSignature(row: TestDefinitionRowLike): String = row.methodSignature
-      def active(row: TestDefinitionRowLike): Boolean = row.active
-      def productName(row: TestDefinitionRowLike): String = row.productName
-      def subProductName(row: TestDefinitionRowLike): String = row.subProductName
-      def className(row: TestDefinitionRowLike): String = row.className
-      def methodName(row: TestDefinitionRowLike): String = row.methodName
       def documentation(row: TestDefinitionRowLike): Option[String] = row.documentation
     }
     implicit object TestDefinitionMetaTagRowLikeTypeClassObject extends TestDefinitionMetaTagRowLikeType[TestDefinitionMetaTagRowLike] {

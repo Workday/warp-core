@@ -63,15 +63,9 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       // make sure we have something that fits the schema column size
       val trimmedSignature: String = testId.id take CorePersistenceConstants.SIGNATURE_LENGTH
       val find: Query[TestDefinition, TestDefinitionRow, Seq] = TestDefinition filter { _.methodSignature === trimmedSignature }
-      val signature: MethodSignature = MethodSignature(trimmedSignature)
       val row: TestDefinitionRow = TestDefinitionRow(
         Tables.nullId,
         trimmedSignature,
-        active = true,
-        signature.product,
-        signature.subproduct,
-        signature.className,
-        signature.method,
         documentation
       )
       val create: DBIO[TestDefinitionRowWrapper] = this.writeTestDefinitionQuery(row)
