@@ -399,11 +399,11 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
     /**
       * Reads spike filter settings for the given test definition.
       *
-      * @param idTEstDefinition test definition to look up spike filter settings for.
+      * @param methodSignature method signature to look up spike filter settings for.
       * @return spike filter settings for the given test execution.
       */
-    override def getSpikeFilterSettings(idTestDefinition: Int): Option[SpikeFilterSettingsRowLike] =
-      this.synchronously(getSpikeFilterSettingsQuery(idTestDefinition))
+    override def getSpikeFilterSettings(methodSignature: String): Option[SpikeFilterSettingsRowLike] =
+      this.synchronously(getSpikeFilterSettingsQuery(methodSignature))
 
 
     /**

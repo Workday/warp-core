@@ -80,7 +80,8 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
   final def voteWithSpikeFilter[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings(testExecution.idTestDefinition)
+    val methodSignature: String = this.persistenceUtils.getMethodSignature(testExecution)
+    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings(methodSignature)
     voteWithSpikeFilter(ballot, testExecution, spikeFilterEnabled, alertOnNth)
   }
 
@@ -95,8 +96,8 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     *
     * @return spike filtering settings.
     */
-  def spikeFilterSettings(idTestDefinition: Int): (Boolean, Int) = {
-    var settings: (Boolean, Int) = this.persistenceUtils.getSpikeFilterSettings(idTestDefinition)
+  def spikeFilterSettings(methodSignature: String): (Boolean, Int) = {
+    var settings: (Boolean, Int) = this.persistenceUtils.getSpikeFilterSettings(methodSignature)
       .map(setting => (setting.spikeFilterEnabled, setting.alertOnNth))
       .getOrElse((false, 1))
     logger.trace(s"base spike filter settings: $settings")

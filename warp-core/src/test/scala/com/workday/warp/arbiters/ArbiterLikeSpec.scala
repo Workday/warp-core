@@ -20,7 +20,7 @@ class ArbiterLikeSpec extends WarpJUnitSpec with ArbiterLike {
     val settingsRow = SpikeFilterSettingsRow(testExec.idTestDefinition, false, 10, 10)
     this.persistenceUtils.writeSpikeFilterSettings(Seq(settingsRow))
 
-    this.spikeFilterSettings(testExec.idTestDefinition) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
+    this.spikeFilterSettings(methodSignature) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
   }
 
   /**
