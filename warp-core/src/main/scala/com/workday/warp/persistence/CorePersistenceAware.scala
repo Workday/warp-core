@@ -402,8 +402,8 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       * @param methodSignature method signature to look up spike filter settings for.
       * @return spike filter settings for the given test execution.
       */
-    override def getSpikeFilterSettings[I: IdentifierType](identifier: I): Option[SpikeFilterSettingsRowLike] =
-      this.synchronously(getSpikeFilterSettingsQuery(identifier))
+    override def getSpikeFilterSettings(methodSignature: String): Option[SpikeFilterSettingsRowLike] =
+      this.synchronously(getSpikeFilterSettingsQuery(methodSignature))
 
 
     /**

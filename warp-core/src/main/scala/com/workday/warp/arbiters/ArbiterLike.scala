@@ -2,8 +2,7 @@ package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
 import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH, WARP_ARBITER_SPIKE_FILTER_ENABLED}
-import com.workday.warp.persistence.CoreIdentifierType._
-import com.workday.warp.persistence.{CoreIdentifier, IdentifierType, PersistenceAware}
+import com.workday.warp.persistence.PersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
 
@@ -82,26 +81,29 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
   def voteWithSpikeFilter[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    // TODO not sure why this was made final
-    val methodSignature: String = ballot.testId.id
-    val id: CoreIdentifier = CoreIdentifier(methodSignature)
-    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings(id)
+    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings(ballot, testExecution)
     voteWithSpikeFilter(ballot, testExecution, spikeFilterEnabled, alertOnNth)
   }
 
 
-  // scalastyle:off
-  // TODO see why this doesnt work, would it make sense? i guess doesn't matter too much because we need to inherit either way
-//  def executionIdentifier[T: TestExecutionRowLikeType, I: IdentifierType](methodSignature: String, testExecution: T): I = {
-//    val id: I = CoreIdentifier(methodSignature)
-//    id
-//  }
-  // scalastyle:on
-
-
+  /**
+    * Reads spike filter settings, possibly from sources other than the database.
+    * Should be overridden in implementing classes.
+    *
+    * @param ballot
+    * @param testExecution
+    * @tparam T
+    * @return
+    */
+  def readSpikeFilterSettings[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[(Boolean, Int)] = {
+    this.persistenceUtils.getSpikeFilterSettings(ballot.testId.id)
+      .map(settings => (settings.spikeFilterEnabled, settings.alertOnNth))
+  }
 
   /**
     * Whether spike filtering is enabled (notification settings).
+    *
+    * Can be overridden by WarpProperties.
     *
     * Order of precedence:
     * - WarpProperties
@@ -110,9 +112,8 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     *
     * @return spike filtering settings.
     */
-  def spikeFilterSettings[I: IdentifierType](identifier: I): (Boolean, Int) = {
-    var settings: (Boolean, Int) = this.persistenceUtils.getSpikeFilterSettings(identifier)
-      .map(setting => (setting.spikeFilterEnabled, setting.alertOnNth))
+  def spikeFilterSettings[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): (Boolean, Int) = {
+    var settings: (Boolean, Int) = this.readSpikeFilterSettings(ballot, testExecution)
       .getOrElse((false, 1))
     logger.trace(s"base spike filter settings: $settings")
     // allow individual overrides from properties if they are present

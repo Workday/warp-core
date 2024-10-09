@@ -2,11 +2,10 @@ package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
-import com.workday.warp.persistence.CoreIdentifier
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.TablesLike._
-import com.workday.warp.persistence.CoreIdentifierType._
+import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 
 import java.time.Instant
 import java.util.UUID
@@ -17,13 +16,13 @@ class ArbiterLikeSpec extends WarpJUnitSpec with ArbiterLike {
   def readSpikeFilterSettings(): Unit = {
     val methodSignature = s"com.workday.warp.arbiters.${UUID.randomUUID.toString}"
     val testId = TestId.fromString(methodSignature)
-    val testExec: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 5.0, 6.0)
+    val ballot = new Ballot(testId)
+    val testExec = this.persistenceUtils.createTestExecution(testId, Instant.now(), 5.0, 6.0)
 
     val settingsRow = SpikeFilterSettingsRow(testExec.idTestDefinition, false, 10, 10)
     this.persistenceUtils.writeSpikeFilterSettings(Seq(settingsRow))
 
-    val identifier: CoreIdentifier = CoreIdentifier(methodSignature)
-    this.spikeFilterSettings(identifier) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
+    this.spikeFilterSettings(ballot, testExec) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
   }
 
   /**
