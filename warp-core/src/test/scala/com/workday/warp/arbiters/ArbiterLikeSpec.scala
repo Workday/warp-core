@@ -2,9 +2,11 @@ package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
 import com.workday.warp.junit.{UnitTest, WarpJUnitSpec}
+import com.workday.warp.persistence.CoreIdentifier
 import com.workday.warp.persistence.Tables._
 import com.workday.warp.persistence.Tables.RowTypeClasses._
 import com.workday.warp.persistence.TablesLike._
+import com.workday.warp.persistence.CoreIdentifierType._
 
 import java.time.Instant
 import java.util.UUID
@@ -20,7 +22,8 @@ class ArbiterLikeSpec extends WarpJUnitSpec with ArbiterLike {
     val settingsRow = SpikeFilterSettingsRow(testExec.idTestDefinition, false, 10, 10)
     this.persistenceUtils.writeSpikeFilterSettings(Seq(settingsRow))
 
-    this.spikeFilterSettings(methodSignature) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
+    val identifier: CoreIdentifier = CoreIdentifier(methodSignature)
+    this.spikeFilterSettings(identifier) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
   }
 
   /**

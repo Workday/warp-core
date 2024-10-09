@@ -1,10 +1,12 @@
 package com.workday.warp.arbiters
 
 import com.workday.warp.TestId
-import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_SPIKE_FILTER_ENABLED, WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH}
-import com.workday.warp.persistence.PersistenceAware
+import com.workday.warp.config.CoreWarpProperty.{WARP_ARBITER_SPIKE_FILTER_ALERT_ON_NTH, WARP_ARBITER_SPIKE_FILTER_ENABLED}
+import com.workday.warp.persistence.CoreIdentifierType._
+import com.workday.warp.persistence.{CoreIdentifier, IdentifierType, PersistenceAware}
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.Tables._
+
 
 /**
   * Represents a requirement imposed on a measured test.
@@ -79,11 +81,23 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @param testExecution [[TestExecutionRowLikeType]] we are voting on.
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
-  final def voteWithSpikeFilter[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
-    val methodSignature: String =  ballot.testId.id
-    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings(methodSignature)
+  def voteWithSpikeFilter[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
+    // TODO not sure why this was made final
+    val methodSignature: String = ballot.testId.id
+    val id: CoreIdentifier = CoreIdentifier(methodSignature)
+    val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings(id)
     voteWithSpikeFilter(ballot, testExecution, spikeFilterEnabled, alertOnNth)
   }
+
+
+  // scalastyle:off
+  // TODO see why this doesnt work, would it make sense? i guess doesn't matter too much because we need to inherit either way
+//  def executionIdentifier[T: TestExecutionRowLikeType, I: IdentifierType](methodSignature: String, testExecution: T): I = {
+//    val id: I = CoreIdentifier(methodSignature)
+//    id
+//  }
+  // scalastyle:on
+
 
 
   /**
@@ -96,8 +110,8 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     *
     * @return spike filtering settings.
     */
-  def spikeFilterSettings(methodSignature: String): (Boolean, Int) = {
-    var settings: (Boolean, Int) = this.persistenceUtils.getSpikeFilterSettings(methodSignature)
+  def spikeFilterSettings[I: IdentifierType](identifier: I): (Boolean, Int) = {
+    var settings: (Boolean, Int) = this.persistenceUtils.getSpikeFilterSettings(identifier)
       .map(setting => (setting.spikeFilterEnabled, setting.alertOnNth))
       .getOrElse((false, 1))
     logger.trace(s"base spike filter settings: $settings")

@@ -360,7 +360,7 @@ trait AbstractQueries {
     * @param methodSignature method signature to read spike filter settings for.
     * @return a [[DBIO]] (not yet executed) for reading spike filter settings for the given test execution.
     */
-  def getSpikeFilterSettingsQuery(methodSignature: String): DBIO[Option[SpikeFilterSettingsRowLike]]
+  def getSpikeFilterSettingsQuery[I: IdentifierType](identifier: I): DBIO[Option[SpikeFilterSettingsRowLike]]
 
 
   /**

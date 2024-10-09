@@ -588,10 +588,10 @@ trait CoreQueries extends AbstractQueries {
     * @param methodSignature method signature to read spike filter settings for.
     * @return a [[DBIO]] (not yet executed) for reading spike filter settings for the given test execution.
     */
-  override def getSpikeFilterSettingsQuery(methodSignature: String):
+  override def getSpikeFilterSettingsQuery[I: IdentifierType](identifier: I):
   DBIO[Option[SpikeFilterSettingsRowLike]] = {
     val query: Query[SpikeFilterSettings, SpikeFilterSettingsRow, Seq] = for {
-      testDefinition <- TestDefinition if testDefinition.methodSignature === methodSignature
+      testDefinition <- TestDefinition if testDefinition.methodSignature === identifier.methodSignature
       spikeFilterSetting <- SpikeFilterSettings if spikeFilterSetting.idTestDefinition === testDefinition.idTestDefinition
     } yield spikeFilterSetting
 
