@@ -81,6 +81,7 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     * @return a wrapped error with a useful message, or None if the measured test passed its requirement.
     */
   def voteWithSpikeFilter[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
+    // TODO maybe could be made nicer with just an idTestExecution, we have to hit the db anyway
     val (spikeFilterEnabled, alertOnNth) = spikeFilterSettings(ballot, testExecution)
     voteWithSpikeFilter(ballot, testExecution, spikeFilterEnabled, alertOnNth)
   }
