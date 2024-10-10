@@ -14,12 +14,12 @@ class ArbiterLikeSpec extends WarpJUnitSpec with ArbiterLike {
 
   @UnitTest
   def readSpikeFilterSettings(): Unit = {
-    val methodSignature = s"com.workday.warp.arbiters.${UUID.randomUUID.toString}"
-    val testId = TestId.fromString(methodSignature)
-    val ballot = new Ballot(testId)
-    val testExec = this.persistenceUtils.createTestExecution(testId, Instant.now(), 5.0, 6.0)
+    val methodSignature: String = s"com.workday.warp.arbiters.${UUID.randomUUID.toString}"
+    val testId: TestId = TestId.fromString(methodSignature)
+    val ballot: Ballot = new Ballot(testId)
+    val testExec: TestExecutionRowLike = this.persistenceUtils.createTestExecution(testId, Instant.now(), 5.0, 6.0)
 
-    val settingsRow = SpikeFilterSettingsRow(testExec.idTestDefinition, false, 10, 10)
+    val settingsRow: SpikeFilterSettingsRow = SpikeFilterSettingsRow(testExec.idTestDefinition, false, 10, 10)
     this.persistenceUtils.writeSpikeFilterSettings(Seq(settingsRow))
 
     this.spikeFilterSettings(ballot, testExec) should be (settingsRow.spikeFilterEnabled, settingsRow.alertOnNth)
