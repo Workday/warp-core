@@ -55,7 +55,7 @@ trait ArbiterLike extends PersistenceAware with CanReadHistory {
     if (spikeFilterEnabled) {
       logger.trace(s"voting, spike filter is enabled")
       // check the last executions to see if they have a failure tag that matches
-      val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, tagName, alertOnNth)
+      val priorExecutionHasFailureTag: Boolean = priorExecutionsFailed(testExecution, ballot, tagName, alertOnNth)
       if (priorExecutionHasFailureTag) {
         logger.trace(s"sufficient prior consecutive failures, vote=${maybeFailure.nonEmpty}")
         maybeFailure
