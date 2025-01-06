@@ -49,7 +49,7 @@ trait CanReadHistory extends CorePersistenceAware {
     * @param alertOnNth
     * @return whether the last `alertOnNth - 1` consecutive executions failed for the same reason.
     */
-  def priorExecutionsFailed[T: TestExecutionRowLikeType](testExecution: T, tagName: String, alertOnNth: Int): Boolean = {
+  def priorExecutionsFailed[T: TestExecutionRowLikeType](testExecution: T, ballot: Ballot, tagName: String, alertOnNth: Int): Boolean = {
     // get the prior execution, then check if it has a tag matching tagName
     val historySize: Int = alertOnNth - 1
     if (historySize <= 0) true
