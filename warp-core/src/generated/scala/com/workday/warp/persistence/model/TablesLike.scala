@@ -5,7 +5,7 @@ import slick.lifted.Rep
 import annotation.implicitNotFound
 
 trait TablesLike {
-  val CORE_TABLES: Map[String, String] = Map(("BuildRow","BuildRowWrapper(idBuild,major,minor,patch,firstTested,lastTested)"),("MeasurementRow","MeasurementRowWrapper(idTestExecution,idMeasurementName,result)"),("MeasurementNameRow","MeasurementNameRowWrapper(idMeasurementName,name)"),("SpikeFilterSettingsRow","SpikeFilterSettingsRowWrapper(idTestDefinition,spikeFilterEnabled,responseTimeRequirement,alertOnNth)"),("TagNameRow","TagNameRowWrapper(idTagName,name,nameType,isUserGenerated)"),("TestDefinitionRow","TestDefinitionRowWrapper(idTestDefinition,methodSignature,documentation)"),("TestDefinitionMetaTagRow","TestDefinitionMetaTagRowWrapper(idTestDefinitionTag,idTagName,value)"),("TestDefinitionTagRow","TestDefinitionTagRowWrapper(idTestDefinitionTag,idTestDefinition,idTagName,value)"),("TestExecutionRow","TestExecutionRowWrapper(idTestExecution,idTestDefinition,idBuild,passed,responseTime,responseTimeRequirement,startTime,endTime)"),("TestExecutionMetaTagRow","TestExecutionMetaTagRowWrapper(idTestExecutionTag,idTagName,value)"),("TestExecutionTagRow","TestExecutionTagRowWrapper(idTestExecutionTag,idTestExecution,idTagName,value)"))
+  val CORE_TABLES: Map[String, String] = Map(("BuildRow","BuildRowWrapper(idBuild,major,minor,patch,firstTested,lastTested)"),("BuildMetaTagRow","BuildMetaTagRowWrapper(idBuildTag,idTagName,value)"),("BuildTagRow","BuildTagRowWrapper(idBuildTag,idBuild,idTagName,value)"),("MeasurementRow","MeasurementRowWrapper(idTestExecution,idMeasurementName,result)"),("MeasurementNameRow","MeasurementNameRowWrapper(idMeasurementName,name)"),("SpikeFilterSettingsRow","SpikeFilterSettingsRowWrapper(idTestDefinition,spikeFilterEnabled,responseTimeRequirement,alertOnNth)"),("TagNameRow","TagNameRowWrapper(idTagName,name,nameType,isUserGenerated)"),("TestDefinitionRow","TestDefinitionRowWrapper(idTestDefinition,methodSignature,documentation)"),("TestDefinitionMetaTagRow","TestDefinitionMetaTagRowWrapper(idTestDefinitionTag,idTagName,value)"),("TestDefinitionTagRow","TestDefinitionTagRowWrapper(idTestDefinitionTag,idTestDefinition,idTagName,value)"),("TestExecutionRow","TestExecutionRowWrapper(idTestExecution,idTestDefinition,idBuild,passed,responseTime,responseTimeRequirement,startTime,endTime)"),("TestExecutionMetaTagRow","TestExecutionMetaTagRowWrapper(idTestExecutionTag,idTagName,value)"),("TestExecutionTagRow","TestExecutionTagRowWrapper(idTestExecutionTag,idTestExecution,idTagName,value)"))
   /** Supertrait for entity classes storing rows of table BuildLike
    *  
    *  idBuild: Database column idBuild SqlType(INT), AutoInc, PrimaryKey
@@ -40,6 +40,58 @@ trait TablesLike {
     val patch: Rep[Int]
     val firstTested: Rep[java.sql.Timestamp]
     val lastTested: Rep[java.sql.Timestamp]
+  }
+
+  /** Supertrait for entity classes storing rows of table BuildMetaTagLike
+   *  
+   *  idBuildTag: Database column idBuildTag SqlType(INT)
+   *  idTagName: Database column idTagName SqlType(INT)
+   *  value: Database column value SqlType(VARCHAR), Length(255,true) */
+  trait BuildMetaTagRowLike {
+    val idBuildTag: Int
+    val idTagName: Int
+    val value: String
+  }
+  /** Type Class for BuildMetaTagRowLike **/
+  @implicitNotFound("Could not find an implicit value for evidence of type class BuildMetaTagRowLikeType[${T}]. You might pass an (implicit ev: BuildMetaTagRowLikeType[${T}]) parameter to your method or import Tables.RowTypeClasses._")
+  trait BuildMetaTagRowLikeType[T] {
+    def idBuildTag(row: T): Int
+    def idTagName(row: T): Int
+    def value(row: T): String
+  }
+  /** Supertrait for Table descriptions of table BuildMetaTagLike */
+  trait BuildMetaTagLike {
+    val idBuildTag: Rep[Int]
+    val idTagName: Rep[Int]
+    val value: Rep[String]
+  }
+
+  /** Supertrait for entity classes storing rows of table BuildTagLike
+   *  
+   *  idBuildTag: Database column idBuildTag SqlType(INT), AutoInc, PrimaryKey
+   *  idBuild: Database column idBuild SqlType(INT)
+   *  idTagName: Database column idTagName SqlType(INT)
+   *  value: Database column value SqlType(VARCHAR), Length(512,true) */
+  trait BuildTagRowLike {
+    val idBuildTag: Int
+    val idBuild: Int
+    val idTagName: Int
+    val value: String
+  }
+  /** Type Class for BuildTagRowLike **/
+  @implicitNotFound("Could not find an implicit value for evidence of type class BuildTagRowLikeType[${T}]. You might pass an (implicit ev: BuildTagRowLikeType[${T}]) parameter to your method or import Tables.RowTypeClasses._")
+  trait BuildTagRowLikeType[T] {
+    def idBuildTag(row: T): Int
+    def idBuild(row: T): Int
+    def idTagName(row: T): Int
+    def value(row: T): String
+  }
+  /** Supertrait for Table descriptions of table BuildTagLike */
+  trait BuildTagLike {
+    val idBuildTag: Rep[Int]
+    val idBuild: Rep[Int]
+    val idTagName: Rep[Int]
+    val value: Rep[String]
   }
 
   /** Supertrait for entity classes storing rows of table MeasurementLike
@@ -321,6 +373,17 @@ trait TablesLike {
       def patch(row: BuildRowLike): Int = row.patch
       def firstTested(row: BuildRowLike): java.sql.Timestamp = row.firstTested
       def lastTested(row: BuildRowLike): java.sql.Timestamp = row.lastTested
+    }
+    implicit object BuildMetaTagRowLikeTypeClassObject extends BuildMetaTagRowLikeType[BuildMetaTagRowLike] {
+      def idBuildTag(row: BuildMetaTagRowLike): Int = row.idBuildTag
+      def idTagName(row: BuildMetaTagRowLike): Int = row.idTagName
+      def value(row: BuildMetaTagRowLike): String = row.value
+    }
+    implicit object BuildTagRowLikeTypeClassObject extends BuildTagRowLikeType[BuildTagRowLike] {
+      def idBuildTag(row: BuildTagRowLike): Int = row.idBuildTag
+      def idBuild(row: BuildTagRowLike): Int = row.idBuild
+      def idTagName(row: BuildTagRowLike): Int = row.idTagName
+      def value(row: BuildTagRowLike): String = row.value
     }
     implicit object MeasurementRowLikeTypeClassObject extends MeasurementRowLikeType[MeasurementRowLike] {
       def idTestExecution(row: MeasurementRowLike): Int = row.idTestExecution

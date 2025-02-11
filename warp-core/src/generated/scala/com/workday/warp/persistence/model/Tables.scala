@@ -12,7 +12,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema = Array(Build.schema, Measurement.schema, MeasurementName.schema, SpikeFilterSettings.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
+  lazy val schema = Array(Build.schema, BuildMetaTag.schema, BuildTag.schema, Measurement.schema, MeasurementName.schema, SpikeFilterSettings.schema, TagName.schema, TestDefinition.schema, TestDefinitionMetaTag.schema, TestDefinitionTag.schema, TestExecution.schema, TestExecutionMetaTag.schema, TestExecutionTag.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -33,6 +33,30 @@ trait Tables {
       def patch(row: BuildRowWrapper): Int = row.patch
       def firstTested(row: BuildRowWrapper): java.sql.Timestamp = row.firstTested
       def lastTested(row: BuildRowWrapper): java.sql.Timestamp = row.lastTested
+    }
+    implicit object BuildMetaTagRowTypeClassObject extends BuildMetaTagRowLikeType[BuildMetaTagRow] {
+      def idBuildTag(row: BuildMetaTagRow): Int = row.idBuildTag
+      def idTagName(row: BuildMetaTagRow): Int = row.idTagName
+      def value(row: BuildMetaTagRow): String = row.value
+    }
+
+    implicit object BuildMetaTagRowWrapperTypeClassObject extends BuildMetaTagRowLikeType[BuildMetaTagRowWrapper] {
+      def idBuildTag(row: BuildMetaTagRowWrapper): Int = row.idBuildTag
+      def idTagName(row: BuildMetaTagRowWrapper): Int = row.idTagName
+      def value(row: BuildMetaTagRowWrapper): String = row.value
+    }
+    implicit object BuildTagRowTypeClassObject extends BuildTagRowLikeType[BuildTagRow] {
+      def idBuildTag(row: BuildTagRow): Int = row.idBuildTag
+      def idBuild(row: BuildTagRow): Int = row.idBuild
+      def idTagName(row: BuildTagRow): Int = row.idTagName
+      def value(row: BuildTagRow): String = row.value
+    }
+
+    implicit object BuildTagRowWrapperTypeClassObject extends BuildTagRowLikeType[BuildTagRowWrapper] {
+      def idBuildTag(row: BuildTagRowWrapper): Int = row.idBuildTag
+      def idBuild(row: BuildTagRowWrapper): Int = row.idBuild
+      def idTagName(row: BuildTagRowWrapper): Int = row.idTagName
+      def value(row: BuildTagRowWrapper): String = row.value
     }
     implicit object MeasurementRowTypeClassObject extends MeasurementRowLikeType[MeasurementRow] {
       def idTestExecution(row: MeasurementRow): Int = row.idTestExecution
@@ -203,6 +227,85 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table Build */
   lazy val Build = new TableQuery(tag => new Build(tag))
+
+  /** Entity class storing rows of table BuildMetaTag
+   *  @param idBuildTag Database column idBuildTag SqlType(INT)
+   *  @param idTagName Database column idTagName SqlType(INT)
+   *  @param value Database column value SqlType(VARCHAR), Length(255,true) */
+  class BuildMetaTagRowWrapper(val idBuildTag: Int, val idTagName: Int, val value: String) extends BuildMetaTagRowLike
+  case class BuildMetaTagRow(override val idBuildTag: Int, override val idTagName: Int, override val value: String) extends BuildMetaTagRowWrapper(idBuildTag, idTagName, value)
+  implicit def BuildMetaTagRowWrapper2BuildMetaTagRow(x: BuildMetaTagRowWrapper): BuildMetaTagRow = BuildMetaTagRow(x.idBuildTag, x.idTagName, x.value)
+  implicit def BuildMetaTagRow2BuildMetaTagRowWrapper(x: BuildMetaTagRow): BuildMetaTagRowWrapper = new BuildMetaTagRowWrapper(x.idBuildTag, x.idTagName, x.value)
+  implicit def BuildMetaTagRowFromTypeClass[T: BuildMetaTagRowLikeType](x: T): BuildMetaTagRow = BuildMetaTagRow(implicitly[BuildMetaTagRowLikeType[T]].idBuildTag(x), implicitly[BuildMetaTagRowLikeType[T]].idTagName(x), implicitly[BuildMetaTagRowLikeType[T]].value(x))
+  /** GetResult implicit for fetching BuildMetaTagRow objects using plain SQL queries */
+  implicit def GetResultBuildMetaTagRow(implicit e0: GR[Int], e1: GR[String]): GR[BuildMetaTagRow] = GR{
+    prs => import prs._
+    BuildMetaTagRow.tupled((<<[Int], <<[Int], <<[String]))
+  }
+  /** Table description of table BuildMetaTag. Objects of this class serve as prototypes for rows in queries. */
+  class BuildMetaTag(_tableTag: Tag) extends profile.api.Table[BuildMetaTagRow](_tableTag, None, "BuildMetaTag") with BuildMetaTagLike {
+    def * = (idBuildTag, idTagName, value).<>(BuildMetaTagRow.tupled, BuildMetaTagRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = ((Rep.Some(idBuildTag), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> BuildMetaTagRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column idBuildTag SqlType(INT) */
+    val idBuildTag: Rep[Int] = column[Int]("idBuildTag")
+    /** Database column idTagName SqlType(INT) */
+    val idTagName: Rep[Int] = column[Int]("idTagName")
+    /** Database column value SqlType(VARCHAR), Length(255,true) */
+    val value: Rep[String] = column[String]("value", O.Length(255,varying=true))
+
+    /** Primary key of BuildMetaTag (database name BuildMetaTag_PK) */
+    val pk = primaryKey("BuildMetaTag_PK", (idBuildTag, idTagName))
+
+    /** Foreign key referencing BuildTag (database name idBuildTag_BuildMetaTag) */
+    lazy val buildTagFk = foreignKey("idBuildTag_BuildMetaTag", idBuildTag, BuildTag)(r => r.idBuildTag, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
+    /** Foreign key referencing TagName (database name idTagName_BuildMetaTag) */
+    lazy val tagNameFk = foreignKey("idTagName_BuildMetaTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
+  }
+  /** Collection-like TableQuery object for table BuildMetaTag */
+  lazy val BuildMetaTag = new TableQuery(tag => new BuildMetaTag(tag))
+
+  /** Entity class storing rows of table BuildTag
+   *  @param idBuildTag Database column idBuildTag SqlType(INT), AutoInc, PrimaryKey
+   *  @param idBuild Database column idBuild SqlType(INT)
+   *  @param idTagName Database column idTagName SqlType(INT)
+   *  @param value Database column value SqlType(VARCHAR), Length(512,true) */
+  class BuildTagRowWrapper(val idBuildTag: Int, val idBuild: Int, val idTagName: Int, val value: String) extends BuildTagRowLike
+  case class BuildTagRow(override val idBuildTag: Int, override val idBuild: Int, override val idTagName: Int, override val value: String) extends BuildTagRowWrapper(idBuildTag, idBuild, idTagName, value)
+  implicit def BuildTagRowWrapper2BuildTagRow(x: BuildTagRowWrapper): BuildTagRow = BuildTagRow(x.idBuildTag, x.idBuild, x.idTagName, x.value)
+  implicit def BuildTagRow2BuildTagRowWrapper(x: BuildTagRow): BuildTagRowWrapper = new BuildTagRowWrapper(x.idBuildTag, x.idBuild, x.idTagName, x.value)
+  implicit def BuildTagRowFromTypeClass[T: BuildTagRowLikeType](x: T): BuildTagRow = BuildTagRow(implicitly[BuildTagRowLikeType[T]].idBuildTag(x), implicitly[BuildTagRowLikeType[T]].idBuild(x), implicitly[BuildTagRowLikeType[T]].idTagName(x), implicitly[BuildTagRowLikeType[T]].value(x))
+  /** GetResult implicit for fetching BuildTagRow objects using plain SQL queries */
+  implicit def GetResultBuildTagRow(implicit e0: GR[Int], e1: GR[String]): GR[BuildTagRow] = GR{
+    prs => import prs._
+    BuildTagRow.tupled((<<[Int], <<[Int], <<[Int], <<[String]))
+  }
+  /** Table description of table BuildTag. Objects of this class serve as prototypes for rows in queries. */
+  class BuildTag(_tableTag: Tag) extends profile.api.Table[BuildTagRow](_tableTag, None, "BuildTag") with BuildTagLike {
+    def * = (idBuildTag, idBuild, idTagName, value).<>(BuildTagRow.tupled, BuildTagRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = ((Rep.Some(idBuildTag), Rep.Some(idBuild), Rep.Some(idTagName), Rep.Some(value))).shaped.<>({r=>import r._; _1.map(_=> BuildTagRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column idBuildTag SqlType(INT), AutoInc, PrimaryKey */
+    val idBuildTag: Rep[Int] = column[Int]("idBuildTag", O.AutoInc, O.PrimaryKey)
+    /** Database column idBuild SqlType(INT) */
+    val idBuild: Rep[Int] = column[Int]("idBuild")
+    /** Database column idTagName SqlType(INT) */
+    val idTagName: Rep[Int] = column[Int]("idTagName")
+    /** Database column value SqlType(VARCHAR), Length(512,true) */
+    val value: Rep[String] = column[String]("value", O.Length(512,varying=true))
+
+    /** Foreign key referencing Build (database name idBuild_Tag) */
+    lazy val buildFk = foreignKey("idBuild_Tag", idBuild, Build)(r => r.idBuild, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
+    /** Foreign key referencing TagName (database name idTagDescription_TestCaseTag) */
+    lazy val tagNameFk = foreignKey("idTagDescription_TestCaseTag", idTagName, TagName)(r => r.idTagName, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Restrict)
+
+    /** Uniqueness Index over (idTagName,idBuild) (database name idBuild_TagName_unique) */
+    val index1 = index("idBuild_TagName_unique", (idTagName, idBuild), unique=true)
+  }
+  /** Collection-like TableQuery object for table BuildTag */
+  lazy val BuildTag = new TableQuery(tag => new BuildTag(tag))
 
   /** Entity class storing rows of table Measurement
    *  @param idTestExecution Database column idTestExecution SqlType(INT)
