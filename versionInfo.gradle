@@ -30,7 +30,7 @@ project.ext.versions = [
         , nebulaRelease: '15.0.3'
         , nebulaPublish: '17.3.0'
         , scalaCollectionCompat: '2.12.0'
-        , scalacScoverage: '2.1.1'
+        , scalacScoverage: '2.3.0'
         , scalactic: '3.2.+'
         , scalaJava8Compat: '1.0.2'
         , scalafix: '0.1.14'
