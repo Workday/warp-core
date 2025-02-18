@@ -465,7 +465,7 @@ trait CoreQueries extends AbstractQueries {
     * @return DBIO of [[BuildTagRow]] updated.
     */
   override def insertOrUpdateBuildTagValueQuery[T: BuildTagRowLikeType](row: T): DBIO[BuildTagRowWrapper] = {
-    val findQuery = BuildTag.filter(t =>
+    val findQuery = Tables.BuildTag.filter(t =>
       t.idBuild === row.idBuild && t.idTagName === row.idTagName
     )
 
