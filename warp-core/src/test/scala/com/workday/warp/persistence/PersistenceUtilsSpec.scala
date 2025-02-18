@@ -151,11 +151,11 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   def recordBuildTag(): Unit = {
     val build: BuildRowLike = this.persistenceUtils.findOrCreateBuild(2077, 1, 345)
-    val before: Int = this.persistenceUtils.synchronously(BuildTag.length.result)
+    val before: Int = this.persistenceUtils.synchronously(Tables.BuildTag.length.result)
     val buildTagRow: BuildTagRowLike = this.persistenceUtils.recordBuildTag(
       build.idBuild, "some metadata name", "some metadata tag value", isUserGenerated = true
     )
-    val after: Int = this.persistenceUtils.synchronously(BuildTag.length.result)
+    val after: Int = this.persistenceUtils.synchronously(Tables.BuildTag.length.result)
 
     after should be (before + 1)
 
@@ -171,14 +171,14 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   @UnitTest
   def recordBuildMetaTag(): Unit = {
     val build: BuildRowLike = this.persistenceUtils.findOrCreateBuild(2078, 1, 345)
-    val before: Int = this.persistenceUtils.synchronously(BuildMetaTag.length.result)
+    val before: Int = this.persistenceUtils.synchronously(Tables.BuildMetaTag.length.result)
     val buildTagRow: BuildTagRowLike = this.persistenceUtils.recordBuildTag(
       build.idBuild, "some metadata name", "some metadata tag value", isUserGenerated = true
     )
     val buildMetaTagRow: BuildMetaTagRowLike = this.persistenceUtils.recordBuildMetaTag(
       buildTagRow.idBuildTag, "some metadata metatag name", "some metadata metatag value", isUserGenerated = true
     )
-    val after: Int = this.persistenceUtils.synchronously(BuildMetaTag.length.result)
+    val after: Int = this.persistenceUtils.synchronously(Tables.BuildMetaTag.length.result)
 
     after should be (before + 1)
 

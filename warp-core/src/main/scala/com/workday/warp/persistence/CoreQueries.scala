@@ -473,7 +473,7 @@ trait CoreQueries extends AbstractQueries {
       found: Option[BuildTagRow] <- findQuery.result.headOption
       _ <- found match {
         case Some(existingTag: BuildTagRow) =>
-          BuildTag.filter(_.idBuildTag === existingTag.idBuildTag)
+          Tables.BuildTag.filter(_.idBuildTag === existingTag.idBuildTag)
             .map(_.value)
             .update(row.value)
         case None =>
@@ -493,7 +493,7 @@ trait CoreQueries extends AbstractQueries {
     * @return DBIO of [[BuildMetaTagRow]] updated.
     */
   override def insertOrUpdateBuildMetaTagValueQuery[T: BuildMetaTagRowLikeType](row: T): DBIO[BuildMetaTagRowWrapper] = {
-    def findQuery(comparator: BuildMetaTagRowLike) = BuildMetaTag.filter(t =>
+    def findQuery(comparator: BuildMetaTagRowLike) = Tables.BuildMetaTag.filter(t =>
       t.idBuildTag === comparator.idBuildTag && t.idTagName === comparator.idTagName
     )
 
@@ -518,7 +518,7 @@ trait CoreQueries extends AbstractQueries {
     * @return Int of rows affected
     */
   override def writeBuildTagQuery[T: BuildTagRowLikeType](row: T): DBIO[Int] = {
-    BuildTag += row
+    Tables.BuildTag += row
   }
 
   /**
@@ -529,7 +529,7 @@ trait CoreQueries extends AbstractQueries {
     * @return Int of rows affected
     */
   override def writeBuildMetaTagQuery[T: BuildMetaTagRowLikeType](row: T): DBIO[Int] = {
-    BuildMetaTag += row
+    Tables.BuildMetaTag += row
   }
 
   /**
