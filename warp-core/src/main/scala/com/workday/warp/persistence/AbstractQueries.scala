@@ -306,8 +306,22 @@ trait AbstractQueries {
   def insertOrUpdateBuildMetaTagValueQuery[T: BuildMetaTagRowLikeType](row: T): DBIO[BuildMetaTagRowLike]
 
 
+  /**
+    * Write a BuildTagRow into the BuildTag table.
+    *
+    * @param row to be inserted
+    * @tparam T BuildTagRowLikeType
+    * @return DBIO Int of rows affected
+    */
   def writeBuildTagQuery[T: BuildTagRowLikeType](row: T): DBIO[Int]
 
+  /**
+    * Write a BuildMetaTagRow into the BuildMetaTag table.
+    *
+    * @param row to be inserted
+    * @tparam T BuildMetaTagRowLikeType
+    * @return DBIO Int of rows affected
+    */
   def writeBuildMetaTagQuery[T: BuildMetaTagRowLikeType](row: T): DBIO[Int]
 
   /**
