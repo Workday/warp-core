@@ -457,6 +457,82 @@ trait CoreQueries extends AbstractQueries {
 
 
   /**
+    * Creates a [[DBIO]] for inserting or updating `row` into [[BuildTag]] and returning a [[DBIO]] with the
+    * affected row.
+    *
+    * @param row to be inserted.
+    * @tparam T BuildTagRowLikeType.
+    * @return DBIO of [[BuildTagRow]] updated.
+    */
+  override def insertOrUpdateBuildTagValueQuery[T: BuildTagRowLikeType](row: T): DBIO[BuildTagRowWrapper] = {
+    val findQuery = BuildTag.filter(t =>
+      t.idBuild === row.idBuild && t.idTagName === row.idTagName
+    )
+
+    for {
+      found: Option[BuildTagRow] <- findQuery.result.headOption
+      _ <- found match {
+        case Some(existingTag: BuildTagRow) =>
+          BuildTag.filter(_.idBuildTag === existingTag.idBuildTag)
+            .map(_.value)
+            .update(row.value)
+        case None =>
+          this.writeBuildTagQuery(row)
+      }
+      tag: BuildTagRow <- findQuery.result.head
+    } yield tag
+  }
+
+
+  /**
+    * Creates a [[DBIO]] for inserting or updating `row` into [[BuildMetaTag]] and returning an [[DBIO]] with the
+    * affected row.
+    *
+    * @param row to be inserted.
+    * @tparam T BuildMetaTagRowLikeType.
+    * @return DBIO of [[BuildMetaTagRow]] updated.
+    */
+  override def insertOrUpdateBuildMetaTagValueQuery[T: BuildMetaTagRowLikeType](row: T): DBIO[BuildMetaTagRowWrapper] = {
+    def findQuery(comparator: BuildMetaTagRowLike) = BuildMetaTag.filter(t =>
+      t.idBuildTag === comparator.idBuildTag && t.idTagName === comparator.idTagName
+    )
+
+    for {
+      found: Option[BuildMetaTagRow] <- findQuery(row).result.headOption
+      _ <- found match {
+        case Some(existingTag: BuildMetaTagRow) =>
+          findQuery(existingTag).map(_.value).update(row.value)
+        case None =>
+          this.writeBuildMetaTagQuery(row)
+      }
+      written <- findQuery(row).result.head
+    } yield written
+  }
+
+
+  /**
+    * Write a BuildTagRow into the BuildTag table.
+    *
+    * @param row to be inserted
+    * @tparam T BuildTagRowLikeType
+    * @return Int of rows affected
+    */
+  override def writeBuildTagQuery[T: BuildTagRowLikeType](row: T): DBIO[Int] = {
+    BuildTag += row
+  }
+
+  /**
+    * Write a BuildMetaTagRow into the BuildMetaTag table.
+    *
+    * @param row to be inserted to be inserted
+    * @tparam T BuildMetaTagRowLikeType
+    * @return Int of rows affected
+    */
+  override def writeBuildMetaTagQuery[T: BuildMetaTagRowLikeType](row: T): DBIO[Int] = {
+    BuildMetaTag += row
+  }
+
+  /**
    * Write a TestExecutionMetaTagRow into the TestExecutionMetaTag table.
    * @param row to be inserted
    * @tparam T TestExecutionMetaTagRowLikeType

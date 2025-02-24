@@ -147,6 +147,47 @@ class PersistenceUtilsSpec extends WarpJUnitSpec with CorePersistenceAware {
   }
 
 
+  /** Checks that we can record a [[BuildTag]], and that it properly returns the whole row including autoInc rowID */
+  @UnitTest
+  def recordBuildTag(): Unit = {
+    val build: BuildRowLike = this.persistenceUtils.findOrCreateBuild(2077, 1, 345)
+    val before: Int = this.persistenceUtils.synchronously(BuildTag.length.result)
+    val buildTagRow: BuildTagRowLike = this.persistenceUtils.recordBuildTag(
+      build.idBuild, "some metadata name", "some metadata tag value", isUserGenerated = true
+    )
+    val after: Int = this.persistenceUtils.synchronously(BuildTag.length.result)
+
+    after should be (before + 1)
+
+    // test that the entire row is returned properly
+    buildTagRow.idBuildTag should not be 0
+    buildTagRow.idBuild should be (build.idBuild)
+    buildTagRow.idTagName should not be 0
+    buildTagRow.value should be ("some metadata tag value")
+  }
+
+
+  /** Checks that we can record a [[BuildMetaTag]], and that it properly returns the whole row including autoInc rowID */
+  @UnitTest
+  def recordBuildMetaTag(): Unit = {
+    val build: BuildRowLike = this.persistenceUtils.findOrCreateBuild(2078, 1, 345)
+    val before: Int = this.persistenceUtils.synchronously(BuildMetaTag.length.result)
+    val buildTagRow: BuildTagRowLike = this.persistenceUtils.recordBuildTag(
+      build.idBuild, "some metadata name", "some metadata tag value", isUserGenerated = true
+    )
+    val buildMetaTagRow: BuildMetaTagRowLike = this.persistenceUtils.recordBuildMetaTag(
+      buildTagRow.idBuildTag, "some metadata metatag name", "some metadata metatag value", isUserGenerated = true
+    )
+    val after: Int = this.persistenceUtils.synchronously(BuildMetaTag.length.result)
+
+    after should be (before + 1)
+
+    // test that the entire row is returned properly
+    buildMetaTagRow.idBuildTag should not be 0
+    buildMetaTagRow.idTagName should not be 0
+    buildMetaTagRow.value should be ("some metadata metatag value")
+  }
+
   /** Checks that we can record a [[TestDefinitionTagRow]], and that it properly returns the whole row including the autoInc rowID */
   @UnitTest
   def recordTestDefinitionTag(): Unit = {

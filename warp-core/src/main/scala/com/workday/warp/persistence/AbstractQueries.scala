@@ -286,6 +286,43 @@ trait AbstractQueries {
    */
   def insertOrUpdateTestExecutionMetaTagValueQuery[T: TestExecutionMetaTagRowLikeType](row: T): DBIO[TestExecutionMetaTagRowLike]
 
+  /**
+    * Creates a [[DBIO]] for inserting or updating `row` into [[BuildTag]] and returning a [[DBIO]] with the row created.
+    *
+    * @param row to be inserted.
+    * @tparam T BuildTagRowLikeType.
+    * @return DBIO of [[BuildTagRow]] updated.
+    */
+  def insertOrUpdateBuildTagValueQuery[T: BuildTagRowLikeType](row: T): DBIO[BuildTagRowLike]
+
+
+  /**
+    * Creates a [[DBIO]] for inserting or updating `row` into [[BuildMetaTag]] and returning a [[DBIO]] with the row created.
+    *
+    * @param row to be inserted.
+    * @tparam T BuildMetaTagRowLikeType.
+    * @return DBIO of [[BuildMetaTagRow]] updated.
+    */
+  def insertOrUpdateBuildMetaTagValueQuery[T: BuildMetaTagRowLikeType](row: T): DBIO[BuildMetaTagRowLike]
+
+
+  /**
+    * Write a BuildTagRow into the BuildTag table.
+    *
+    * @param row to be inserted
+    * @tparam T BuildTagRowLikeType
+    * @return DBIO Int of rows affected
+    */
+  def writeBuildTagQuery[T: BuildTagRowLikeType](row: T): DBIO[Int]
+
+  /**
+    * Write a BuildMetaTagRow into the BuildMetaTag table.
+    *
+    * @param row to be inserted
+    * @tparam T BuildMetaTagRowLikeType
+    * @return DBIO Int of rows affected
+    */
+  def writeBuildMetaTagQuery[T: BuildMetaTagRowLikeType](row: T): DBIO[Int]
 
   /**
    * Write a TestExecutionMetaTagRow into the TestExecutionMetaTag table.
