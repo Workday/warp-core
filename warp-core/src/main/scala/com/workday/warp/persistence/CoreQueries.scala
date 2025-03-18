@@ -517,8 +517,8 @@ trait CoreQueries extends AbstractQueries {
     * @tparam T BuildTagRowLikeType
     * @return Int of rows affected
     */
-  override def writeBuildTagQuery[T: BuildTagRowLikeType](row: T): DBIO[Int] = {
-    Tables.BuildTag += row
+  override def writeBuildTagQuery[T: BuildTagRowLikeType](row: T): DBIO[BuildTagRowWrapper] = {
+    Tables.BuildTag returning Tables.BuildTag.map(_.idBuildTag) into ((row, id) => row.copy(idBuildTag = id)) += row
   }
 
   /**
