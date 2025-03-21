@@ -1,6 +1,6 @@
 package com.workday.warp.persistence
 
-import com.workday.warp.persistence.Tables.{TestDefinitionRow, TestExecutionRow}
+import com.workday.warp.persistence.Tables.{BuildRow, TestDefinitionRow, TestExecutionRow}
 
 import scala.util.Try
 
@@ -33,6 +33,10 @@ case class ExecutionMetaTag(override val key: String,
                             override val isUserGenerated: Boolean = true)
   extends MetaTag(key, value, isUserGenerated, classOf[TestExecutionRow])
 
+case class BuildMetaTag(override val key: String,
+                        override val value: String,
+                        override val isUserGenerated: Boolean = true)
+  extends MetaTag(key, value, isUserGenerated, classOf[BuildRow])
 
 
 
@@ -55,3 +59,9 @@ case class ExecutionTag(override val key: String,
                         override val metaTags: List[ExecutionMetaTag] = List.empty,
                         override val isUserGenerated: Boolean = true)
   extends Tag(key, value, isUserGenerated, metaTags, classOf[TestExecutionRow])
+
+case class BuildTag(override val key: String,
+                    override val value: String,
+                    override val metaTags: List[BuildMetaTag] = List.empty,
+                    override val isUserGenerated: Boolean = true)
+  extends Tag(key, value, isUserGenerated, metaTags, classOf[BuildRow])

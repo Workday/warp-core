@@ -313,7 +313,7 @@ trait AbstractQueries {
     * @tparam T BuildTagRowLikeType
     * @return DBIO Int of rows affected
     */
-  def writeBuildTagQuery[T: BuildTagRowLikeType](row: T): DBIO[Int]
+  def writeBuildTagQuery[T: BuildTagRowLikeType](row: T): DBIO[BuildTagRowLike]
 
   /**
     * Write a BuildMetaTagRow into the BuildMetaTag table.
