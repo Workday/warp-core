@@ -181,6 +181,14 @@ trait CoreQueries extends AbstractQueries {
   }
 
 
+  override def successfulResponseTimesQuery[I: IdentifierType](identifier: I): DBIO[Seq[Double]] = {
+    for {
+      maybeRow <- this.testExecutionsQuery(identifier).map(_.filter(_.passed))
+      result <- DBIO.successful(maybeRow.map(_.responseTime))
+    } yield result
+  }
+
+
   /**
     * Creates a [[DBIO]] for reading historical response times. The response time for the [[TestExecutionRow]] with `excludeIdTestExecution`
     * will be excluded from the results.
@@ -194,6 +202,16 @@ trait CoreQueries extends AbstractQueries {
       maybeRow <- this.testExecutionsQuery(identifier)
       result <- DBIO.successful(maybeRow.collect { case testExecution if testExecution.idTestExecution != excludeIdTestExecution =>
         testExecution.responseTime
+      })
+    } yield result
+  }
+
+  override def successfulResponseTimesQuery[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): DBIO[Seq[Double]] = {
+    for {
+      maybeRow <- this.testExecutionsQuery(identifier)
+      result <- DBIO.successful(maybeRow.collect { case testExecution if testExecution.idTestExecution != excludeIdTestExecution &&
+        testExecution.passed =>
+          testExecution.responseTime
       })
     } yield result
   }
@@ -221,6 +239,20 @@ trait CoreQueries extends AbstractQueries {
     } yield result
   }
 
+
+  override def successfulResponseTimesQuery[I: IdentifierType](identifier: I,
+                                                               excludeIdTestExecution: Int,
+                                                               startDateLowerBound: LocalDate): DBIO[Seq[Double]] = {
+    val timestampLowerBound: Timestamp = Timestamp.valueOf(startDateLowerBound.atStartOfDay)
+    for {
+      maybeRow <- this.testExecutionsQuery(identifier)
+      result <- DBIO.successful(maybeRow.filter(testExecution => testExecution.idTestExecution != excludeIdTestExecution &&
+          (testExecution.startTime.after(timestampLowerBound) ||
+            testExecution.startTime.equals(timestampLowerBound)) &&
+          testExecution.passed)
+        .map(_.responseTime))
+    } yield result
+  }
 
   /**
     * Creates a [[DBIO]] for reading historical Measurement rows.

@@ -106,6 +106,7 @@ trait AbstractQueries {
   // TODO we can probably get rid of many of these overloadings
   def responseTimesQuery[I: IdentifierType](identifier: I): DBIO[Seq[Double]]
 
+  def successfulResponseTimesQuery[I: IdentifierType](identifier: I): DBIO[Seq[Double]]
 
   /**
     * Creates a [[DBIO]] for reading historical response times. The response time for the [[TestExecutionRowLike]]
@@ -117,6 +118,7 @@ trait AbstractQueries {
     */
   def responseTimesQuery[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): DBIO[Seq[Double]]
 
+  def successfulResponseTimesQuery[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): DBIO[Seq[Double]]
 
   /**
     * Creates a [[DBIO]] for reading historical response times. The response time for the [[TestExecutionRowLike]]
@@ -131,6 +133,9 @@ trait AbstractQueries {
                                             excludeIdTestExecution: Int,
                                             startDateLowerBound: LocalDate): DBIO[Seq[Double]]
 
+  def successfulResponseTimesQuery[I: IdentifierType](identifier: I,
+                                                      excludeIdTestExecution: Int,
+                                                      startDateLowerBound: LocalDate): DBIO[Seq[Double]]
 
   /**
     * Creates a [[DBIO]] for reading historical Measurement rows.

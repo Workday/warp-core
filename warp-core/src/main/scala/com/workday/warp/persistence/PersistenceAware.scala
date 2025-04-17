@@ -110,6 +110,7 @@ trait PersistenceAware extends WarpLogging {
       * @param timeStarted time the measured test was started.
       * @param responseTime observed duration of the measured test (seconds).
       * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
+      * @param passed whether the test functionally passed. Generally speaking we don't want record functionally failures.
       * @param maybeDocs optional documentation for the [[TestExecutionRowLike]].
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
@@ -117,6 +118,7 @@ trait PersistenceAware extends WarpLogging {
                             timeStarted: Instant,
                             responseTime: Double,
                             maxResponseTime: Double,
+                            passed: Boolean = true,
                             maybeDocs: Option[String] = None): TestExecutionRowLike
 
     /**
@@ -314,6 +316,11 @@ trait PersistenceAware extends WarpLogging {
     }
 
 
+    def getSuccessfulResponseTimes[I: IdentifierType](identifier: I): List[Double] = {
+      this.synchronously(this.successfulResponseTimesQuery(identifier)).toList
+    }
+
+
     /**
       * Gets historical response times (seconds) for running `testId` and `confidenceLevel`. The response time for the
       * [[TestExecutionRowLike]] with `excludeIdTestExecution` will be omitted.
@@ -324,6 +331,11 @@ trait PersistenceAware extends WarpLogging {
       */
     def getResponseTimes[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): List[Double] = {
       this.synchronously(this.responseTimesQuery(identifier, excludeIdTestExecution)).toList
+    }
+
+
+    def getSuccessfulResponseTimes[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): List[Double] = {
+      this.synchronously(this.successfulResponseTimesQuery(identifier, excludeIdTestExecution)).toList
     }
 
 
@@ -338,6 +350,13 @@ trait PersistenceAware extends WarpLogging {
       */
     def getResponseTimes[I: IdentifierType](identifier: I, excludeIdTestExecution: Int, startDateLowerBound: LocalDate): List[Double] = {
       this.synchronously(this.responseTimesQuery(identifier, excludeIdTestExecution, startDateLowerBound)).toList
+    }
+
+
+    def getSuccessfulResponseTimes[I: IdentifierType](identifier: I,
+                                                      excludeIdTestExecution: Int,
+                                                      startDateLowerBound: LocalDate): List[Double] = {
+      this.synchronously(this.successfulResponseTimesQuery(identifier, excludeIdTestExecution, startDateLowerBound)).toList
     }
 
 

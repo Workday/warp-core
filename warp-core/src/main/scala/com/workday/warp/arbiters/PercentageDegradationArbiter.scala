@@ -26,7 +26,7 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike with 
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     val minimumHistoricalData: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt
-    this.vote(this.responseTimes(ballot.testId.id, testExecution.idTestExecution), ballot, testExecution, minimumHistoricalData)
+    this.vote(this.successfulResponseTimes(ballot.testId.id, testExecution.idTestExecution), ballot, testExecution, minimumHistoricalData)
   }
 
 

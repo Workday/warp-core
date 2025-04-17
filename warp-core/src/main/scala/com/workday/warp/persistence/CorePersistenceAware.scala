@@ -133,6 +133,7 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
                                      timeStarted: Instant,
                                      responseTime: Double,
                                      maxResponseTime: Double,
+                                     passed: Boolean = true,
                                      maybeDocs: Option[String] = None): TablesLike.TestExecutionRowLike = {
       if (responseTime == 0.0) {
         throw new IllegalArgumentException("Zero Time recorded for this measurement, check your adapter implementation.")
@@ -146,7 +147,7 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
         Tables.nullId,
         idTestDefinition = testDefinition.idTestDefinition,
         idBuild = buildInfo.idBuild,
-        passed = true,
+        passed = passed,
         responseTime = responseTime,
         responseTimeRequirement = maxResponseTime,
         startTime = Timestamp from timeStarted,

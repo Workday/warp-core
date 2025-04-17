@@ -30,7 +30,7 @@ class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     // it is actually the last entry (another test could have been written to the database, thus causing the order to be
     // incorrect.
     // we need to ensure the response time for this test execution is the final entry in this list.
-    val rawResponseTimes: Iterable[Double] = this.responseTimes(
+    val rawResponseTimes: Iterable[Double] = this.successfulResponseTimes(
       ballot.testId.id,
       testExecution.idTestExecution
     ) ++ List(testExecution.responseTime)

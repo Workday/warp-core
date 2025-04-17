@@ -30,11 +30,12 @@ trait CanReadHistory extends CorePersistenceAware {
     * @return training data to be used for voting algorithm.
     */
     // TODO we don't need to include testId here, excludeIdTestExecution is sufficient to read the data we are interested in
-  def responseTimes(testId: String, excludeIdTestExecution: Int,
-                    startDateLowerBound: LocalDate = CanReadHistory.DEFAULT_EPOCH_DAY,
-                    useSlidingWindow: Boolean = WARP_ARBITER_SLIDING_WINDOW.value.toBoolean,
-                    slidingWindowSize: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt): Iterable[Double] = {
-    val responseTimes: Iterable[Double] = this.allResponseTimes(testId, excludeIdTestExecution, startDateLowerBound)
+  def successfulResponseTimes(testId: String,
+                              excludeIdTestExecution: Int,
+                              startDateLowerBound: LocalDate = CanReadHistory.DEFAULT_EPOCH_DAY,
+                              useSlidingWindow: Boolean = WARP_ARBITER_SLIDING_WINDOW.value.toBoolean,
+                              slidingWindowSize: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt): Iterable[Double] = {
+    val responseTimes: Iterable[Double] = this.allSuccessfulResponseTimes(testId, excludeIdTestExecution, startDateLowerBound)
     // check if we should use a sliding window, or return all historical data
     if (useSlidingWindow) responseTimes takeRight slidingWindowSize
     else responseTimes
@@ -43,6 +44,8 @@ trait CanReadHistory extends CorePersistenceAware {
 
   /**
     * Checks whether the last `alertOnNth - 1` executions failed with a message from the same arbiter.
+    *
+    * We don't need to filter out failed test executions here, just looking at tags is enough.
     *
     * @param testExecution
     * @param tagName
@@ -72,10 +75,10 @@ trait CanReadHistory extends CorePersistenceAware {
     * @param excludeIdTestExecution id of the [[com.workday.warp.persistence.Tables.TestExecution]] to exclude from the results.
     * @return training data to be used for voting algorithm.
     */
-  def allResponseTimes(testId: String,
-                       excludeIdTestExecution: Int,
-                       startDateLowerBound: LocalDate = CanReadHistory.DEFAULT_EPOCH_DAY): Iterable[Double] = {
-    this.persistenceUtils.getResponseTimes(CoreIdentifier(methodSignature = testId), excludeIdTestExecution, startDateLowerBound)
+  def allSuccessfulResponseTimes(testId: String,
+                                 excludeIdTestExecution: Int,
+                                 startDateLowerBound: LocalDate = CanReadHistory.DEFAULT_EPOCH_DAY): Iterable[Double] = {
+    this.persistenceUtils.getSuccessfulResponseTimes(CoreIdentifier(methodSignature = testId), excludeIdTestExecution, startDateLowerBound)
   }
 }
 

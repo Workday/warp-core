@@ -254,6 +254,7 @@ abstract class AbstractMeasurementCollectionController(val testId: TestId, val t
         this.timeStarted,
         responseTime.doubleSeconds,
         threshold.doubleSeconds,
+        passed = true,
         trial.maybeDocumentation
       )
     )
