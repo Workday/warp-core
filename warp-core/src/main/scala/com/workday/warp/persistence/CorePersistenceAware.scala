@@ -126,6 +126,7 @@ trait CorePersistenceAware extends PersistenceAware with WarpLogging {
       * @param timeStarted time the measured test was started.
       * @param responseTime observed duration of the measured test (seconds).
       * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
+      * @param passed a boolean indicating whether the test functionally passed.
       * @param maybeDocs containing documentation for the [[TestExecutionRow]]
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */

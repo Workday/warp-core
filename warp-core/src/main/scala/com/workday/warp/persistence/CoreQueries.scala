@@ -181,6 +181,12 @@ trait CoreQueries extends AbstractQueries {
   }
 
 
+  /**
+    * Creates a [[DBIO]] for reading only successful historical response times.
+    *
+    * @param identifier a [[CoreIdentifier]] containing the methodSignature to query TestExecutions
+    * @return a [[DBIO]] for reading only successful historical response times.
+    */
   override def successfulResponseTimesQuery[I: IdentifierType](identifier: I): DBIO[Seq[Double]] = {
     for {
       maybeRow <- this.testExecutionsQuery(identifier).map(_.filter(_.passed))
@@ -206,6 +212,15 @@ trait CoreQueries extends AbstractQueries {
     } yield result
   }
 
+
+  /**
+    * Creates a [[DBIO]] for reading only successful historical response times.
+    * The response time for the [[TestExecutionRow]] with `excludeIdTestExecution` will be excluded from the results.
+    *
+    * @param identifier a [[CoreIdentifier]] containing the methodSignature to query TestExecutions
+    * @param excludeIdTestExecution idTestExecution to exclude from results.
+    * @return a [[DBIO]] for reading only successful historical response times.
+    */
   override def successfulResponseTimesQuery[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): DBIO[Seq[Double]] = {
     for {
       maybeRow <- this.testExecutionsQuery(identifier)
@@ -240,6 +255,17 @@ trait CoreQueries extends AbstractQueries {
   }
 
 
+  /**
+    * Creates a [[DBIO]] for reading only successful historical response times.
+    *
+    * The response time for the [[TestExecutionRow]] with `excludeIdTestExecution`
+    * and a startTime timestamp before 'startDateCutoff' will be excluded from the results.
+    *
+    * @param identifier [[CoreIdentifier]] containing the methodSignature of the [[TestExecutionLike]]
+    * @param excludeIdTestExecution idTestExecution to exclude from results.
+    * @param startDateLowerBound only include cases that start after/on this lower bound date.
+    * @return a [[DBIO]] for reading only successful historical response times.
+    */
   override def successfulResponseTimesQuery[I: IdentifierType](identifier: I,
                                                                excludeIdTestExecution: Int,
                                                                startDateLowerBound: LocalDate): DBIO[Seq[Double]] = {

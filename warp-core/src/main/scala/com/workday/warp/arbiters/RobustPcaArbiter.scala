@@ -13,6 +13,8 @@ import com.workday.warp.persistence.Tables._
   * https://statweb.stanford.edu/~candes/papers/RobustPCA.pdf (Candes, 2009)
   * http://arxiv.org/pdf/1001.2363v1.pdf (Zhou, 2010)
   *
+  * Should only consider successful test history.
+  *
   * Created by tomas.mccandless on 2/18/16.
   */
 class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,

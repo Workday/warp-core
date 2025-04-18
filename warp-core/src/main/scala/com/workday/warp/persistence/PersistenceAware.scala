@@ -316,6 +316,12 @@ trait PersistenceAware extends WarpLogging {
     }
 
 
+    /**
+      * Gets only successful historical response times (seconds) for running test identified by `identifier`.
+      *
+      * @param identifier [[IdentifierType]] containing the identifying parameters of the measured test.
+      * @return a [[List]] of only successful historical response times.
+      */
     def getSuccessfulResponseTimes[I: IdentifierType](identifier: I): List[Double] = {
       this.synchronously(this.successfulResponseTimesQuery(identifier)).toList
     }
@@ -333,7 +339,14 @@ trait PersistenceAware extends WarpLogging {
       this.synchronously(this.responseTimesQuery(identifier, excludeIdTestExecution)).toList
     }
 
-
+    /**
+      * Gets only successful historical response times (seconds) for running `testId` and `confidenceLevel`. The response time for the
+      * [[TestExecutionRowLike]] with `excludeIdTestExecution` will be omitted.
+      *
+      * @param identifier [[IdentifierType]] containing the identifying parameters of the measured test.
+      * @param excludeIdTestExecution idTestExecution to exclude from results.
+      * @return a [[List]] of only successful historical response times.
+      */
     def getSuccessfulResponseTimes[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): List[Double] = {
       this.synchronously(this.successfulResponseTimesQuery(identifier, excludeIdTestExecution)).toList
     }
@@ -353,6 +366,15 @@ trait PersistenceAware extends WarpLogging {
     }
 
 
+    /**
+      * Gets only succcesful historical response times (seconds) for running `testId` and `confidenceLevel`. The response time for the
+      * [[TestExecutionRowLike]] with `excludeIdTestExecution` and before 'startDateCutoff' will be omitted.
+      *
+      * @param identifier [[IdentifierType]] containing the identifying parameters of the measured test.
+      * @param excludeIdTestExecution idTestExecution to exclude from results.
+      * @param startDateLowerBound ignore all results before this date.
+      * @return a [[List]] of only successful historical response times.
+      */
     def getSuccessfulResponseTimes[I: IdentifierType](identifier: I,
                                                       excludeIdTestExecution: Int,
                                                       startDateLowerBound: LocalDate): List[Double] = {

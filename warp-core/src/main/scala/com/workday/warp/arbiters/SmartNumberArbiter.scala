@@ -18,6 +18,8 @@ import scala.util.{Failure, Success, Try}
 /**
   * Uses bisection method with [[RobustPca]] to automatically determine a static threshold.
   *
+  * Should only consider successful test history.
+  *
   * Created by tomas.mccandless on 9/13/16.
   */
 class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,

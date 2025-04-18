@@ -106,6 +106,12 @@ trait AbstractQueries {
   // TODO we can probably get rid of many of these overloadings
   def responseTimesQuery[I: IdentifierType](identifier: I): DBIO[Seq[Double]]
 
+  /**
+    * Creates a [[DBIO]] for reading only successful historical response times.
+    *
+    * @param identifier [[IdentifierType]] containing the identifying parameters of the [[TestExecutionLike]]
+    * @return a [[DBIO]] for reading only successful historical response times.
+    */
   def successfulResponseTimesQuery[I: IdentifierType](identifier: I): DBIO[Seq[Double]]
 
   /**
@@ -118,6 +124,14 @@ trait AbstractQueries {
     */
   def responseTimesQuery[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): DBIO[Seq[Double]]
 
+  /**
+    * Creates a [[DBIO]] for reading only successful historical response times. The response time for the [[TestExecutionRowLike]]
+    * with `excludeIdTestExecution` will be excluded from the results.
+    *
+    * @param identifier [[IdentifierType]] containing the identifying parameters of the [[TestExecutionLike]]
+    * @param excludeIdTestExecution idTestExecution to exclude from results.
+    * @return a [[DBIO]] for reading only successful historical response times.
+    */
   def successfulResponseTimesQuery[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): DBIO[Seq[Double]]
 
   /**
@@ -133,6 +147,15 @@ trait AbstractQueries {
                                             excludeIdTestExecution: Int,
                                             startDateLowerBound: LocalDate): DBIO[Seq[Double]]
 
+  /**
+    * Creates a [[DBIO]] for reading only successful historical response times. The response time for the [[TestExecutionRowLike]]
+    * with `excludeIdTestExecution` and a startTime timestamp before 'startDateCutoff' will be excluded from the results.
+    *
+    * @param identifier [[IdentifierType]] containing the identifying parameters of the [[TestExecutionLike]]
+    * @param excludeIdTestExecution idTestExecution to exclude from results.
+    * @param startDateLowerBound only include cases that start after/on this lower bound date.
+    * @return a [[DBIO]] for reading only successful historical response times.
+    */
   def successfulResponseTimesQuery[I: IdentifierType](identifier: I,
                                                       excludeIdTestExecution: Int,
                                                       startDateLowerBound: LocalDate): DBIO[Seq[Double]]

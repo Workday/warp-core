@@ -11,6 +11,8 @@ import com.workday.warp.logger.WarpLogging
   * Arbiter that checks whether the response time for this test was within an acceptable percentage of the historical
   * arithmetic mean.
   *
+  * Should only consider successful test history.
+  *
   * Created by tomas.mccandless on 5/13/16.
   */
 class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike with WarpLogging {
