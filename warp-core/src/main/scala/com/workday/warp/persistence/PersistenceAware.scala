@@ -110,7 +110,7 @@ trait PersistenceAware extends WarpLogging {
       * @param timeStarted time the measured test was started.
       * @param responseTime observed duration of the measured test (seconds).
       * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
-      * @param passed whether the test functionally passed. Generally speaking we don't want record functionally failures.
+      * @param passed whether the test functionally passed. Generally speaking we don't want to record functionally failures.
       * @param maybeDocs optional documentation for the [[TestExecutionRowLike]].
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
