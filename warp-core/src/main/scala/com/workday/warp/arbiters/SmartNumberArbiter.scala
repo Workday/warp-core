@@ -18,6 +18,8 @@ import scala.util.{Failure, Success, Try}
 /**
   * Uses bisection method with [[RobustPca]] to automatically determine a static threshold.
   *
+  * Should only consider successful test history.
+  *
   * Created by tomas.mccandless on 9/13/16.
   */
 class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,
@@ -69,7 +71,7 @@ class SmartNumberArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.valu
     }
     else {
       // we don't care about today's response time for this
-      val rawResponseTimes: Iterable[Double] = this.responseTimes(ballot.testId.id, testExecution.idTestExecution,
+      val rawResponseTimes: Iterable[Double] = this.successfulResponseTimes(ballot.testId.id, testExecution.idTestExecution,
         startDateLowerBound, useSlidingWindow, slidingWindowSize)
       val threshold: Duration = this.smartNumber(rawResponseTimes).seconds
       val responseTime: Duration = TimeUtils.toNanos(testExecution.responseTime, TimeUnit.SECONDS).nanoseconds

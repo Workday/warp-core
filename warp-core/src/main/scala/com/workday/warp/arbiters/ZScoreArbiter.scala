@@ -15,6 +15,8 @@ import com.workday.warp.logger.WarpLogging
   * Constructs a [[NormalDistribution]] using the historical arithmetic mean and standard deviation, and evaluates
   * the cumulative probability of the measured response time.
   *
+  * Should only consider successful test history.
+  *
   * Created by tomas.mccandless on 1/25/16.
   */
 class ZScoreArbiter extends CanReadHistory with ArbiterLike with WarpLogging {
@@ -26,7 +28,7 @@ class ZScoreArbiter extends CanReadHistory with ArbiterLike with WarpLogging {
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     this.vote(
-      this.responseTimes(ballot.testId.id, testExecution.idTestExecution),
+      this.successfulResponseTimes(ballot.testId.id, testExecution.idTestExecution),
       ballot,
       testExecution,
       WARP_ARBITER_MINIMUM_N.value.toInt

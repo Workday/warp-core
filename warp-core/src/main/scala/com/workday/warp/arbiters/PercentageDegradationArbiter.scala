@@ -11,6 +11,8 @@ import com.workday.warp.logger.WarpLogging
   * Arbiter that checks whether the response time for this test was within an acceptable percentage of the historical
   * arithmetic mean.
   *
+  * Should only consider successful test history.
+  *
   * Created by tomas.mccandless on 5/13/16.
   */
 class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike with WarpLogging {
@@ -26,7 +28,7 @@ class PercentageDegradationArbiter extends CanReadHistory with ArbiterLike with 
     */
   override def vote[T: TestExecutionRowLikeType](ballot: Ballot, testExecution: T): Option[Throwable] = {
     val minimumHistoricalData: Int = WARP_ARBITER_SLIDING_WINDOW_SIZE.value.toInt
-    this.vote(this.responseTimes(ballot.testId.id, testExecution.idTestExecution), ballot, testExecution, minimumHistoricalData)
+    this.vote(this.successfulResponseTimes(ballot.testId.id, testExecution.idTestExecution), ballot, testExecution, minimumHistoricalData)
   }
 
 

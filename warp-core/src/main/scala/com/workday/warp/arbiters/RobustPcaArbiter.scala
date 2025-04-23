@@ -13,6 +13,8 @@ import com.workday.warp.persistence.Tables._
   * https://statweb.stanford.edu/~candes/papers/RobustPCA.pdf (Candes, 2009)
   * http://arxiv.org/pdf/1001.2363v1.pdf (Zhou, 2010)
   *
+  * Should only consider successful test history.
+  *
   * Created by tomas.mccandless on 2/18/16.
   */
 class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.toDouble,
@@ -30,7 +32,7 @@ class RobustPcaArbiter(val lPenalty: Double = WARP_ANOMALY_RPCA_L_PENALTY.value.
     // it is actually the last entry (another test could have been written to the database, thus causing the order to be
     // incorrect.
     // we need to ensure the response time for this test execution is the final entry in this list.
-    val rawResponseTimes: Iterable[Double] = this.responseTimes(
+    val rawResponseTimes: Iterable[Double] = this.successfulResponseTimes(
       ballot.testId.id,
       testExecution.idTestExecution
     ) ++ List(testExecution.responseTime)

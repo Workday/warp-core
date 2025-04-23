@@ -110,6 +110,7 @@ trait PersistenceAware extends WarpLogging {
       * @param timeStarted time the measured test was started.
       * @param responseTime observed duration of the measured test (seconds).
       * @param maxResponseTime maximum allowable response time set on the measured test (seconds).
+      * @param passed whether the test functionally passed. Generally speaking we don't want to record functionally failures.
       * @param maybeDocs optional documentation for the [[TestExecutionRowLike]].
       * @return a [[TestExecutionRowLike]] with the given parameters.
       */
@@ -117,6 +118,7 @@ trait PersistenceAware extends WarpLogging {
                             timeStarted: Instant,
                             responseTime: Double,
                             maxResponseTime: Double,
+                            passed: Boolean = true,
                             maybeDocs: Option[String] = None): TestExecutionRowLike
 
     /**
@@ -315,6 +317,17 @@ trait PersistenceAware extends WarpLogging {
 
 
     /**
+      * Gets only successful historical response times (seconds) for running test identified by `identifier`.
+      *
+      * @param identifier [[IdentifierType]] containing the identifying parameters of the measured test.
+      * @return a [[List]] of only successful historical response times.
+      */
+    def getSuccessfulResponseTimes[I: IdentifierType](identifier: I): List[Double] = {
+      this.synchronously(this.successfulResponseTimesQuery(identifier)).toList
+    }
+
+
+    /**
       * Gets historical response times (seconds) for running `testId` and `confidenceLevel`. The response time for the
       * [[TestExecutionRowLike]] with `excludeIdTestExecution` will be omitted.
       *
@@ -324,6 +337,18 @@ trait PersistenceAware extends WarpLogging {
       */
     def getResponseTimes[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): List[Double] = {
       this.synchronously(this.responseTimesQuery(identifier, excludeIdTestExecution)).toList
+    }
+
+    /**
+      * Gets only successful historical response times (seconds) for running `testId` and `confidenceLevel`. The response time for the
+      * [[TestExecutionRowLike]] with `excludeIdTestExecution` will be omitted.
+      *
+      * @param identifier [[IdentifierType]] containing the identifying parameters of the measured test.
+      * @param excludeIdTestExecution idTestExecution to exclude from results.
+      * @return a [[List]] of only successful historical response times.
+      */
+    def getSuccessfulResponseTimes[I: IdentifierType](identifier: I, excludeIdTestExecution: Int): List[Double] = {
+      this.synchronously(this.successfulResponseTimesQuery(identifier, excludeIdTestExecution)).toList
     }
 
 
@@ -338,6 +363,22 @@ trait PersistenceAware extends WarpLogging {
       */
     def getResponseTimes[I: IdentifierType](identifier: I, excludeIdTestExecution: Int, startDateLowerBound: LocalDate): List[Double] = {
       this.synchronously(this.responseTimesQuery(identifier, excludeIdTestExecution, startDateLowerBound)).toList
+    }
+
+
+    /**
+      * Gets only succcesful historical response times (seconds) for running `testId` and `confidenceLevel`. The response time for the
+      * [[TestExecutionRowLike]] with `excludeIdTestExecution` and before 'startDateCutoff' will be omitted.
+      *
+      * @param identifier [[IdentifierType]] containing the identifying parameters of the measured test.
+      * @param excludeIdTestExecution idTestExecution to exclude from results.
+      * @param startDateLowerBound ignore all results before this date.
+      * @return a [[List]] of only successful historical response times.
+      */
+    def getSuccessfulResponseTimes[I: IdentifierType](identifier: I,
+                                                      excludeIdTestExecution: Int,
+                                                      startDateLowerBound: LocalDate): List[Double] = {
+      this.synchronously(this.successfulResponseTimesQuery(identifier, excludeIdTestExecution, startDateLowerBound)).toList
     }
 
 
