@@ -4,16 +4,12 @@ import ch.qos.logback.classic.{Level, LoggerContext}
 import com.workday.warp.config.WarpPropertyManager
 import org.slf4j.{Logger, LoggerFactory}
 
-import scala.util.{Failure, Success, Try}
+import scala.util.{Failure, Try}
 
 trait WarpLogging {
 
-  getLoggerContext match {
-    case Success(context) =>
-      context.getLogger("org.apache.commons.beanutils.converters").setLevel(Level.INFO)
-    case Failure(_) =>
-      logger.warn("No LoggerContext found, logging configuration will not be applied.")
-  }
+  // Prevent spurious log entries from commons-beanutils library, which is a transitive dependency.
+  getLoggerContext.foreach(_.getLogger("org.apache.commons.beanutils.converters").setLevel(Level.INFO))
 
   // Initializes properties for use in logger configuration
   WarpPropertyManager.version
