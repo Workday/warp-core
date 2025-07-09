@@ -1,15 +1,14 @@
 package com.workday.warp.logger
 
-import ch.qos.logback.classic.{Level, Logger, LoggerContext}
+import ch.qos.logback.classic.{Level, Logger}
 import com.workday.warp.config.CoreWarpProperty._
-import org.slf4j.LoggerFactory
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.ConsoleAppender
 import ch.qos.logback.core.rolling.{RollingFileAppender, TimeBasedRollingPolicy}
 import com.workday.warp.inject.WarpGuicer
 
-import scala.util.{Failure, Try}
+import scala.util.Try
 
 /**
  * Provides utility methods to set log level and format at runtime based on warp properties.
@@ -77,23 +76,6 @@ object WarpLogUtils extends WarpLogging {
   private[logger] def parseLevel(level: String, default: Option[String] = None): Level = {
     // ch.qos.logback.classic.Level.valueOf defaults to Level.DEBUG
     Level.toLevel(level, Level valueOf default.getOrElse(""))
-  }
-
-
-  /**
-   * Retrieve the LoggerContext as a Try from the ILoggerFactory.
-   *
-   * Because we want to programmatically configure the logger, we need some methods only available via logback rather
-   * than slf4j. This necessitates a cast, however if slf4j is bound at runtime to some concrete implementation other
-   * than logback (e.g., slf4j-simple), this fails. Configuration will fallback to the default for that implementation.
-   *
-   * @return Try[LoggerContext]
-   */
-  private def getLoggerContext: Try[LoggerContext] = {
-    Try(LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]).recoverWith { case e =>
-        logger.warn("Could not cast to logback LoggerContext at runtime, logger will run with default configuration")
-        Failure(e)
-      }
   }
 
 
