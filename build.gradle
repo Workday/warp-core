@@ -20,6 +20,7 @@ buildscript {
         classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${versions.coveralls}"
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
         classpath "com.github.alisiikh:gradle-scalastyle-plugin:${versions.scalaStyle}"
+        classpath "org.jreleaser:org.jreleaser.gradle.plugin:${versions.gradleJReleaser}"
     }
 
     // lock buildscript dependencies
@@ -48,6 +49,7 @@ allprojects {
     apply plugin: 'com.github.kt3k.coveralls'
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
+    apply plugin: 'org.jreleaser'
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
@@ -399,14 +401,7 @@ subprojects {
 
         repositories {
             maven {
-                credentials {
-                    // will be null if these aren't set as project properties
-                    username findProperty("sonatypeUsername")
-                    password findProperty("sonatypePassword")
-                }
-                String snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
-                String releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
-                url = isSnapshot(version.toString()) ? snapshotsRepoUrl : releasesRepoUrl
+                url = layout.buildDirectory.dir('staging-deploy')
             }
         }
     }
@@ -415,11 +410,33 @@ subprojects {
         addReleaseBranchPattern(".*feature")
     }
 
-    signing {
-        // only require signing for non-snapshot versions being published to maven central
-        required {
-            !isSnapshot(version.toString()) && gradle.taskGraph.hasTask("publish")
+    jreleaser {
+
+        signing {
+            active = 'ALWAYS'
+            armored = true
         }
-        sign publishing.publications.mavenJava
+        deploy {
+            maven {
+                mavenCentral {
+                    'release-deploy' {
+                        active = 'RELEASE'
+                        url = 'https://central.sonatype.com/api/v1/publisher'
+                        stagingRepository(layout.buildDirectory.asFile.get().absolutePath + '/staging-deploy')
+                    }
+                }
+                nexus2 {
+                    'snapshot-deploy' {
+                        active = 'SNAPSHOT'
+                        snapshotUrl = 'https://central.sonatype.com/repository/maven-snapshots/'
+                        applyMavenCentralRules = true
+                        snapshotSupported = true
+                        closeRepository = true
+                        releaseRepository = true
+                        stagingRepository(layout.buildDirectory.asFile.get().absolutePath + '/staging-deploy')
+                    }
+                }
+            }
+        }
     }
 }
