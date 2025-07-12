@@ -266,6 +266,10 @@ subprojects {
         configFile = new File("${rootDir}/checkstyle.xml")
     }
 
+    tasks.withType(Checkstyle) {
+        it.mustRunAfter(rootProject.copyMySQLConfigTemplate, rootProject.copyH2ConfigTemplate)
+    }
+
     tasks.withType(JavaExec).each { task ->
         task.systemProperties(System.properties)
         task.systemProperty "wd.warp.config.directory", "$rootDir/config"
