@@ -77,7 +77,8 @@ then
     ./gradlew -Prelease.useLastTag=true -PallScalaVersions $PUBLISH_TASK
     if [[ $REPOSITORY = 'sonatype' ]]
     then
-      JRELEASER_MAVENCENTRAL_STAGE=UPLOAD ./gradlew -Prelease.useLastTag=true jReleaserDeploy -PallScalaVersions --stacktrace
+      echo "uploading staged artifacts"
+      JRELEASER_MAVENCENTRAL_STAGE=UPLOAD ./gradlew -Prelease.useLastTag=true -PallScalaVersions jReleaserDeploy --stacktrace
     fi
   else
     echo "we are on a personal fork, must release from main (Workday) fork. aborting $RELEASE_TYPE release"
