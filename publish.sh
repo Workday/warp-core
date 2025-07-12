@@ -75,6 +75,10 @@ then
     # then publish our primary module with other scala versions
     echo "publishing $REPOSITORY artifacts for $RELEASE_SCOPE $RELEASE_TYPE release"
     ./gradlew -Prelease.useLastTag=true -PallScalaVersions $PUBLISH_TASK
+    if [[ $REPOSITORY = 'sonatype' ]]
+    then
+      JRELEASER_MAVENCENTRAL_STAGE=UPLOAD ./gradlew -Prelease.useLastTag=true jReleaserDeploy -PallScalaVersions --stacktrace
+    fi
   else
     echo "we are on a personal fork, must release from main (Workday) fork. aborting $RELEASE_TYPE release"
     exit 1
@@ -89,7 +93,3 @@ else
   exit 1
 fi
 
-if [[ $REPOSITORY = 'sonatype' ]]
-then
-  JRELEASER_MAVENCENTRAL_STAGE=UPLOAD ./gradlew jReleaserDeploy -PallScalaVersions --stacktrace
-fi
