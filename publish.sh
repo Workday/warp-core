@@ -91,5 +91,5 @@ fi
 
 if [[ $REPOSITORY = 'sonatype' ]]
 then
-  JRELEASER_MAVENCENTRAL_STAGE=UPLOAD ./gradlew jReleaserDeploy --stacktrace
+  JRELEASER_MAVENCENTRAL_STAGE=UPLOAD ./gradlew jReleaserDeploy -PallScalaVersions --stacktrace
 fi
