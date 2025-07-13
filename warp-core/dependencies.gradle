@@ -46,7 +46,6 @@ dependencies {
     implementation "org.scala-lang.modules:scala-java8-compat_%%:${versions.scalaJava8Compat}"
 
     implementation 'com.github.dwickern:scala-nameof_%%:3.0.0'
-    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
 
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
