@@ -5,6 +5,11 @@ import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.{Failure, Try}
 
+/**
+ * Preconfiguration of the logger context to set log levels and prevent spurious log entries.
+ * This trait is intended to quiesce debug entries from transitive dependencies that occur in the early stages of initialization
+ * before we have had a chance to configure the logger properly.
+ */
 trait LoggerInit {
 
   // early configuration of this log level to
