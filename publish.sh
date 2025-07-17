@@ -67,7 +67,7 @@ if [[ $RELEASE_TYPE = 'final' || $RELEASE_TYPE = 'candidate' ]]
 then
   if git remote show origin | grep "Fetch URL: git@github.com:Workday/warp-core.git"; then
     echo "we are on main fork, proceeding with $RELEASE_TYPE release"
-    ./gradlew clean -PallScalaVersions
+    ./gradlew -q clean -PallScalaVersions
     # create our repo tag
     # TODO despite being in `runOnceTasks`, it appears `candidate` is run multiple times with -PallScalaVersions, incorrectly creating multiple tags
     echo "creating repo tag for $RELEASE_TYPE release"
