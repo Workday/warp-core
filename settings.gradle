@@ -1,4 +1,2 @@
 rootProject.name = 'warp-core-root'
 include 'warp-core', 'warp-core-gatling', 'warp-core-macros'
-
-enableFeaturePreview('ONE_LOCKFILE_PER_PROJECT')
