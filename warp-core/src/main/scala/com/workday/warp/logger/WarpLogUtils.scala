@@ -36,7 +36,7 @@ object WarpLogUtils extends WarpLogging {
       CustomLoggerLevels("com.workday.warp", this.parseLevel(WARP_CONSOLE_LOG_LEVEL.value, WARP_CONSOLE_LOG_LEVEL.defaultValue))
     )
 
-    getLoggerContext.foreach { context =>
+    LoggerInit.getLoggerContext.foreach { context =>
       val logEncoder: PatternLayoutEncoder = new PatternLayoutEncoder
       logEncoder.setContext(context)
       logEncoder.setPattern(LOG_FORMAT)
@@ -86,7 +86,7 @@ object WarpLogUtils extends WarpLogging {
    * @param writerConfig - configuration properties for each new fileWriter
    */
   def addFileWriter(writerConfig: WriterConfig): Unit = {
-    getLoggerContext.map { context =>
+    LoggerInit.getLoggerContext.map { context =>
       // Create a logEncoder for the logFileAppender
       val logEncoder2: PatternLayoutEncoder = new PatternLayoutEncoder
       logEncoder2.setContext(context)

@@ -7,6 +7,7 @@ import com.workday.warp.logger.{LoggerInit, WarpLogUtils}
 import org.apache.commons.configuration2.PropertiesConfiguration
 import org.apache.commons.configuration2.builder.fluent.Configurations
 import org.apache.commons.configuration2.ex.ConfigurationException
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
@@ -22,7 +23,12 @@ import scala.util.{Failure, Success, Try}
   * Created by tomas.mccandless on 10/21/15.
   * Based on a class created by michael.ottati on 3/29/13
   */
-object WarpPropertyManager extends LoggerInit {
+object WarpPropertyManager {
+
+  LoggerInit.init()
+
+  @transient
+  protected lazy val logger: Logger = LoggerFactory.getLogger(getClass.getName)
 
   /**
     * Properties containing this prefix will be passed through as system properties with this
