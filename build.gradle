@@ -245,7 +245,7 @@ subprojects {
         maxHeapSize = "12g"
 
         testLogging {
-            events 'started', 'failed'
+            events 'failed'
             showStandardStreams = "$showTestStandardStreams".toBoolean()
         }
 
