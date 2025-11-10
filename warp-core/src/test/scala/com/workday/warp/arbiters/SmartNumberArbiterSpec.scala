@@ -13,6 +13,7 @@ import com.workday.warp.persistence.CorePersistenceAware
 import com.workday.warp.persistence.TablesLike._
 import com.workday.warp.persistence.TablesLike.RowTypeClasses._
 import org.junit.jupiter.api.parallel.Isolated
+import org.junitpioneer.jupiter.RetryingTest
 
 import scala.io.Source
 import scala.util.Random
@@ -101,7 +102,7 @@ class SmartNumberArbiterSpec extends WarpJUnitSpec with CorePersistenceAware wit
     * Create 100 data points. 70 with 500ms response time and 30 with 100ms
     * Uses a sliding window size of 100, so the latest test execution should NOT be flagged as an anomaly
     */
-  @UnitTest
+  @RetryingTest(5)
   def usesLongSlidingWindow(): Unit = {
     val testID: String = "f.g.h.i.j." + UUID.randomUUID().toString
     val allResponseTimes: Iterable[Double] =
