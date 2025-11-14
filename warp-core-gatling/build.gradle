@@ -1,0 +1,7 @@
+import io.gatling.gradle.GatlingRunTask
+
+tasks.register('gatlingRunAll', GatlingRunTask) {
+    runAllSimulations = true
+}
+
+test.dependsOn('gatlingRunAll')

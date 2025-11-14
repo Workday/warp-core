@@ -4,6 +4,7 @@ buildscript {
     apply from: file("${rootDir}/versionInfo.gradle")
 
     repositories {
+        gradlePluginPortal()
         mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
@@ -21,6 +22,7 @@ buildscript {
         classpath "org.scoverage:gradle-scoverage:${versions.gradleScoverage}"
         classpath "com.github.alisiikh:gradle-scalastyle-plugin:${versions.scalaStyle}"
         classpath "org.jreleaser:org.jreleaser.gradle.plugin:${versions.gradleJReleaser}"
+        classpath "io.gatling.gradle:io.gatling.gradle.gradle.plugin:${versions.gatling}"
     }
 
     // lock buildscript dependencies
@@ -109,8 +111,11 @@ project(':warp-core') {
 }
 
 project(':warp-core-gatling') {
+    apply plugin: 'io.gatling.gradle'
     dependencies {
         api project(':warp-core')
+        // TODO would be nice to declare a dependency on .classes here to avoid building jar
+        gatling project(':warp-core')
     }
 }
 
