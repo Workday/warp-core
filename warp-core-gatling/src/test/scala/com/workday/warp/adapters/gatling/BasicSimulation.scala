@@ -1,9 +1,8 @@
-package com.workday.warp.adapters
+package com.workday.warp.adapters.gatling
 
-import com.workday.warp.adapters.gatling.WarpSimulation
 import io.gatling.core.Predef._
-import io.gatling.http.Predef._
 import io.gatling.core.structure.ScenarioBuilder
+import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 
 class BasicSimulation extends WarpSimulation {

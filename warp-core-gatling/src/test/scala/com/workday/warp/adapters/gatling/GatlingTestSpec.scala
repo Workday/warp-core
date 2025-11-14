@@ -1,12 +1,10 @@
-package com.workday.warp.junit
+package com.workday.warp.adapters.gatling
 
-import java.util.concurrent.TimeUnit
-
-import com.workday.warp.adapters.gatling.WarpSimulation
 import io.gatling.core.Predef._
 import io.gatling.core.structure.{PopulationBuilder, ScenarioBuilder}
 import io.gatling.http.Predef._
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
 
 /**
