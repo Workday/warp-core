@@ -47,6 +47,10 @@ dependencies {
 
     implementation 'com.github.dwickern:scala-nameof_%%:3.0.0'
 
+    testImplementation group: 'org.junit-pioneer', name: 'junit-pioneer', version: '2.3.0'
+
+
+
     runtimeOnly "com.h2database:h2:${versions.h2}"
     runtimeOnly "commons-beanutils:commons-beanutils:${versions.beanUtils}"
     runtimeOnly "mysql:mysql-connector-java:${versions.mysqlConnector}"
