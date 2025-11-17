@@ -1,0 +1,2 @@
+// we need jar built in order to run gatling simulations
+test.finalizedBy(jar)

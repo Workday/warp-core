@@ -1,20 +1,15 @@
-package com.workday.warp.junit
+package com.workday.warp.adapters.gatling
 
-import java.util.concurrent.TimeUnit
-
-import com.workday.warp.adapters.gatling.{GatlingJUnitRunner, WarpSimulation}
 import io.gatling.core.Predef._
 import io.gatling.core.structure.{PopulationBuilder, ScenarioBuilder}
 import io.gatling.http.Predef._
-import org.junit.runner.RunWith
 
+import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
 
 /**
   * Created by tomas.mccandless on 7/1/20.
   */
-@RunWith(classOf[GatlingJUnitRunner])
-@deprecated("use junit5", since = "4.4.0")
 class GatlingTestSpec extends WarpSimulation {
 
   // note that a test must implement its own assertions.
